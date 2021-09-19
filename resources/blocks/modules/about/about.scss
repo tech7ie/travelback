@@ -1,0 +1,229 @@
+.pabout {
+  &__wrap {
+    padding-top: 63px;
+    padding-bottom: 81px;
+
+    @media(max-width: 768px) {
+      padding-bottom: 20px;
+    }
+
+    img {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  header {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    min-height: calc(100vh - 57px);
+    overflow: hidden;
+    background-position: top center;
+    background-size: cover;
+    background-color: $black;
+    color: $white;
+    padding-top: 40px;
+    padding-bottom: 38px;
+
+    @media(max-width: 768px) {
+
+    }
+
+    p {
+      width: 478px;
+      text-align: center;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 35px;
+
+      @media(max-width: 768px) {
+        width: 100%;
+      }
+
+      @media(max-width: 520px) {
+        font-size: 20px;
+        line-height: 28px;
+      }
+
+      @media(max-width: 375px) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    h2 {
+      display: block;
+      width: 100%;
+      margin-bottom: 82px;
+
+      @media(max-width: 768px) {
+        margin-bottom: 30px;
+      }
+    }
+
+    &-item {
+      width: 256px;
+
+      @media(max-width: 1180px) {
+        width: calc(25% - 20px);
+      }
+
+      @media(max-width: 992px) {
+        width: calc(50% - 20px);
+        margin-bottom: 20px;
+      }
+
+      @media(max-width: 520px) {
+        width: 100%;
+      }
+
+      i {
+        display: block;
+        border-radius: 100%;
+        width: 130px;
+        height: 130px;
+        margin-bottom: 46px;
+        overflow: hidden;
+
+        @media(max-width: 768px) {
+          margin-bottom: 20px;
+        }
+
+        @media(max-width: 520px) {
+          margin-bottom: 10px;
+        }
+
+        img {
+          display: block;
+          width: 100%;
+          @supports (object-fit: cover) {
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+      }
+
+      h4 {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 25px;
+        line-height: 32px;
+        margin-bottom: 4px;
+        display: block;
+
+        @media(max-width: 520px) {
+          font-size: 20px;
+        }
+      }
+
+      em {
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 1.2;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-style: normal;
+        color: #929292;
+        margin-bottom: 18px;
+        display: block;
+
+        @media(max-width: 520px) {
+          margin-bottom: 5px;
+        }
+      }
+
+      p {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 21px;
+      }
+    }
+  }
+
+  &__footer {
+    padding-bottom: 202px;
+
+    @media(max-width: 992px) {
+      padding-bottom: 100px;
+    }
+
+    @media(max-width: 768px) {
+      padding-bottom: 40px;
+    }
+
+    img {
+      @media(max-width: 1180px) {
+        display: none;
+      }
+    }
+
+    ul {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      @media(max-width: 1180px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        width: 50%;
+        padding-right: 30px;
+
+        @media(max-width: 520px) {
+          width: 100%;
+          padding-right: 0;
+        }
+
+        span {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 13px;
+          line-height: 19px;
+          display: block;
+          margin-bottom: 3px;
+        }
+
+        b {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 25px;
+          line-height: 37px;
+          margin-bottom: 5px;
+          color: $orange;
+
+          &.--blue {
+            color: #44c9f0;
+          }
+
+          &.--red {
+            color: #a61523;
+          }
+
+          &.--green {
+            color: #14ba3d;
+          }
+        }
+
+        p {
+          font-style: normal;
+          font-weight: 300;
+          font-size: 13px;
+          line-height: 21px;
+        }
+      }
+    }
+  }
+}

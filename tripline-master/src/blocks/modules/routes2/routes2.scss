@@ -1,0 +1,121 @@
+.routes2 {
+  &__wrap {
+    padding-top: 56px;
+    padding-bottom: 59px;
+
+    @media(max-width: 767px) {
+      padding-top: 28px;
+      padding-bottom: 15px;
+    }
+
+    h2 {
+      margin-bottom: 34px;
+
+      @media(max-width: 767px) {
+        margin-bottom: 14px;
+      }
+
+      @media(max-width: 520px) {
+        font-size: 30px;
+      }
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &:after {
+      content: "";
+      display: block;
+      width: calc(33.3333% - 9px);
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    width: calc(33.3333% - 9px);
+    height: 309px;
+    overflow: hidden;
+    padding: 32px 28px;
+    padding-bottom: 25px;
+    border-radius: 7px;
+    margin-bottom: 13px;
+    color: $white;
+    text-decoration: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    @media(max-width: 992px) {
+      height: 250px;
+    }
+
+    @media(max-width: 768px) {
+      width: calc(50% - 9px);
+      padding: 15px 18px;
+    }
+
+    @media(max-width: 520px) {
+      width: 100%;
+      height: 241px;
+      margin-bottom: 8px;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(0deg, #151515 4.82%, rgba(39, 39, 39, 0) 30.4%);
+      pointer-events: none;
+    }
+
+    &:hover {
+      h4, p {
+        color: $orange;
+      }
+    }
+
+    h4 {
+      display: block;
+
+      display: -webkit-box;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      transition: .2s;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      margin-bottom: 7px;
+      text-decoration: none;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    p {
+
+      display: -webkit-box;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      transition: .2s;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 21px;
+      margin-bottom: 0;
+      text-decoration: none;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

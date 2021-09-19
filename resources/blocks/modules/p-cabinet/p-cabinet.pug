@@ -1,0 +1,189 @@
+.pcabinet
+    .header-block.--border(style="background-image: url(img/cabinet-bg.jpg);")
+        .container
+            .header-block__wrap
+                h1 My cabinet
+    .container
+        //Wrap
+        .pcabinet__wrap
+            //Tab Button
+            .pcabinet__tab
+                button(data-cabinet-btn).active
+                    span Personal data
+                button(data-cabinet-btn)
+                    span Tickets
+            //cabinet
+            section.pcabinet__cabinet.active(data-cabinet-content)
+                header
+                    h4 Personal data
+                    a(href="#Edit") Edit
+                form.js-form-validator
+                    .input-block.--half
+                        em First name
+                        input(name="name" required)
+
+                    .input-block.--half
+                        em Last name
+                        input(name="last-name" required)
+
+                    .input-block
+                        em Email
+                        input(name="email" type="email" required)
+
+                    .input-block
+                        em Day of birth
+                        input(name="day-of-birth" id="dayofbirth" placeholder="__.__.____" required)
+
+                    .input-block.input-phone
+                        em Phone number
+                        input(type="tel" id="phone" name="phone" required)
+
+                    button.btn-submit.--simple
+                        span save
+
+            //Ticket
+            section.pcabinet__ticket(data-cabinet-content)
+                header
+                    h4 Tickets
+
+                .tickets
+                    each i in [1,2,3,4]
+                        .tickets__item.js-ticket
+                            .tickets__wrap
+                                .tickets__fromto
+                                    .tickets__ft
+                                        b Prague
+                                        em Departure: Tue, Feb 9, 9:00 AM
+
+                                    .tickets__between
+                                        +svg("arrow-long")
+
+                                    .tickets__ft.--last
+                                        b Passau
+                                        em Estimated arrival: Tue, Feb 9, 12:05 PM
+
+                                .tickets__amount
+                                    div
+                                        span 3
+                                        +svg("users")
+                                    div
+                                        span 3
+                                        +svg("suitecase")
+
+                                .tickets__price
+                                    b €136
+
+                                .tickets__arrow
+                                    +svg("arrow-down")
+
+                            .tickets__content
+                                .tickets__list
+                                    em With stops in
+
+                                    .tickets__list-item
+                                        i
+                                            img(src="/img/cabinet-list-1.jpg" alt="IMG")
+                                        div
+                                            h4 Sacra di San Michele
+                                            em 9:48 AM - 11:03 AM
+                                        span €23
+
+                                    .tickets__list-item
+                                        i
+                                            img(src="/img/cabinet-list-2.jpg" alt="IMG")
+                                        div
+                                            h4 Eiffel Tower
+                                            em 13:11 AM - 15:11 AM
+                                        span €29
+
+                                .tickets__footer
+                                    i
+                                        img(src="/img/sedan.png" alt="sedan")
+
+                                    .tickets__footer-info
+                                        h4 Luxury sedan
+                                        em Mercedes Benz E-Class
+                                        div
+                                            span 1-3
+                                            +svg("users")
+                                        div
+                                            span 3x
+                                            +svg("suitecase")
+
+                                    .tickets__footer-price
+                                        em Total
+                                        b €929
+
+
+                                    .tickets__footer-bottom
+                                        .tickets__amount
+                                            div
+                                                span 3
+                                                +svg("users")
+                                            div
+                                                span 3
+                                                +svg("suitecase")
+                                        b €136
+
+
+
+script(src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css' rel='stylesheet')
+script.
+    console.log($)
+    $(document).ready(function() {
+      let dayofbirth = $("#dayofbirth");
+      dayofbirth.mask("99.99.9999");
+      var phoneInputID = "#phone";
+      var input = document.querySelector(phoneInputID);
+      var iti = window.intlTelInput(input, {
+        // allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        // dropdownContainer: $(".input-phone") || document.body,
+        // excludeCountries: ["us"],
+        separateDialCode: true,
+        formatOnDisplay: true,
+        geoIpLookup: function(callback) {
+          $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            var countryCode = (resp && resp.country) ? resp.country : "";
+            callback(countryCode);
+          });
+        },
+        hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // placeholderNumberType: "MOBILE",
+        // separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+      });
+
+
+      $(phoneInputID).on("countrychange", function(event) {
+
+        // Get the selected country data to know which country is selected.
+        var selectedCountryData = iti.getSelectedCountryData();
+
+        // Get an example number for the selected country to use as placeholder.
+        newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
+
+          // Reset the phone number input.
+          iti.setNumber("");
+
+        // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
+        mask = newPlaceholder.replace(/[1-9]/g, "0");
+
+        // Apply the new mask for the input
+        $(this).mask(mask);
+      });
+
+      // When the plugin loads for the first time, we have to trigger the "countrychange" event manually,
+      // but after making sure that the plugin is fully loaded by associating handler to the promise of the
+      // plugin instance.
+
+      iti.promise.then(function() {
+        $(phoneInputID).trigger("countrychange");
+      });
+    });

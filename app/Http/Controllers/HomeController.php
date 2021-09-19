@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Routes;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $routes = Routes::select(['cities.name','cities.id'])->where('status', '=', 'open')
+                        ->join('cities_routes', 'cities_routes.cities_route_id', '=', 'routes.id')
+                        ->join('cities', 'cities.id', '=', 'cities_routes.cities_id')
+                        ->get();
+
+        $partners = new PartnerController();
+        return view('home', [
+            'routes' => $routes,
+            'partners' => $partners->list()
+        ]);
     }
 }

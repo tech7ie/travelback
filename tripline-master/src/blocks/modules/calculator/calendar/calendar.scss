@@ -1,0 +1,44 @@
+.custom-calendar {
+  position: relative;
+
+  .calendar {
+    position: absolute;
+    top: 100%;
+    //margin-left: -17px;
+    margin-top: 16px;
+  }
+
+  &.error {
+    background-color: #fee7e7;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 49px;
+    padding-left: 17px;
+    padding-right: 19px;
+    user-select: none;
+    cursor: pointer;
+
+    > span {
+      font-size: 13px;
+      user-select: none;
+      margin-right: 10px;
+    }
+  }
+
+
+  svg.calendar, > svg {
+    position: absolute;
+    top: 50%;
+    right: 17px;
+    width: 16px;
+    height: 17px;
+    margin: 0;
+    transform: translateY(-50%);
+    fill: $blue-light;
+  }
+}

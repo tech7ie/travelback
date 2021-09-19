@@ -2,5 +2,7 @@
 
 return [
     'en' => 'English',
-    'ru' => 'Russian',
+//    'ru' => 'Russian',
+    'de' => 'Deutschland',
+    'pl' => 'Poland',
 ];

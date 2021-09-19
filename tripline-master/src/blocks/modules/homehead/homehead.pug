@@ -1,0 +1,88 @@
+.homehead
+    .homehead__top
+        .container
+            .homehead__wrap
+                .homehead__form
+                    .form-block
+                        .form-block__wrap
+                            .label One way
+
+                            .homehead-form.form-vue.calc#homehead-form
+                                form.js-homehead-form(data-submit="homeheadSubmit")
+                                    v-select()
+                                    .date-time
+                                        v-custom-calendar
+                                        v-time
+                                    v-humans
+
+                                    .form-vue__footer.--line
+                                        span Can't find your destination?
+                                        a(href="#") Request a custom route
+
+                                    button.btn-submit
+                                        span Search
+
+                                    .label Chauffeur will wait 15 minutes free of charge
+                            script.
+                                function homeheadSubmit(e) {
+                                  console.log(e);
+                                }
+
+                .homehead__content
+                    h1 Every detail matters,
+                        br
+                        | although detail is just a word.
+
+                    .homehead__content-label
+                        i
+                            img(src="img/logo-min.svg" alt="IMG")
+
+                        div
+                            b 8000+ available routes
+                            span Choose the most effective option to get where you need.
+
+
+    .homehead-info
+        .container
+            .homehead-info__grid
+                .homehead-info__item
+                    i
+                        img(src="img/map.svg" alt="IMG")
+                    div
+                        b From A to B service
+                        span Get easily from your starting to the final spot.
+                .homehead-info__item
+                    i
+                        img(src="img/milan-cathedral.svg" alt="IMG")
+                    div
+                        b Guidance of locals
+                        span Our drivers will take you to places, introduce traditions and give information of the place you are heading towards.
+
+
+    include ../b-video/b-video
+
+    .homehead__bottom
+        .container
+            .homehead__list
+                .homehead__list-item
+                    i
+                        +svg("luggage")
+                    b Giving a hand with the luggage
+                    p Reservations may be achieved by just a single click. Due to our easily understandable system and structure of the website, your reservation will be completed in a few seconds. Free cancellation up to 24 hours before the journey. We understand that traveling always brings up unexpected changes.
+
+                .homehead__list-item
+                    i
+                        +svg("employees")
+                    b Guidance of locals
+                    p Our drivers will take you to places, introduce traditions and give information of the place you are heading towards. Every driver, who is a member of mytripline company, is trained also as a guide and in that respect he is educated about each destination. Living in those regions, our drivers are mainly locals and know the most about their homes.
+
+                .homehead__list-item
+                    i
+                        +svg("driver")
+                    b The driver becomes your personal guide
+                    p Every driver working for us speaks English fluently and endeavours to keep an eye on the most interesting spots passed along the journey.
+
+            .homehead__info
+                em Our motto says:
+                h3 «Every detail matters, although detail is just a word. We have given it true meaning»
+                p Every detail matter, even though detail is just a word. We have given it true meaning, “and in that respect each moment of your jouney and each day counts and makes difference when thought through in detail. Drivers aim to fulfil your full enjoyment of the experience.

@@ -1,0 +1,20 @@
+extends ../layouts/default
+include ../helpers/mixins
+
+block variables
+  - const title = "gulp-pug-starter"
+
+block content
+    svg(style='width: 0; height: 0; overflow: hidden; position: absolute; left: -100%;' width='120' height='240' version='1.1' xmlns='http://www.w3.org/2000/svg')
+        defs
+            lineargradient#gradient
+                stop(offset='0%' stop-color='#ec824a')
+                stop(offset='100%' stop-color='#F6B22E')
+
+    include ../../blocks/modules/header/header
+    include ../../blocks/modules/routes/routes
+    include ../../blocks/modules/footer/footer
+
+block scripts
+    script(src="js/main.min.js")
+    script(src="js/vendor.min.js")

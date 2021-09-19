@@ -1,0 +1,108 @@
+.popups-wrap(style="height: 100vh;")
+    button(data-fancybox data-src="#select-ride") #select-ride
+    button(data-fancybox data-src="#login") #login
+    button(data-fancybox data-src="#forgotpass") #forgotpass
+    button(data-fancybox data-src="#success") #success
+    button(data-fancybox data-src="#chg-pass") #chg-pass
+
+.popup#select-ride.--xl
+    form.popup__wrap
+        h3 Select your ride
+        .popup-select-rider
+            input#select-auto-1(type="radio" name="select-ride" checked)
+            label(for="select-auto-1")
+                .tickets__footer
+                    i
+                        img(src="/img/sedan.png" alt="sedan")
+
+                    .tickets__footer-info
+                        h4 Luxury sedan
+                        em Mercedes Benz E-Class
+                        div
+                            span 1-3
+                            +svg("users")
+                        div
+                            span 3x
+                            +svg("suitecase")
+
+                    .tickets__footer-price
+                        b €929
+
+
+            input#select-auto-2(type="radio" name="select-ride")
+            label(for="select-auto-2")
+                .tickets__footer
+                    i
+                        img(src="/img/sedan.png" alt="sedan")
+
+                    .tickets__footer-info
+                        h4 Luxury sedan
+                        em Mercedes Benz E-Class
+                        div
+                            span 1-3
+                            +svg("users")
+                        div
+                            span 3x
+                            +svg("suitecase")
+
+                    .tickets__footer-price
+                        b €929
+        button.btn-submit.--simple.--no-opacity.--sm
+            span Save
+
+
+.popup#login.--sm.popup-login
+    .popup__wrap
+        h3.--center Login in
+        form.js-form-validator
+            .input-block
+                input(type="email" placeholder="Email" name="email" required)
+            .input-block
+                input(type="password" placeholder="Password" name="password" required)
+            button.btn-submit.--simple.--no-opacity
+                span Save
+
+            a(href="#Forgot-password") Forgot password
+
+.popup#forgotpass.--sm.popup-login
+    .popup__wrap
+        h3.--center Forgot password
+        form.js-form-validator
+            .input-block
+                input(type="email" placeholder="Email" name="email" required)
+            button.btn-submit.--simple.--no-opacity
+                span Save
+
+.popup#success.--sm.popup-success
+    form.popup__wrap.js-form-validator
+        img(src="/img/success.svg" alt="success icon")
+        h3.--center Check your mail
+
+.popup#chg-pass.--md.popup-chgpass
+    .popup__wrap
+        h3.--center Login in
+    form.js-form-validator
+        .input-block.input-password
+            em Old password
+            div
+                button(type="button")
+                    +svg("eye")
+                input(type="password" name="ol-pass" required)
+
+        .input-block.input-password.half
+            em New password
+            div
+                button(type="button")
+                    +svg("eye")
+                input(type="password" name="new-pass" required)
+
+        .input-block.input-password.half
+            em Repeat new password
+            div
+                button(type="button")
+                    +svg("eye")
+                input(type="password" name="rep-pass" required)
+        em At least 8 characters, at least one capital letter
+        button.btn-submit.--simple.--no-opacity
+            span Save
+

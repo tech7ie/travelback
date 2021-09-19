@@ -1,0 +1,23 @@
+//script(type="text/x-template" id="calc-select")
+//    .custom-select(v-click-outside="toggle")
+//        .custom-select__item(:class="{'--active': openedFrom }")
+//            .custom-select__head
+//                //span(contenteditable) City
+//                input(name="from" placeholder="From" required type="search" v-model="selectedFrom" autocomplete="off" @input="returnValues($event)" @keyup="openedFrom = true")
+//            .custom-select__options(:class="{ '--opened': openedFrom }")
+//                .custom-select__option( @click="selectFrom(item)" v-for="(item, index) in list" :key="index")
+//                    b {{ item.city }}
+//                    em {{ item.country }}
+//                    em {{ inputVlues }}
+//
+//        .custom-select__change(@click="change")
+//            svg(class="icon")
+//                use(xlink:href="/img/sprites/sprite.svg#icn-arrows2")
+//
+//        .custom-select__item(:class="{'--active': openedTo }" v-click-outside="toggle")
+//            .custom-select__head
+//                input(name="from" placeholder="To" required type="search" v-model="selectedTo" autocomplete="off" @input="returnValues($event)" @keyup="openedTo = true")
+//            .custom-select__options(:class="{ '--opened': openedTo }")
+//                .custom-select__option( @click="selectTo(item)" v-for="(item, index) in list" :key="index")
+//                    b {{ item.city }}
+//                    em {{ item.country }}

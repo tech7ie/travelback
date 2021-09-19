@@ -7,6 +7,7 @@ use AdminColumnFilter;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use AdminDisplayFilter;
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;

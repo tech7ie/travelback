@@ -58,10 +58,10 @@ class Country extends Section implements Initializable
     {
         $columns = [
             AdminColumn::text('id', '#')->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
-            AdminColumn::link('title', 'Name', 'created_at')
+            AdminColumn::link('name', 'Name', 'created_at')
                 ->setSearchCallback(function($column, $query, $search){
                     return $query
-                        ->orWhere('title', 'like', '%'.$search.'%')
+                        ->orWhere('name', 'like', '%'.$search.'%')
                         ->orWhere('created_at', 'like', '%'.$search.'%')
                     ;
                 })
@@ -69,7 +69,7 @@ class Country extends Section implements Initializable
                     $query->orderBy('created_at', $direction);
                 })
             ,
-            AdminColumn::text('order', 'Order')
+            AdminColumn::text('region', 'Region')
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('order', $direction);
                 })

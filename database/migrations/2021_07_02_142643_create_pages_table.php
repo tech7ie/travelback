@@ -15,16 +15,25 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-
-            $table->text('title');  // Title of our blog post
-            $table->text('body');   // Body of our blog post
             $table->text('user_id'); // user_id of our blog post author
-            $table->text('lang'); // user_id of our blog post author
-            $table->text('slug'); // user_id of our blog post author
-            $table->text('meta_title'); // user_id of our blog post author
-            $table->text('meta_descriptions'); // user_id of our blog post author
-
-            $table->timestamps();
+            $table->string('slug', 128);
+            $table->text('title_en');
+            $table->text('body_en');
+            $table->text('meta_title_en');
+            $table->text('meta_keywords_en');
+            $table->text('meta_descriptions_en');
+            $table->text('title_de');
+            $table->text('body_de');
+            $table->text('meta_title_de');
+            $table->text('meta_keywords_de');
+            $table->text('meta_descriptions_de');
+            $table->text('title_pl');
+            $table->text('body_pl');
+            $table->text('meta_title_pl');
+            $table->text('meta_keywords_pl');
+            $table->text('meta_descriptions_pl');
+            $table->timestamp('created_at')->useCurrent()->nullable();
+            $table->timestamp('updated_at')->default(\Illuminate\Support\Facades\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

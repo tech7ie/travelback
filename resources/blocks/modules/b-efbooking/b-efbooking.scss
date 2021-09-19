@@ -1,0 +1,122 @@
+.b-efbooking {
+  background: url("../img/efbooking-bg.jpg") top center no-repeat;
+  background-size: cover;
+  color: $white;
+
+  &__wrap {
+    display: block;
+    width: 712px;
+    padding-top: 37px;
+    padding-bottom: 27px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media(max-width: 768px) {
+      padding-left: 20px;
+      padding-right: 20px;
+      width: 100%;
+    }
+
+    h2 {
+      font-family: $roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 1.1;
+      text-align: center;
+      margin-bottom: 31px;
+
+      @media(max-width: 768px) {
+        font-size: 30px;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    @media(max-width: 520px) {
+      align-items: flex-start;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 21px;
+    }
+
+    i {
+      display: flex;
+      width: 82px;
+      height: 82px;
+      border-radius: 100%;
+      background-color: #fff;
+
+      @media(max-width: 520px) {
+        width: 50px;
+        height: 50px;
+      }
+
+      img {
+        width: 60%;
+        height: 60%;
+        margin: auto;
+        object-fit: contain;
+        object-position: center;
+      }
+    }
+
+    div {
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: calc(100% - 82px);
+      padding-left: 45px;
+
+      @media(max-width: 520px) {
+        padding-left: 20px;
+        width: calc(100% - 50px);
+      }
+
+      h4 {
+        font-family: $roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 27px;
+
+        @media(max-width: 520px) {
+          font-size: 20px;
+          line-height: 1.2;
+          margin-bottom: 5px;
+        }
+      }
+
+      h6 {
+        font-family: $roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 27px;
+
+        @media(max-width: 520px) {
+          font-size: 18px;
+          line-height: 1.2;
+          margin-bottom: 5px;
+        }
+      }
+
+      p {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 27px;
+        margin-bottom: 0;
+
+        @media(max-width: 520px) {
+          line-height: 1.3;
+        }
+      }
+    }
+  }
+}

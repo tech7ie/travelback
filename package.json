@@ -23,5 +23,20 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "@fancyapps/ui": "^4.0.0-beta.2",
+        "@glidejs/glide": "^3.4.1",
+        "lodash.debounce": "^4.0.8",
+        "sass-loader": "^12.1.0",
+        "slim-select": "^1.27.0",
+        "smart-grid": "^2.1.2",
+        "style-loader": "^3.2.1",
+        "swiper": "^6.7.5",
+        "v-calendar": "^2.3.0",
+        "vee-validate": "^3.4.11",
+        "vue-click-outside": "^1.1.0",
+        "vuelidate": "^0.7.6",
+        "vuex": "^3.6.2"
     }
 }

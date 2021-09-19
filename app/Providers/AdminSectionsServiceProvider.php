@@ -17,6 +17,11 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Role::class => 'App\Http\Sections\Role',
         \App\Models\Country::class => 'App\Http\Sections\Country',
         \App\Models\Language::class => 'App\Http\Sections\Language',
+        \App\Models\Car::class => 'App\Http\Sections\Car',
+        \App\Models\VehicleBodyType::class => 'App\Http\Sections\VehicleBodyType',
+        \App\Models\Routes::class => 'App\Http\Sections\Routes',
+        \App\Models\Partner::class => 'App\Http\Sections\Partner',
+        \App\Models\Content::class => 'App\Http\Sections\Content',
     ];
 
     /**

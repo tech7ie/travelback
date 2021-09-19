@@ -3,3 +3,53 @@ php artisan make:migration create_languages_table
 php artisan migrate
 php artisan make:factory LanguageFactory -m Language
 php artisan sleepingowl:section:generate
+
+
+php artisan make:model Route
+php artisan make:migration create_routes_table
+php artisan migrate
+php artisan make:factory RouteFactory -m Route
+php artisan sleepingowl:section:generate
+
+php artisan make:model VehicleBodyType
+php artisan make:migration create_vehicle_body_types_table
+php artisan migrate
+php artisan make:factory VehicleBodyTypeFactory -m VehicleBodyType
+php artisan sleepingowl:section:generate
+
+php artisan make:model Car
+php artisan make:migration create_car_table
+php artisan migrate
+php artisan make:factory CarFactory -m Car
+php artisan sleepingowl:section:generate
+
+php artisan make:model RouteCar
+php artisan make:migration create_route_cars_table
+php artisan migrate
+php artisan make:factory RouteCarFactory -m RouteCar
+php artisan sleepingowl:section:generate
+
+php artisan make:model CarRoute
+php artisan make:migration create_car_route_table
+php artisan migrate
+php artisan make:factory CarRouteFactory -m CarRoute
+php artisan sleepingowl:section:generate
+
+php artisan make:model Partner
+php artisan make:migration create_partners_table
+php artisan migrate
+php artisan make:factory PartnerFactory -m Partner
+php artisan sleepingowl:section:generate
+
+
+php artisan make:model CityRoute
+php artisan make:migration create_city_route_table
+php artisan migrate
+php artisan make:factory CityRouteFactory -m CityRoute
+php artisan sleepingowl:section:generate
+
+php artisan make:model Content
+php artisan make:migration create_contents_table
+php artisan migrate
+php artisan make:factory ContentFactory -m Content
+php artisan sleepingowl:section:generate

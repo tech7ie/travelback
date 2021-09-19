@@ -1,0 +1,32 @@
+//script(type="text/x-template" id="select-humans")
+//    .select-humans(v-click-outside="close")
+//        .select-humans__head(@click="opened = !opened")
+//            div
+//                em Passangers:
+//                span {{ adults + children }}
+//                svg(class="icon users")
+//                    use(xlink:href="/img/sprites/sprite.svg#users")
+//            div
+//                em Lugguage:
+//                span {{ lugguage }}
+//                svg(class="icon suitecase")
+//                    use(xlink:href="/img/sprites/sprite.svg#suitecase")
+//
+//        .select-humans__list(v-show="opened")
+//            .select-humans__list-item
+//                div
+//                    span Adults
+//                    em Age: 12+
+//                v-incdec(@value="adults = $event")
+//
+//            .select-humans__list-item
+//                div
+//                    span Children
+//                    em Age: 0-12
+//                v-incdec(@value="children = $event")
+//
+//            .select-humans__list-item
+//                div
+//                    span Lugguage
+//                    em Sets of bags
+//                v-incdec(@value="lugguage = $event")

@@ -62,7 +62,7 @@ class Language extends Section implements Initializable
                 ->setSearchCallback(function($column, $query, $search){
                     return $query
                         ->orWhere('label', 'like', '%'.$search.'%')
-                        ->orWhere('created_at', 'like', '%'.$search.'%')
+                        ->orWhere('lang', 'like', '%'.$search.'%')
                     ;
                 })
                 ->setOrderable(function($query, $direction) {
@@ -90,13 +90,13 @@ class Language extends Section implements Initializable
 
         $display->setColumnFilters([
             AdminColumnFilter::select()
-                ->setModelForOptions(\App\Models\Language::class, 'name')
+                ->setModelForOptions(\App\Models\Language::class, 'lang')
                 ->setLoadOptionsQueryPreparer(function($element, $query) {
                     return $query;
                 })
-                ->setDisplay('name')
-                ->setColumnName('name')
-                ->setPlaceholder('All names')
+                ->setDisplay('lang')
+                ->setColumnName('Languages')
+                ->setPlaceholder('All Languages')
             ,
         ]);
         $display->getColumnFilters()->setPlacement('card.heading');
@@ -114,7 +114,10 @@ class Language extends Section implements Initializable
     {
         $form = AdminForm::card()->addBody([
             AdminFormElement::columns()->addColumn([
-                AdminFormElement::text('name', 'Name')
+                AdminFormElement::text('label', 'Label')
+                    ->required()
+                ,
+                AdminFormElement::text('code', 'Code')
                     ->required()
                 ,
                 AdminFormElement::html('<hr>'),

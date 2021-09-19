@@ -1,0 +1,46 @@
+header.header
+    .container
+        .header__wrap
+            a(href=route('home', app()->getLocale()) ).header__logo
+                img(src="/img/logo.png" alt="logo")
+            .header__menu
+                nav
+                    ul
+                        li
+                            a(href="#") Company
+                        li
+                            a(href="#") Discover
+                        li
+                            a(href = route('routes', app()->getLocale()) ) Routes
+                        li
+                            a(href="#") Become a partner
+                        li
+                            a(href = route('about', app()->getLocale()) ) About
+
+            .header__control
+                .header__currency
+                    .custom-select
+                        select.js-select
+                            option Euro
+                            option Australian Dollar
+                            option U.S. Dollar
+
+                .header__lang
+                    .custom-select.--right-desktop
+                        select.js-select#lang-switch
+                            each lang, index in Config::get('languages')
+                                option(value= index)= index
+
+                .header__user
+                    a(href="#user" alt="user")
+                        +svg("user")
+
+        .header__mobile
+            .header__burger.js-menu-burger
+                span
+                    i
+            a(href="#logo").header__mobile-logo
+                img(src="/img/svg/logo.svg" alt="logo")
+            .header__user
+                a(href="#user" alt="user")
+                    +svg("user")
