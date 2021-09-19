@@ -77,11 +77,6 @@
                             ></v-language-select>
                         </div>
                     </div>
-                    @foreach (Config::get('languages') as $lang => $language)
-                        @if ($lang != App::getLocale())
-                            <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"> {{$language}}</a>
-                        @endif
-                    @endforeach
                     @auth
                         <div class="header__user">
                             <a href="{{ route('cabinet', app()->getLocale()) }}" alt="user">
