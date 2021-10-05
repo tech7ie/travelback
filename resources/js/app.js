@@ -8,26 +8,6 @@ require('./bootstrap');
 
 import Bouncer from "./import/bouncer.polyfills.min";
 
-// import SlimSelect from "slim-select";
-//
-// new SlimSelect({
-//     select: document.getElementById("currency_select"),
-//     showSearch: false,
-//     onChange: (info) => {
-//         console.log(info)
-//     }
-// });
-// new SlimSelect({
-//     select: document.getElementById("language_select"),
-//     showSearch: false,
-//     onChange: (info) => {
-//         window.location.href = '/setlocale/' + info.value
-//         console.log(info)
-//     }
-// });
-
-
-
 Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
 
 
@@ -45,9 +25,12 @@ Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import { Fancybox } from "@fancyapps/ui";
 
+
+
 import VCalendar from "v-calendar";
 Vue.use(VCalendar);
 
+Vue.component('v-init', require('./components/InitComponent').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-select', require('./components/SelectComponent.vue').default);
 Vue.component('v-custom-calendar', require('./components/CustomCalendarComponent').default);
@@ -56,7 +39,6 @@ Vue.component('v-humans', require('./components/HumansComponent').default);
 Vue.component('v-incdec', require('./components/IncdecComponent').default);
 Vue.component('v-calculator', require('./components/CalculatorComponent').default);
 Vue.component('v-custom-search', require('./components/CustomSearchComponent').default);
-// Vue.component('v-init', require('./components/InitComponent').default);
 Vue.component('v-language-select', require('./components/LanguageSelectComponent').default);
 Vue.component('v-currency-select', require('./components/CurrencySelectComponent').default);
 

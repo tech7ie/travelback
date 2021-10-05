@@ -37,7 +37,7 @@
 </head>
 <body>
 <div id="app">
-    <v-init/>
+    <v-init auth="{{(Auth::check())}}" ></v-init>
     <svg style="width: 0; height: 0; overflow: hidden; position: absolute; left: -100%;" width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <lineargradient id="gradient">
@@ -87,7 +87,7 @@
                         </div>
                     @else
                         <div class="header__user">
-                            <a data-fancybox data-src="#login" alt="user">
+                            <a id="auth_button" data-fancybox data-src="#login" alt="user">
                                 <svg class="icon">
                                     <use xlink:href="img/sprites/sprite.svg#user"></use>
                                 </svg>

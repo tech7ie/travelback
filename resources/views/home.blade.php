@@ -10,17 +10,20 @@
                             <div class="form-block__wrap">
                                 <div class="label">One way</div>
                                 <div class="homehead-form form-vue calc" id="homehead-form">
-                                    <form class="js-homehead-form" data-submit="homeheadSubmit">
-                                        <v-select name="from"></v-select>
-                                        <div class="date-time">
-                                            <v-custom-calendar routes="{{$routes ?? []}}"></v-custom-calendar>
-                                            <v-time></v-time>
-                                        </div>
-                                        <v-humans></v-humans>
-                                        <div class="form-vue__footer --line"><span>Can't find your destination?</span><a href="#">Request a custom route</a></div>
-                                        <button class="btn-submit"><span>Search</span></button>
-                                        <div class="label">Chauffeur will wait 15 minutes free of charge</div>
-                                    </form>
+                                    <v-calculator :short="true" routes="{{$routes ?? []}}">
+
+                                    </v-calculator>
+{{--                                    <form class="js-homehead-form" data-submit="homeheadSubmit">--}}
+{{--                                        <v-select name="from"></v-select>--}}
+{{--                                        <div class="date-time">--}}
+{{--                                            <v-custom-calendar routes="{{$routes ?? []}}"></v-custom-calendar>--}}
+{{--                                            <v-time></v-time>--}}
+{{--                                        </div>--}}
+{{--                                        <v-humans></v-humans>--}}
+{{--                                        <div class="form-vue__footer --line"><span>Can't find your destination?</span><a href="#">Request a custom route</a></div>--}}
+{{--                                        <button class="btn-submit"><span>Search</span></button>--}}
+{{--                                        <div class="label">Chauffeur will wait 15 minutes free of charge</div>--}}
+{{--                                    </form>--}}
                                 </div>
 {{--                                <script>--}}
 {{--                                    function homeheadSubmit(e) {--}}

@@ -17,12 +17,11 @@ class AdminAuthenticate
     public function handle($request, Closure $next, $guard = null)
     {
         $auth = Auth::guard($guard);
-
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+                return redirect()->guest(route('home', '#login', app()->getLocale()));
             }
         }
 

@@ -21,4 +21,19 @@ class Cities extends Model
     function euList(){
         return $this->where('country_id' ,'IN', (Country::select('id')->where('region' ,'=', 'Europe')->get()))->get();
     }
+
+    public function citiesable()
+    {
+        return $this->morphTo();
+    }
+
+    public function toCities()
+    {
+        return $this->belongsTo(Routes::class, 'id', 'route_to_city_id');
+    }
+
+    public function fromCities()
+    {
+        return $this->belongsTo(Routes::class, 'id', 'route_from_city_id');
+    }
 }

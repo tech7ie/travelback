@@ -118,14 +118,14 @@ class Routes extends Section implements Initializable {
                                 ->setModelForOptions( \App\Models\Car::class, 'title' )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::selectajax( 'route_from_city_id', 'From' )
+                AdminFormElement::selectajax( 'route_from_country_id', 'From' )
                                 ->setModelForOptions( Country::class, 'name' )
                                 ->required(),
-                AdminFormElement::dependentselect( 'route_from_country_id', 'From City' )
+                AdminFormElement::dependentselect( 'route_from_city_id', 'From City' )
                                 ->setModelForOptions( Cities::class, 'name' )
-                                ->setDataDepends( [ 'route_from_city_id' ] )
+                                ->setDataDepends( [ 'route_from_country_id' ] )
                                 ->setLoadOptionsQueryPreparer( function ( $item, $query ) {
-                                    return $query->where( 'country_id', $item->getDependValue( 'route_from_city_id' ) );
+                                    return $query->where( 'country_id', $item->getDependValue( 'route_from_country_id' ) );
                                 } )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [

@@ -44,10 +44,15 @@ export default function initValidation(node) {
     console.log("bouncerFormValid: ", el)
     try {
       var fn = el.target.dataset.submit;
-      window[fn](el);
+        console.log(window[fn]);
+        var form = event.target;
+        form.submit()
+        // window[fn](el);
     } catch (e) {
-      console.log("Form Submit Error!");
+        console.log(e);
+        console.log("Form Submit Error!");
     }
   }, false);
 }
+
 window.initValidation = initValidation;

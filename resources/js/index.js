@@ -1,6 +1,6 @@
 // import "./import/modules";
 // import "./import/components";
-import { Fancybox } from "@fancyapps/ui";
+// import { Fancybox } from "@fancyapps/ui";
 
 // import Bouncer from "./import/bouncer.polyfills.min";
 // import SlimSelect from "slim-select";
@@ -22,6 +22,9 @@ tickets.forEach(item => {
     item.classList.toggle("active");
   });
 });
+
+
+
 
 
 // Tab
