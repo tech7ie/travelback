@@ -33,6 +33,59 @@ class RoutesController extends Controller {
     /**
      * Show products list.
      *
+     * @return array
+     */
+    public function routeList(): array {
+        try {
+            $routes = Routes::select(
+                [
+                    'id',
+                    'title',
+                    'route_from_city_id',
+                    'route_from_country_id',
+                    'route_to_city_id',
+                    'route_to_country_id',
+                    'price'
+                ]
+            )->where( 'status', '=', 'open' )
+                            ->get();
+
+            $result = [];
+            foreach ( $routes as $route ) {
+                $from_city    = $route->getFromCity();
+                $from_country = $route->getFromCountry();
+                $to_city      = $route->getToCity();
+                $to_country   = $route->getToCountry();
+
+                $points = [];
+                foreach ( $route->pointsName() as $point ) {
+                    $points[] = $point->name;
+                }
+
+                $result[] =
+                    [
+                        'id'                    => $route->id,
+                        'title'                 => $route->title,
+                        'from_city'             => $from_city[0]->name ?? '',
+                        'route_from_city_id'    => $route->route_from_city_id,
+                        'route_from_country_id' => $route->route_from_country_id,
+                        'route_to_city_id'      => $route->route_to_city_id,
+                        'route_to_country_id'   => $route->route_to_country_id,
+                        'from_country'          => $from_country[0]->name ?? '',
+                        'to_city'               => $to_city[0]->name ?? '',
+                        'to_country'            => $to_country[0]->name ?? '',
+                        'points'                => $points,
+                    ];
+            }
+            return $result;
+        } catch ( \Throwable $t ) {
+            return [];
+        }
+    }
+
+    /**
+     * Show products list.
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void

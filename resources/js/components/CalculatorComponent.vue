@@ -1,6 +1,6 @@
 <template>
     <div class="calc" id="calculator">
-        <form class="js-calculator" data-submit="calculatorSubmit">
+        <form class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
                     <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
@@ -94,6 +94,7 @@ export default Vue.component("v-calculator", {
     },
     data() {
         return {
+            searchActionsUrl: '',
             parsedRoutes: [],
             extrastops: false,
             choosecar: false,
@@ -175,6 +176,7 @@ export default Vue.component("v-calculator", {
     mounted() {
         initValidation(".js-calculator");
         this.parsedRoutes = JSON.parse(this.routes)
+        this.searchActionsUrl = '/' + (window.App.language ?? 'en')  + '/search';
     },
     directives: {
         ClickOutside

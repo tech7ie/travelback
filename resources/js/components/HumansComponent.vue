@@ -1,13 +1,14 @@
 <template>
     <div class="select-humans" v-click-outside="close">
-        <input type="number" required name="passangers" :value="(adults + children == 0 ? '' : adults + children)">
+        <input type="number" required name="passengers" :value="(adults + children == 0 ? '' : adults + children)">
+        <input type="number" required name="luggage" :value="luggage">
         <div class="select-humans__head" @click="opened = !opened">
-            <div :class="{error: errorHumans}"><em>Passangers:</em><span>{{ adults + children }}</span>
+            <div :class="{error: errorHumans}"><em>passengers:</em><span>{{ adults + children }}</span>
                 <svg class="icon users">
                     <use xlink:href="/img/sprites/sprite.svg#users"></use>
                 </svg>
             </div>
-            <div><em>Lugguage: {{ data }}</em><span>{{ lugguage }}</span>
+            <div><em>luggage: {{ data }}</em><span>{{ luggage }}</span>
                 <svg class="icon suitecase">
                     <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                 </svg>
@@ -23,8 +24,8 @@
                 <v-incdec @value="changeValue('children', $event)"></v-incdec>
             </div>
             <div class="select-humans__list-item">
-                <div><span>Lugguage</span><em>Sets of bags</em></div>
-                <v-incdec :value="adults" :min="adults" :sync="true" @value="changeValue('lugguage', $event)"></v-incdec>
+                <div><span>luggage</span><em>Sets of bags</em></div>
+                <v-incdec :value="adults" :min="adults" :sync="true" @value="changeValue('luggage', $event)"></v-incdec>
             </div>
         </div>
     </div>
@@ -40,7 +41,7 @@ export default Vue.component("v-humans", {
             number: 0,
             adults: 0,
             children: 0,
-            lugguage: 0,
+            luggage: 0,
             errorHumans: false
         };
     },
@@ -51,12 +52,12 @@ export default Vue.component("v-humans", {
         },
         changeValue(param, value) {
             this[param] = value;
-            this.retrunValues();
+            this.returnValues();
         },
-        retrunValues() {
+        returnValues() {
             this.$emit("return", {
-                passangers: this.adults + this.children,
-                lugguage: this.lugguage
+                passengers: this.adults + this.children,
+                luggage: this.luggage
             });
         }
     },

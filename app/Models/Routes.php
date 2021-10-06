@@ -33,9 +33,15 @@ class Routes extends Model
 //        print_r($result->get());
 //        return $result;
 
-        return $this->morphToMany(Cities::class, 'cities_route');
+        return $this->morphToMany(Place::class, 'places_route');
 //        return $this->belongsToMany(Cities::class)->where('country_id', '=', Country::select('id')->where('region' ,'=', 'Europe'))->get();
 //        return $this->belongsToMany(Cities::class)->where('country_id', '=', 0);
+    }
+
+
+    public function places()
+    {
+        return $this->morphToMany(Place::class, 'places_route');
     }
 
     public function pointsName(): \Illuminate\Database\Eloquent\Collection {

@@ -150,6 +150,15 @@ export default Vue.component("v-custom-search", {
         Article
     },
     el: "#psearch",
+    props:{
+        // routes: {
+        //     type: Array,
+        //     default: function () {
+        //         return []
+        //     }
+        // },
+        routes: [],
+    },
     data() {
         return {
             price: 0,
@@ -274,6 +283,8 @@ export default Vue.component("v-custom-search", {
     },
     mounted() {
         initValidation(".js-psearch-from");
+
+        this.routes.log
 
         if (window.matchMedia("(max-width: 900px)").matches) {
             this.glideMount();

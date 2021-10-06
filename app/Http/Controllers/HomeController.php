@@ -36,11 +36,6 @@ class HomeController extends Controller {
 
         $result = [];
         foreach ( $routes as $route ) {
-//            $cities = $route->getFromCity;
-//            $country = $route->getFromCountry;
-//            print_r($cities);
-//            print_r($route->pointsName()[0]);
-
             $from_city    = $route->getFromCity();
             $from_country = $route->getFromCountry();
             $to_city      = $route->getToCity();
@@ -67,14 +62,7 @@ class HomeController extends Controller {
                 ];
         }
 
-
-//        $routes = Routes::select(['cities.name','cities.id'])->where('status', '=', 'open')
-//                        ->join('cities_routes', 'cities_routes.cities_route_id', '=', 'routes.id')
-//                        ->join('cities', 'cities.id', '=', 'cities_routes.cities_id')
-//                        ->get();
-
         $partners = new PartnerController();
-
         return view( 'home', [
             'routes'   => json_encode($result),
             'partners' => $partners->list()

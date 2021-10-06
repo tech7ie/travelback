@@ -33,6 +33,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+        window.App = {!! json_encode([
+        'user' => Auth::user(),
+        'signedIn' => Auth::check(),
+        'language' => app()->getLocale()
+    ]) !!};
+    </script>
     <link rel="stylesheet" href="{{ asset('styles/main.min.css') }}">
 </head>
 <body>
@@ -107,77 +114,8 @@
             </div>
         </div>
     </header>
-
     @yield('content')
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__wrap">
-                <div class="footer__item">
-                    <h3>Helpdesk</h3>
-                    <div class="footer__line-ico --bold">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#clock')}}"></use>
-                        </svg>
-                        <b>
-                            We’re to help&nbsp;<span class="--orange">24/7</span></b>
-                    </div>
-                    <div class="footer__line-ico">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#mic')}}"></use>
-                        </svg>
-                        <a href="mailto:support@mytripline.com">support@mytripline.com</a>
-                    </div>
-                </div>
-                <div class="footer__item">
-                    <h3>Let us know</h3>
-                    <div class="footer__line-ico --bold --black">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#phone')}}"></use>
-                        </svg>
-                        <a href="tel:+420 739 379 877 ">+420 739 379 877</a>
-                    </div>
-                    <div class="footer__line-ico">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#envelope')}}"></use>
-                        </svg>
-                        <a href="mailto:info@mytripline.com">info@mytripline.com</a>
-                    </div>
-                </div>
-                <div class="footer__item --last">
-                    <h3>Stay in Touch</h3>
-                    <div class="social --white"><a href="#instagram">
-                            <svg class="icon">
-                                <use xlink:href="{{asset('img/sprites/sprite.svg#instagram')}}"></use>
-                            </svg>
-                        </a><a href="#facebook">
-                            <svg class="icon">
-                                <use xlink:href="{{asset('img/sprites/sprite.svg#facebook')}}"></use>
-                            </svg>
-                        </a><a href="#youtube">
-                            <svg class="icon">
-                                <use xlink:href="{{asset('img/sprites/sprite.svg#youtube')}}"></use>
-                            </svg>
-                        </a><a href="#whatsapp">
-                            <svg class="icon">
-                                <use xlink:href="{{asset('img/sprites/sprite.svg#whatsapp')}}"></use>
-                            </svg>
-                        </a></div>
-                </div>
-                <div class="footer__copyright"><span>Copyright © 2015–2021 Daytrip. All rights reserved</span>
-                    <div>
-                        <a href="{{route('terms-of-use', app()->getLocale())}}">Terms of use</a>
-                        <a href="{{route('privacy-policy', app()->getLocale())}}">Privacy policy</a>
-                    </div>
-                    <a class="dev" href="#devruso"><span>Made in  —</span>
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#ruso')}}"></use>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <x-footer />
 </div>
 @auth
 

@@ -53,3 +53,11 @@ php artisan make:migration create_contents_table
 php artisan migrate
 php artisan make:factory ContentFactory -m Content
 php artisan sleepingowl:section:generate
+
+
+php artisan make:model Place
+php artisan make:controller Place
+php artisan make:migration create_places_table
+php artisan migrate
+php artisan make:factory PlaceFactory -m Place
+php artisan sleepingowl:section:generate

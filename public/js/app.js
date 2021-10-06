@@ -9376,6 +9376,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      searchActionsUrl: '',
       parsedRoutes: [],
       extrastops: false,
       choosecar: false,
@@ -9458,8 +9459,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _window$App$language;
+
     (0,_helper_validator__WEBPACK_IMPORTED_MODULE_0__.default)(".js-calculator");
     this.parsedRoutes = JSON.parse(this.routes);
+    this.searchActionsUrl = '/' + ((_window$App$language = window.App.language) !== null && _window$App$language !== void 0 ? _window$App$language : 'en') + '/search';
   },
   directives: {
     ClickOutside: (vue_click_outside__WEBPACK_IMPORTED_MODULE_5___default())
@@ -9873,6 +9877,15 @@ __webpack_require__.r(__webpack_exports__);
     Article: _ArticleComponent__WEBPACK_IMPORTED_MODULE_10__.default
   },
   el: "#psearch",
+  props: {
+    // routes: {
+    //     type: Array,
+    //     default: function () {
+    //         return []
+    //     }
+    // },
+    routes: []
+  },
   data: function data() {
     return {
       price: 0,
@@ -9988,6 +10001,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     (0,_tripline_master_src_blocks_modules_calculator_validator__WEBPACK_IMPORTED_MODULE_1__.default)(".js-psearch-from");
+    this.routes.log;
 
     if (window.matchMedia("(max-width: 900px)").matches) {
       this.glideMount();
@@ -10316,6 +10330,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (vue_dist_vue_esm_browser_min__WEBPACK_IMPORTED_MODULE_1__.default.component("v-humans", {
@@ -10325,7 +10340,7 @@ __webpack_require__.r(__webpack_exports__);
       number: 0,
       adults: 0,
       children: 0,
-      lugguage: 0,
+      luggage: 0,
       errorHumans: false
     };
   },
@@ -10336,12 +10351,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeValue: function changeValue(param, value) {
       this[param] = value;
-      this.retrunValues();
+      this.returnValues();
     },
-    retrunValues: function retrunValues() {
+    returnValues: function returnValues() {
       this.$emit("return", {
-        passangers: this.adults + this.children,
-        lugguage: this.lugguage
+        passengers: this.adults + this.children,
+        luggage: this.luggage
       });
     }
   },
@@ -49127,7 +49142,10 @@ var render = function() {
       "form",
       {
         staticClass: "js-calculator",
-        attrs: { "data-submit": "calculatorSubmit" }
+        attrs: {
+          "data-submit": "calculatorSubmit",
+          action: _vm.searchActionsUrl
+        }
       },
       [
         _c("div", { staticClass: "custom-select" }, [
@@ -50269,10 +50287,15 @@ var render = function() {
     },
     [
       _c("input", {
-        attrs: { type: "number", required: "", name: "passangers" },
+        attrs: { type: "number", required: "", name: "passengers" },
         domProps: {
           value: _vm.adults + _vm.children == 0 ? "" : _vm.adults + _vm.children
         }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "number", required: "", name: "luggage" },
+        domProps: { value: _vm.luggage }
       }),
       _vm._v(" "),
       _c(
@@ -50287,7 +50310,7 @@ var render = function() {
         },
         [
           _c("div", { class: { error: _vm.errorHumans } }, [
-            _c("em", [_vm._v("Passangers:")]),
+            _c("em", [_vm._v("passengers:")]),
             _c("span", [_vm._v(_vm._s(_vm.adults + _vm.children))]),
             _vm._v(" "),
             _c("svg", { staticClass: "icon users" }, [
@@ -50298,8 +50321,8 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", [
-            _c("em", [_vm._v("Lugguage: " + _vm._s(_vm.data))]),
-            _c("span", [_vm._v(_vm._s(_vm.lugguage))]),
+            _c("em", [_vm._v("luggage: " + _vm._s(_vm.data))]),
+            _c("span", [_vm._v(_vm._s(_vm.luggage))]),
             _vm._v(" "),
             _c("svg", { staticClass: "icon suitecase" }, [
               _c("use", {
@@ -50369,7 +50392,7 @@ var render = function() {
                 attrs: { value: _vm.adults, min: _vm.adults, sync: true },
                 on: {
                   value: function($event) {
-                    return _vm.changeValue("lugguage", $event)
+                    return _vm.changeValue("luggage", $event)
                   }
                 }
               })
@@ -50405,7 +50428,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("span", [_vm._v("Lugguage")]),
+      _c("span", [_vm._v("luggage")]),
       _c("em", [_vm._v("Sets of bags")])
     ])
   }

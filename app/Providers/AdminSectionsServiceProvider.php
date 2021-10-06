@@ -22,6 +22,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Routes::class => 'App\Http\Sections\Routes',
         \App\Models\Partner::class => 'App\Http\Sections\Partner',
         \App\Models\Content::class => 'App\Http\Sections\Content',
+        \App\Models\Place::class => 'App\Http\Sections\Place',
     ];
 
     /**
