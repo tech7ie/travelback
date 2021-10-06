@@ -18,24 +18,7 @@ class Routes extends Model
 
     public function points()
     {
-
-//        return $this->belongsToMany(Cities::class)
-//                    ->where(function (Builder $query) {
-//                        $query->where('country_id', 144);
-//                    });
-
-//        return $this->belongsToMany(Cities::class)->wherePivotIn('cities.country_id', [144]);
-//        return $this->belongsToMany(Cities::class)->wherePivotIn('country_id', [1, 2]);
-//        return $this->belongsToMany("Cities")->where('country_id', '=', 144);
-
-//        $result = $this->belongsToMany(Cities::class);
-//        $result->getQuery()->where("country_id", "=", 144);
-//        print_r($result->get());
-//        return $result;
-
-        return $this->morphToMany(Place::class, 'places_route');
-//        return $this->belongsToMany(Cities::class)->where('country_id', '=', Country::select('id')->where('region' ,'=', 'Europe'))->get();
-//        return $this->belongsToMany(Cities::class)->where('country_id', '=', 0);
+        return $this->morphToMany(Cities::class, 'cities_route');
     }
 
 
