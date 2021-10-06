@@ -147,8 +147,7 @@ class Place extends Section implements Initializable {
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [ 'enabled' => 'Enabled', 'disabled' => 'Disabled' ] )
                                 ->required(),
-                AdminFormElement::text( 'url', 'Url' )
-                                ->required(),
+                AdminFormElement::text( 'url', 'Url' ),
                 AdminFormElement::html( '<hr>' ),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' ),
