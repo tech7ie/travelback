@@ -74,11 +74,11 @@ Route::group( [
     } )->name('request');
 
 
-    Route::get( '/search', [\App\Http\Controllers\RoutesController::class, 'index'])->name('search');
+    Route::get( '/search', [\App\Http\Controllers\SearchController::class, 'index'])->name('search');
 
-    Route::get( '/search', function () {
-        return view( 'pages/search' );
-    } )->name('search');
+//    Route::get( '/search', function () {
+//        return view( 'pages/search' );
+//    } )->name('search');
 
     Route::get( '/routes', [\App\Http\Controllers\RoutesController::class, 'index'])->name('routes');
     Route::get( '/routes/{id?}', [\App\Http\Controllers\RoutesController::class, 'get'])->name('routesGet');

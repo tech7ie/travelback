@@ -126,6 +126,7 @@ class Place extends Section implements Initializable {
 //        $form = AdminForm::card();
         $form = AdminForm::card()->addBody( [
             AdminFormElement::columns()->addColumn( [
+                AdminFormElement::hidden( 'user_id' )->setDefaultValue(Auth::id()),
                 AdminFormElement::selectajax( 'country_id', 'Country' )
                                 ->setModelForOptions( Country::class, 'name' )
                                 ->required(),

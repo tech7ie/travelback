@@ -7,14 +7,28 @@ use Illuminate\View\Component;
 
 class Search extends Component
 {
+
+
+    public $currentRoute;
+
+    public $currentRoutePlaces;
+
+    public $debug;
+
+
     /**
-     * Create a new component instance.
+     * Create the component instance.
      *
-     * @return void
+     * @param object $currentRoute
+     *
+     * @param object $currentRoutePlaces
+     *
      */
-    public function __construct()
+    public function __construct($debug, object $currentRoute, object $currentRoutePlaces)
     {
-        //
+        $this->debug = $debug;
+        $this->currentRoute = $currentRoute;
+        $this->currentRoutePlaces = $currentRoutePlaces;
     }
 
     /**

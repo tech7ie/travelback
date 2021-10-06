@@ -63,20 +63,6 @@ export default Vue.component("v-select", {
             selectedTo: "",
             errorTo: false,
             firstStart: false,
-            list: [
-                {
-                    city: "Berchtesgaden",
-                    country: "Germany"
-                },
-                {
-                    city: "Berat",
-                    country: "Albania"
-                },
-                {
-                    city: "Berchtesgaden",
-                    country: "Germany"
-                }
-            ],
         };
     },
     props: {

@@ -1,13 +1,13 @@
 <template>
-    <article :style="'background-image: url('+data.img+')'">
+    <article :style="'background-image: url(/'+data.image+')'">
         <b>{{ data.title }}</b>
-        <p>{{ data.text }}</p>
+        <p v-html="data.body"></p>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
         <button type="button" :class="{added: checked}" @click="buy">
             Add for €{{ data.price }}
             <span>
           <svg class="icon check">
-            <use xlink:href="img/sprites/sprite.svg#check"></use>
+            <use xlink:href="/img/sprites/sprite.svg#check"></use>
           </svg>
           added
         </span>

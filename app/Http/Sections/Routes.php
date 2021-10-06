@@ -113,6 +113,7 @@ class Routes extends Section implements Initializable {
     public function onEdit( $id = null, $payload = [] ) {
         $form = AdminForm::card()->addBody( [
             AdminFormElement::columns()->addColumn( [
+                AdminFormElement::hidden( 'user_id' )->setDefaultValue(Auth::id()),
                 AdminFormElement::text( 'title', 'Name' ),
                 AdminFormElement::multiselect( 'cars', 'Car' )
                                 ->setModelForOptions( \App\Models\Car::class, 'title' )
