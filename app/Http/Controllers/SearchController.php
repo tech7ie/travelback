@@ -54,6 +54,11 @@ class SearchController extends Controller {
 
             $places = $route->places;
 
+            $cars = $route->cars;
+
+            $from_city = $route->fromCity;
+            $to_city = $route->toCity;
+
             return view( 'pages/search', [
                 'currentRoute' => $route,
                 'currentRoutePlaces' => $places,

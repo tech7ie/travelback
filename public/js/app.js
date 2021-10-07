@@ -9855,6 +9855,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9884,7 +9937,11 @@ __webpack_require__.r(__webpack_exports__);
     //         return []
     //     }
     // },
-    routes: []
+    routes: [],
+    errors: [],
+    current: false,
+    current_route_places: [],
+    debug: []
   },
   data: function data() {
     return {
@@ -9894,89 +9951,89 @@ __webpack_require__.r(__webpack_exports__);
         title: "Sedan",
         name: "Skoda Superb",
         img: "sedan.png",
-        passagers: "1-3",
-        lugguage: "3",
-        minPassagers: 1,
-        maxPassagers: 3,
-        minLugguage: 1,
-        maxLugguage: 3
+        passengers: "1-3",
+        luggage: "3",
+        minPassengers: 1,
+        maxPassengers: 3,
+        minLuggage: 1,
+        maxLuggage: 3
       }, {
         type: "mvp",
         title: "MPV",
         name: "Volkswagen Sharan",
         img: "sharan.png",
-        passagers: "4",
-        lugguage: "4",
-        minPassagers: 4,
-        maxPassagers: 4,
-        minLugguage: 4,
-        maxLugguage: 4
+        passengers: "4",
+        luggage: "4",
+        minPassengers: 4,
+        maxPassengers: 4,
+        minLuggage: 4,
+        maxLuggage: 4
       }, {
         type: "suv",
         title: "SUV",
         name: "KIA Sportage",
         img: "sportage.png",
-        passagers: "4-5",
-        lugguage: "5",
-        minPassagers: 4,
-        maxPassagers: 5,
-        minLugguage: 5,
-        maxLugguage: 5
+        passengers: "4-5",
+        luggage: "5",
+        minPassengers: 4,
+        maxPassengers: 5,
+        minLuggage: 5,
+        maxLuggage: 5
       }, {
         type: "van",
         title: "Van",
         name: "Mercedes Vito",
         img: "vito.jpg",
-        passagers: "5-7",
-        lugguage: "7",
-        minPassagers: 5,
-        maxPassagers: 7,
-        minLugguage: 5,
-        maxLugguage: 7
+        passengers: "5-7",
+        luggage: "7",
+        minPassengers: 5,
+        maxPassengers: 7,
+        minLuggage: 5,
+        maxLuggage: 7
       }, {
         type: "shared",
         title: "Shared",
         name: "Shuttle - IVECO Tourer",
         img: "vito.jpg",
-        passagers: "8",
-        lugguage: "8",
-        minPassagers: 8,
-        maxPassagers: 8,
-        minLugguage: 8,
-        maxLugguage: 8
+        passengers: "8",
+        luggage: "8",
+        minPassengers: 8,
+        maxPassengers: 8,
+        minLuggage: 8,
+        maxLuggage: 8
       }, {
         type: "minibus",
         title: "Minibus",
         name: "Sprinter Tourer",
         img: "sprinter.png",
-        passagers: "16",
-        lugguage: "16",
-        minPassagers: 9,
-        maxPassagers: 16,
-        minLugguage: 9,
-        maxLugguage: 16
+        passengers: "16",
+        luggage: "16",
+        minPassengers: 9,
+        maxPassengers: 16,
+        minLuggage: 9,
+        maxLuggage: 16
       }, {
         type: "minibus",
         title: "Minibus",
         name: "Mercedes Sprinter",
         img: "minibus.png",
-        passagers: "16",
-        lugguage: "16",
-        minPassagers: 9,
-        maxPassagers: 16,
-        minLugguage: 9,
-        maxLugguage: 16
+        passengers: "16",
+        luggage: "16",
+        minPassengers: 9,
+        maxPassengers: 16,
+        minLuggage: 9,
+        maxLuggage: 16
       }, {
         type: "bus",
         title: "Bus",
         name: "SETRA",
         img: "bus.png",
-        passagers: "50",
-        lugguage: "50",
-        minPassagers: 17,
-        maxPassagers: 50,
-        minLugguage: 17,
-        maxLugguage: 50
+        passengers: "50",
+        luggage: "50",
+        minPassengers: 17,
+        maxPassengers: 50,
+        minLuggage: 17,
+        maxLuggage: 50
       }],
       withstopsList: [],
       withstopsListPrce: 0,
@@ -9994,14 +10051,40 @@ __webpack_require__.r(__webpack_exports__);
         price: 82
       }],
       passangers: [],
-      glide: {}
+      glide: {},
+      orderRoute: {
+        from: null,
+        to: null,
+        passengers: null,
+        luggage: null
+      },
+      openedFrom: false,
+      openedTo: false,
+      selectedFrom: "",
+      errorFrom: false,
+      selectedTo: "",
+      errorTo: false,
+      firstStart: false
     };
+  },
+  created: function created() {
+    this.firstStart = true;
   },
   mounted: function mounted() {
     var _this = this;
 
     (0,_tripline_master_src_blocks_modules_calculator_validator__WEBPACK_IMPORTED_MODULE_1__.default)(".js-psearch-from");
-    this.routes.log;
+    console.log('routes', this.routes);
+    console.log('props', this.props);
+    console.log('errors', this.errors);
+    console.log('current', this.current);
+    console.log('current_route_places', this.current_route_places);
+    console.log('debug', this.debug);
+
+    if (this.current) {
+      this.orderRoute.from = this.current.from_city.name;
+      this.orderRoute.to = this.current.to_city.name;
+    }
 
     if (window.matchMedia("(max-width: 900px)").matches) {
       this.glideMount();
@@ -10035,22 +10118,25 @@ __webpack_require__.r(__webpack_exports__);
     returnPersone: function returnPersone(e) {
       var _this2 = this;
 
-      this.passangers = []; // console.log(e.passangers, e.lugguage);
+      console.log(e);
+      this.passangers = []; // console.log(e.passangers, e.luggage);
       // this.$nextTick(() => {
-      //   if(e.passangers >= 1 && e.passangers <= 4 || e.lugguage >= 1 && e.lugguage <= 4) {
+      //   if(e.passangers >= 1 && e.passangers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
       //     console.log("sedan");
       //   } else {
       //     console.log("other");
       //   }
       // });
-      // e.lugguage >= item.minLugguage && e.lugguage >= item.maxLugguage
+      // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
+      // this.auto.forEach(item => {
 
-      this.auto.forEach(function (item) {
-        var pas = e.passangers >= item.minPassagers && e.passangers <= item.maxPassagers;
-        var lug = e.lugguage >= item.minLugguage && e.lugguage <= item.maxLugguage;
+      this.current.cars.forEach(function (item) {
+        var pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
+        var lug = e.luggage <= item.luggage;
         var result = false;
+        console.log(pas, lug, e.luggage, item.minLuggage, item.maxLuggage);
 
-        if (e.passangers > e.lugguage) {
+        if (e.passangers > e.luggage) {
           if (pas) {
             result = true; // console.log(item.type);
           }
@@ -10064,6 +10150,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addNewStopItem: function addNewStopItem(item, type) {
+      console.log(item);
       var exists = this.withstopsList.find(function (val) {
         return val.id === item.id;
       });
@@ -10073,15 +10160,63 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         if (!exists) this.withstopsList.push(item);
       }
+    },
+    updateError: function updateError() {// this.errorFrom = this.selectedFrom.length <= 2;
+      // this.errorTo = this.selectedTo.length <= 2;
+    },
+    selectFrom: function selectFrom(item) {
+      // this.openedFrom = false;
+      this.orderRoute.from = item.from_city;
+      this.updateError();
+    },
+    inputFrom: function inputFrom() {
+      this.updateError();
+    },
+    selectTo: function selectTo(item) {
+      // this.openedTo = false;
+      this.orderRoute.to = item.to_city;
+      this.updateError();
+    },
+    inputTo: function inputTo() {
+      this.updateError();
+    },
+    change: function change() {
+      var from = this.selectedFrom;
+      var to = this.selectedTo;
+      this.selectedFrom = to;
+      this.selectedTo = from;
+      this.updateError();
+    },
+    toggle: function toggle() {
+      var _this3 = this;
+
+      setTimeout(function () {
+        _this3.openedFrom = false;
+        _this3.openedTo = false;
+      }, 300);
+    }
+  },
+  computed: {
+    ampm: function ampm() {
+      return this.pm ? "PM" : "AM";
+    },
+    filteredRoutes: function filteredRoutes() {
+      var _this4 = this;
+
+      return this.routes.filter(function (r) {
+        return _this4.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(_this4.selectedFrom.toLowerCase()) >= 0 : true;
+      }).filter(function (r) {
+        return _this4.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(_this4.selectedTo.toLowerCase()) >= 0 : true;
+      });
     }
   },
   watch: {
     withstopsList: function withstopsList() {
-      var _this3 = this;
+      var _this5 = this;
 
       this.withstopsListPrce = 0;
       this.withstopsList.forEach(function (item) {
-        _this3.withstopsListPrce += item.price;
+        _this5.withstopsListPrce += item.price;
       });
     }
   }
@@ -10653,17 +10788,7 @@ __webpack_require__.r(__webpack_exports__);
       errorFrom: false,
       selectedTo: "",
       errorTo: false,
-      firstStart: false,
-      list: [{
-        city: "Berchtesgaden",
-        country: "Germany"
-      }, {
-        city: "Berat",
-        country: "Albania"
-      }, {
-        city: "Berchtesgaden",
-        country: "Germany"
-      }]
+      firstStart: false
     };
   },
   props: {
@@ -10674,7 +10799,8 @@ __webpack_require__.r(__webpack_exports__);
     returnFrom: {
       type: Function
     },
-    filteredRoutes: []
+    filteredRoutes: [],
+    orderRoute: []
   },
   created: function created() {
     this.firstStart = true;
@@ -49044,11 +49170,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "article",
-    { style: "background-image: url(" + _vm.data.img + ")" },
+    { style: "background-image: url(/" + _vm.data.image + ")" },
     [
       _c("b", [_vm._v(_vm._s(_vm.data.title))]),
       _vm._v(" "),
-      _c("p", [_vm._v(_vm._s(_vm.data.text))]),
+      _c("p", { domProps: { innerHTML: _vm._s(_vm.data.body) } }),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -49104,7 +49230,7 @@ var render = function() {
           _c("span", [
             _c("svg", { staticClass: "icon check" }, [
               _c("use", {
-                attrs: { "xlink:href": "img/sprites/sprite.svg#check" }
+                attrs: { "xlink:href": "/img/sprites/sprite.svg#check" }
               })
             ]),
             _vm._v("\n      added\n    ")
@@ -49711,13 +49837,19 @@ var render = function() {
         _c("div", { staticClass: "psearch__form" }, [
           _c("div", { staticClass: "psearch__head" }, [
             _c("h2", [
-              _vm._v("Prague\n                    "),
+              _vm._v(
+                _vm._s(_vm.orderRoute.from) + "\n                        "
+              ),
               _c("svg", { staticClass: "icon" }, [
                 _c("use", {
                   attrs: { "xlink:href": "/img/sprites/sprite.svg#arrow-long" }
                 })
               ]),
-              _vm._v("\n                    Berlin\n                ")
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.orderRoute.to) +
+                  "\n                    "
+              )
             ]),
             _vm._v(" "),
             _c("em", [_vm._v("Estimated arrival 12:45 PM")])
@@ -49727,7 +49859,194 @@ var render = function() {
             "div",
             { staticClass: "calc" },
             [
-              _c("v-select"),
+              _c("div", { staticClass: "custom-select" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "custom-select__item",
+                    class: { "--active": _vm.openedFrom }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "custom-select__head",
+                        class: { error: _vm.errorFrom },
+                        attrs: { "data-input-parent": "" }
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.orderRoute.from,
+                              expression: "orderRoute.from"
+                            }
+                          ],
+                          attrs: {
+                            name: "from",
+                            placeholder: "From",
+                            required: "required",
+                            type: "search",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.orderRoute.from },
+                          on: {
+                            input: [
+                              function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.orderRoute,
+                                  "from",
+                                  $event.target.value
+                                )
+                              },
+                              _vm.inputFrom
+                            ],
+                            keyup: function($event) {
+                              _vm.openedFrom = true
+                            },
+                            blur: _vm.toggle
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "custom-select__options",
+                        class: { "--opened": _vm.openedFrom }
+                      },
+                      _vm._l(_vm.filteredRoutes, function(item, index) {
+                        return _c(
+                          "div",
+                          {
+                            key: index,
+                            staticClass: "custom-select__option",
+                            on: {
+                              click: function($event) {
+                                return _vm.selectFrom(item)
+                              }
+                            }
+                          },
+                          [
+                            _c("b", [_vm._v(_vm._s(item.from_city))]),
+                            _vm._v(" "),
+                            _c("em", [_vm._v(_vm._s(item.from_country))])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "custom-select__change",
+                    on: { click: _vm.change }
+                  },
+                  [
+                    _c("svg", { staticClass: "icon" }, [
+                      _c("use", {
+                        attrs: {
+                          "xlink:href": "/img/sprites/sprite.svg#icn-arrows2"
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "custom-select__item",
+                    class: { "--active": _vm.openedTo }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "custom-select__head",
+                        class: { error: _vm.errorTo },
+                        attrs: { "data-input-parent": "" }
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.orderRoute.to,
+                              expression: "orderRoute.to"
+                            }
+                          ],
+                          attrs: {
+                            name: "to",
+                            placeholder: "To",
+                            required: "required",
+                            type: "search",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.orderRoute.to },
+                          on: {
+                            input: [
+                              function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.orderRoute,
+                                  "to",
+                                  $event.target.value
+                                )
+                              },
+                              _vm.inputTo
+                            ],
+                            keyup: function($event) {
+                              _vm.openedTo = true
+                            },
+                            blur: _vm.toggle
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "custom-select__options",
+                        class: { "--opened": _vm.openedTo }
+                      },
+                      _vm._l(_vm.filteredRoutes, function(item, index) {
+                        return _c(
+                          "div",
+                          {
+                            key: index,
+                            staticClass: "custom-select__option",
+                            on: {
+                              click: function($event) {
+                                return _vm.selectTo(item)
+                              }
+                            }
+                          },
+                          [
+                            _c("b", [_vm._v(_vm._s(item.to_city))]),
+                            _vm._v(" "),
+                            _c("em", [_vm._v(_vm._s(item.to_country))])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -49756,7 +50075,7 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "glide__slides" },
-                  _vm._l(_vm.articleList, function(item, index) {
+                  _vm._l(_vm.current_route_places, function(item, index) {
                     return _c(
                       "li",
                       { key: index, staticClass: "glide__slide" },
@@ -49835,10 +50154,7 @@ var render = function() {
                       _vm._l(_vm.passangers, function(item, index) {
                         return _c("img", {
                           key: index,
-                          attrs: {
-                            src: "/img/cars/" + item.img,
-                            alt: item.title
-                          }
+                          attrs: { src: "/" + item.image, alt: item.title }
                         })
                       }),
                       0
@@ -49851,11 +50167,17 @@ var render = function() {
                         [
                           _c("header", [
                             _c("h4", [_vm._v(_vm._s(item.title))]),
-                            _c("em", [_vm._v(_vm._s(item.name))])
+                            _c("em", [_vm._v(_vm._s(item.brand))])
                           ]),
                           _vm._v(" "),
                           _c("div", [
-                            _c("span", [_vm._v(_vm._s(item.passagers))]),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(item.places_min) +
+                                  " - " +
+                                  _vm._s(item.places_max)
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("svg", { staticClass: "icon" }, [
                               _c("use", {
@@ -49867,7 +50189,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", [
-                            _c("span", [_vm._v(_vm._s(item.lugguage))]),
+                            _c("span", [_vm._v(_vm._s(item.luggage))]),
                             _vm._v(" "),
                             _c("svg", { staticClass: "icon" }, [
                               _c("use", {
@@ -51012,7 +51334,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "withstops__list-item" }, [
-    _c("i", [_c("img", { attrs: { src: _vm.data.img, alt: "IMG" } })]),
+    _c("i", [_c("img", { attrs: { src: "/" + _vm.data.image, alt: "IMG" } })]),
     _vm._v(" "),
     _c("div", [
       _c("b", [_vm._v(_vm._s(_vm.data.title))]),
@@ -51023,7 +51345,9 @@ var render = function() {
     _c("div", { staticClass: "incdec --max" }, [
       _c("div", { staticClass: "incdec__plus", on: { click: _vm.minus } }, [
         _c("svg", { staticClass: "icon minus" }, [
-          _c("use", { attrs: { "xlink:href": "img/sprites/sprite.svg#minus" } })
+          _c("use", {
+            attrs: { "xlink:href": "/img/sprites/sprite.svg#minus" }
+          })
         ])
       ]),
       _vm._v(" "),
@@ -51038,7 +51362,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "incdec__minus", on: { click: _vm.plus } }, [
         _c("svg", { staticClass: "icon plus" }, [
-          _c("use", { attrs: { "xlink:href": "img/sprites/sprite.svg#plus" } })
+          _c("use", { attrs: { "xlink:href": "/img/sprites/sprite.svg#plus" } })
         ])
       ])
     ]),
@@ -51048,7 +51372,7 @@ var render = function() {
     _c("button", { attrs: { type: "button" }, on: { click: _vm.remove } }, [
       _c("svg", { staticClass: "icon minus" }, [
         _c("use", {
-          attrs: { "xlink:href": "img/sprites/sprite.svg#close-small" }
+          attrs: { "xlink:href": "/img/sprites/sprite.svg#close-small" }
         })
       ])
     ])

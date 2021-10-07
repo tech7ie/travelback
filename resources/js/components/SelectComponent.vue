@@ -73,7 +73,8 @@ export default Vue.component("v-select", {
         returnFrom: {
             type: Function
         },
-        filteredRoutes: []
+        filteredRoutes: [],
+        orderRoute: []
     },
     created() {
         this.firstStart = true;

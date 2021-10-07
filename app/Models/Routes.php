@@ -31,6 +31,11 @@ class Routes extends Model
         return $this->morphToMany(Cities::class, 'cities_route')->select(['name'])->get();
     }
 
+    public function fromCity() {
+        return
+            $this->hasOne(Cities::class,'id','route_from_city_id' )->select(['name']);
+    }
+
     public function getFromCity(): \Illuminate\Database\Eloquent\Collection {
         return
             $this->hasOne(Cities::class,'id','route_from_city_id' )->select(['name'])->get();
@@ -44,6 +49,12 @@ class Routes extends Model
     public function getToCity(): \Illuminate\Database\Eloquent\Collection {
         return
             $this->hasOne(Cities::class,'id','route_to_city_id' )->select(['name'])->get();
+    }
+
+
+    public function toCity() {
+        return
+            $this->hasOne(Cities::class,'id','route_to_city_id' )->select(['name']);
     }
 
     public function getToCountry(): \Illuminate\Database\Eloquent\Collection {
