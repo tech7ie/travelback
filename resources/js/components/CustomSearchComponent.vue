@@ -501,6 +501,7 @@ export default Vue.component("v-custom-search", {
 });
 
 </script>
+
 <style scoped>
 /*.tickets__footer > div{*/
 /*    display: flex*/
