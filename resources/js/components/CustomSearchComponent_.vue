@@ -2,17 +2,68 @@
     <section class="psearch" id="psearch">
         <form class="container psearch__wrap js-psearch-from" data-submit="psearchSubmit">
             <div class="psearch__form">
+<!--                {{orderRoute}}-->
+<!--                {{current}}-->
                 <div class="psearch__head">
-                    <h2>Prague
+                    <h2>{{orderRoute.from}}
                         <svg class="icon">
                             <use xlink:href="/img/sprites/sprite.svg#arrow-long"></use>
                         </svg>
-                        Berlin
+                        {{orderRoute.to}}
                     </h2>
                     <em>Estimated arrival 12:45 PM</em>
                 </div>
                 <div class="calc">
-                    <v-select></v-select>
+                    <div class="custom-select">
+                        <div class="custom-select__item" :class="{'--active': openedFrom }">
+                            <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
+                                <input
+                                    name="from"
+                                    placeholder="From"
+                                    @input="inputFrom"
+                                    required="required"
+                                    type="search"
+                                    v-model="orderRoute.from"
+                                    autocomplete="off"
+                                    @keyup="openedFrom = true"
+                                    @blur="toggle"
+                                />
+                            </div>
+                            <div class="custom-select__options" :class="{ '--opened': openedFrom }">
+                                <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
+                                    <b>{{ item.from_city }}</b>
+                                    <em>{{ item.from_country }}</em>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-select__change" @click="change">
+                            <svg class="icon">
+                                <use xlink:href="/img/sprites/sprite.svg#icn-arrows2"></use>
+                            </svg>
+                        </div>
+                        <div class="custom-select__item" :class="{'--active': openedTo }">
+                            <div class="custom-select__head" data-input-parent :class="{error: errorTo}">
+                                <input
+                                    name="to"
+                                    placeholder="To"
+                                    @input="inputTo"
+                                    required="required"
+                                    type="search"
+                                    v-model="orderRoute.to"
+                                    autocomplete="off"
+                                    @keyup="openedTo = true"
+                                    @blur="toggle"
+                                />
+                            </div>
+                            <div class="custom-select__options" :class="{ '--opened': openedTo }">
+                                <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutes" :key="index">
+                                    <b>{{ item.to_city }}</b>
+                                    <em>{{ item.to_country }}</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <v-select :orderRoute={orderRoute} :filteredRoutes="filteredRoutes"></v-select>-->
                     <div class="date-time">
                         <v-custom-calendar></v-custom-calendar>
                         <v-time></v-time>
@@ -48,18 +99,20 @@
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i>
-                                <img v-for="(item, index) in passangers" :key="index" :src="'/img/cars/' + item.img" :alt="item.title">
+                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
                             </i>
                             <div class="tickets__footer-info" v-for="(item, index) in passangers" :key="index">
                                 <header>
-                                    <h4>{{ item.title }}</h4><em>{{ item.name }}</em>
+                                    <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
                                 </header>
-                                <div><span>{{ item.passengers }}</span>
+                                <div>
+                                    <span>{{ item.places_min }} - {{ item.places_max }}</span>
                                     <svg class="icon">
                                         <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                     </svg>
                                 </div>
-                                <div><span>{{ item.luggage }}</span>
+                                <div>
+                                    <span>{{ item.luggage }}</span>
                                     <svg class="icon">
                                         <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                     </svg>
@@ -150,7 +203,7 @@ export default Vue.component("v-custom-search", {
         Article
     },
     el: "#psearch",
-    props:{
+    props: {
         // routes: {
         //     type: Array,
         //     default: function () {
@@ -159,7 +212,7 @@ export default Vue.component("v-custom-search", {
         // },
         routes: [],
         errors: [],
-        current: [],
+        current: false,
         current_route_places: [],
         debug: [],
     },
@@ -282,18 +335,40 @@ export default Vue.component("v-custom-search", {
                 }
             ],
             passangers: [],
-            glide: {}
+            glide: {},
+            orderRoute: {
+                from: null,
+                to: null,
+                passengers: null,
+                luggage: null,
+            },
+            openedFrom: false,
+            openedTo: false,
+            selectedFrom: "",
+            errorFrom: false,
+            selectedTo: "",
+            errorTo: false,
+            firstStart: false,
         }
+    },
+    created() {
+        this.firstStart = true;
     },
     mounted() {
         initValidation(".js-psearch-from");
 
-        console.log(this.routes);
-        console.log(this.props);
-        console.log(this.errors);
-        console.log(this.current);
-        console.log(this.current_route_places);
-        console.log(this.debug);
+        console.log('routes', this.routes);
+        console.log('props', this.props);
+        console.log('errors', this.errors);
+        console.log('current', this.current);
+        console.log('current_route_places', this.current_route_places);
+        console.log('debug', this.debug);
+
+        if (this.current){
+            this.orderRoute.from = this.current.from_city.name
+            this.orderRoute.to = this.current.to_city.name
+        }
+
 
         if (window.matchMedia("(max-width: 900px)").matches) {
             this.glideMount();
@@ -333,9 +408,10 @@ export default Vue.component("v-custom-search", {
             //   }
             // });
             // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
-            this.auto.forEach(item => {
-                let pas = e.passangers >= item.minPassengers && e.passangers <= item.maxPassengers;
-                let lug = e.luggage >= item.minLuggage && e.luggage <= item.maxLuggage;
+            // this.auto.forEach(item => {
+            this.current.cars.forEach(item => {
+                let pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
+                let lug = e.luggage <= item.luggage;
                 let result = false;
 
                 console.log(pas, lug, e.luggage, item.minLuggage, item.maxLuggage);
@@ -365,6 +441,52 @@ export default Vue.component("v-custom-search", {
             } else {
                 if (!exists) this.withstopsList.push(item);
             }
+        },
+
+        updateError() {
+            // this.errorFrom = this.selectedFrom.length <= 2;
+            // this.errorTo = this.selectedTo.length <= 2;
+        },
+        selectFrom(item) {
+            // this.openedFrom = false;
+            this.orderRoute.from = item.from_city;
+            this.updateError();
+        },
+        inputFrom() {
+            this.updateError();
+        },
+        selectTo(item) {
+            // this.openedTo = false;
+            this.orderRoute.to = item.to_city;
+            this.updateError();
+        },
+        inputTo() {
+            this.updateError();
+        },
+        change() {
+            let from = this.selectedFrom;
+            let to = this.selectedTo;
+            this.selectedFrom = to;
+            this.selectedTo = from;
+            this.updateError();
+        },
+        toggle() {
+            setTimeout(() => {
+                this.openedFrom = false;
+                this.openedTo = false;
+            }, 300);
+        }
+    },
+    computed: {
+        ampm() {
+            return this.pm ? "PM" : "AM";
+        },
+        filteredRoutes(){
+            return this.routes.filter(r => {
+                return this.selectedFrom.length >0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+            }).filter(r => {
+                return this.selectedTo.length >0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            })
         }
     },
     watch: {

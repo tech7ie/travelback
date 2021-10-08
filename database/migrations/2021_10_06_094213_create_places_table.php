@@ -18,10 +18,10 @@ class CreatePlacesTable extends Migration
             $table->integer('user_id');
             $table->string('title', 256);
             $table->text('body')->nullable();
-            $table->string('title_de', 256);
-            $table->text('body_de')->nullable();
-            $table->string('title_pl', 256);
-            $table->text('body_pl')->nullable();
+            $table->string('title_de', 256)->nullable();
+            $table->text('body_de')->nullable()->nullable();
+            $table->string('title_pl', 256)->nullable();
+            $table->text('body_pl')->nullable()->nullable();
             $table->string('url', 256)->nullable();
             $table->string('image', 64)->nullable();
             $table->double('price', 12, 2);

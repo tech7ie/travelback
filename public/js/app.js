@@ -9855,59 +9855,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -9939,7 +9886,7 @@ __webpack_require__.r(__webpack_exports__);
     // },
     routes: [],
     errors: [],
-    current: false,
+    current: [],
     current_route_places: [],
     debug: []
   },
@@ -10051,40 +9998,19 @@ __webpack_require__.r(__webpack_exports__);
         price: 82
       }],
       passangers: [],
-      glide: {},
-      orderRoute: {
-        from: null,
-        to: null,
-        passengers: null,
-        luggage: null
-      },
-      openedFrom: false,
-      openedTo: false,
-      selectedFrom: "",
-      errorFrom: false,
-      selectedTo: "",
-      errorTo: false,
-      firstStart: false
+      glide: {}
     };
-  },
-  created: function created() {
-    this.firstStart = true;
   },
   mounted: function mounted() {
     var _this = this;
 
     (0,_tripline_master_src_blocks_modules_calculator_validator__WEBPACK_IMPORTED_MODULE_1__.default)(".js-psearch-from");
-    console.log('routes', this.routes);
-    console.log('props', this.props);
-    console.log('errors', this.errors);
-    console.log('current', this.current);
-    console.log('current_route_places', this.current_route_places);
-    console.log('debug', this.debug);
-
-    if (this.current) {
-      this.orderRoute.from = this.current.from_city.name;
-      this.orderRoute.to = this.current.to_city.name;
-    }
+    console.log(this.routes);
+    console.log(this.props);
+    console.log(this.errors);
+    console.log(this.current);
+    console.log(this.current_route_places);
+    console.log(this.debug);
 
     if (window.matchMedia("(max-width: 900px)").matches) {
       this.glideMount();
@@ -10128,11 +10054,10 @@ __webpack_require__.r(__webpack_exports__);
       //   }
       // });
       // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
-      // this.auto.forEach(item => {
 
-      this.current.cars.forEach(function (item) {
-        var pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
-        var lug = e.luggage <= item.luggage;
+      this.auto.forEach(function (item) {
+        var pas = e.passangers >= item.minPassengers && e.passangers <= item.maxPassengers;
+        var lug = e.luggage >= item.minLuggage && e.luggage <= item.maxLuggage;
         var result = false;
         console.log(pas, lug, e.luggage, item.minLuggage, item.maxLuggage);
 
@@ -10160,63 +10085,15 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         if (!exists) this.withstopsList.push(item);
       }
-    },
-    updateError: function updateError() {// this.errorFrom = this.selectedFrom.length <= 2;
-      // this.errorTo = this.selectedTo.length <= 2;
-    },
-    selectFrom: function selectFrom(item) {
-      // this.openedFrom = false;
-      this.orderRoute.from = item.from_city;
-      this.updateError();
-    },
-    inputFrom: function inputFrom() {
-      this.updateError();
-    },
-    selectTo: function selectTo(item) {
-      // this.openedTo = false;
-      this.orderRoute.to = item.to_city;
-      this.updateError();
-    },
-    inputTo: function inputTo() {
-      this.updateError();
-    },
-    change: function change() {
-      var from = this.selectedFrom;
-      var to = this.selectedTo;
-      this.selectedFrom = to;
-      this.selectedTo = from;
-      this.updateError();
-    },
-    toggle: function toggle() {
-      var _this3 = this;
-
-      setTimeout(function () {
-        _this3.openedFrom = false;
-        _this3.openedTo = false;
-      }, 300);
-    }
-  },
-  computed: {
-    ampm: function ampm() {
-      return this.pm ? "PM" : "AM";
-    },
-    filteredRoutes: function filteredRoutes() {
-      var _this4 = this;
-
-      return this.routes.filter(function (r) {
-        return _this4.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(_this4.selectedFrom.toLowerCase()) >= 0 : true;
-      }).filter(function (r) {
-        return _this4.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(_this4.selectedTo.toLowerCase()) >= 0 : true;
-      });
     }
   },
   watch: {
     withstopsList: function withstopsList() {
-      var _this5 = this;
+      var _this3 = this;
 
       this.withstopsListPrce = 0;
       this.withstopsList.forEach(function (item) {
-        _this5.withstopsListPrce += item.price;
+        _this3.withstopsListPrce += item.price;
       });
     }
   }
@@ -49837,19 +49714,13 @@ var render = function() {
         _c("div", { staticClass: "psearch__form" }, [
           _c("div", { staticClass: "psearch__head" }, [
             _c("h2", [
-              _vm._v(
-                _vm._s(_vm.orderRoute.from) + "\n                        "
-              ),
+              _vm._v("Prague\n                    "),
               _c("svg", { staticClass: "icon" }, [
                 _c("use", {
                   attrs: { "xlink:href": "/img/sprites/sprite.svg#arrow-long" }
                 })
               ]),
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.orderRoute.to) +
-                  "\n                    "
-              )
+              _vm._v("\n                    Berlin\n                ")
             ]),
             _vm._v(" "),
             _c("em", [_vm._v("Estimated arrival 12:45 PM")])
@@ -49859,194 +49730,7 @@ var render = function() {
             "div",
             { staticClass: "calc" },
             [
-              _c("div", { staticClass: "custom-select" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "custom-select__item",
-                    class: { "--active": _vm.openedFrom }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "custom-select__head",
-                        class: { error: _vm.errorFrom },
-                        attrs: { "data-input-parent": "" }
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.orderRoute.from,
-                              expression: "orderRoute.from"
-                            }
-                          ],
-                          attrs: {
-                            name: "from",
-                            placeholder: "From",
-                            required: "required",
-                            type: "search",
-                            autocomplete: "off"
-                          },
-                          domProps: { value: _vm.orderRoute.from },
-                          on: {
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.orderRoute,
-                                  "from",
-                                  $event.target.value
-                                )
-                              },
-                              _vm.inputFrom
-                            ],
-                            keyup: function($event) {
-                              _vm.openedFrom = true
-                            },
-                            blur: _vm.toggle
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "custom-select__options",
-                        class: { "--opened": _vm.openedFrom }
-                      },
-                      _vm._l(_vm.filteredRoutes, function(item, index) {
-                        return _c(
-                          "div",
-                          {
-                            key: index,
-                            staticClass: "custom-select__option",
-                            on: {
-                              click: function($event) {
-                                return _vm.selectFrom(item)
-                              }
-                            }
-                          },
-                          [
-                            _c("b", [_vm._v(_vm._s(item.from_city))]),
-                            _vm._v(" "),
-                            _c("em", [_vm._v(_vm._s(item.from_country))])
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "custom-select__change",
-                    on: { click: _vm.change }
-                  },
-                  [
-                    _c("svg", { staticClass: "icon" }, [
-                      _c("use", {
-                        attrs: {
-                          "xlink:href": "/img/sprites/sprite.svg#icn-arrows2"
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "custom-select__item",
-                    class: { "--active": _vm.openedTo }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "custom-select__head",
-                        class: { error: _vm.errorTo },
-                        attrs: { "data-input-parent": "" }
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.orderRoute.to,
-                              expression: "orderRoute.to"
-                            }
-                          ],
-                          attrs: {
-                            name: "to",
-                            placeholder: "To",
-                            required: "required",
-                            type: "search",
-                            autocomplete: "off"
-                          },
-                          domProps: { value: _vm.orderRoute.to },
-                          on: {
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.orderRoute,
-                                  "to",
-                                  $event.target.value
-                                )
-                              },
-                              _vm.inputTo
-                            ],
-                            keyup: function($event) {
-                              _vm.openedTo = true
-                            },
-                            blur: _vm.toggle
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "custom-select__options",
-                        class: { "--opened": _vm.openedTo }
-                      },
-                      _vm._l(_vm.filteredRoutes, function(item, index) {
-                        return _c(
-                          "div",
-                          {
-                            key: index,
-                            staticClass: "custom-select__option",
-                            on: {
-                              click: function($event) {
-                                return _vm.selectTo(item)
-                              }
-                            }
-                          },
-                          [
-                            _c("b", [_vm._v(_vm._s(item.to_city))]),
-                            _vm._v(" "),
-                            _c("em", [_vm._v(_vm._s(item.to_country))])
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]),
+              _c("v-select"),
               _vm._v(" "),
               _c(
                 "div",
@@ -50154,7 +49838,10 @@ var render = function() {
                       _vm._l(_vm.passangers, function(item, index) {
                         return _c("img", {
                           key: index,
-                          attrs: { src: "/" + item.image, alt: item.title }
+                          attrs: {
+                            src: "/img/cars/" + item.img,
+                            alt: item.title
+                          }
                         })
                       }),
                       0
@@ -50167,17 +49854,11 @@ var render = function() {
                         [
                           _c("header", [
                             _c("h4", [_vm._v(_vm._s(item.title))]),
-                            _c("em", [_vm._v(_vm._s(item.brand))])
+                            _c("em", [_vm._v(_vm._s(item.name))])
                           ]),
                           _vm._v(" "),
                           _c("div", [
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(item.places_min) +
-                                  " - " +
-                                  _vm._s(item.places_max)
-                              )
-                            ]),
+                            _c("span", [_vm._v(_vm._s(item.passengers))]),
                             _vm._v(" "),
                             _c("svg", { staticClass: "icon" }, [
                               _c("use", {
