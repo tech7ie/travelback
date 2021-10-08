@@ -33,4 +33,6 @@ public_html/hot
 storage/*.key
 /.vagrant
 public/images/uploads
-/public/js/
+public/js/*
+public/js/*.*
+public/js/app.js

@@ -65,9 +65,6 @@ class BlogPost extends Section implements Initializable
                         ->orWhere('created_at', 'like', '%'.$search.'%')
                     ;
                 })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
-                })
             ,
             AdminColumn::boolean('name', 'On'),
             AdminColumn::text('created_at', 'Created / updated', 'updated_at')

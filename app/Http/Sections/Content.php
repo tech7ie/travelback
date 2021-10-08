@@ -67,9 +67,6 @@ class Content extends Section implements Initializable {
                                ->orWhere( 'label', 'like', '%' . $search . '%' )
                                ->orWhere( 'type', 'like', '%' . $search . '%' );
                        } )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'created_at', $direction );
-                       } )
             ,
             AdminColumn::text( 'type', 'Type' ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )

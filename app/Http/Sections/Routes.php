@@ -64,9 +64,6 @@ class Routes extends Section implements Initializable {
                                ->orWhere( 'title', 'like', '%' . $search . '%' )
                                ->orWhere( 'created_at', 'like', '%' . $search . '%' );
                        } )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'created_at', $direction );
-                       } )
             ,
             AdminColumn::text( 'status', 'Status' )
                        ->setOrderable( function ( $query, $direction ) {

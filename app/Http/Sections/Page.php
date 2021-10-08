@@ -66,9 +66,6 @@ class Page extends Section implements Initializable
                     return $query
                         ->orWhere('title', 'like', '%'.$search.'%')
                         ->orWhere('lang', 'like', '%'.$search.'%');
-                })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
                 }),
 //            AdminColumn::text('title', 'Slug', 'slug'),
             AdminColumn::text('lang', 'Language', 'lang'),

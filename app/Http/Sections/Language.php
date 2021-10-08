@@ -65,9 +65,6 @@ class Language extends Section implements Initializable
                         ->orWhere('lang', 'like', '%'.$search.'%')
                     ;
                 })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
-                })
             ,
             AdminColumn::text('code', 'Code'),
             AdminColumn::text('created_at', 'Created / updated', 'updated_at')

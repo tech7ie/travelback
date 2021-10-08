@@ -60,9 +60,6 @@ class Car extends Section implements Initializable {
                            return $query
                                ->orWhere( 'title', 'like', '%' . $search . '%' )
                                ->orWhere( 'created_at', 'like', '%' . $search . '%' );
-                       } )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'created_at', $direction );
                        } ),
             AdminColumn::text( 'places_min', 'Min places' )
                        ->setOrderable( function ( $query, $direction ) {

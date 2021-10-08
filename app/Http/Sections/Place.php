@@ -67,11 +67,8 @@ class Place extends Section implements Initializable {
             AdminColumn::link( 'title', 'Title', 'created_at' )
                        ->setSearchCallback( function ( $column, $query, $search ) {
                            return $query
-                               ->orWhere( 'label', 'like', '%' . $search . '%' )
+                               ->orWhere( 'content', 'like', '%' . $search . '%' )
                                ->orWhere( 'type', 'like', '%' . $search . '%' );
-                       } )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'created_at', $direction );
                        } )
             ,
             AdminColumn::text( 'price', 'Price' ),

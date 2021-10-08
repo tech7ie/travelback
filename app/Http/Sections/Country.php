@@ -65,9 +65,6 @@ class Country extends Section implements Initializable
                         ->orWhere('created_at', 'like', '%'.$search.'%')
                     ;
                 })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
-                })
             ,
             AdminColumn::text('region', 'Region')
                 ->setOrderable(function($query, $direction) {

@@ -1,5 +1,5 @@
 .psearch {
-  //Calculator
+  //Calculatorsss
   @media(min-width: 521px) {
     .calc {
 
@@ -145,7 +145,7 @@
       float: none;
       padding-right: 0;
     }
-    
+
     @media(max-width: 580px) {
       width: calc(100% + 40px);
       margin-left: -20px;
@@ -163,7 +163,7 @@
       }
     }
   }
-  
+
   &__head {
     display: flex;
     flex-wrap: wrap;
@@ -652,7 +652,7 @@
     @media(max-width: 580px) {
       margin-bottom: 9px;
     }
-    
+
     h3 {
       font-style: normal;
       font-weight: normal;
@@ -726,6 +726,9 @@
           box-shadow: none;
           padding: 0;
         }
+          > div {
+              display:flex;
+          }
 
         > i {
           display: block;
@@ -771,7 +774,7 @@
           justify-content: space-between;
           width: calc(100% - 167px);
           float: right;
-          padding-left: 0;
+          padding-left: 30px;
           padding-top: 12px;
           padding-bottom: 12px;
 

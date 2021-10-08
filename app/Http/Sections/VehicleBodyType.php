@@ -65,9 +65,6 @@ class VehicleBodyType extends Section implements Initializable
                         ->orWhere('created_at', 'like', '%'.$search.'%')
                     ;
                 })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
-                })
             ,
             AdminColumn::text('created_at', 'Created / updated', 'updated_at')
                 ->setOrderable(function($query, $direction) {
