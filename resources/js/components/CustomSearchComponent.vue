@@ -76,8 +76,8 @@
                 <div class="glide">
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
-                            <li class="glide__slide" v-for="(item, index) in current_route_places" :key="index">
-                                <v-article :data="item" :index="index" @return="addNewStopItem"></v-article>
+                            <li class="glide__slide" v-for="(item, index) in getCurrentRoutePlaces" :key="index">
+                                <v-article :addedPoint="addedPoint(item)" :data="item" :index="index" @return="addNewStopItem"></v-article>
                             </li>
                         </ul>
                     </div>
@@ -87,9 +87,9 @@
                 </div>
             </div>
             <div class="psearch__last">
-                <div class="withstops" v-if="withstopsList.length"><em>With stops in</em>
+                <div class="withstops" v-if="points.length"><em>With stops in</em>
                     <div class="withstops__list">
-                        <v-withstops v-for="(item, index) in withstopsList" @remove="removeWithstopsItem(item)" :key="index" :data="item"></v-withstops>
+                        <v-withstops v-for="(item, index) in points" @remove="removeWithstopsItem(item)" :key="index" :data="item"></v-withstops>
                     </div>
                 </div>
                 <div class="yourride">
@@ -98,28 +98,28 @@
                     </div>
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
-                                <i v-for="(item, index) in passangers" :key="index">
-                                    <img :src="'/' + item.image" :alt="item.title">
-                                </i>
-                                <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
-                                    <header>
-                                        <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
-                                    </header>
-                                    <div>
-                                        <span>{{ item.places_min }} - {{ item.places_max }}</span>
-                                        <svg class="icon">
-                                            <use xlink:href="/img/sprites/sprite.svg#users"></use>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span>{{ item.luggage }}</span>
-                                        <svg class="icon">
-                                            <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
-                                        </svg>
-                                    </div>
+                            <i v-for="(item, index) in passangers" :key="index">
+                                <img :src="'/' + item.image" :alt="item.title" @click="setRoute">
+                            </i>
+                            <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
+                                <header>
+                                    <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
+                                </header>
+                                <div>
+                                    <span>{{ item.places_min }} - {{ item.places_max }}</span>
+                                    <svg class="icon">
+                                        <use xlink:href="/img/sprites/sprite.svg#users"></use>
+                                    </svg>
                                 </div>
+                                <div>
+                                    <span>{{ item.luggage }}</span>
+                                    <svg class="icon">
+                                        <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                        <button><span>BUY FOR {{ price + withstopsListPrce }}</span></button>
+                        <button><span>BUY FOR {{ (price + withstopsListPrce).toFixed(2) }}</span></button>
                     </div>
                     <div class="yourride__footer">
                         <ul>
@@ -192,6 +192,8 @@ import Choosecar from "./ChoosecarComponent";
 import Requirements from "./RequirementsComponent";
 import Withstops from "./WithstopsComponent";
 import Article from "./ArticleComponent";
+
+import { mapState, mapMutations } from 'vuex'
 
 export default Vue.component("v-custom-search", {
     comments: {
@@ -353,21 +355,22 @@ export default Vue.component("v-custom-search", {
     },
     created() {
         this.firstStart = true;
+        console.log(this.cart);
     },
     mounted() {
         initValidation(".js-psearch-from");
 
-        console.log('routes', this.routes);
-        console.log('props', this.props);
-        console.log('errors', this.errors);
-        console.log('current', this.current);
-        console.log('current_route_places', this.current_route_places);
-        console.log('debug', this.debug);
-
         if (this.current) {
             this.orderRoute.from = this.current.from_city.name
             this.orderRoute.to = this.current.to_city.name
+            this.price = this.current.price
+            this.$store.commit('setRoute', this.current);
         }
+
+        this.withstopsListPrce = 0;
+        this.points.forEach(item => {
+            this.withstopsListPrce += item.price;
+        });
 
 
         if (window.matchMedia("(max-width: 900px)").matches) {
@@ -387,6 +390,22 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
+        addedPoint(item){
+                let issetPoint = false
+
+
+            this.points.forEach(i => {
+                if (i.id === item.id){
+                    issetPoint = true
+                }
+            })
+
+            console.log('dd:', issetPoint);
+                return issetPoint
+        },
+        // ...mapMutations({
+        //     setRoute: store
+        // })
         glideMount() {
             this.glide = new Glide(".glide").mount({Controls});
         },
@@ -394,10 +413,37 @@ export default Vue.component("v-custom-search", {
             this.glide.destroy();
         },
         removeWithstopsItem(item) {
-            this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+            this.$store.commit('removePoint', item);
+
+            // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+        },
+        setRoute(item) {
+            let newCart = {
+                route: this.current,
+                from: 'Chisinau',
+                to: 'Balti',
+                price: 12
+            }
+            this.$store.commit('setRoute', newCart);
+        },
+        addPoint(point) {
+            this.$store.commit('addPoint', point);
+        },
+        getCarsOrdered(){
+            return this.current.cars.sort(function (a, b) {
+                if (a.places_max > b.places_max) {
+                    return 1;
+                }
+                if (a.places_max < b.places_max) {
+                    return -1;
+                }
+                // a должно быть равным b
+                return 0;
+            });
         },
         returnPersone(e) {
-            console.log(e);
+            // console.log('Start: ', e);
+            // console.log('Start: ', this.getCarsOrdered());
             this.passangers = [];
             // console.log(e.passangers, e.luggage);
             // this.$nextTick(() => {
@@ -409,25 +455,61 @@ export default Vue.component("v-custom-search", {
             // });
             // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
             // this.auto.forEach(item => {
-            this.current.cars.forEach(item => {
-                let pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
-                let lug = e.luggage <= item.luggage;
+
+            let current_passengers = e.passengers
+            let current_luggage = e.luggage
+
+            let total_passengers = {
+                places_min: 0,
+                places_max: 0,
+            }
+            let total_luggage = {
+                luggage: 0
+            }
+            // console.log(this.current.cars)
+            this.getCarsOrdered().forEach(item => {
+
+                // let pas = current_passengers >= total_passengers.places_max && current_passengers <= total_passengers.places_min;
+                let pas = current_passengers > total_passengers.places_max;
+                let lug = current_luggage > total_luggage.luggage;
                 let result = false;
 
-                console.log(pas, lug, e.luggage, item.minLuggage, item.maxLuggage);
-                if (e.passangers > e.luggage) {
-                    if (pas) {
-                        result = true;
-                        // console.log(item.type);
-                    }
-                } else {
-                    if (lug) {
-                        result = true;
-                        // console.log(item.type)
-                    }
-                }
+                // console.log(pas, lug, current_luggage, item.places_max, item.places_min);
+                // console.log('total_passengers', total_passengers);
+                // console.log('total_luggage.luggage', total_luggage.luggage);
 
-                if (result) this.passangers.push(item);
+
+                // if (current_passengers > current_luggage) {
+                //     if (pas) {
+                //         result = true;
+                //         console.log(item.vehicle_body_type);
+                //     }
+                // } else {
+                //     if (lug) {
+                //         result = true;
+                //         console.log(item.vehicle_body_type)
+                //     }
+                // }
+                // console.log('e ->.....', e);
+                // console.log('pas ->.....', pas);
+                // console.log('lug ->.....', lug);
+                // console.log('current_passengers ->.....', current_passengers);
+                // console.log('current_luggage ->.....', current_luggage);
+                // console.log('result ->.....', result);
+
+                if (pas || lug) {
+                    // console.log('add ->.....', item.brand);
+                    this.passangers.push(item);
+                    // total_passengers.places_max += item.places_max
+                    // total_passengers.places_min += item.places_min
+                    // total_luggage.luggage += item.luggage
+
+                    total_passengers.places_max += item.places_max
+                    total_passengers.places_min += item.places_min
+                    total_luggage.luggage += item.luggage;
+                }
+                // if (result) this.passangers.push(item);
+
             });
         },
         addNewStopItem(item, type) {
@@ -439,7 +521,10 @@ export default Vue.component("v-custom-search", {
             if (type) {
                 this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
             } else {
-                if (!exists) this.withstopsList.push(item);
+                if (!exists) {
+                    this.withstopsList.push(item);
+                    this.$store.commit('addPoint', item);
+                };
             }
         },
 
@@ -478,6 +563,21 @@ export default Vue.component("v-custom-search", {
         }
     },
     computed: {
+        ...mapState({
+            cart: store => store.cart,
+            count: store => store.count,
+            route: store => store.route,
+            points: store => store.points,
+        }),
+        getCurrentRoutePlaces(){
+            return this.current_route_places
+
+            // return this.current_route_places.filter(i => {
+            //     return this.points.filter(p => {
+            //         return p.id === i.id
+            //     }).length === 0
+            // })
+        },
         ampm() {
             return this.pm ? "PM" : "AM";
         },
@@ -490,23 +590,12 @@ export default Vue.component("v-custom-search", {
         }
     },
     watch: {
-        withstopsList() {
+        points() {
             this.withstopsListPrce = 0;
-
-            this.withstopsList.forEach(item => {
+            this.points.forEach(item => {
                 this.withstopsListPrce += item.price;
             });
         }
     }
 });
-
 </script>
-
-<style scoped>
-/*.tickets__footer > div{*/
-/*    display: flex*/
-/*}*/
-/*.tickets__footer > div > i{*/
-/*    padding-right: 30px;*/
-/*}*/
-</style>

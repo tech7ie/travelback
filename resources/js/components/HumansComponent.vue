@@ -17,7 +17,7 @@
         <div class="select-humans__list" v-show="opened">
             <div class="select-humans__list-item">
                 <div><span>Adults</span><em>Age: 12+</em></div>
-                <v-incdec :value="1" :min="1" @value="changeValue('adults', $event)"></v-incdec>
+                <v-incdec :value="adults" :min="1" @value="changeValue('adults', $event)"></v-incdec>
             </div>
             <div class="select-humans__list-item">
                 <div><span>Children</span><em>Age: 0-12</em></div>
@@ -25,7 +25,10 @@
             </div>
             <div class="select-humans__list-item">
                 <div><span>luggage</span><em>Sets of bags</em></div>
-                <v-incdec :value="adults" :min="adults" :sync="true" @value="changeValue('luggage', $event)"></v-incdec>
+                <v-incdec :value="luggage" :min="(adults + children)"
+                          :sync="true"
+                          @value="changeValue('luggage', $event)"
+                ></v-incdec>
             </div>
         </div>
     </div>
@@ -39,9 +42,9 @@ export default Vue.component("v-humans", {
         return {
             opened: false,
             number: 0,
-            adults: 0,
+            adults: 1,
             children: 0,
-            luggage: 0,
+            luggage: 1,
             errorHumans: false
         };
     },
@@ -53,11 +56,13 @@ export default Vue.component("v-humans", {
         changeValue(param, value) {
             this[param] = value;
             this.returnValues();
+            this.luggage = (this.adults + this.children) > this.luggage ? (this.adults + this.children) : this.luggage;
+            this.returnValues();
         },
         returnValues() {
             this.$emit("return", {
                 passengers: this.adults + this.children,
-                luggage: this.luggage
+                luggage: (this.adults + this.children) < this.luggage ? this.luggage : (this.adults + this.children)
             });
         }
     },

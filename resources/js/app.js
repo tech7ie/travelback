@@ -4,12 +4,20 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
-import Bouncer from "./import/bouncer.polyfills.min";
+// import Bouncer from "./import/bouncer.polyfills.min";
+
 
 Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
 
+
+import Vuex from 'vuex';
+
+window.Vuex = Vuex;
+
+Vue.use(Vuex);
 
 // Vue.use(SlimSelect);
 
@@ -21,17 +29,14 @@ Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-import { Fancybox } from "@fancyapps/ui";
+// import { Fancybox } from "@fancyapps/ui";
 
-
-
+import store from "./store/index";
 import VCalendar from "v-calendar";
 Vue.use(VCalendar);
 
 Vue.component('v-init', require('./components/InitComponent').default);
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-select', require('./components/SelectComponent.vue').default);
 Vue.component('v-custom-calendar', require('./components/CustomCalendarComponent').default);
 Vue.component('v-time', require('./components/TimeComponent').default);
@@ -42,22 +47,9 @@ Vue.component('v-custom-search', require('./components/CustomSearchComponent').d
 Vue.component('v-language-select', require('./components/LanguageSelectComponent').default);
 Vue.component('v-currency-select', require('./components/CurrencySelectComponent').default);
 
-
-// include ../../blocks/modules/calculator/select/select
-// include ../../blocks/modules/calculator/calendar/calendar
-// include ../../blocks/modules/calculator/time/time
-// include ../../blocks/modules/calculator/humans/humans
-// include ../../blocks/modules/calculator/incdec/incdec
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-
+Vue.config.devtools = true;
 
 const app = new Vue({
     el: '#app',
-
+    store: new Vuex.Store(store)
 });

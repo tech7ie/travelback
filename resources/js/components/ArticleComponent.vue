@@ -3,7 +3,7 @@
         <b>{{ data.title }}</b>
         <p v-html="data.body"></p>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
-        <button type="button" :class="{added: checked}" @click="buy">
+        <button type="button" :class="{added: addedPoint}" @click="buy">
             Add for €{{ data.price }}
             <span>
           <svg class="icon check">
@@ -23,7 +23,7 @@ export default Vue.component("v-article", {
             checked: false
         };
     },
-    props: ["data", "index"],
+    props: ["data", "index", "addedPoint"],
     methods: {
         buy() {
             this.$emit("return", this.data, this.checked);
