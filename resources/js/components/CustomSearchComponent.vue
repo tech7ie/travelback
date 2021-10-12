@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button><span>BUY FOR {{ (price + withstopsListPrce).toFixed(2) }}</span></button>
+                        <button><span>BUY FOR {{ (totalCarPrice + withstopsListPrce).toFixed(2) }}</span></button>
                     </div>
                     <div class="yourride__footer">
                         <ul>
@@ -569,6 +569,13 @@ export default Vue.component("v-custom-search", {
             route: store => store.route,
             points: store => store.points,
         }),
+        totalCarPrice(){
+            let price = 0;
+            this.passangers.forEach(p => {
+                console.log('totalCarPrice', p);
+                price += p.price
+            })
+        },
         getCurrentRoutePlaces(){
             return this.current_route_places
 

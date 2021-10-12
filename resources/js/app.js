@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-// import Bouncer from "./import/bouncer.polyfills.min";
+import Bouncer from "./import/bouncer.polyfills.min";
 
 
 Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
@@ -29,7 +29,7 @@ Vue.use(Vuex);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// import { Fancybox } from "@fancyapps/ui";
+import { Fancybox } from "@fancyapps/ui";
 
 import store from "./store/index";
 import VCalendar from "v-calendar";
