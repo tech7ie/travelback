@@ -89,7 +89,7 @@
             <div class="psearch__last">
                 <div class="withstops" v-if="points.length"><em>With stops in</em>
                     <div class="withstops__list">
-                        <v-withstops v-for="(item, index) in points" @remove="removeWithstopsItem(item)" :key="index" :data="item"></v-withstops>
+                        <v-withstops v-for="(item, index) in points" @update_time="updateWithstopsItem" @remove="removeWithstopsItem(item)" :key="index" :data="item"></v-withstops>
                     </div>
                 </div>
                 <div class="yourride">
@@ -403,9 +403,6 @@ export default Vue.component("v-custom-search", {
             console.log('dd:', issetPoint);
                 return issetPoint
         },
-        // ...mapMutations({
-        //     setRoute: store
-        // })
         glideMount() {
             this.glide = new Glide(".glide").mount({Controls});
         },
@@ -417,6 +414,13 @@ export default Vue.component("v-custom-search", {
 
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
+        updateWithstopsItem(data) {
+            console.log('updateWithstopsItem', data);
+            this.$store.commit('updatePointTime', data);
+            this.updatePrice()
+
+            // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+        },
         setRoute(item) {
             let newCart = {
                 route: this.current,
@@ -425,9 +429,6 @@ export default Vue.component("v-custom-search", {
                 price: 12
             }
             this.$store.commit('setRoute', newCart);
-        },
-        addPoint(point) {
-            this.$store.commit('addPoint', point);
         },
         getCarsOrdered(){
             return this.current.cars.sort(function (a, b) {
@@ -442,20 +443,7 @@ export default Vue.component("v-custom-search", {
             });
         },
         returnPersone(e) {
-            // console.log('Start: ', e);
-            // console.log('Start: ', this.getCarsOrdered());
             this.passangers = [];
-            // console.log(e.passangers, e.luggage);
-            // this.$nextTick(() => {
-            //   if(e.passangers >= 1 && e.passangers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
-            //     console.log("sedan");
-            //   } else {
-            //     console.log("other");
-            //   }
-            // });
-            // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
-            // this.auto.forEach(item => {
-
             let current_passengers = e.passengers
             let current_luggage = e.luggage
 
@@ -468,52 +456,18 @@ export default Vue.component("v-custom-search", {
             }
             // console.log(this.current.cars)
             this.getCarsOrdered().forEach(item => {
-
                 // let pas = current_passengers >= total_passengers.places_max && current_passengers <= total_passengers.places_min;
                 let pas = current_passengers > total_passengers.places_max;
                 let lug = current_luggage > total_luggage.luggage;
-                let result = false;
-
-                // console.log(pas, lug, current_luggage, item.places_max, item.places_min);
-                // console.log('total_passengers', total_passengers);
-                // console.log('total_luggage.luggage', total_luggage.luggage);
-
-
-                // if (current_passengers > current_luggage) {
-                //     if (pas) {
-                //         result = true;
-                //         console.log(item.vehicle_body_type);
-                //     }
-                // } else {
-                //     if (lug) {
-                //         result = true;
-                //         console.log(item.vehicle_body_type)
-                //     }
-                // }
-                // console.log('e ->.....', e);
-                // console.log('pas ->.....', pas);
-                // console.log('lug ->.....', lug);
-                // console.log('current_passengers ->.....', current_passengers);
-                // console.log('current_luggage ->.....', current_luggage);
-                // console.log('result ->.....', result);
-
                 if (pas || lug) {
-                    // console.log('add ->.....', item.brand);
                     this.passangers.push(item);
-                    // total_passengers.places_max += item.places_max
-                    // total_passengers.places_min += item.places_min
-                    // total_luggage.luggage += item.luggage
-
                     total_passengers.places_max += item.places_max
                     total_passengers.places_min += item.places_min
                     total_luggage.luggage += item.luggage;
                 }
-                // if (result) this.passangers.push(item);
-
             });
         },
         addNewStopItem(item, type) {
-            console.log(item);
             let exists = this.withstopsList.find(val => {
                 return val.id === item.id;
             });
@@ -522,6 +476,8 @@ export default Vue.component("v-custom-search", {
                 this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
             } else {
                 if (!exists) {
+                    item['extra'] = 0
+                    console.log('point:', item);
                     this.withstopsList.push(item);
                     this.$store.commit('addPoint', item);
                 };
@@ -533,7 +489,6 @@ export default Vue.component("v-custom-search", {
             // this.errorTo = this.selectedTo.length <= 2;
         },
         selectFrom(item) {
-            // this.openedFrom = false;
             this.orderRoute.from = item.from_city;
             this.updateError();
         },
@@ -541,7 +496,6 @@ export default Vue.component("v-custom-search", {
             this.updateError();
         },
         selectTo(item) {
-            // this.openedTo = false;
             this.orderRoute.to = item.to_city;
             this.updateError();
         },
@@ -560,6 +514,12 @@ export default Vue.component("v-custom-search", {
                 this.openedFrom = false;
                 this.openedTo = false;
             }, 300);
+        },
+        updatePrice(){
+            this.withstopsListPrce = 0;
+            this.points.forEach(item => {
+                this.withstopsListPrce += (item.price + ((item.extra/30) * (item.extra_durations/2)));
+            });
         }
     },
     computed: {
@@ -570,11 +530,12 @@ export default Vue.component("v-custom-search", {
             points: store => store.points,
         }),
         totalCarPrice(){
-            let price = 0;
+            let places = 0;
             this.passangers.forEach(p => {
                 console.log('totalCarPrice', p);
-                price += p.price
+                places += p.places_max
             })
+            return places * this.current.price
         },
         getCurrentRoutePlaces(){
             return this.current_route_places
@@ -598,10 +559,7 @@ export default Vue.component("v-custom-search", {
     },
     watch: {
         points() {
-            this.withstopsListPrce = 0;
-            this.points.forEach(item => {
-                this.withstopsListPrce += item.price;
-            });
+            this.updatePrice()
         }
     }
 });

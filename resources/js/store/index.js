@@ -30,6 +30,11 @@ const store = {
         },
         removePoint(state, item) {
             state.points.splice(state.points.indexOf(item), 1);
+        },
+        updatePointTime(state, item) {
+            console.log(state.points[state.points.indexOf(item.data)]);
+
+            state.points[state.points.indexOf(item.data)].extra = item.extra;
         }
     },
     plugins: [vuexLocal.plugin]

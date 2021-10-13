@@ -13,7 +13,7 @@
                     <use xlink:href="/img/sprites/sprite.svg#minus"></use>
                 </svg>
             </div>
-            <div class="incdec__input"><span>{{ selected }} min</span></div>
+            <div class="incdec__input"><span>{{ (data.durations + data.extra).toFixed(2) }} min</span></div>
             <input type="hidden" :name="'withstops-' + data.id" :value="selected">
             <div class="incdec__minus" @click="plus">
                 <svg class="icon plus">
@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </div>
-        <b>€ {{ data.price }}</b>
+        <b>€ {{ (data.price + ((data.extra_durations /2 ) * ((data.extra/this.step)))).toFixed(2) }}</b>
         <button type="button" @click="remove">
             <svg class="icon minus">
                 <use xlink:href="/img/sprites/sprite.svg#close-small"></use>
@@ -35,17 +35,20 @@ import Vue from "vue/dist/vue.esm.browser.min";
 export default Vue.component("v-withstops", {
     data() {
         return {
-            selected: 60
+            selected: 0,
+            step: 30
         };
     },
     props: ["data"],
     methods: {
         plus() {
-            this.selected += 30;
+            this.selected += this.step;
+            this.$emit("update_time", {data: this.data, extra: this.selected});
         },
         minus() {
-            if(this.selected <= 60) return false;
-            this.selected -= 30;
+            if(this.selected <= this.data.durations) return false;
+            this.selected -= this.step;
+            this.$emit("update_time", {data: this.data, extra: this.selected});
         },
         remove() {
             this.$emit("remove", this.data);
