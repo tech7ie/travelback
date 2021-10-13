@@ -193,7 +193,7 @@ import Requirements from "./RequirementsComponent";
 import Withstops from "./WithstopsComponent";
 import Article from "./ArticleComponent";
 
-import { mapState, mapMutations } from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 
 export default Vue.component("v-custom-search", {
     comments: {
@@ -390,18 +390,18 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
-        addedPoint(item){
-                let issetPoint = false
+        addedPoint(item) {
+            let issetPoint = false
 
 
             this.points.forEach(i => {
-                if (i.id === item.id){
+                if (i.id === item.id) {
                     issetPoint = true
                 }
             })
 
             console.log('dd:', issetPoint);
-                return issetPoint
+            return issetPoint
         },
         glideMount() {
             this.glide = new Glide(".glide").mount({Controls});
@@ -430,7 +430,7 @@ export default Vue.component("v-custom-search", {
             }
             this.$store.commit('setRoute', newCart);
         },
-        getCarsOrdered(){
+        getCarsOrdered() {
             return this.current.cars.sort(function (a, b) {
                 if (a.places_max > b.places_max) {
                     return 1;
@@ -472,16 +472,22 @@ export default Vue.component("v-custom-search", {
                 return val.id === item.id;
             });
 
-            if (type) {
-                this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+            // if (type) {
+            //     this.$store.commit('removePoint', item);
+            //
+            //     // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+            // } else {
+            if (!exists) {
+                item['extra'] = 0
+                console.log('point:', item);
+                this.withstopsList.push(item);
+                this.$store.commit('addPoint', item);
             } else {
-                if (!exists) {
-                    item['extra'] = 0
-                    console.log('point:', item);
-                    this.withstopsList.push(item);
-                    this.$store.commit('addPoint', item);
-                };
+                this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
+
+                this.$store.commit('removePoint', item);
             }
+            // }
         },
 
         updateError() {
@@ -515,10 +521,10 @@ export default Vue.component("v-custom-search", {
                 this.openedTo = false;
             }, 300);
         },
-        updatePrice(){
+        updatePrice() {
             this.withstopsListPrce = 0;
             this.points.forEach(item => {
-                this.withstopsListPrce += (item.price + ((item.extra/30) * (item.extra_durations/2)));
+                this.withstopsListPrce += (item.price + ((item.extra / 30) * (item.extra_durations / 2)));
             });
         }
     },
@@ -529,7 +535,7 @@ export default Vue.component("v-custom-search", {
             route: store => store.route,
             points: store => store.points,
         }),
-        totalCarPrice(){
+        totalCarPrice() {
             let places = 0;
             this.passangers.forEach(p => {
                 console.log('totalCarPrice', p);
@@ -537,7 +543,7 @@ export default Vue.component("v-custom-search", {
             })
             return places * this.current.price
         },
-        getCurrentRoutePlaces(){
+        getCurrentRoutePlaces() {
             return this.current_route_places
 
             // return this.current_route_places.filter(i => {
