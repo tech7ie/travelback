@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,10 +54,13 @@ Route::group( [
     Route::get( '/terms-of-use', [\App\Http\Controllers\PagePost::class, 'index'])->name('terms-of-use');
     Route::get( '/privacy-policy', [\App\Http\Controllers\PagePost::class, 'index'])->name('privacy-policy');
 
-    Auth::routes();
 
+    Route::post( '/cabinet', [\App\Http\Controllers\UserController::class, 'update'])->name('edit_profile');
+
+
+    Auth::routes();
     Route::get( '/cabinet', function () {
-        return view( 'pages/cabinet' );
+        return view( 'pages/cabinet', ['user' => Auth::user()] );
     } )->name('cabinet');
 
     Route::get( '/order', function () {

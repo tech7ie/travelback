@@ -27,6 +27,7 @@
     "dependencies": {
         "@fancyapps/ui": "^4.0.0-beta.2",
         "@glidejs/glide": "^3.4.1",
+        "jquery-mask-plugin": "^1.14.16",
         "lodash.debounce": "^4.0.8",
         "sass-loader": "^12.1.0",
         "slim-select": "^1.27.0",

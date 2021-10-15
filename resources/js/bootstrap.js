@@ -9,6 +9,7 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.mask = window.mask = require('jquery-mask-plugin');
 
     require('bootstrap');
 
