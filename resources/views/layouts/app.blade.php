@@ -88,7 +88,7 @@
                         <div class="header__user">
                             <a href="{{ route('cabinet', app()->getLocale()) }}" alt="user">
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#user"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#user"></use>
                                 </svg>
                             </a>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="header__user">
                             <a id="auth_button" data-fancybox data-src="#login" alt="user">
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#user"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#user"></use>
                                 </svg>
                             </a>
                         </div>
@@ -105,10 +105,10 @@
             </div>
             <div class="header__mobile">
                 <div class="header__burger js-menu-burger"><span><i></i></span></div>
-                <a class="header__mobile-logo" href="#logo"><img src="img/svg/logo.svg" alt="logo"></a>
+                <a class="header__mobile-logo" href="#logo"><img src="/img/svg/logo.svg" alt="logo"></a>
                 <div class="header__user"><a href="#user" alt="user">
                         <svg class="icon">
-                            <use xlink:href="img/sprites/sprite.svg#user"></use>
+                            <use xlink:href="/img/sprites/sprite.svg#user"></use>
                         </svg>
                     </a></div>
             </div>

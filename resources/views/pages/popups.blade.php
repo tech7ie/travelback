@@ -14,17 +14,17 @@
             <div class="popup-select-rider">
                 <input id="select-auto-1" type="radio" name="select-ride" checked>
                 <label for="select-auto-1">
-                    <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
+                    <div class="tickets__footer"><i><img src="/img/sedan.png" alt="sedan"></i>
                         <div class="tickets__footer-info">
                             <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
                             <div><span>1-3</span>
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                 </svg>
                             </div>
                             <div><span>3x</span>
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                 </svg>
                             </div>
                         </div>
@@ -33,17 +33,17 @@
                 </label>
                 <input id="select-auto-2" type="radio" name="select-ride">
                 <label for="select-auto-2">
-                    <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
+                    <div class="tickets__footer"><i><img src="/img/sedan.png" alt="sedan"></i>
                         <div class="tickets__footer-info">
                             <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
                             <div><span>1-3</span>
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                 </svg>
                             </div>
                             <div><span>3x</span>
                                 <svg class="icon">
-                                    <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                 </svg>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="popup --sm popup-success" id="success">
-        <form class="popup__wrap js-form-validator"><img src="img/success.svg" alt="success icon">
+        <form class="popup__wrap js-form-validator"><img src="/img/success.svg" alt="success icon">
             <h3 class="--center">Check your mail</h3>
         </form>
     </div>
@@ -93,7 +93,7 @@
                 <div>
                     <button type="button">
                         <svg class="icon">
-                            <use xlink:href="img/sprites/sprite.svg#eye"></use>
+                            <use xlink:href="/img/sprites/sprite.svg#eye"></use>
                         </svg>
                     </button>
                     <input type="password" name="ol-pass" required>
@@ -103,7 +103,7 @@
                 <div>
                     <button type="button">
                         <svg class="icon">
-                            <use xlink:href="img/sprites/sprite.svg#eye"></use>
+                            <use xlink:href="/img/sprites/sprite.svg#eye"></use>
                         </svg>
                     </button>
                     <input type="password" name="new-pass" required>
@@ -113,7 +113,7 @@
                 <div>
                     <button type="button">
                         <svg class="icon">
-                            <use xlink:href="img/sprites/sprite.svg#eye"></use>
+                            <use xlink:href="/img/sprites/sprite.svg#eye"></use>
                         </svg>
                     </button>
                     <input type="password" name="rep-pass" required>

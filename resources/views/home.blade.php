@@ -36,7 +36,7 @@
                     </div>
                     <div class="homehead__content">
                         <h1>{!! __("home.home_title") !!}</h1>
-                        <div class="homehead__content-label"><i><img src="img/logo-min.svg" alt="IMG"></i>
+                        <div class="homehead__content-label"><i><img src="/img/logo-min.svg" alt="IMG"></i>
                             <div>{!! __("home.home_sub_title") !!}</div>
                         </div>
                     </div>
@@ -46,10 +46,10 @@
         <div class="homehead-info">
             <div class="container">
                 <div class="homehead-info__grid">
-                    <div class="homehead-info__item"><i><img src="img/map.svg" alt="IMG"></i>
+                    <div class="homehead-info__item"><i><img src="/img/map.svg" alt="IMG"></i>
                         <div><b>From A to B service</b><span>Get easily from your starting to the final spot.</span></div>
                     </div>
-                    <div class="homehead-info__item"><i><img src="img/milan-cathedral.svg" alt="IMG"></i>
+                    <div class="homehead-info__item"><i><img src="/img/milan-cathedral.svg" alt="IMG"></i>
                         <div><b>Guidance of locals</b><span>Our drivers will take you to places, introduce traditions and give information of the place you are heading towards.</span></div>
                     </div>
                 </div>
@@ -65,19 +65,19 @@
                 <div class="homehead__list">
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
-                                <use xlink:href="img/sprites/sprite.svg#luggage"></use>
+                                <use xlink:href="/img/sprites/sprite.svg#luggage"></use>
                             </svg></i><b>Giving a hand with the luggage</b>
                         <p>Reservations may be achieved by just a single click. Due to our easily understandable system and structure of the website, your reservation will be completed in a few seconds. Free cancellation up to 24 hours before the journey. We understand that traveling always brings up unexpected changes.</p>
                     </div>
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
-                                <use xlink:href="img/sprites/sprite.svg#employees"></use>
+                                <use xlink:href="/img/sprites/sprite.svg#employees"></use>
                             </svg></i><b>Guidance of locals</b>
                         <p>Our drivers will take you to places, introduce traditions and give information of the place you are heading towards. Every driver, who is a member of mytripline company, is trained also as a guide and in that respect he is educated about each destination. Living in those regions, our drivers are mainly locals and know the most about their homes.</p>
                     </div>
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
-                                <use xlink:href="img/sprites/sprite.svg#driver"></use>
+                                <use xlink:href="/img/sprites/sprite.svg#driver"></use>
                             </svg></i><b>The driver becomes your personal guide</b>
                         <p>Every driver working for us speaks English fluently and endeavours to keep an eye on the most interesting spots passed along the journey.</p>
                     </div>
@@ -97,34 +97,34 @@
                     <!-- Additional required wrapper-->
                     <div class="swiper-wrapper">
                         <!-- Slides-->
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
-                        <div class="swiper-slide"><i><img src="img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
+                        <div class="swiper-slide"><i><img src="/img/sliderhome-1.jpg" alt="IMG"></i><b>Los Angeles</b>
                             <p>Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will</p>
                         </div>
                     </div>
@@ -135,13 +135,13 @@
     <div class="b-efbooking">
         <div class="b-efbooking__wrap">
             <h2>Effective bookings</h2>
-            <div class="b-efbooking__item"><i><img src="img/touch-screen.svg" alt="IMG"></i>
+            <div class="b-efbooking__item"><i><img src="/img/touch-screen.svg" alt="IMG"></i>
                 <div>
                     <h4>Reservations may be achieved by just a single click.</h4>
                     <p>Due to our easily understandable system and structure of the website, your reservation will be completed in a few seconds.</p>
                 </div>
             </div>
-            <div class="b-efbooking__item"><i><img src="img/security.svg" alt="IMG"></i>
+            <div class="b-efbooking__item"><i><img src="/img/security.svg" alt="IMG"></i>
                 <div>
                     <h6>Free cancellation up to 24 hours before the journey.</h6>
                     <p>We understand that travelling always brings up unexpected changes.</p>
@@ -174,19 +174,19 @@
                     <h2>Choose us</h2>
                 </div>
                 <div class="description__items">
-                    <div class="description__item"><i><img src="img/shield-svg.svg" alt="IMG"></i>
+                    <div class="description__item"><i><img src="/img/shield-svg.svg" alt="IMG"></i>
                         <div>
                             <h3>Safety.</h3>
                             <p>Each driver working for MYTRIPLINE has gone through the strict selection procedure. Speaking of our highest aim, getting your from A to B point while offering the greatest possible comfort meets up your and our desire. Time spent on getting to your final point does not have to be time wasted. With us it is simply enjoyable.</p>
                         </div>
                     </div>
-                    <div class="description__item"><i><img src="img/like-svg.svg" alt="IMG"></i>
+                    <div class="description__item"><i><img src="/img/like-svg.svg" alt="IMG"></i>
                         <div>
                             <h3>Quality.</h3>
                             <p>To our precious clients, Mytripline guarantees every single ride to be a comfortable and delightful experience when facilitated through our company. In this respect, we pay full attention to the quality and cleanliness of our vehicles and driver selection, who will become your guide throughtout the journey.</p>
                         </div>
                     </div>
-                    <div class="description__item"><i><img src="img/lock-svg.svg" alt="IMG"></i>
+                    <div class="description__item"><i><img src="/img/lock-svg.svg" alt="IMG"></i>
                         <div>
                             <h3>Reliability.</h3>
                             <p>The journey always sets off on time. Our drivers will get you from A to B point while choosing the most comfortable route from multiple possibilities. This journey provided by our company also adds the best stops at must-see destinations.</p>
@@ -226,7 +226,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="countries__img"><img src="img/svg/map.svg" alt="IMG"></div>
+                <div class="countries__img"><img src="/img/svg/map.svg" alt="IMG"></div>
             </div>
         </div>
     </section>
