@@ -184,6 +184,8 @@
     position: relative;
     width: 111px;
     height: 100%;
+    //max-height: 200px;
+    //overflow: auto;
 
     &-head {
       display: flex;
@@ -213,36 +215,18 @@
     }
 
     ul {
-      position: absolute;
-      top: 100%;
       width: 100%;
-      background-color: #fff;
-      border-radius: 7px;
-      box-shadow: 0 4px 35px 10px rgba(71, 71, 71, .1);
-      padding-top: 10px;
-      padding-bottom: 10px;
+      height: 100%;
+      max-height: 200px;
+      overflow: auto;
+      margin: 0;
+      padding: 0;
       list-style: none;
-      margin-top: 10px;
-
-      &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        z-index: 1;
-        top: 1px;
-        left: 18px;
-        width: 0;
-        height: 0;
-        transform: translateY(-100%);
-        border-style: solid;
-        border-width: 0 6px 7px 6px;
-        border-color: transparent transparent #ffffff transparent;
-      }
 
       li {
         padding: 5px 10px;
-        cursor: pointer;
         transition: .2s;
+        cursor: pointer;
         
         &:hover {
           background-color: $blue-light;
@@ -253,6 +237,34 @@
           font-size: 14px;
         }
       }
+    }
+  }
+
+  &__list {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 7px;
+    box-shadow: 0 4px 35px 10px rgba(71, 71, 71, .1);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    list-style: none;
+    margin-top: 10px;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 1px;
+      left: 18px;
+      width: 0;
+      height: 0;
+      transform: translateY(-100%);
+      border-style: solid;
+      border-width: 0 6px 7px 6px;
+      border-color: transparent transparent #ffffff transparent;
     }
   }
 
@@ -270,9 +282,18 @@
     border-radius: 100%;
     cursor: pointer;
 
-    &:hover {
-      background-color: $blue-light;
-      color: $white;
+    &.add {
+      &:hover {
+        background-color: #03acd1;
+        color: $white;
+      }
+    }
+
+    &.remove {
+      &:hover {
+        background-color: red;
+        color: $white;
+      }
     }
 
     &:after {

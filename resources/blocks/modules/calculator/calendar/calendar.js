@@ -8,7 +8,7 @@ Vue.component("v-custom-calendar", {
     <div class="custom-calendar" v-click-outside="close">
     <div class="custom-calendar__btn" @click="opened = !opened"><span>{{ selectedDate }}</span>
       <svg class="icon calendar">
-        <use xlink:href="/img/sprites/sprite.svg#calendar"></use>
+        <use xlink:href="img/sprites/sprite.svg#calendar"></use>
       </svg>
     </div>
     <div class="calendar" v-show="opened">

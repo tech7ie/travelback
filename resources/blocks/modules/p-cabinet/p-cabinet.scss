@@ -10,7 +10,7 @@
   }
 
   section {
-    padding-top: 20px;
+    padding-top: 50px;
 
     @media(max-width: 992px) {
       padding-top: 0;
@@ -699,6 +699,10 @@
         font-weight: normal;
         font-size: 13px;
         color: $silver-1500;
+
+        //@media(min-width: 993px) {
+        //  display: none;
+        //}
       }
 
       b {
@@ -708,6 +712,10 @@
         line-height: 27px;
         margin-left: 15px;
         color: $orange;
+
+        //@media(min-width: 993px) {
+        //  display: none;
+        //}
       }
     }
 
@@ -722,8 +730,16 @@
         margin-top: 9px;
       }
 
+      @media(min-width: 993px) {
+        display: none;
+      }
+
       .tickets__amount {
         display: flex !important;
+
+        @media(min-width: 993px) {
+          display: none !important;
+        }
       }
 
       b {
@@ -734,6 +750,10 @@
         text-align: right;
         letter-spacing: 0.15em;
         color: $orange;
+
+        @media(min-width: 993px) {
+          display: none;
+        }
       }
     }
   }

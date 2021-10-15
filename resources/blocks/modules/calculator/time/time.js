@@ -6,14 +6,14 @@ Vue.component("v-time", {
     <div class="custom-time" v-click-outside="close">
     <div class="custom-time__head" :class="{'error': error}" @click="toggle"><span>{{ hours | toNormNumber }}:{{ minutes | toNormNumber }} {{ ampm }}</span>
       <svg class="icon arrow-down">
-        <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+        <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
       </svg>
     </div>
     <div class="custom-time__dropdown" v-show="opened" >
       <div class="custom-time__dropdown-head"><span :class="{ 'active': !pm }" @click="pm = false">AM</span>
         <button type="button" @click="pm = !pm">
           <svg class="icon icn-arrows-nocollor">
-            <use xlink:href="/img/sprites/sprite.svg#icn-arrows-nocollor"></use>
+            <use xlink:href="img/sprites/sprite.svg#icn-arrows-nocollor"></use>
           </svg>
         </button>
         <span :class="{ 'active': pm }" @click="pm = true">PM</span></div>
@@ -21,13 +21,13 @@ Vue.component("v-time", {
         <div class="num-select">
           <button class="plus" type="button" @click="hPlus">
             <svg class="icon arrow-down">
-              <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+              <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
             </svg>
           </button>
           <span>{{ hours | toNormNumber }}</span>
           <button class="minus" type="button" @click="hMinus">
             <svg class="icon arrow-down">
-              <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+              <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
             </svg>
           </button>
         </div>
@@ -35,13 +35,13 @@ Vue.component("v-time", {
         <div class="num-select">
           <button class="plus" type="button" @click="mPlus">
             <svg class="icon arrow-down">
-              <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+              <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
             </svg>
           </button>
           <span>{{ minutes | toNormNumber }}</span>
           <button class="minus" type="button" @click="mMinus">
             <svg class="icon arrow-down">
-              <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+              <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
             </svg>
           </button>
         </div>

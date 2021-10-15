@@ -1,32 +1,12 @@
-import Vue from "vue/dist/vue.esm.browser.min";
+import clickOutside from "../../../js/helper/outsideClick";
 
-console.log('mounted');
-new Vue({
-    el: "#lang-switch",
-    data: {},
-    mounted() {
-        console.log('mounted');
-        document.querySelector(".js-menu-burger").addEventListener("click", function() {
-            document.querySelector(".js-menu-burger").classList.toggle("--active");
-            document.querySelector(".header").classList.toggle("--active");
-        });
-        document.getElementById("lang-switch").addEventListener("change", function(e) {
-            console.log(e);
-        });
-    },
-    computed: {},
-    methods: {}
+let menuOpenBtn = document.querySelector(".js-menu-burger");
+let hederElement = document.querySelector(".header");
+
+menuOpenBtn.addEventListener("click", function() {
+    menuOpenBtn.classList.toggle("--active");
+    hederElement.classList.toggle("--active");
 });
-
-// import clickOutside from "../../../js/helper/outsideClick";
-//
-// let menuOpenBtn = document.querySelector(".js-menu-burger");
-// let hederElement = document.querySelector(".header");
-//
-// menuOpenBtn.addEventListener("click", function() {
-//     menuOpenBtn.classList.toggle("--active");
-//     hederElement.classList.toggle("--active");
-// });
 
 // clickOutside(hederElement, function(type) {
 //     if(type) {

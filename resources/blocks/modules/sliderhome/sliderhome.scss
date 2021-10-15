@@ -1,11 +1,25 @@
 .sliderhome {
-  padding-top: 31px;
-  padding-bottom: 22px;
+  padding-top: 75px;
+  padding-bottom: 75px;
   overflow: hidden;
 
   @media(max-width: 767px) {
     padding-top: 53px;
     padding-bottom: 36px;
+  }
+
+  &-desktop {
+    @media(max-width: 520px) {
+      display: none;
+    }
+  }
+
+  &-mobile {
+    display: none;
+
+    @media(max-width: 520px) {
+      display: block;
+    }
   }
 
   &__wrap {
@@ -19,10 +33,11 @@
   }
 
   &-slider {
-    width: calc(100% + ((100vw - 1240px) / 2));
+    //width: calc(100% + ((100vw - 1240px) / 2));
+    width: 100%;
 
     @media(max-width: 1240px) {
-      width: calc(100% + 20px);
+      //width: calc(100% + 20px);
     }
 
     .swiper-slide {

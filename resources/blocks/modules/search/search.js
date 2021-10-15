@@ -57,7 +57,7 @@ new Vue({
         type: "van",
         title: "Van",
         name: "Mercedes Vito",
-        img: "vito.jpg",
+        img: "vito.png",
         passagers: "5-7",
         lugguage: "7",
         minPassagers: 5,
@@ -119,13 +119,31 @@ new Vue({
     articleList: [
       {
         id: 1,
-        img: "/img/search-article-1.jpg",
+        img: "img/search-article-1.jpg",
         title: "Los Angeles",
         text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
         price: 82
       }, {
         id: 2,
-        img: "/img/search-article-2.jpg",
+        img: "img/search-article-2.jpg",
+        title: "Los Angeles",
+        text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
+        price: 82
+      }, {
+        id: 3,
+        img: "img/search-article-2.jpg",
+        title: "Los Angeles",
+        text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
+        price: 82
+      }, {
+        id: 4,
+        img: "img/search-article-2.jpg",
+        title: "Los Angeles",
+        text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
+        price: 82
+      }, {
+        id: 5,
+        img: "img/search-article-2.jpg",
         title: "Los Angeles",
         text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
         price: 82

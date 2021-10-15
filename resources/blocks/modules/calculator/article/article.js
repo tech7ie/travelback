@@ -10,7 +10,7 @@ Vue.component("v-article", {
         Add for €{{ data.price }}
         <span>
           <svg class="icon check">
-            <use xlink:href="/img/sprites/sprite.svg#check"></use>
+            <use xlink:href="img/sprites/sprite.svg#check"></use>
           </svg>
           added
         </span>

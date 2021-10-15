@@ -6,7 +6,7 @@ Vue.component("v-incdec", {
     <div class="incdec">
       <div class="incdec__plus" @click="minus">
         <svg class="icon minus">
-          <use xlink:href="/img/sprites/sprite.svg#minus"></use>
+          <use xlink:href="img/sprites/sprite.svg#minus"></use>
         </svg>
       </div>
       <div class="incdec__input">
@@ -14,7 +14,7 @@ Vue.component("v-incdec", {
       </div>
       <div class="incdec__minus" @click="plus">
         <svg class="icon plus">
-          <use xlink:href="/img/sprites/sprite.svg#plus"></use>
+          <use xlink:href="img/sprites/sprite.svg#plus"></use>
         </svg>
       </div>
     </div>

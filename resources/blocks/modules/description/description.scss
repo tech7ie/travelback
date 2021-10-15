@@ -1,6 +1,16 @@
 .description {
-  padding-top: 25px;
-  padding-bottom: 22px;
+  padding-top: 70px;
+  padding-bottom: 70px;
+
+  @media(max-width: 768px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  @media(max-width: 520px) {
+    padding-top: 9px;
+    padding-bottom: 33px;
+  }
 
   &__wrap {
     display: flex;
@@ -32,6 +42,10 @@
         font-size: 30px;
         font-weight: 500;
       }
+
+      @media(max-width: 520px) {
+        display: none;
+      }
     }
   }
 
@@ -50,6 +64,14 @@
 
     &:not(:last-child) {
       margin-bottom: 14px;
+
+      @media(max-width: 520px) {
+        margin-bottom: 33px;
+      }
+    }
+
+    @media(max-width: 520px) {
+      display: block;
     }
 
     i {
@@ -64,29 +86,44 @@
         margin-top: 0;
       }
 
+      @media(max-width: 520px) {
+        //margin-left: 5px;
+        margin-bottom: 17px;
+      }
+
       img {
         width: 44px;
 
         @media(max-width: 768px) {
           width: 31px;
         }
+
+        @media(max-width: 520px) {
+          display: none;
+        }
       }
 
       svg {
+        display: none;
         width: 100%;
         height: 100%;
+        fill: #03acd1;
 
-        &.shield {
-          fill: $green;
+        @media(max-width: 520px) {
+          display: block;
         }
 
-        &.like {
-          fill: $blue;
-        }
-
-        &.lock {
-          fill: $red;
-        }
+        //&.shield {
+        //  fill: $green;
+        //}
+        //
+        //&.like {
+        //  fill: $blue;
+        //}
+        //
+        //&.lock {
+        //  fill: $red;
+        //}
       }
     }
 
@@ -96,6 +133,10 @@
 
       @media(max-width: 768px) {
         padding-left: 20px;
+      }
+
+      @media(max-width: 520px) {
+        padding-left: 0;
       }
     }
 
@@ -113,6 +154,10 @@
         font-size: 25px;
         line-height: 27px;
         margin-bottom: 6px;
+      }
+
+      @media(max-width: 520px) {
+        margin-bottom: 9px;
       }
     }
 

@@ -11,7 +11,7 @@ Vue.component("v-choosecar", {
         </i>
         <span>{{ selected.name }}</span>
         <svg class="icon arrow-down">
-          <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
+          <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
         </svg>
       </div>
     </div>
@@ -32,32 +32,32 @@ Vue.component("v-choosecar", {
     return {
       list: [
         {
-          img: "/img/cars/sedan.png",
+          img: "img/cars/sedan.png",
           name: "Sedan - Skoda Superb"
         },
         {
-          img: "/img/cars/sportage.png",
+          img: "img/cars/sportage.png",
           name: "SUV - KIA Sportage"
         },
         {
-          img: "/img/cars/sharan.png",
+          img: "img/cars/sharan.png",
           name: "MPV - Volkswagen Sharan"
         },
         {
-          img: "/img/cars/vito.jpg",
+          img: "img/cars/vito.png",
           name: "Van - Mercedes Vito"
         },
         {
-          img: "/img/cars/sprinter.png",
+          img: "img/cars/sprinter.png",
           name: "Mercedes Sprinter"
         },
         {
-          img: "/img/cars/minibus.png",
+          img: "img/cars/minibus.png",
           name: "Minibus - Sprinter Tourer"
         },
         {
-          img: "/img/cars/bus.png",
-          name: "Bus - SETRA"
+          img: "img/cars/bus.png",
+          name: "Bus"
         }
       ],
       selected: {},

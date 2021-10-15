@@ -16,13 +16,14 @@
                                     v-humans
 
                                     .form-vue__footer.--line
+                                        .label.mobile Chauffeur will wait 15 minutes free of charge
                                         span Can't find your destination?
                                         a(href="#") Request a custom route
 
                                     button.btn-submit
                                         span Search
 
-                                    .label Chauffeur will wait 15 minutes free of charge
+                                    .label.desktop Chauffeur will wait 15 minutes free of charge
                             script.
                                 function homeheadSubmit(e) {
                                   console.log(e);
@@ -35,7 +36,7 @@
 
                     .homehead__content-label
                         i
-                            img(src="/img/logo-min.svg" alt="IMG")
+                            img(src="img/logo-min.svg" alt="IMG")
 
                         div
                             b 8000+ available routes
@@ -45,15 +46,23 @@
     .homehead-info
         .container
             .homehead-info__grid
-                .homehead-info__item
+                .homehead-info__item.mobile.first
                     i
-                        img(src="/img/map.svg" alt="IMG")
+                        img(src="img/logo-min.svg" alt="IMG")
+                    div
+                        b 8000+ available routes
+                        span Choose the most effective option to get where you need
+
+                .homehead-info__item.second
+                    i
+                        img(src="img/map.svg" alt="IMG")
                     div
                         b From A to B service
                         span Get easily from your starting to the final spot.
-                .homehead-info__item
+
+                .homehead-info__item.desktop
                     i
-                        img(src="/img/milan-cathedral.svg" alt="IMG")
+                        img(src="img/milan-cathedral.svg" alt="IMG")
                     div
                         b Guidance of locals
                         span Our drivers will take you to places, introduce traditions and give information of the place you are heading towards.

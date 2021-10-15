@@ -1,7 +1,20 @@
 .routes3 {
-  min-height: calc(100vh - 57px);
+  //min-height: calc(100vh - 57px);
+  min-height: 800px;
   background: #202020 url("../img/routes-bg3.jpg") top right no-repeat;
   padding-bottom: 30px;
+
+  @media(min-width: 1440px) {
+    background-position-x: 62%;
+  }
+  
+  @media(max-width: 1080px) {
+    background-position: top left;
+  }
+
+  @media(max-width: 768px) {
+    min-height: inherit;
+  }
 
   @media(max-width: 520px) {
     background-image: none;

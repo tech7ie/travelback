@@ -28,7 +28,7 @@ Vue.component("v-select", {
     </div>
     <div class="custom-select__change" @click="change">
       <svg class="icon">
-        <use xlink:href="/img/sprites/sprite.svg#icn-arrows2"></use>
+        <use xlink:href="img/sprites/sprite.svg#icn-arrows2"></use>
       </svg>
     </div>
     <div class="custom-select__item" :class="{'--active': openedTo }">

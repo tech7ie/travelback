@@ -19,9 +19,9 @@ form.order.js-form-validator
                     .block-input
                         input.js-input-mask(name="day-of-birth" data-mask="99.99.9999" placeholder="Day of birth" required)
                     .input-block.input-phone
-                        input(type="tel" id="phone" name="phone" required)
+                        input(type="tel" id="phone" name="phone" required placeholder="Phone number")
                     .textarea-block
-                        textarea(name="comment" placeholder="Comment" required)
+                        textarea(name="comment" placeholder="Comment")
 
                 section.--two
                     h2 Pick up and drop-off
@@ -40,7 +40,7 @@ form.order.js-form-validator
                                 .checkbox.--violet
                                     input(type="radio" data-payment-check="1" id="check-strip" name="payment" checked)
                                     label(for="check-strip")
-                                        img(src="/img/stripe.png" alt="stripe")
+                                        img(src="img/stripe.png" alt="stripe")
 
                                 .checkbox.--orange
                                     input(type="radio" data-payment-check="2" id="check-cash" name="payment")
@@ -53,19 +53,19 @@ form.order.js-form-validator
                                 h4 Pay in Stripe
                                 ul
                                     li
-                                        img(src="/img/apple-pay.svg")
+                                        img(src="img/apple-pay.svg")
                                     li
-                                        img(src="/img/visa.svg")
+                                        img(src="img/visa.svg")
                                     li
-                                        img(src="/img/mastercard.svg")
+                                        img(src="img/mastercard.svg")
                                     li
-                                        img(src="/img/maestro.svg")
+                                        img(src="img/maestro.svg")
                                     li
-                                        img(src="/img/american-express.svg")
+                                        img(src="img/american-express.svg")
                                     li
-                                        img(src="/img/google-pay.svg")
+                                        img(src="img/google-pay.svg")
                                     li
-                                        img(src="/img/alipay.svg")
+                                        img(src="img/alipay.svg")
 
 
                             .order__payment-type(data-payment-content="2")
@@ -103,7 +103,7 @@ form.order.js-form-validator
                                 a(href="Other-cars") Other cars
                             .order-sum__cars-item.tickets__footer
                                 i
-                                    img(src="/img/sedan.png" alt="sedan")
+                                    img(src="img/sedan.png" alt="sedan")
 
                                 .tickets__footer-info
                                     h4 Luxury sedan

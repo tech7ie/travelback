@@ -60,7 +60,7 @@ section.psearch#psearch
                     .tickets__footer
                         i
                             img(v-for="(item, index) in passangers" :key="index" :src="'img/cars/' + item.img" :alt="item.title")
-                            //img(src="/img/cars/sharan.png" alt="sharan")
+                            //img(src="img/cars/sharan.png" alt="sharan")
 
                         .tickets__footer-info(v-for="(item, index) in passangers" :key="index")
                             header
@@ -101,9 +101,8 @@ section.psearch#psearch
                             span Bottled water
                         li
                             i
-                                +svg()
-                            span From a to be service
-
+                                +svg("dist")
+                            span door to door service
                     ul
                         li
                             i

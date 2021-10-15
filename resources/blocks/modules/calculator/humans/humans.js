@@ -8,12 +8,12 @@ Vue.component("v-humans", {
     <div class="select-humans__head" @click="opened = !opened">
       <div :class="{error: errorHumans}"><em>Passangers:</em><span>{{ adults + children }}</span>
         <svg class="icon users">
-          <use xlink:href="/img/sprites/sprite.svg#users"></use>
+          <use xlink:href="img/sprites/sprite.svg#users"></use>
         </svg>
       </div>
       <div><em>Lugguage: {{ data }}</em><span>{{ lugguage }}</span>
         <svg class="icon suitecase">
-          <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
+          <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
         </svg>
       </div>
     </div>
