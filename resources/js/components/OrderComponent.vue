@@ -4,6 +4,7 @@
             <div class="order__wrap">
                 <div class="order__form">
                     <section>
+
                         <h2>Lead passenger</h2>
                         <div class="block-input">
                             <input type="email" name="email" placeholder="Email" required>
