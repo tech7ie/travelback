@@ -1,6 +1,6 @@
 <template>
     <section class="psearch" id="psearch">
-        <form class="container psearch__wrap js-psearch-from" data-submit="psearchSubmit">
+        <form @submit="goToOrder" class="container psearch__wrap js-psearch-from_" data-submit="psearchSubmit">
             <div class="psearch__form">
                 <!--                {{orderRoute}}-->
                 <!--                {{current}}-->
@@ -11,7 +11,9 @@
                         </svg>
                         {{ orderRoute.to }}
                     </h2>
-                    <em>Estimated arrival 12:45 PM</em>
+<!--                    {{'getExtraMinutes'}}-->
+                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m").format("h:mm:ss A") }}</em>
+<!--                    Estimated arrival 12:45 PM-->
                 </div>
                 <div class="calc">
                     <div class="custom-select">
@@ -119,7 +121,12 @@
                                 </div>
                             </div>
                         </div>
-                        <button><span>BUY FOR {{ (totalCarPrice + withstopsListPrce).toFixed(2) }}</span></button>
+
+                        <div>
+                            <button>
+                                <span>BUY FOR {{ (totalCarPrice + withstopsListPrce).toFixed(2) }}</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="yourride__footer">
                         <ul>
@@ -206,12 +213,6 @@ export default Vue.component("v-custom-search", {
     },
     el: "#psearch",
     props: {
-        // routes: {
-        //     type: Array,
-        //     default: function () {
-        //         return []
-        //     }
-        // },
         routes: [],
         errors: [],
         current: false,
@@ -343,6 +344,8 @@ export default Vue.component("v-custom-search", {
                 to: null,
                 passengers: null,
                 luggage: null,
+                route_start: null,
+                route_end: null,
             },
             openedFrom: false,
             openedTo: false,
@@ -363,6 +366,8 @@ export default Vue.component("v-custom-search", {
         if (this.current) {
             this.orderRoute.from = this.current.from_city.name
             this.orderRoute.to = this.current.to_city.name
+            this.orderRoute.route_start = this.current.route_start
+            this.orderRoute.route_end = this.current.route_end
             this.price = this.current.price
             this.$store.commit('setRoute', this.current);
         }
@@ -390,6 +395,23 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
+        goToOrder(e) {
+            e.preventDefault()
+            console.log(e);
+
+            let selected = {
+                orderRoute: this.orderRoute,
+                price: (this.totalCarPrice + this.withstopsListPrce).toFixed(2),
+                passangers: this.passangers,
+                extraMinutes: this.getExtraMinutes,
+            }
+            this.$store.commit('setSelected', selected);
+            console.log('selected: ', selected);
+            window.location.href = this.getOrderUrl();
+        },
+        getOrderUrl() {
+            return '/' + window.App.language + '/order'
+        },
         addedPoint(item) {
             let issetPoint = false
 
@@ -454,9 +476,7 @@ export default Vue.component("v-custom-search", {
             let total_luggage = {
                 luggage: 0
             }
-            // console.log(this.current.cars)
             this.getCarsOrdered().forEach(item => {
-                // let pas = current_passengers >= total_passengers.places_max && current_passengers <= total_passengers.places_min;
                 let pas = current_passengers > total_passengers.places_max;
                 let lug = current_luggage > total_luggage.luggage;
                 if (pas || lug) {
@@ -471,12 +491,6 @@ export default Vue.component("v-custom-search", {
             let exists = this.withstopsList.find(val => {
                 return val.id === item.id;
             });
-
-            // if (type) {
-            //     this.$store.commit('removePoint', item);
-            //
-            //     // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
-            // } else {
             if (!exists) {
                 item['extra'] = 0
                 console.log('point:', item);
@@ -487,9 +501,7 @@ export default Vue.component("v-custom-search", {
 
                 this.$store.commit('removePoint', item);
             }
-            // }
         },
-
         updateError() {
             // this.errorFrom = this.selectedFrom.length <= 2;
             // this.errorTo = this.selectedTo.length <= 2;
@@ -535,6 +547,15 @@ export default Vue.component("v-custom-search", {
             route: store => store.route,
             points: store => store.points,
         }),
+        getExtraMinutes(){
+            let extraMinutes = 0;
+            console.log(this.points);
+            this.points.forEach(item => {
+                console.log(item.extra);
+                extraMinutes += item.extra;
+            });
+            return extraMinutes;
+        },
         totalCarPrice() {
             let places = 0;
             this.passangers.forEach(p => {

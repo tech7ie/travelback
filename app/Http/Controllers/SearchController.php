@@ -19,26 +19,11 @@ class SearchController extends Controller {
      */
     public function index( \Illuminate\Http\Request $request ) {
         try {
-//            Validator::make( $request->all(), [
-////            'email'   => [ 'email' ],
-////            'name'    => [ 'required' ],
-////            'phone'   => [ 'required' ],
-//'company'    => [ 'required' ],
-//'company.id' => [ 'required' ],
-//            ] )->validate();
-
-
             $data = $request->all();
-//            $data['user_id'] = Auth::user()->id;
-
             $from_city_id = Cities::select( [ 'id' ] )->where( 'name', $data['from'] )->first();
             $to_city_id   = Cities::select( [ 'id' ] )->where( 'name', $data['to'] )->first();
 
             $where[] = [ 'status', 'open' ];
-
-//            foreach ( $data as $key => $value ) {
-//                $where[] = [ $key, $value ];
-//            }
 
             if ( $from_city_id ) {
                 $where[] = [ 'route_from_city_id', $from_city_id->id ];

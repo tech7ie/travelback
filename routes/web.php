@@ -40,7 +40,7 @@ Route::group( [
     'middleware' => 'languageSwitcher'
 ], function () {
 
-    Route::get( '/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get( '/', [ \App\Http\Controllers\HomeController::class, 'index' ] )->name( 'home' );
 
 //    Route::get( '/', function () {
 //        return view( 'home' );
@@ -50,43 +50,82 @@ Route::group( [
 //        return view( 'index' );
 //    } );
 
-    Route::get( '/about', [\App\Http\Controllers\PagePost::class, 'about'])->name('about');
-    Route::get( '/terms-of-use', [\App\Http\Controllers\PagePost::class, 'index'])->name('terms-of-use');
-    Route::get( '/privacy-policy', [\App\Http\Controllers\PagePost::class, 'index'])->name('privacy-policy');
+    Route::get( '/about', [ \App\Http\Controllers\PagePost::class, 'about' ] )->name( 'about' );
+    Route::get( '/terms-of-use', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'terms-of-use' );
+    Route::get( '/privacy-policy', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'privacy-policy' );
 
 
-    Route::post( '/cabinet', [\App\Http\Controllers\UserController::class, 'update'])->name('edit_profile');
+    Route::post( '/cabinet', [ \App\Http\Controllers\UserController::class, 'update' ] )->name( 'edit_profile' );
 
 
     Auth::routes();
     Route::get( '/cabinet', function () {
-        return view( 'pages/cabinet', ['user' => Auth::user()] );
-    } )->name('cabinet');
+        return view( 'pages/cabinet', [ 'user' => Auth::user() ] );
+    } )->name( 'cabinet' );
 
     Route::get( '/order', function () {
-        return view( 'pages/order' );
-    } )->name('order');
+        return view( 'pages/order', [
+            'payments_methods' => [
+                [
+                    "title" => "Apple Pay",
+                    "code"  => 'apple-pay',
+                    "img"   => '/img/apple-pay.svg',
+                ],
+                [
+                    "title" => "Visa",
+                    "code"  => 'visa',
+                    "img"   => '/img/visa.svg',
+                ],
+                [
+                    "title" => "Mastercard",
+                    "code"  => 'mastercard',
+                    "img"   => '/img/mastercard.svg',
+                ],
+                [
+                    "title" => "Maestro",
+                    "code"  => 'maestro',
+                    "img"   => '/img/maestro.svg',
+                ],
+                [
+                    "title" => "American Express",
+                    "code"  => 'american-express',
+                    "img"   => '/img/american-express.svg',
+                ],
+                [
+                    "title" => "Google Pay",
+                    "code"  => 'google-pay',
+                    "img"   => '/img/google-pay.svg',
+                ],
+                [
+                    "title" => "Alipay",
+                    "code"  => 'alipay',
+                    "img"   => '/img/alipay.svg',
+                ],
+            ]
+        ] );
+    } )->name( 'order' );
 
 
     Route::get( '/order-success', function () {
         return view( 'pages/order-success' );
-    } )->name('order-success');
+    } )->name( 'order-success' );
 
 
     Route::get( '/request', function () {
         return view( 'pages/request' );
-    } )->name('request');
+    } )->name( 'request' );
 
 
-    Route::get( '/search', [\App\Http\Controllers\SearchController::class, 'index'])->name('search');
+    Route::get( '/search', [ \App\Http\Controllers\SearchController::class, 'index' ] )->name( 'search' );
 
 //    Route::get( '/search', function () {
 //        return view( 'pages/search' );
 //    } )->name('search');
 
-    Route::get( '/routes', [\App\Http\Controllers\RoutesController::class, 'index'])->name('routes');
-    Route::get( '/routes/{id?}', [\App\Http\Controllers\RoutesController::class, 'get'])->name('routesGet');
-    Route::get( '/route_details/{id?}', [\App\Http\Controllers\RoutesController::class, 'details'])->name('routeDetails');
+    Route::get( '/routes', [ \App\Http\Controllers\RoutesController::class, 'index' ] )->name( 'routes' );
+    Route::get( '/routes/{id?}', [ \App\Http\Controllers\RoutesController::class, 'get' ] )->name( 'routesGet' );
+    Route::get( '/route_details/{id?}', [ \App\Http\Controllers\RoutesController::class, 'details' ] )
+         ->name( 'routeDetails' );
 
 //    Route::get( '/routes', function () {
 //        return view( 'pages/routes', ['one' => 1, 'two' => 2] );
@@ -95,11 +134,11 @@ Route::group( [
 //TODO
     Route::get( '/routes2', function () {
         return view( 'pages/routes2' );
-    } )->name('routes2');
+    } )->name( 'routes2' );
 //TODO
     Route::get( '/routes3', function () {
         return view( 'pages/routes3' );
-    } )->name('routes3');
+    } )->name( 'routes3' );
 
 
 //    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

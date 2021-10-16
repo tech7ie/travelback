@@ -71,7 +71,15 @@
                 <input class="half" name="last-name" placeholder="Last name:" required>
                 <input type="email" name="email" placeholder="Email:" required>
             </div>
-            <div class="label --white">* required for departures within 48 hours</div>
+            <template v-if="filteredRoutes.length === 0">
+                <div class="form-vue__footer --line">
+                    <span>Can't find your destination?</span>
+                    <a :href="getRequestUrl()">Request a custom route</a>
+                </div>
+            </template>
+            <template v-else>
+                <div class="label --white">* required for departures within 48 hours</div>
+            </template>
             <button class="btn-submit"><span>Search</span></button>
         </form>
     </div>
@@ -118,10 +126,8 @@ export default Vue.component("v-calculator", {
             default: false
         },
         routes: {
-            type: Array,
-            default: function () {
-                return []
-            }
+            type: String,
+            default: "[]"
         },
         short: false
     },
@@ -138,6 +144,9 @@ export default Vue.component("v-calculator", {
         }
     },
     methods: {
+        getRequestUrl(){
+            return '/' + window.App.language + '/request'
+        },
         toggle(item) {
             this[item] = !this[item];
             setTimeout(() => {

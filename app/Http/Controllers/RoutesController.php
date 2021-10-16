@@ -22,6 +22,7 @@ class RoutesController extends Controller {
                             ->join( 'countries', 'countries.id', '=', 'routes.route_to_country_id' )
                             ->groupBy( 'countries.id' )
                             ->get();
+
             return view( 'pages/routes', [ 'routes' => $routes ] );
 
         } catch ( \Throwable $t ) {
@@ -45,6 +46,8 @@ class RoutesController extends Controller {
                     'route_from_country_id',
                     'route_to_city_id',
                     'route_to_country_id',
+                    'route_start',
+                    'route_end',
                     'price'
                 ]
             )->where( 'status', '=', 'open' )
@@ -75,8 +78,11 @@ class RoutesController extends Controller {
                         'to_city'               => $to_city[0]->name ?? '',
                         'to_country'            => $to_country[0]->name ?? '',
                         'points'                => $points,
+                        'route_start'           => $route->route_start,
+                        'route_end'             => $route->route_end,
                     ];
             }
+
             return $result;
         } catch ( \Throwable $t ) {
             return [];
@@ -123,10 +129,10 @@ class RoutesController extends Controller {
                             ->where( 'routes.route_to_country_id', $id )
                             ->get();
 
-            return view( 'pages/routes2', [ 'routes' => $routes, 'dd' => [$id, $lang] ] );
+            return view( 'pages/routes2', [ 'routes' => $routes, 'dd' => [ $id, $lang ] ] );
 
         } catch ( \Throwable $t ) {
-            return view( 'pages/routes2', [ 'routes' => [], 'dd' => [$id, $lang] ] );
+            return view( 'pages/routes2', [ 'routes' => [], 'dd' => [ $id, $lang ] ] );
         }
     }
 
@@ -148,10 +154,10 @@ class RoutesController extends Controller {
                             ->where( 'routes.id', $id )
                             ->get();
 
-            return view( 'pages/routes3', [ 'routes' => $routes, 'dd' => [$id, $lang] ] );
+            return view( 'pages/routes3', [ 'routes' => $routes, 'dd' => [ $id, $lang ] ] );
 
         } catch ( \Throwable $t ) {
-            return view( 'pages/routes3', [ 'routes' => [], 'dd' => [$id, $lang] ] );
+            return view( 'pages/routes3', [ 'routes' => [], 'dd' => [ $id, $lang ] ] );
         }
     }
 }

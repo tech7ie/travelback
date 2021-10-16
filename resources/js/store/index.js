@@ -14,6 +14,7 @@ const store = {
     state: {
         cart: cart ? JSON.parse(cart) : [],
         route: null,
+        selected: null,
         points: cart ? JSON.parse(points) : [],
         count: 0
     },
@@ -21,6 +22,9 @@ const store = {
         setRoute(state, item) {
             state.route = item
             state.count++;
+        },
+        setSelected(state, selected) {
+            state.selected = selected
         },
         addPoint(state, item) {
             state.points.push(item)

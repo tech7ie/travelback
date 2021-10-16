@@ -46,9 +46,11 @@ Vue.component('v-calculator', require('./components/CalculatorComponent').defaul
 Vue.component('v-custom-search', require('./components/CustomSearchComponent').default);
 Vue.component('v-language-select', require('./components/LanguageSelectComponent').default);
 Vue.component('v-currency-select', require('./components/CurrencySelectComponent').default);
+Vue.component('v-order-route', require('./components/OrderComponent').default);
+
+Vue.use(require('vue-moment'));
 
 Vue.config.devtools = true;
-
 const app = new Vue({
     el: '#app',
     store: new Vuex.Store(store)

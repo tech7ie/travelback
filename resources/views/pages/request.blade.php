@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="request" style="background-image: url({{asset('img/request-bg.jpg')}})">
+    <div class="request" style="background-image: url({{asset('/img/request-bg.jpg')}})">
         <div class="container">
             <div class="request__wrap">
                 <div class="form-block">
