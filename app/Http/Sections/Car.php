@@ -128,11 +128,11 @@ class Car extends Section implements Initializable {
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::text( 'luggage', 'Luggage' )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'places_max', 'Max Places' )
-                                ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-3' )->addColumn( [
                 AdminFormElement::text( 'places_min', 'Min Places' )
+                                ->required(),
+            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
+                AdminFormElement::text( 'places_max', 'Max Places' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )

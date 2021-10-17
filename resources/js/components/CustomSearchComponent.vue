@@ -96,12 +96,13 @@
                 </div>
                 <div class="yourride">
                     <div class="yourride__head">
-                        <h3>Your ride</h3><a href="#Other-cars">Other cars</a>
+                        <h3>Your ride</h3>
+                        <a data-fancybox data-src="#select-ride" href="#">Other cars</a>
                     </div>
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
-                            <i v-for="(item, index) in passangers" :key="index">
-                                <img :src="'/' + item.image" :alt="item.title" @click="setCar">
+                            <i>
+                                <img  v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
                             </i>
                             <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
                                 <header>
@@ -126,6 +127,18 @@
                             <button>
                                 <span>BUY FOR {{ (totalCarPrice + withstopsListPrce).toFixed(2) }}</span>
                             </button>
+                        </div>
+                    </div>
+                    <div class="yourride__selected extra" v-if="passangers_extra.length > 0">
+                        <div style="cursor:pointer; color: #03acd1" class="tickets__footer" v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
+                            <i>
+                                <img :src="'/' + item.image" :alt="item.title">
+                            </i>
+                            <div class="tickets__footer-info">
+                                <div>
+                                    Upgrade to a luxury sedan for €{{((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2)}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="yourride__footer">
@@ -184,6 +197,53 @@
                 </div>
             </div>
         </form>
+
+        <div class="popup --xl" id="select-ride">
+            <form class="popup__wrap">
+                <h3>Select your ride</h3>
+                <div class="popup-select-rider">
+                    <input id="select-auto-1" type="radio" name="select-ride" checked>
+                    <label for="select-auto-1">
+                        <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
+                            <div class="tickets__footer-info">
+                                <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
+                                <div><span>1-3</span>
+                                    <svg class="icon">
+                                        <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                    </svg>
+                                </div>
+                                <div><span>3x</span>
+                                    <svg class="icon">
+                                        <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="tickets__footer-price"><b>€929</b></div>
+                        </div>
+                    </label>
+                    <input id="select-auto-2" type="radio" name="select-ride">
+                    <label for="select-auto-2">
+                        <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
+                            <div class="tickets__footer-info">
+                                <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
+                                <div><span>1-3</span>
+                                    <svg class="icon">
+                                        <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                    </svg>
+                                </div>
+                                <div><span>3x</span>
+                                    <svg class="icon">
+                                        <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="tickets__footer-price"><b>€929</b></div>
+                        </div>
+                    </label>
+                </div>
+                <button class="btn-submit --simple --no-opacity --sm"><span>Save</span></button>
+            </form>
+        </div>
     </section>
 </template>
 <script>
@@ -338,6 +398,7 @@ export default Vue.component("v-custom-search", {
                 }
             ],
             passangers: [],
+            passangers_extra: [],
             glide: {},
             orderRoute: {
                 from: null,
@@ -392,6 +453,10 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
+        setCar(car){
+            this.passangers = [car]
+            this.passangers_extra = []
+        },
         goToOrder(e) {
             e.preventDefault()
             console.log(e);
@@ -438,9 +503,6 @@ export default Vue.component("v-custom-search", {
 
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
-        setCar(item) {
-            console.log('setCar: ',item);
-        },
         getCarsOrdered() {
             return this.current.cars.sort(function (a, b) {
                 if (a.places_max > b.places_max) {
@@ -455,6 +517,7 @@ export default Vue.component("v-custom-search", {
         },
         returnPersone(e) {
             this.passangers = [];
+            this.passangers_extra = [];
             let current_passengers = e.passengers
             let current_luggage = e.luggage
 
@@ -466,15 +529,48 @@ export default Vue.component("v-custom-search", {
                 luggage: 0
             }
             this.getCarsOrdered().forEach(item => {
-                let pas = current_passengers > total_passengers.places_max;
-                let lug = current_luggage > total_luggage.luggage;
-                if (pas || lug) {
+                let pas_ex = current_passengers > total_passengers.places_max;
+                let lug_ex = current_luggage > total_luggage.luggage;
+                //
+                // if (pas && lug) {
+                //     this.passangers.push(item);
+                //     total_passengers.places_max += item.places_max
+                //     total_passengers.places_min += item.places_min
+                //     total_luggage.luggage += item.luggage;
+                // }
+
+                let pas = e.passangers >= item.places_min && e.passangers <= item.places_max;
+                let lug = e.luggage >= item.places_min && e.luggage <= item.places_max;
+                let result = false;
+
+                // console.log('pas: ',pas);
+                // console.log('lug: ',lug, '1: ', e.luggage , '2: ', item.luggage );
+                if(e.passangers > e.luggage) {
+                    if(pas) {
+                        result = true;
+                        // console.log(item.type);
+                    }
+                } else {
+                    if(lug) {
+                        result = true;
+                        // console.log(item.type)
+                    }
+                }
+
+                console.log(item.title + ' - ' + item.brand, '-> ', result);
+                if(result && (pas_ex && lug_ex)){
                     this.passangers.push(item);
                     total_passengers.places_max += item.places_max
                     total_passengers.places_min += item.places_min
                     total_luggage.luggage += item.luggage;
+
+                }else if(result && this.passangers_extra.length === 0){
+                    this.passangers_extra.push(item);
                 }
             });
+
+            console.log(this.passangers);
+            console.log(this.current.cars);
         },
         addNewStopItem(item, type) {
             let exists = this.withstopsList.find(val => {

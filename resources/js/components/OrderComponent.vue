@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="order-sum__country-item">
                                     <b>{{selected.orderRoute['to']}}</b>
-                                    <span>Estimated arrival: {{ selected.orderRoute.route_end | moment("add", getExtraMinues + " m").format("ddd, MMM, D, h:mm A") }}</span>
+                                    <span>Estimated arrival: {{ selected.orderRoute.route_end | moment("add", getExtraMinues + " m", "ddd, MMM, D, h:mm A") }}</span>
 
                                 </div>
                             </div>
