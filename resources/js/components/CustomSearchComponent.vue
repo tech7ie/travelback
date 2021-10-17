@@ -12,7 +12,7 @@
                         {{ orderRoute.to }}
                     </h2>
 <!--                    {{'getExtraMinutes'}}-->
-                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m").format("h:mm:ss A") }}</em>
+                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A")}}</em>
 <!--                    Estimated arrival 12:45 PM-->
                 </div>
                 <div class="calc">
@@ -101,7 +101,7 @@
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i v-for="(item, index) in passangers" :key="index">
-                                <img :src="'/' + item.image" :alt="item.title" @click="setRoute">
+                                <img :src="'/' + item.image" :alt="item.title" @click="setCar">
                             </i>
                             <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
                                 <header>
@@ -372,10 +372,7 @@ export default Vue.component("v-custom-search", {
             this.$store.commit('setRoute', this.current);
         }
 
-        this.withstopsListPrce = 0;
-        this.points.forEach(item => {
-            this.withstopsListPrce += item.price;
-        });
+        this.updatePrice()
 
 
         if (window.matchMedia("(max-width: 900px)").matches) {
@@ -422,7 +419,6 @@ export default Vue.component("v-custom-search", {
                 }
             })
 
-            console.log('dd:', issetPoint);
             return issetPoint
         },
         glideMount() {
@@ -437,20 +433,13 @@ export default Vue.component("v-custom-search", {
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         updateWithstopsItem(data) {
-            console.log('updateWithstopsItem', data);
             this.$store.commit('updatePointTime', data);
             this.updatePrice()
 
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
-        setRoute(item) {
-            let newCart = {
-                route: this.current,
-                from: 'Chisinau',
-                to: 'Balti',
-                price: 12
-            }
-            this.$store.commit('setRoute', newCart);
+        setCar(item) {
+            console.log('setCar: ',item);
         },
         getCarsOrdered() {
             return this.current.cars.sort(function (a, b) {

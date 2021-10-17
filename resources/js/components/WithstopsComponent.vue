@@ -40,6 +40,9 @@ export default Vue.component("v-withstops", {
         };
     },
     props: ["data"],
+    mounted() {
+        this.selected = this.data.extra
+    },
     methods: {
         plus() {
             this.selected += this.step;

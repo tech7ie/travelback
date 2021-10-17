@@ -37,6 +37,7 @@ const store = {
         },
         updatePointTime(state, item) {
             console.log(state.points[state.points.indexOf(item.data)]);
+            console.log(state.points[state.points.indexOf(item.data)].extra);
 
             state.points[state.points.indexOf(item.data)].extra = item.extra;
         }
