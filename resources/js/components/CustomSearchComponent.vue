@@ -597,6 +597,7 @@ export default Vue.component("v-custom-search", {
         },
         inputFrom() {
             this.updateError();
+            this.orderRoute.to = '';
         },
         selectTo(item) {
             this.orderRoute.to = item.to_city;
