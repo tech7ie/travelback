@@ -2,6 +2,7 @@
     <div class="calc" id="calculator">
         <form class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
+<!--                {{request}}-->
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
                     <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
                         <input
@@ -43,7 +44,7 @@
                         />
                     </div>
                     <div class="custom-select__options" :class="{ '--opened': openedTo }">
-                        <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutes" :key="index">
+                        <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
                             <b>{{ item.to_city }}</b>
                             <em>{{ item.to_country }}</em>
                         </div>
@@ -74,7 +75,7 @@
             <template v-if="filteredRoutes.length === 0">
                 <div class="form-vue__footer --line">
                     <span>Can't find your destination?</span>
-                    <a :href="getRequestUrl()">Request a custom route</a>
+                    <a :href="getRequestUrl">Request a custom route</a>
                 </div>
             </template>
             <template v-else>
@@ -129,9 +130,19 @@ export default Vue.component("v-calculator", {
             type: String,
             default: "[]"
         },
-        short: false
+        short: false,
+        request: Array,
+        default: function (){
+            return [{
+                from: '',
+                to: ''
+            }]
+        }
     },
     computed: {
+        getRequestUrl(){
+            return '/' + window.App.language + '/request?' + 'from='+ this.selectedFrom + '&to='+ this.selectedTo
+        },
         ampm() {
             return this.pm ? "PM" : "AM";
         },
@@ -141,12 +152,16 @@ export default Vue.component("v-calculator", {
             }).filter(r => {
                 return this.selectedTo.length >0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
             })
+        },
+        filteredRoutesTo(){
+            return this.parsedRoutes.filter(r => {
+                return this.selectedFrom.length >0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+            }).filter(r => {
+                return this.selectedTo.length >0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            })
         }
     },
     methods: {
-        getRequestUrl(){
-            return '/' + window.App.language + '/request'
-        },
         toggle(item) {
             this[item] = !this[item];
             setTimeout(() => {
@@ -186,6 +201,11 @@ export default Vue.component("v-calculator", {
         initValidation(".js-calculator");
         this.parsedRoutes = JSON.parse(this.routes)
         this.searchActionsUrl = '/' + (window.App.language ?? 'en')  + '/search';
+
+        console.log('this.request:', this.request);
+
+        this.selectedFrom = this.request.from ?? ''
+        this.selectedTo = this.request.to ?? ''
     },
     directives: {
         ClickOutside

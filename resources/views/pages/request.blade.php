@@ -8,9 +8,10 @@
                     <h2>Enjoy your trip</h2>
                     <div class="form-block__wrap">
                         <div class="label">One way</div>
-                        <v-calculator></v-calculator>
+                        <v-calculator :request="{{json_encode($_GET)}}"></v-calculator>
                     </div>
                 </div>
+
                 <div class="request__info">
                     <div class="request__info-item"><i>
                             <!--img(src="/img/map.svg" alt="IMG")-->

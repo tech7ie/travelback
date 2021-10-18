@@ -10,7 +10,7 @@
                             <div class="form-block__wrap">
                                 <div class="label">One way</div>
                                 <div class="homehead-form form-vue calc" id="homehead-form">
-                                    <v-calculator :short="true" routes="{{$routes ?? []}}">
+                                    <v-calculator :request="{{json_encode($_GET)}}" :short="true" routes="{{$routes ?? []}}">
 
                                     </v-calculator>
 {{--                                    <form class="js-homehead-form" data-submit="homeheadSubmit">--}}

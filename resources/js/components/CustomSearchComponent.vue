@@ -58,7 +58,7 @@
                                 />
                             </div>
                             <div class="custom-select__options" :class="{ '--opened': openedTo }">
-                                <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutes" :key="index">
+                                <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
                                     <b>{{ item.to_city }}</b>
                                     <em>{{ item.to_country }}</em>
                                 </div>
@@ -663,9 +663,14 @@ export default Vue.component("v-custom-search", {
         },
         filteredRoutes() {
             return this.routes.filter(r => {
-                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+            })
+        },
+        filteredRoutesTo() {
+            return this.routes.filter(r => {
+                return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
             }).filter(r => {
-                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
             })
         }
     },
