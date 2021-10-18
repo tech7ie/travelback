@@ -278,6 +278,8 @@ export default Vue.component("v-custom-search", {
         current: false,
         current_route_places: [],
         debug: [],
+        from: '',
+        to: '',
     },
     data() {
         return {
@@ -425,8 +427,10 @@ export default Vue.component("v-custom-search", {
         initValidation(".js-psearch-from");
 
         if (this.current) {
+            console.log(this.to);
             this.orderRoute.from = this.current.from_city.name
-            this.orderRoute.to = this.current.to_city.name
+            this.orderRoute.to = this.to
+            // this.orderRoute.to = this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             this.price = this.current.price
