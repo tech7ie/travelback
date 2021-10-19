@@ -357,13 +357,6 @@ export default Vue.component("v-custom-search", {
     mounted() {
         initValidation(".js-psearch-from");
 
-        //console.log('routes', this.routes);
-        //console.log('props', this.props);
-        //console.log('errors', this.errors);
-        //console.log('current', this.current);
-        //console.log('current_route_places', this.current_route_places);
-        //console.log('debug', this.debug);
-
         if (this.current){
             this.orderRoute.from = this.current.from_city.name
             this.orderRoute.to = this.current.to_city.name
@@ -397,9 +390,7 @@ export default Vue.component("v-custom-search", {
             this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         returnPersone(e) {
-            //console.log(e);
             this.passangers = [];
-            // //console.log(e.passangers, e.luggage);
             // this.$nextTick(() => {
             //   if(e.passangers >= 1 && e.passangers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
             //     //console.log("sedan");
@@ -413,17 +404,13 @@ export default Vue.component("v-custom-search", {
                 let pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
                 let lug = e.luggage <= item.luggage;
                 let result = false;
-
-                //console.log(pas, lug, e.luggage, item.minLuggage, item.maxLuggage);
                 if (e.passangers > e.luggage) {
                     if (pas) {
                         result = true;
-                        // //console.log(item.type);
                     }
                 } else {
                     if (lug) {
                         result = true;
-                        // //console.log(item.type)
                     }
                 }
 
@@ -431,7 +418,6 @@ export default Vue.component("v-custom-search", {
             });
         },
         addNewStopItem(item, type) {
-            //console.log(item);
             let exists = this.withstopsList.find(val => {
                 return val.id === item.id;
             });

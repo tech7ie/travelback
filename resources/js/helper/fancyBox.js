@@ -9,12 +9,7 @@ const options = {
 }
 
 function fancyBox(props) {
-    console.log('Fancybox');
-
-
-    // const delegate = document.get('data-fancybox');
     const delegate = document.querySelectorAll('[data-fancybox]');
-    console.log(delegate);
     const opts = options || {};
 
     // return NativeFancybox.bind(delegate, opts);

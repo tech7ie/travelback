@@ -49,7 +49,6 @@ export default Vue.component("v-currency-select", {
             showSearch: false,
             onChange: (info) => {
                 window.location.href = '/setcurrency/' + info.value
-                //console.log(info)
             }
         });
     }

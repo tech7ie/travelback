@@ -35,16 +35,12 @@ export default function initValidation(node) {
   });
 
   document.addEventListener("bouncerFormInvalid", function (event) {
-    // //console.log(event.detail.errors);
-    // //console.log("bouncerFormInvalid: ", event);
     // window.scrollTo(0, event.target.offsetTop);
   }, false);
 
   document.addEventListener("bouncerFormValid", function (el) {
-    //console.log("bouncerFormValid: ", el)
     try {
       var fn = el.target.dataset.submit;
-        //console.log(window[fn]);
         var form = event.target;
         form.submit()
         // window[fn](el);

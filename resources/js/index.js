@@ -93,13 +93,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     document.addEventListener("bouncerFormInvalid", function (event) {
-      // console.log(event.detail.errors);
-      // console.log("bouncerFormInvalid: ", event);
       window.scrollTo(0, event.target.offsetTop);
     }, false);
 
     document.addEventListener("bouncerFormValid", function (el) {
-      // console.log("bouncerFormValid: ", el)
       try {
         var fn = el.target.dataset.submit;
         window[fn](el);

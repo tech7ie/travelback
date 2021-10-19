@@ -57,8 +57,6 @@ export default Vue.component("v-humans", {
     ],
     mounted() {
         if (this.data){
-
-            console.log('this.data', this.data);
             this.adults = parseInt(this.data['adults'] ?? 0)
             this.childrens = parseInt(this.data['childrens'] ?? 0);
             this.luggage = parseInt(this.data['luggage'] ?? 0);

@@ -27,13 +27,11 @@ export default Vue.component("v-language-select", {
         currentlang: 'en'
     },
     mounted() {
-        //console.log(this);
         new SlimSelect({
             select: document.getElementById('language_select'),
             showSearch: false,
             onChange: (info) => {
                 window.location.href = '/setlocale/' + info.value
-                //console.log(info)
             }
         });
     }

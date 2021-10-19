@@ -213,7 +213,6 @@ export default Vue.component("v-calculator", {
         }
     },
     mounted() {
-        //console.log(this.props);
         initValidation(".js-calculator");
         this.parsedRoutes = JSON.parse(this.routes)
         this.searchActionsUrl = '/' + (window.App.language ?? 'en')  + '/search';

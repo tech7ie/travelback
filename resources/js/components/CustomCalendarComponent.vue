@@ -42,7 +42,7 @@ export default Vue.component("v-custom-calendar", {
         };
     },
     mounted() {
-        this.selectedDate = this.d
+        this.selectedDate = typeof this.d === 'string' ? Vue.moment(this.d, "DD.MM.YYYY").format('D.M.Y').toString() : new Date().toLocaleDateString()
     },
     computed: {
         calendarData() {

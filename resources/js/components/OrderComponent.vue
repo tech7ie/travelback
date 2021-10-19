@@ -154,7 +154,6 @@ export default Vue.component("v-order-route", {
     props: ["data", "index", "addedPoint", "payment_methods"],
 
     mounted() {
-        //console.log(this.payment_methods);
     },
     methods: {
         getActions(){
@@ -175,9 +174,7 @@ export default Vue.component("v-order-route", {
         }),
         getExtraMinutes(){
             let extraMinutes = 0;
-            //console.log(this.points);
             this.points.forEach(item => {
-                //console.log(item.extra);
                 extraMinutes += item.extra;
             });
             return extraMinutes;
