@@ -6,8 +6,11 @@
 {{--    :currentRoutes = "'currentRoute'"--}}
     from="{{ $_GET['from'] ?? '' }}"
     to="{{ $_GET['to'] ?? '' }}"
-    passengers="{{ $_GET['passengers'] ?? '' }}"
-    date="{{ $_GET['from'] ?? '' }}"
+    adults="{{ $_GET['adults'] ?? '' }}"
+    childrens="{{ $_GET['childrens'] ?? '' }}"
     luggage="{{ $_GET['luggage'] ?? '' }}"
+    data="{{ $_GET['data'] ?? '' }}"
+    hours="{{ $_GET['hours'] ?? '' }}"
+    minutes="{{ $_GET['minutes'] ?? '' }}"
 >
 </v-custom-search>

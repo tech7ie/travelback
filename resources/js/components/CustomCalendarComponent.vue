@@ -6,7 +6,7 @@
             </svg>
         </div>
         <div class="calendar" v-show="opened">
-            <input type="hidden" :value="selectedDate">
+            <input name="data" type="hidden" :value="selectedDate">
             <v-date-picker mode="single" :min-date="new Date()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>
         </div>
     </div>
@@ -18,7 +18,11 @@ import ClickOutside from "vue-click-outside";
 
 export default Vue.component("v-custom-calendar", {
     props: {
-        routes: []
+        routes: [],
+        d: {
+            type: Date,
+            default: new Date()
+        },
     },
     data() {
         return {
@@ -36,6 +40,9 @@ export default Vue.component("v-custom-calendar", {
                 },
             ],
         };
+    },
+    mounted() {
+        this.selectedDate = this.d
     },
     computed: {
         calendarData() {

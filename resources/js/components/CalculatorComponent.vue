@@ -39,6 +39,7 @@
                             type="search"
                             v-model="selectedTo"
                             autocomplete="off"
+                            @focus="openedTo = true"
                             @keyup="openedTo = true"
                             @blur="toggle"
                         />
@@ -55,7 +56,7 @@
                 <v-custom-calendar></v-custom-calendar>
                 <v-time></v-time>
             </div>
-            <v-humans></v-humans>
+            <v-humans :data="{adults,childrens,luggage}"></v-humans>
             <div v-if="!this.short" class="calc__items">
                 <div class="calc__item"><b @click="toggle('extrastops')">+ Extra stops</b>
                     <v-extrastops v-if="extrastops"></v-extrastops>
@@ -131,12 +132,26 @@ export default Vue.component("v-calculator", {
             default: "[]"
         },
         short: false,
-        request: Array,
-        default: function (){
-            return [{
-                from: '',
-                to: ''
-            }]
+        adults: {
+            type: Number,
+            default: 1
+        },
+        childrens: {
+            type: Number,
+            default: 0
+        },
+        luggage: {
+            type: Number,
+            default: 1
+        },
+        request: {
+            type : Array,
+            default: function (){
+                return [{
+                    from: '',
+                    to: ''
+                }]
+            }
         }
     },
     computed: {
@@ -198,13 +213,13 @@ export default Vue.component("v-calculator", {
         }
     },
     mounted() {
+        //console.log(this.props);
         initValidation(".js-calculator");
         this.parsedRoutes = JSON.parse(this.routes)
         this.searchActionsUrl = '/' + (window.App.language ?? 'en')  + '/search';
-
-        console.log('this.request:', this.request);
-
         this.selectedFrom = this.request.from ?? ''
+        this.selectedTo = this.request.to ?? ''
+        this.selectedTo = this.request.to ?? ''
         this.selectedTo = this.request.to ?? ''
     },
     directives: {

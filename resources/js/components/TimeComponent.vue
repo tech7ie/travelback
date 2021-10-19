@@ -1,6 +1,8 @@
 <template>
     <div class="custom-time" v-click-outside="close">
         <div class="custom-time__head" :class="{'error': error}" @click="toggle"><span>{{ hours | toNormNumber }}:{{ minutes | toNormNumber }} {{ ampm }}</span>
+            <input hidden name="hours" :value="hours"/>
+            <input hidden name="minutes" :value="minutes"/>
             <svg class="icon arrow-down">
                 <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
             </svg>
@@ -63,7 +65,24 @@ export default Vue.component("v-time", {
         error: {
             type: Boolean,
             default: false
-        }
+        },
+        d: {
+            type: Date,
+            default: new Date().getHours() + ":" + new Date().getMinutes()
+        },
+        h: {
+            type: Date,
+            default: new Date().getHours()
+        },
+        m: {
+            type: Date,
+            default: new Date().getMinutes()
+        },
+    },
+    mounted() {
+        this.selectedTime = this.d;
+        this.hours = this.h;
+        this.minutes = this.m;
     },
     computed: {
         ampm() {

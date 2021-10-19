@@ -67,10 +67,10 @@
                     </div>
                     <!--                    <v-select :orderRoute={orderRoute} :filteredRoutes="filteredRoutes"></v-select>-->
                     <div class="date-time">
-                        <v-custom-calendar></v-custom-calendar>
-                        <v-time></v-time>
+                        <v-custom-calendar :d="data"></v-custom-calendar>
+                        <v-time :h="hours" :m="minutes"></v-time>
                     </div>
-                    <v-humans @return="returnPersone"></v-humans>
+                    <v-humans :data="{adults,childrens,luggage}" @return="returnPersone"></v-humans>
                 </div>
             </div>
             <div class="psearch__other">
@@ -197,51 +197,34 @@
                 </div>
             </div>
         </form>
-
         <div class="popup --xl" id="select-ride">
             <form class="popup__wrap">
                 <h3>Select your ride</h3>
                 <div class="popup-select-rider">
-                    <input id="select-auto-1" type="radio" name="select-ride" checked>
-                    <label for="select-auto-1">
-                        <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
-                            <div class="tickets__footer-info">
-                                <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
-                                <div><span>1-3</span>
-                                    <svg class="icon">
-                                        <use xlink:href="img/sprites/sprite.svg#users"></use>
-                                    </svg>
+                    <div v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
+                        <input id="select-auto-1" type="radio" name="select-ride" checked>
+                        <label for="select-auto-1">
+                            <div class="tickets__footer">
+                                <i><img :src="'/' + item.image" :alt="item.title"></i>
+                                <div class="tickets__footer-info">
+                                    <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
+                                    <div><span>{{ item.places_min }} - {{ item.places_max }}</span>
+                                        <svg class="icon">
+                                            <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                        </svg>
+                                    </div>
+                                    <div><span>{{ item.luggage }}</span>
+                                        <svg class="icon">
+                                            <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                        </svg>
+                                    </div>
                                 </div>
-                                <div><span>3x</span>
-                                    <svg class="icon">
-                                        <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
-                                    </svg>
-                                </div>
+                                <div class="tickets__footer-price"><b>€{{((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2)}}</b></div>
                             </div>
-                            <div class="tickets__footer-price"><b>€929</b></div>
-                        </div>
-                    </label>
-                    <input id="select-auto-2" type="radio" name="select-ride">
-                    <label for="select-auto-2">
-                        <div class="tickets__footer"><i><img src="img/sedan.png" alt="sedan"></i>
-                            <div class="tickets__footer-info">
-                                <h4>Luxury sedan</h4><em>Mercedes Benz E-Class</em>
-                                <div><span>1-3</span>
-                                    <svg class="icon">
-                                        <use xlink:href="img/sprites/sprite.svg#users"></use>
-                                    </svg>
-                                </div>
-                                <div><span>3x</span>
-                                    <svg class="icon">
-                                        <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="tickets__footer-price"><b>€929</b></div>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
-                <button class="btn-submit --simple --no-opacity --sm"><span>Save</span></button>
+<!--                <button class="btn-submit &#45;&#45;simple &#45;&#45;no-opacity &#45;&#45;sm"><span>Save</span></button>-->
             </form>
         </div>
     </section>
@@ -273,13 +256,47 @@ export default Vue.component("v-custom-search", {
     },
     el: "#psearch",
     props: {
-        routes: [],
+        data: {
+            type: Date,
+            default: new Date().getHours() + ":" + new Date().getMinutes()
+        },
+        hours: {
+            type: Date,
+            default: new Date().getHours()
+        },
+        minutes: {
+            type: Date,
+            default: new Date().getMinutes()
+        },
+        routes: {
+            type : Array,
+            default: function (){
+                return []
+            }
+        },
         errors: [],
         current: false,
         current_route_places: [],
-        debug: [],
+        debug: {
+            type : Array,
+            default: function (){
+                return []
+            }
+        },
         from: '',
         to: '',
+        adults: {
+            type: Number,
+            default: 1
+        },
+        childrens: {
+            type: Number,
+            default: 0
+        },
+        luggage: {
+            type: Number,
+            default: 1
+        },
     },
     data() {
         return {
@@ -403,8 +420,8 @@ export default Vue.component("v-custom-search", {
             passangers_extra: [],
             glide: {},
             orderRoute: {
-                from: null,
-                to: null,
+                from: '',
+                to: '',
                 passengers: null,
                 luggage: null,
                 route_start: null,
@@ -421,13 +438,21 @@ export default Vue.component("v-custom-search", {
     },
     created() {
         this.firstStart = true;
-        console.log(this.cart);
+        //console.log(this.cart);
     },
     mounted() {
         initValidation(".js-psearch-from");
 
         if (this.current) {
-            console.log(this.to);
+            console.log('data ' ,this.data);
+            console.log('hours ' ,this.hours);
+            console.log('minutes: ', this.minutes);
+
+            console.log('this.adults: ', this.adults);
+            console.log('this.childrens: ', this.childrens);
+            console.log('this.luggage: ', this.luggage);
+
+            //console.log(this.to);
             this.orderRoute.from = this.current.from_city.name
             this.orderRoute.to = this.to
             // this.orderRoute.to = this.current.to_city.name
@@ -463,7 +488,7 @@ export default Vue.component("v-custom-search", {
         },
         goToOrder(e) {
             e.preventDefault()
-            console.log(e);
+            //console.log(e);
 
             let selected = {
                 orderRoute: this.orderRoute,
@@ -472,7 +497,7 @@ export default Vue.component("v-custom-search", {
                 extraMinutes: this.getExtraMinutes,
             }
             this.$store.commit('setSelected', selected);
-            console.log('selected: ', selected);
+            //console.log('selected: ', selected);
             window.location.href = this.getOrderUrl();
         },
         getOrderUrl() {
@@ -547,21 +572,21 @@ export default Vue.component("v-custom-search", {
                 let lug = e.luggage >= item.places_min && e.luggage <= item.places_max;
                 let result = false;
 
-                // console.log('pas: ',pas);
-                // console.log('lug: ',lug, '1: ', e.luggage , '2: ', item.luggage );
+                // //console.log('pas: ',pas);
+                // //console.log('lug: ',lug, '1: ', e.luggage , '2: ', item.luggage );
                 if(e.passangers > e.luggage) {
                     if(pas) {
                         result = true;
-                        // console.log(item.type);
+                        // //console.log(item.type);
                     }
                 } else {
                     if(lug) {
                         result = true;
-                        // console.log(item.type)
+                        // //console.log(item.type)
                     }
                 }
 
-                console.log(item.title + ' - ' + item.brand, '-> ', result);
+                //console.log(item.title + ' - ' + item.brand, '-> ', result);
                 if(result && (pas_ex && lug_ex)){
                     this.passangers.push(item);
                     total_passengers.places_max += item.places_max
@@ -573,8 +598,8 @@ export default Vue.component("v-custom-search", {
                 }
             });
 
-            console.log(this.passangers);
-            console.log(this.current.cars);
+            //console.log(this.passangers);
+            //console.log(this.current.cars);
         },
         addNewStopItem(item, type) {
             let exists = this.withstopsList.find(val => {
@@ -582,7 +607,7 @@ export default Vue.component("v-custom-search", {
             });
             if (!exists) {
                 item['extra'] = 0
-                console.log('point:', item);
+                //console.log('point:', item);
                 this.withstopsList.push(item);
                 this.$store.commit('addPoint', item);
             } else {
@@ -639,9 +664,9 @@ export default Vue.component("v-custom-search", {
         }),
         getExtraMinutes(){
             let extraMinutes = 0;
-            console.log(this.points);
+            //console.log(this.points);
             this.points.forEach(item => {
-                console.log(item.extra);
+                //console.log(item.extra);
                 extraMinutes += item.extra;
             });
             return extraMinutes;
@@ -649,7 +674,7 @@ export default Vue.component("v-custom-search", {
         totalCarPrice() {
             let places = 0;
             this.passangers.forEach(p => {
-                console.log('totalCarPrice', p);
+                //console.log('totalCarPrice', p);
                 places += p.places_max
             })
             return places * this.current.price

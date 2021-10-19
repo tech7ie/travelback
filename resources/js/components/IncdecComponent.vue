@@ -57,10 +57,10 @@ Vue.component("v-incdec", {
     watch: {
         value() {
             if(this.sync) {
-                if(this.number < this.value) {
+                // if(this.number < this.value) {
                     this.number = this.value;
                     this.$emit("value", this.number);
-                }
+                // }
             }
         }
     },

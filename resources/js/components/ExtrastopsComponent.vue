@@ -59,7 +59,7 @@ export default Vue.component("v-extrastops", {
             this.list.push({});
         },
         removeItem(index) {
-            console.log(index)
+            //console.log(index)
             this.list.splice(this.list.indexOf(this.list[index]), 1);
         }
     },

@@ -22,7 +22,7 @@
                             <input type="tel" id="phone" name="phone" required>
                         </div>
                         <div class="textarea-block">
-                            <textarea name="comment" placeholder="Comment" required></textarea>
+                            <textarea name="comment" placeholder="Comment"></textarea>
                         </div>
                     </section>
                     <section class="--two">
@@ -154,7 +154,7 @@ export default Vue.component("v-order-route", {
     props: ["data", "index", "addedPoint", "payment_methods"],
 
     mounted() {
-        console.log(this.payment_methods);
+        //console.log(this.payment_methods);
     },
     methods: {
         getActions(){
@@ -175,9 +175,9 @@ export default Vue.component("v-order-route", {
         }),
         getExtraMinutes(){
             let extraMinutes = 0;
-            console.log(this.points);
+            //console.log(this.points);
             this.points.forEach(item => {
-                console.log(item.extra);
+                //console.log(item.extra);
                 extraMinutes += item.extra;
             });
             return extraMinutes;
