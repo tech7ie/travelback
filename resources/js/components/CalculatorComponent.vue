@@ -2,7 +2,7 @@
     <div class="calc" id="calculator">
         <form class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
-<!--                {{request}}-->
+                <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
                     <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
                         <input
