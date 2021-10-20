@@ -28,7 +28,10 @@ const store = {
         },
         addPoint(state, item) {
             // Vue.set(this.$store.state.nav, 'type', 'wide');
-            state.points = [...state.points, item]
+            // state.points = [...state.points, item]
+
+            Vue.set(state, 'points', [...state.points, item])
+
             // state.points.push(item)
         },
         saveCart(state) {
@@ -38,17 +41,9 @@ const store = {
             state.points.splice(state.points.indexOf(item), 1);
         },
         updatePointTime(state, item) {
-            // console.log(state.points[state.points.indexOf(item.data)]);
-            console.log('1 place.extra: ',item.extra);
-            // console.log(state.points[state.points.indexOf(item.data)].extra);
-
-            // state.points[state.points.indexOf(item.data)].extra = item.extra;
-
             let place = state.points[state.points.indexOf(item.data)]
-            // state.points[state.points.indexOf(item.data)] = Object.assign({}, state.points[state.points.indexOf(item.data)], { extra: item.extra})
             Vue.set(place, 'extra', item.extra)
-            // Vue.set(state.points[state.points.indexOf(item.data)], {...state.points[state.points.indexOf(item.data)], extra: item.extra})
-            console.log('2 place.extra: ',place.extra);
+            Vue.set(state, 'points', [...state.points])
         }
     },
     plugins: [vuexLocal.plugin]
