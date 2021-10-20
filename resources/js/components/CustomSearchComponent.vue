@@ -546,17 +546,10 @@ export default Vue.component("v-custom-search", {
             points: store => store.points,
         }),
         getExtraMinutes() {
-            console.log('getExtraMinutes');
             let extraMinutes = 0;
             this.points.forEach(item => {
-                console.log(item);
-                console.log('title:', item.title);
-                console.log('durations', item.durations);
-                console.log('duration', item.duration);
-                console.log('extra', item.extra);
                 extraMinutes += parseInt(item.durations) + parseInt(item.extra);
             });
-            console.log('extraMinutes:', extraMinutes);
             return extraMinutes;
         },
         totalCarPrice() {

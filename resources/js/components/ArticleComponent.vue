@@ -1,5 +1,5 @@
 <template>
-    <article :style="'background-image: url(/'+data.image+')'">
+    <article :style="'background-image: url('+data.image+')'">
         <b>{{ data.title }}</b>
         <p v-html="data.body"></p>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
