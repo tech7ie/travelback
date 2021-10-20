@@ -464,7 +464,7 @@ export default Vue.component("v-custom-search", {
                         let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']));
                         let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']))
                         if (cars >= 0){
-                            if (carsFloat - cars > 0.50){
+                            if (carsFloat - cars > 0.50 || this.getCarsOrdered().length === 1){
                                 cars += 1;
                             }
                             console.log('cars: ', cars);
