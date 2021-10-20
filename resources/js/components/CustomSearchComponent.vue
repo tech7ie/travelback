@@ -133,7 +133,7 @@
                     <div class="yourride__selected extra" v-if="passangers_extra.length > 0">
                         <div style="cursor:pointer; color: #03acd1" class="tickets__footer" v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
                             <i>
-                                <img :src="'/' + item.image" :alt="item.title">
+                                <img :src="item.image" :alt="item.title">
                             </i>
                             <div class="tickets__footer-info">
                                 <div>

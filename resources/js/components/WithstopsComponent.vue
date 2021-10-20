@@ -1,7 +1,7 @@
 <template>
     <div class="withstops__list-item">
         <i>
-            <img :src="'/' + data.image" alt="IMG"/>
+            <img :src="data.image" alt="IMG"/>
         </i>
         <div>
             <b>{{ data.title }}</b>
