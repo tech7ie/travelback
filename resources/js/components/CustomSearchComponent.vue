@@ -97,7 +97,7 @@
                 <div class="yourride">
                     <div class="yourride__head">
                         <h3>Your ride</h3>
-                        <a data-fancybox data-src="#select-ride" href="#">Other cars</a>
+                        <a v-if="passangers_extra.length > 0" data-fancybox data-src="#select-ride" href="#">Other cars</a>
                     </div>
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
@@ -401,21 +401,6 @@ export default Vue.component("v-custom-search", {
             ],
             withstopsList: [],
             withstopsListPrce: 0,
-            articleList: [
-                {
-                    id: 1,
-                    img: "/img/search-article-1.jpg",
-                    title: "Los Angeles",
-                    text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
-                    price: 82
-                }, {
-                    id: 2,
-                    img: "/img/search-article-2.jpg",
-                    title: "Los Angeles",
-                    text: "Pay full attention to the quality and cleanliness of our vehicles and driver selection, who will",
-                    price: 82
-                }
-            ],
             passangers: [],
             passangers_extra: [],
             glide: {},
@@ -569,7 +554,7 @@ export default Vue.component("v-custom-search", {
                     }
                 }
 
-                if(result && (pas_ex && lug_ex)){
+                if((pas_ex && lug_ex)){
                     this.passangers.push(item);
                     total_passengers.places_max += item.places_max
                     total_passengers.places_min += item.places_min
