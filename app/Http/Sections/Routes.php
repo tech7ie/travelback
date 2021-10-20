@@ -70,6 +70,16 @@ class Routes extends Section implements Initializable {
                            $query->orderBy( 'status', $direction );
                        } )
                        ->setSearchable( false ),
+            AdminColumn::text( 'route_from_country_id', 'From' )
+                       ->setOrderable( function ( $query, $direction ) {
+                           $query->orderBy( 'route_from_country_id', $direction );
+                       } )
+                       ->setSearchable( false ),
+            AdminColumn::text( 'route_to_country_id', 'To' )
+                       ->setOrderable( function ( $query, $direction ) {
+                           $query->orderBy( 'route_from_country_id', $direction );
+                       } )
+                       ->setSearchable( false ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'updated_at', $direction );
@@ -111,7 +121,7 @@ class Routes extends Section implements Initializable {
     public function onEdit( $id = null, $payload = [] ) {
         $form = AdminForm::card()->addBody( [
             AdminFormElement::columns()->addColumn( [
-                AdminFormElement::hidden( 'user_id' )->setDefaultValue(Auth::id()),
+                AdminFormElement::hidden( 'user_id' )->setDefaultValue( Auth::id() ),
                 AdminFormElement::text( 'title', 'Name' ),
                 AdminFormElement::multiselect( 'cars', 'Car' )
                                 ->setModelForOptions( \App\Models\Car::class, 'title' )
@@ -147,7 +157,11 @@ class Routes extends Section implements Initializable {
                 AdminFormElement::text( 'price', 'Price' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setOptions( [ 'open' =>'open', 'closed'=>'closed', 'done'=>'done', 'fail'=>'fail' ] )
+                                ->setOptions( [ 'open'   => 'open',
+                                                'closed' => 'closed',
+                                                'done'   => 'done',
+                                                'fail'   => 'fail'
+                                ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
@@ -156,13 +170,13 @@ class Routes extends Section implements Initializable {
                 AdminFormElement::multiselect( 'places', 'Places' )
                                 ->setModelForOptions( \App\Models\Place::class, 'title' )
                                 ->required(),
-//                AdminFormElement::manyToMany( 'points', [
-//                ] )
-//                                ->setRelatedElementDisplayName( function ( $model ) {
-//                                    return $model->name . ', ' . $model->country_code;
-//                                } )
+                //                AdminFormElement::manyToMany( 'points', [
+                //                ] )
+                //                                ->setRelatedElementDisplayName( function ( $model ) {
+                //                                    return $model->name . ', ' . $model->country_code;
+                //                                } )
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::wysiwyg('body', 'Content', 'ckeditor')
+                AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
                                 ->required()
             ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12' )
         ] );

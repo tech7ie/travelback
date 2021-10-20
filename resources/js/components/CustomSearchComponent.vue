@@ -2,6 +2,7 @@
     <section class="psearch" id="psearch">
         <form @submit="goToOrder" class="container psearch__wrap js-psearch-from_" data-submit="psearchSubmit">
             <div class="psearch__form">
+<!--                {{points}}-->
                 <!--                {{orderRoute}}-->
                 <!--                {{current}}-->
                 <div class="psearch__head">
@@ -11,9 +12,9 @@
                         </svg>
                         {{ orderRoute.to }}
                     </h2>
-<!--                    {{'getExtraMinutes'}}-->
-                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A")}}</em>
-<!--                    Estimated arrival 12:45 PM-->
+                    <!--                    {{'getExtraMinutes'}}-->
+                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>
+                    <!--                    Estimated arrival 12:45 PM-->
                 </div>
                 <div class="calc">
                     <div class="custom-select">
@@ -102,7 +103,7 @@
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i>
-                                <img  v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
+                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
                             </i>
                             <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
                                 <header>
@@ -136,7 +137,7 @@
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
-                                    Upgrade to a luxury sedan for €{{((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2)}}
+                                    Upgrade to a luxury sedan for €{{ ((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
                                 </div>
                             </div>
                         </div>
@@ -219,12 +220,12 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="tickets__footer-price"><b>€{{((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2)}}</b></div>
+                                <div class="tickets__footer-price"><b>€{{ ((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}</b></div>
                             </div>
                         </label>
                     </div>
                 </div>
-<!--                <button class="btn-submit &#45;&#45;simple &#45;&#45;no-opacity &#45;&#45;sm"><span>Save</span></button>-->
+                <!--                <button class="btn-submit &#45;&#45;simple &#45;&#45;no-opacity &#45;&#45;sm"><span>Save</span></button>-->
             </form>
         </div>
     </section>
@@ -269,8 +270,8 @@ export default Vue.component("v-custom-search", {
             default: new Date().getMinutes()
         },
         routes: {
-            type : Array,
-            default: function (){
+            type: Array,
+            default: function () {
                 return []
             }
         },
@@ -278,8 +279,8 @@ export default Vue.component("v-custom-search", {
         current: false,
         current_route_places: [],
         debug: {
-            type : Array,
-            default: function (){
+            type: Array,
+            default: function () {
                 return []
             }
         },
@@ -301,104 +302,8 @@ export default Vue.component("v-custom-search", {
     data() {
         return {
             price: 0,
-            auto: [
-                {
-                    type: "sedan",
-                    title: "Sedan",
-                    name: "Skoda Superb",
-                    img: "sedan.png",
-                    passengers: "1-3",
-                    luggage: "3",
-                    minPassengers: 1,
-                    maxPassengers: 3,
-                    minLuggage: 1,
-                    maxLuggage: 3,
-                },
-                {
-                    type: "mvp",
-                    title: "MPV",
-                    name: "Volkswagen Sharan",
-                    img: "sharan.png",
-                    passengers: "4",
-                    luggage: "4",
-                    minPassengers: 4,
-                    maxPassengers: 4,
-                    minLuggage: 4,
-                    maxLuggage: 4,
-                },
-                {
-                    type: "suv",
-                    title: "SUV",
-                    name: "KIA Sportage",
-                    img: "sportage.png",
-                    passengers: "4-5",
-                    luggage: "5",
-                    minPassengers: 4,
-                    maxPassengers: 5,
-                    minLuggage: 5,
-                    maxLuggage: 5,
-                },
-                {
-                    type: "van",
-                    title: "Van",
-                    name: "Mercedes Vito",
-                    img: "vito.jpg",
-                    passengers: "5-7",
-                    luggage: "7",
-                    minPassengers: 5,
-                    maxPassengers: 7,
-                    minLuggage: 5,
-                    maxLuggage: 7,
-                },
-                {
-                    type: "shared",
-                    title: "Shared",
-                    name: "Shuttle - IVECO Tourer",
-                    img: "vito.jpg",
-                    passengers: "8",
-                    luggage: "8",
-                    minPassengers: 8,
-                    maxPassengers: 8,
-                    minLuggage: 8,
-                    maxLuggage: 8,
-                },
-                {
-                    type: "minibus",
-                    title: "Minibus",
-                    name: "Sprinter Tourer",
-                    img: "sprinter.png",
-                    passengers: "16",
-                    luggage: "16",
-                    minPassengers: 9,
-                    maxPassengers: 16,
-                    minLuggage: 9,
-                    maxLuggage: 16,
-                },
-                {
-                    type: "minibus",
-                    title: "Minibus",
-                    name: "Mercedes Sprinter",
-                    img: "minibus.png",
-                    passengers: "16",
-                    luggage: "16",
-                    minPassengers: 9,
-                    maxPassengers: 16,
-                    minLuggage: 9,
-                    maxLuggage: 16,
-                },
-                {
-                    type: "bus",
-                    title: "Bus",
-                    name: "SETRA",
-                    img: "bus.png",
-                    passengers: "50",
-                    luggage: "50",
-                    minPassengers: 17,
-                    maxPassengers: 50,
-                    minLuggage: 17,
-                    maxLuggage: 50,
-                }
-            ],
+            route_id: null,
+            places: [],
             withstopsList: [],
             withstopsListPrce: 0,
             passangers: [],
@@ -426,14 +331,19 @@ export default Vue.component("v-custom-search", {
     },
     mounted() {
         initValidation(".js-psearch-from");
+        console.log(this.current.places);
+        console.log(this.current_route_places);
+        console.log(this.debug);
 
         if (this.current) {
+            this.route_id = this.current.id;
             this.orderRoute.from = this.current.from_city.name
-            this.orderRoute.to = this.to
-            // this.orderRoute.to = this.current.to_city.name
+            // this.orderRoute.to = this.to
+            this.orderRoute.to = this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             this.price = this.current.price
+            this.places = this.current.places
             this.$store.commit('setRoute', this.current);
         }
 
@@ -457,7 +367,15 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
-        setCar(car){
+        getPlaces() {
+            console.log('getPlaces');
+            axios.post('/api/get_route_places', {route: this.route_id})
+                .then(res => {
+                    console.log('getPlaces ress;', res);
+                    this.places = res.data ?? [];
+                })
+        },
+        setCar(car) {
             this.passangers = [car]
             this.passangers_extra = []
         },
@@ -544,23 +462,23 @@ export default Vue.component("v-custom-search", {
                 let lug = e.luggage >= item.places_min && e.luggage <= item.places_max;
                 let result = false;
 
-                if(e.passangers > e.luggage) {
-                    if(pas) {
+                if (e.passangers > e.luggage) {
+                    if (pas) {
                         result = true;
                     }
                 } else {
-                    if(lug) {
+                    if (lug) {
                         result = true;
                     }
                 }
 
-                if((pas_ex && lug_ex)){
+                if ((pas_ex && lug_ex)) {
                     this.passangers.push(item);
                     total_passengers.places_max += item.places_max
                     total_passengers.places_min += item.places_min
                     total_luggage.luggage += item.luggage;
 
-                }else if(result && this.passangers_extra.length === 0){
+                } else if (result && this.passangers_extra.length === 0) {
                     this.passangers_extra.push(item);
                 }
             });
@@ -593,6 +511,8 @@ export default Vue.component("v-custom-search", {
         },
         selectTo(item) {
             this.orderRoute.to = item.to_city;
+            this.route_id = item.id
+            this.getPlaces();
             this.updateError();
         },
         inputTo() {
@@ -625,11 +545,18 @@ export default Vue.component("v-custom-search", {
             route: store => store.route,
             points: store => store.points,
         }),
-        getExtraMinutes(){
+        getExtraMinutes() {
+            console.log('getExtraMinutes');
             let extraMinutes = 0;
             this.points.forEach(item => {
-                extraMinutes += item.extra;
+                console.log(item);
+                console.log('title:', item.title);
+                console.log('durations', item.durations);
+                console.log('duration', item.duration);
+                console.log('extra', item.extra);
+                extraMinutes += parseInt(item.durations) + parseInt(item.extra);
             });
+            console.log('extraMinutes:', extraMinutes);
             return extraMinutes;
         },
         totalCarPrice() {
@@ -640,7 +567,8 @@ export default Vue.component("v-custom-search", {
             return places * this.current.price
         },
         getCurrentRoutePlaces() {
-            return this.current_route_places
+            // return this.current_route_places
+            return this.places
 
             // return this.current_route_places.filter(i => {
             //     return this.points.filter(p => {

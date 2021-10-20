@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cities;
+use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class SearchController extends Controller {
 
     /**
-     * Show products list.
+     * Show route by ID.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -34,8 +35,7 @@ class SearchController extends Controller {
 //            }
 
 
-            $route = Routes::find($data['route'])
-                            ->first();
+            $route = Routes::find($data['route']);
 
             $places = $route->places;
 
@@ -52,6 +52,26 @@ class SearchController extends Controller {
 
         } catch ( \Throwable $t ) {
             return view( 'pages/search', [ 'currentRoute' => [], 'debug' => $t->getMessage() ] );
+        }
+    }
+    /**
+     * Show products list.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function getRoutePlaces( \Illuminate\Http\Request $request ) {
+        try {
+            $data = $request->all();
+            $route = Routes::find($data['route']);
+
+            $places = $route->places;
+
+            return $places;
+
+        } catch ( \Throwable $t ) {
+            return ['dd' => $t->getMessage()];
         }
     }
 }

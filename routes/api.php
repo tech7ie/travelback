@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::post('/get_route_places', [ \App\Http\Controllers\SearchController::class, 'getRoutePlaces' ]);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
