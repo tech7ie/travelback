@@ -1,7 +1,7 @@
 <template>
     <div class="select-humans" v-click-outside="close">
         <input type="number" required name="adults" :value="(adults == 0 ? '' : adults )">
-        <input type="number" required name="childrens" :value="(childrens == 0 ? '' : childrens)">
+        <input type="number" name="childrens" :value="(childrens == 0 ? 0 : childrens)">
         <input type="number" required name="luggage" :value="luggage">
         <div class="select-humans__head" @click="opened = !opened">
             <div :class="{error: errorHumans}"><em>passengers:</em><span>{{ parseInt(adults) + parseInt(childrens) }}</span>
@@ -85,10 +85,12 @@ export default Vue.component("v-humans", {
     },
     watch: {
         adults() {
-            this.errorHumans = (this.adults + this.childrens) <= 0;
+            console.log('adults: ', (parseInt(this.adults) + parseInt(this.childrens)));
+            this.errorHumans = (parseInt(this.adults) + parseInt(this.childrens)) <= 0;
         },
         childrens() {
-            this.errorHumans = (this.adults + this.childrens) <= 0;
+            console.log('childrens: ', (parseInt(this.adults) + parseInt(this.childrens)));
+            this.errorHumans = (parseInt(this.adults) + parseInt(this.childrens)) <= 0;
         }
     }
 });
