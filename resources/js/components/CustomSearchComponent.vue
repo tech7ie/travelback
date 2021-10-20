@@ -2,7 +2,7 @@
     <section class="psearch" id="psearch">
         <form @submit="goToOrder" class="container psearch__wrap js-psearch-from_" data-submit="psearchSubmit">
             <div class="psearch__form">
-<!--                {{points}}-->
+                <!--                {{points}}-->
                 <!--                {{orderRoute}}-->
                 <!--                {{current}}-->
                 <div class="psearch__head">
@@ -98,25 +98,25 @@
                 <div class="yourride">
                     <div class="yourride__head">
                         <h3>Your ride</h3>
-                        <a v-if="passangers_extra.length > 0" data-fancybox data-src="#select-ride" href="#">Other cars</a>
+                        <a v-if="passangers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
                     </div>
                     <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i>
-                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
+                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.car.image" :alt="item.car.title">
                             </i>
                             <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
                                 <header>
-                                    <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
+                                    <h4>{{ item.count > 1 ? item.count + ' ' : '' }}{{ item.car.title }}{{ item.count > 1 ? 's' : '' }}</h4><em>{{ item.car.brand }}</em>
                                 </header>
                                 <div>
-                                    <span>{{ item.places_min }} - {{ item.places_max }}</span>
+                                    <span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
                                     <svg class="icon">
                                         <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                     </svg>
                                 </div>
                                 <div>
-                                    <span>{{ item.luggage }}</span>
+                                    <span>{{ item.car.luggage }}</span>
                                     <svg class="icon">
                                         <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                     </svg>
@@ -130,14 +130,15 @@
                             </button>
                         </div>
                     </div>
-                    <div class="yourride__selected extra" v-if="passangers_extra.length > 0">
-                        <div style="cursor:pointer; color: #03acd1" class="tickets__footer" v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
+                    <div class="yourride__selected extra" v-if="passangers_extra.length > 1">
+                        <div style="cursor:pointer; color: #03acd1" class="tickets__footer"
+                             @click="setCar(passangers_extra[1].car)">
                             <i>
-                                <img :src="'/' + item.image" :alt="item.title">
+                                <img :src="'/' + passangers_extra[1].car.image" :alt="passangers_extra[1].car.title">
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
-                                    Upgrade to a luxury sedan for €{{ ((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
+                                    Upgrade to a luxury sedan for €{{ ((totalCarPrice + (passangers_extra[1].car.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
                                 </div>
                             </div>
                         </div>
@@ -435,53 +436,60 @@ export default Vue.component("v-custom-search", {
             });
         },
         returnPersone(e) {
+            console.log('returnPersone: ',e);
             this.passangers = [];
             this.passangers_extra = [];
+            let totalPassengers = e.passengers
             let current_passengers = e.passengers
-            let current_luggage = e.luggage
+            let inOneCar = this.getCarsOrdered().filter(c => {
+                // return current_passengers >= c.places_min && current_passengers <= c.places_max
+                return current_passengers <= c.places_max
+            })
+            if (inOneCar.length > 0) {
+                this.passangers.push({car: inOneCar[0], count: 1})
 
-            let total_passengers = {
-                places_min: 0,
-                places_max: 0,
+                inOneCar.map(c => {
+                    this.passangers_extra.push({car: c, count: 1});
+                })
             }
-            let total_luggage = {
-                luggage: 0
-            }
-            this.getCarsOrdered().forEach(item => {
-                let pas_ex = current_passengers > total_passengers.places_max;
-                let lug_ex = current_luggage > total_luggage.luggage;
-                //
-                // if (pas && lug) {
-                //     this.passangers.push(item);
-                //     total_passengers.places_max += item.places_max
-                //     total_passengers.places_min += item.places_min
-                //     total_luggage.luggage += item.luggage;
-                // }
-
-                let pas = e.passangers >= item.places_min && e.passangers <= item.places_max;
-                let lug = e.luggage >= item.places_min && e.luggage <= item.places_max;
-                let result = false;
-
-                if (e.passangers > e.luggage) {
-                    if (pas) {
-                        result = true;
+            let inMoreCar = []
+            console.log('this.getCarsOrdered().length: ', this.getCarsOrdered().length);
+            console.log('-------------------------------------------------------------');
+            if (inOneCar.length === 0) {
+                for (let i = this.getCarsOrdered().length - 1; i >= 0; i--) {
+                    console.log('inMoreCar: ', this.getCarsOrdered()[i]['places_max']);
+                    console.log('totalPassengers: ', totalPassengers);
+                    if (totalPassengers > 0) {
+                        console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max'])));
+                        let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']));
+                        let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']))
+                        if (cars >= 0){
+                            if (carsFloat - cars > 0.50){
+                                cars += 1;
+                            }
+                            console.log('cars: ', cars);
+                            inMoreCar.push({car: this.getCarsOrdered()[i], count: cars})
+                            totalPassengers -= parseInt(this.getCarsOrdered()[i]['places_max']) * (cars === 0 ? 1 : cars)
+                        }
                     }
-                } else {
-                    if (lug) {
-                        result = true;
+                }
+                if (totalPassengers > 0){
+                    for (let i = this.getCarsOrdered().length - 1; i >= 0; i--) {
+                        console.log('inMoreCar2: ', this.getCarsOrdered()[i]['places_max']);
+                        console.log('totalPassengers2: ', totalPassengers);
+                        if (totalPassengers > 0) {
+                            console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max'])));
+                            let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']))
+                            console.log('cars2: ', cars);
+                            inMoreCar.push({car: this.getCarsOrdered()[i], count: cars})
+                            totalPassengers -= parseInt(this.getCarsOrdered()[i]['places_max'])
+                        }
                     }
                 }
 
-                if ((pas_ex && lug_ex)) {
-                    this.passangers.push(item);
-                    total_passengers.places_max += item.places_max
-                    total_passengers.places_min += item.places_min
-                    total_luggage.luggage += item.luggage;
 
-                } else if (result && this.passangers_extra.length === 0) {
-                    this.passangers_extra.push(item);
-                }
-            });
+            }
+            this.passangers.push(...inMoreCar)
         },
         addNewStopItem(item, type) {
             let exists = this.withstopsList.find(val => {
@@ -555,7 +563,7 @@ export default Vue.component("v-custom-search", {
         totalCarPrice() {
             let places = 0;
             this.passangers.forEach(p => {
-                places += p.places_max
+                places += p.car.places_max
             })
             return places * this.current.price
         },
