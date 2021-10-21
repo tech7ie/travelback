@@ -138,7 +138,7 @@
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
-                                    Upgrade to a luxury sedan for €{{ ((totalCarPrice + (passangers_extra[1].car.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
+                                    Upgrade to a luxury sedan for €{{ (((totalCarPrice + (passangers_extra[1].car.places_max * current.price) ) *  passangers_extra[1].car.ratio) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
                                 </div>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="tickets__footer-price"><b>€{{ ((totalCarPrice + (item.places_max * current.price)) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}</b></div>
+                                <div class="tickets__footer-price"><b>€{{ (((totalCarPrice + (item.places_max * current.price)) * item.ratio) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}</b></div>
                             </div>
                         </label>
                     </div>
@@ -563,9 +563,9 @@ export default Vue.component("v-custom-search", {
         totalCarPrice() {
             let places = 0;
             this.passangers.forEach(p => {
-                places += p.car.places_max
+                places += (p.car.places_max * this.current.price) * p.car.ratio
             })
-            return places * this.current.price
+            return places;
         },
         getCurrentRoutePlaces() {
             // return this.current_route_places
