@@ -110,10 +110,10 @@
                                 <div><a href="Other-cars">Other cars</a></div>
                                 <div class="order-sum__cars-item tickets__footer">
                                     <template v-for="(item, index) in selected.passangers">
-                                        <i><img :src="'/'+ item['image']" alt="sedan"></i>
+                                        <i><img :src="'/'+ item.car['image']" alt="sedan"></i>
                                         <div class="tickets__footer-info">
-                                            <h4>{{item['title']}}</h4><em>{{item['brand']}}</em>
-                                            <div><span>{{item['places_min']}}-{{item['places_max']}}</span>
+                                            <h4>{{item.car['title']}}</h4><em>{{item.car['brand']}}</em>
+                                            <div><span>{{item.car['places_min']}}-{{item.car['places_max']}}</span>
                                                 <svg class="icon">
                                                     <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                                 </svg>
@@ -128,12 +128,12 @@
                                 </div>
                             </div>
                             <div class="order-sum__footer">
-                                <div><span>Total (EUR)</span><em>VAT included</em></div>
-                                <div><b>€{{selected['price']}}</b></div>
+                                <div><span>Total ({{currency.toUpperCase() }})</span><em>VAT included</em></div>
+                                <div><b>{{currency.toUpperCase() + ' '}} {{ selected['price'] }}</b></div>
                             </div>
                         </div>
                         <div class="order-sum__submit">
-                            <button class="btn"><span>confirm and pay €{{selected['price']}}*</span></button><b>* Your payment (approx. A€{{selected['price']}}) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate.</b>
+                            <button class="btn"><span>confirm and pay {{currency.toUpperCase() + ' ' }}{{selected['price']}}*</span></button><b>* Your payment (approx. A€{{selected['price']}}) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate.</b>
                         </div>
                     </div>
                 </aside>
@@ -171,6 +171,8 @@ export default Vue.component("v-order-route", {
             route: store => store.route,
             points: store => store.points,
             selected: store => store.selected,
+            rate: store => store.rate,
+            currency: store => store.currency,
         }),
         getExtraMinutes(){
             let extraMinutes = 0;

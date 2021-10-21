@@ -4,7 +4,7 @@
         <p v-html="data.body"></p>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
         <button type="button" :class="{added: addedPoint}" @click="buy">
-            Add for €{{ data.price }}
+            Add for {{ currency.toUpperCase() + ' ' }}{{ data.price * rate }}
             <span>
           <svg class="icon check">
             <use xlink:href="/img/sprites/sprite.svg#check"></use>
@@ -16,6 +16,7 @@
 </template>
 <script>
 import Vue from "vue/dist/vue.esm.browser.min";
+import {mapState} from "vuex";
 
 export default Vue.component("v-article", {
     data() {
@@ -29,6 +30,12 @@ export default Vue.component("v-article", {
             this.$emit("return", this.data, this.checked);
             this.checked = !this.checked;
         }
+    },
+    computed: {
+        ...mapState({
+            rate: store => store.rate,
+            currency: store => store.currency,
+        }),
     }
 });
 </script>

@@ -3,54 +3,48 @@
         <option
             :selected="currentcurrency === key"
             v-for="(currency, key) in JSON.parse(currencylist)"
-                :value="key">{{ currency }}
+            :value="key">{{ currency }}
         </option>
     </select>
 </template>
 <script>
 import Vue from "vue/dist/vue.esm.browser.min";
 import SlimSelect from "slim-select";
-//
-// let selectElements = [].slice.call(document.querySelectorAll(".js-select"));
-// selectElements.forEach(function (selectElement) {
-//     new SlimSelect({
-//         select: selectElement,
-//         showSearch: false,
-//     });
-// });
-
+import {mapState} from "vuex";
 
 export default Vue.component("v-currency-select", {
     props: {
         currencylist: [],
-        currentcurrency: 'eur'
+        currentcurrency: 'eur',
+        currentcurrencyexchanges: []
     },
-    data(){
-        return {
-            currencyList: [
-                {
-                    title: 'Australian Dollar',
-                    code: 'cad',
-                },
-                {
-                    title: 'Euro',
-                    code: 'eur',
-                },
-                {
-                    title: 'U.S. Dollar',
-                    code: 'usd',
-                },
-            ]
-        }
+    data() {
+        return {}
     },
     mounted() {
+        console.log(this.currentcurrencyexchanges);
+        this.$store.commit('setCurrency', this.currentcurrency);
+        this.$store.commit('setCurrencyRates', JSON.parse(this.currentcurrencyexchanges));
+
         new SlimSelect({
             select: document.getElementById('currency_select'),
             showSearch: false,
             onChange: (info) => {
-                window.location.href = '/setcurrency/' + info.value
+                axios.get('/setcurrency/' + info.value)
+                .then(res=>{
+                    console.log(res);
+                })
+                console.log(info.value);
+                console.log(this.currencyRates[info.value] || {rate:1});
+                this.$store.commit('setRate', this.currencyRates[info.value] || {rate:1});
+                this.$store.commit('setCurrency', info.value);
             }
         });
+    }, computed: {
+        ...mapState({
+            currency: store => store.currency,
+            currencyRates: store => store.currency_rates
+        }),
     }
 });
 </script>

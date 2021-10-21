@@ -73,6 +73,7 @@
                             <v-currency-select
                                 currencylist="{{json_encode(Config::get('app.currency_list'))}}"
                                 currentcurrency="{{\App\Helper\Helper::getCurrency()}}"
+                                currentcurrencyexchanges="{{json_encode(\App\Helper\Helper::getCurrencyExchanges())}}"
                             ></v-currency-select>
                         </div>
                     </div>
@@ -120,7 +121,6 @@
 @auth
 
 @else
-
     <div class="popup --sm popup-forgotpass" id="forgotpass">
         <div class="popup__wrap">
             <h3 class="--center">{{ __('Forgot password') }}</h3>
@@ -171,16 +171,4 @@
 @endauth
 </body>
 <script src="{{ asset('js/app.js') }}" defer></script>
-
-
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>--}}
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>--}}
-
-{{--<script type="module" src="js/slim_select.js"></script>--}}
-{{--<script type="module" src="js/index.js"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>--}}
-{{--<script type="module">--}}
-{{--    import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.esm.js";--}}
-{{--</script>--}}
-
 </html>

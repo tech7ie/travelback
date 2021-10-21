@@ -2,9 +2,6 @@
     <section class="psearch" id="psearch">
         <form @submit="goToOrder" class="container psearch__wrap js-psearch-from_" data-submit="psearchSubmit">
             <div class="psearch__form">
-                <!--                {{points}}-->
-                <!--                {{orderRoute}}-->
-                <!--                {{current}}-->
                 <div class="psearch__head">
                     <h2>{{ orderRoute.from }}
                         <svg class="icon">
@@ -12,9 +9,7 @@
                         </svg>
                         {{ orderRoute.to }}
                     </h2>
-                    <!--                    {{'getExtraMinutes'}}-->
                     <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>
-                    <!--                    Estimated arrival 12:45 PM-->
                 </div>
                 <div class="calc">
                     <div class="custom-select">
@@ -126,7 +121,7 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR {{ (totalCarPrice + withstopsListPrce).toFixed(2) }}</span>
+                                <span>BUY FOR {{currency.toUpperCase()}}{{' '}} {{ ((totalCarPrice + withstopsListPrce) * rate).toFixed(2) }}</span>
                             </button>
                         </div>
                     </div>
@@ -138,7 +133,8 @@
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
-                                    Upgrade to a luxury sedan for €{{ ((totalCarPrice + (passangers_extra[1].car.price) ) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}
+                                    Upgrade to a luxury sedan for {{currency.toUpperCase()}}
+                                    {{ (((totalCarPrice + (passangers_extra[1].car.price) ) - (totalCarPrice + withstopsListPrce)) * rate).toFixed(2) }}
                                 </div>
                             </div>
                         </div>
@@ -221,7 +217,9 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="tickets__footer-price"><b>€{{ ((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrce)).toFixed(2) }}</b></div>
+                                <div class="tickets__footer-price">
+                                    <b>{{currency.toUpperCase()}}{{ (((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrce)) * rate).toFixed(2) }}</b>
+                                </div>
                             </div>
                         </label>
                     </div>
@@ -384,7 +382,7 @@ export default Vue.component("v-custom-search", {
             e.preventDefault()
             let selected = {
                 orderRoute: this.orderRoute,
-                price: (this.totalCarPrice + this.withstopsListPrce).toFixed(2),
+                price: ((this.totalCarPrice + this.withstopsListPrce) * this.rate).toFixed(2),
                 passangers: this.passangers,
                 extraMinutes: this.getExtraMinutes,
             }
@@ -542,7 +540,7 @@ export default Vue.component("v-custom-search", {
         updatePrice() {
             this.withstopsListPrce = 0;
             this.points.forEach(item => {
-                this.withstopsListPrce += (item.price + ((item.extra / 30) * (item.extra_durations / 2)));
+                this.withstopsListPrce += (item.price + ((item.extra / 30) * (item.extra_durations / 2))) * this.rate;
             });
         }
     },
@@ -552,6 +550,8 @@ export default Vue.component("v-custom-search", {
             count: store => store.count,
             route: store => store.route,
             points: store => store.points,
+            rate: store => store.rate,
+            currency: store => store.currency,
         }),
         getExtraMinutes() {
             let extraMinutes = 0;
@@ -565,7 +565,7 @@ export default Vue.component("v-custom-search", {
             this.passangers.forEach(p => {
                 totalPrice += parseFloat(p.car.price)
             })
-            return totalPrice;
+            return totalPrice * this.rate;
         },
         getCurrentRoutePlaces() {
             // return this.current_route_places

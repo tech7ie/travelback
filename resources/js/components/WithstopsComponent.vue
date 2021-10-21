@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </div>
-        <b>€ {{ (data.price + ((data.extra_durations /2 ) * ((data.extra/this.step)))).toFixed(2) }}</b>
+        <b>{{ currency.toUpperCase() + ' ' }} {{ (rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
         <button type="button" @click="remove">
             <svg class="icon minus">
                 <use xlink:href="/img/sprites/sprite.svg#close-small"></use>
@@ -31,6 +31,7 @@
 </template>
 <script>
 import Vue from "vue/dist/vue.esm.browser.min";
+import {mapState} from "vuex";
 
 export default Vue.component("v-withstops", {
     data() {
@@ -42,6 +43,11 @@ export default Vue.component("v-withstops", {
     props: ["data"],
     mounted() {
         this.selected = this.data.extra
+    }, computed: {
+        ...mapState({
+            rate: store => store.rate,
+            currency: store => store.currency,
+        }),
     },
     methods: {
         plus() {
@@ -49,7 +55,7 @@ export default Vue.component("v-withstops", {
             this.$emit("update_time", {data: this.data, extra: this.selected});
         },
         minus() {
-            if(this.selected <= this.data.durations) return false;
+            if (this.selected <= this.data.durations) return false;
             this.selected -= this.step;
             this.$emit("update_time", {data: this.data, extra: this.selected});
         },

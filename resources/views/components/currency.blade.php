@@ -46,6 +46,21 @@
                                 <use xlink:href="{{asset('img/sprites/sprite.svg#').strtolower($contact['label_'.app()->getLocale()] ?? $contact['label'])}}"></use>
                             </svg>
                         </a>
+{{--                        <a href="#facebook">--}}
+{{--                            <svg class="icon">--}}
+{{--                                <use xlink:href="{{asset('img/sprites/sprite.svg#facebook')}}"></use>--}}
+{{--                            </svg>--}}
+{{--                        </a>--}}
+{{--                        <a href="#youtube">--}}
+{{--                            <svg class="icon">--}}
+{{--                                <use xlink:href="{{asset('img/sprites/sprite.svg#youtube')}}"></use>--}}
+{{--                            </svg>--}}
+{{--                        </a>--}}
+{{--                        <a href="#whatsapp">--}}
+{{--                            <svg class="icon">--}}
+{{--                                <use xlink:href="{{asset('img/sprites/sprite.svg#whatsapp')}}"></use>--}}
+{{--                            </svg>--}}
+{{--                        </a>--}}
                         @endforeach
                     </div>
             </div>

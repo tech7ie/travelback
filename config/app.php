@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'currency' => 'en',
+    'currency' => 'eur',
 
     'currency_list' => [
         'usd' => 'U.S. Dollar',

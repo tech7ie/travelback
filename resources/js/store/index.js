@@ -16,9 +16,21 @@ const store = {
         route: null,
         selected: null,
         points: points ? JSON.parse(points) : [],
-        count: 0
+        rate: 1,
+        count: 0,
+        currency: 'eur',
+        currency_rates: null,
     },
     mutations: {
+        setRate(state, rate) {
+            state.rate = rate.rate ?? 1
+        },
+        setCurrency(state, currency) {
+            state.currency = currency
+        },
+        setCurrencyRates(state, currency_rates) {
+            state.currency_rates = currency_rates
+        },
         setRoute(state, item) {
             state.route = item
             state.count++;
@@ -27,12 +39,7 @@ const store = {
             state.selected = selected
         },
         addPoint(state, item) {
-            // Vue.set(this.$store.state.nav, 'type', 'wide');
-            // state.points = [...state.points, item]
-
             Vue.set(state, 'points', [...state.points, item])
-
-            // state.points.push(item)
         },
         saveCart(state) {
             console.log('saveCart');
@@ -45,6 +52,9 @@ const store = {
             Vue.set(place, 'extra', item.extra)
             Vue.set(state, 'points', [...state.points])
         }
+    },
+    getters: {
+
     },
     plugins: [vuexLocal.plugin]
 }

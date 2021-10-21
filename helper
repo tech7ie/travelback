@@ -61,3 +61,17 @@ php artisan make:migration create_places_table
 php artisan migrate
 php artisan make:factory PlaceFactory -m Place
 php artisan sleepingowl:section:generate
+
+php artisan make:model ExchangeRate
+php artisan make:controller ExchangeRate
+php artisan make:migration create_exchange_rate_table
+php artisan migrate
+php artisan make:factory ExchangeRateFactory -m ExchangeRate
+php artisan sleepingowl:section:generate
+
+php artisan make:model Currency
+php artisan make:controller Currency
+php artisan make:migration create_currency_table
+php artisan migrate
+php artisan make:factory CurrencyFactory -m Currency
+php artisan sleepingowl:section:generate
