@@ -70,16 +70,17 @@ class Routes extends Section implements Initializable {
                            $query->orderBy( 'status', $direction );
                        } )
                        ->setSearchable( false ),
-            AdminColumn::text( 'route_from_country_id', 'From' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'route_from_country_id', $direction );
-                       } )
-                       ->setSearchable( false ),
-            AdminColumn::text( 'route_to_country_id', 'To' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'route_from_country_id', $direction );
-                       } )
-                       ->setSearchable( false ),
+
+            AdminColumn::custom( 'From', function ( $model ) {
+                $city = $model->getFromCity();
+
+                return $city[0]->name;
+            } ),
+            AdminColumn::custom( 'to', function ( $model ) {
+                $city = $model->getToCity();
+
+                return $city[0]->name;
+            } ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'updated_at', $direction );
@@ -154,13 +155,14 @@ class Routes extends Section implements Initializable {
                 AdminFormElement::datetime( 'route_end', 'Route start' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::text( 'price', 'Price' )
+                AdminFormElement::number( 'price', 'Price' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setOptions( [ 'open'   => 'open',
-                                                'closed' => 'closed',
-                                                'done'   => 'done',
-                                                'fail'   => 'fail'
+                                ->setOptions( [
+                                    'open'   => 'open',
+                                    'closed' => 'closed',
+                                    'done'   => 'done',
+                                    'fail'   => 'fail'
                                 ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [

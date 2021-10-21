@@ -76,9 +76,9 @@ class Car extends Section implements Initializable {
                            $query->orderBy( 'luggage', $direction );
                        } )
                        ->setSearchable( false ),
-            AdminColumn::text( 'ratio', 'Ratio' )
+            AdminColumn::text( 'price', 'Car price' )
                        ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'ratio', $direction );
+                           $query->orderBy( 'price', $direction );
                        } )
                        ->setSearchable( false ),
             AdminColumn::text( 'vehicle.title', 'Vehicle Body Type' ),
@@ -127,20 +127,20 @@ class Car extends Section implements Initializable {
                 AdminFormElement::select( 'vehicle_body_type', 'Vehicle Body Type' )
                                 ->setModelForOptions( \App\Models\VehicleBodyType::class, 'title' )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::text( 'brand', 'Brand' )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::text( 'luggage', 'Luggage' )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-3' )->addColumn( [
+            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::text( 'places_min', 'Min Places' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::text( 'places_max', 'Max Places' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'ratio', 'Ratio' )
+                AdminFormElement::number( 'price', 'Car price' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
