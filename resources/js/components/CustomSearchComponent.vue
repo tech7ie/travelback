@@ -207,21 +207,21 @@
                         <input id="select-auto-1" type="radio" name="select-ride" checked>
                         <label for="select-auto-1">
                             <div class="tickets__footer">
-                                <i><img :src="'/' + item.image" :alt="item.title"></i>
+                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
                                 <div class="tickets__footer-info">
-                                    <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
-                                    <div><span>{{ item.places_min }} - {{ item.places_max }}</span>
+                                    <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
+                                    <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
                                         <svg class="icon">
                                             <use xlink:href="img/sprites/sprite.svg#users"></use>
                                         </svg>
                                     </div>
-                                    <div><span>{{ item.luggage }}</span>
+                                    <div><span>{{ item.car.luggage }}</span>
                                         <svg class="icon">
                                             <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="tickets__footer-price"><b>€{{ (((totalCarPrice + (item.places_max * current.price)) * item.ratio) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}</b></div>
+                                <div class="tickets__footer-price"><b>€{{ (((totalCarPrice + (item.car.places_max * current.price)) * item.car.ratio) - (totalCarPrice + withstopsListPrce)).toFixed(2) }}</b></div>
                             </div>
                         </label>
                     </div>
