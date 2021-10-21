@@ -76,6 +76,11 @@ class Car extends Section implements Initializable {
                            $query->orderBy( 'luggage', $direction );
                        } )
                        ->setSearchable( false ),
+            AdminColumn::text( 'ratio', 'Ratio' )
+                       ->setOrderable( function ( $query, $direction ) {
+                           $query->orderBy( 'ratio', $direction );
+                       } )
+                       ->setSearchable( false ),
             AdminColumn::text( 'vehicle.title', 'Vehicle Body Type' ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setOrderable( function ( $query, $direction ) {
@@ -133,6 +138,9 @@ class Car extends Section implements Initializable {
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::text( 'places_max', 'Max Places' )
+                                ->required(),
+            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
+                AdminFormElement::text( 'ratio', 'Ratio' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )

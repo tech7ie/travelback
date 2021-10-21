@@ -22,6 +22,7 @@ class CreateCarTable extends Migration
             $table->integer('luggage');
             $table->intege('places_min');
             $table->intege('places_max');
+            $table->decimal('ratio',8,2);
             $table->text('note');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->default(\Illuminate\Support\Facades\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
