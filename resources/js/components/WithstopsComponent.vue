@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </div>
-        <b>{{ currency.toUpperCase() + ' ' }} {{ (rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
+        <b>{{ currency.toUpperCase() + ' ' }} {{ ( rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
         <button type="button" @click="remove">
             <svg class="icon minus">
                 <use xlink:href="/img/sprites/sprite.svg#close-small"></use>
@@ -37,7 +37,8 @@ export default Vue.component("v-withstops", {
     data() {
         return {
             selected: 0,
-            step: 30
+            step: 30,
+            max: 2880
         };
     },
     props: ["data"],
@@ -51,6 +52,7 @@ export default Vue.component("v-withstops", {
     },
     methods: {
         plus() {
+            if (this.selected + this.data.durations + this.step > this.max) return false;
             this.selected += this.step;
             this.$emit("update_time", {data: this.data, extra: this.selected});
         },

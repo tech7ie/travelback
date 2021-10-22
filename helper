@@ -75,3 +75,10 @@ php artisan make:migration create_currency_table
 php artisan migrate
 php artisan make:factory CurrencyFactory -m Currency
 php artisan sleepingowl:section:generate
+
+php artisan make:model RouteOrder
+php artisan make:controller RouteOrder
+php artisan make:migration create_route_orders_table
+php artisan migrate
+php artisan make:factory CurrencyFactory -m Currency
+php artisan sleepingowl:section:generate

@@ -13,7 +13,8 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "laravelrus/sleepingowl": "^8.44.1"
+        "laravelrus/sleepingowl": "^8.44.1",
+        "stripe/stripe-php": "^7.100"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

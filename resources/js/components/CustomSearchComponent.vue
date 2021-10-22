@@ -375,7 +375,9 @@ export default Vue.component("v-custom-search", {
                 })
         },
         setCar(car) {
-            this.passangers = [car]
+            console.log(car);
+            this.passangers = [{car,count: 1}]
+            console.log(this.passangers);
             this.passangers_extra = []
         },
         goToOrder(e) {
