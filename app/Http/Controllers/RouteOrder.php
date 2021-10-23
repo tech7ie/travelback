@@ -110,7 +110,7 @@ class RouteOrder extends Controller {
 
             return true;
 
-        } catch ( Exception $e ) {
+        } catch ( \Throwable $e ) {
             return $e->getMessage();
         }
 //        return $data;
