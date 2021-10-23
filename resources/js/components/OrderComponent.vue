@@ -283,7 +283,7 @@ export default Vue.component("v-order-route", {
                     window.location.href = this.getOrderUrl();
                 }).catch(e => {
                 console.log(e);
-                // window.location.href = this.getOrderCancelUrl();
+                window.location.href = this.getOrderCancelUrl();
             })
         },
         getOrderSuccessUrl() {

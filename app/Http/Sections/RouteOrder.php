@@ -143,7 +143,7 @@ class RouteOrder extends Section implements Initializable {
                                 ->required()->setReadonly(true),
                 AdminFormElement::multiselect( 'cars', 'Cars' )
                                 ->setModelForOptions( \App\Models\Car::class, 'brand' )
-                                ->required(),
+                                ->required()->setReadonly(true),
                 AdminFormElement::datetime( 'route_date', 'Route date' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
