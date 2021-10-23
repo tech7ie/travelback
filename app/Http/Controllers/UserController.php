@@ -43,4 +43,11 @@ class UserController extends Controller {
             'user' => $user
         ] );
     }
+
+    public function cabinet(\Illuminate\Http\Request $request){
+            return view( 'pages/cabinet',
+                [ 'user' => Auth::user(),
+                  'orders' => \App\Models\RouteOrder::select()->where('user_id',Auth::user()->id)->get()]
+            );
+    }
 }

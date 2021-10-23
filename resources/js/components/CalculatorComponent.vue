@@ -1,6 +1,6 @@
 <template>
     <div class="calc" id="calculator">
-        <form class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
+        <form @submit.prevent="submitForm" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
                 <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
@@ -109,6 +109,7 @@ export default Vue.component("v-calculator", {
             extrastops: false,
             choosecar: false,
             requirements: false,
+            route_id: null,
             filter: {
                 from: '',
                 to: ''
@@ -145,8 +146,8 @@ export default Vue.component("v-calculator", {
             default: 1
         },
         request: {
-            type : Array,
-            default: function (){
+            type: Array,
+            default: function () {
                 return [{
                     from: '',
                     to: ''
@@ -155,28 +156,39 @@ export default Vue.component("v-calculator", {
         }
     },
     computed: {
-        getRequestUrl(){
-            return '/' + window.App.language + '/request?' + 'from='+ this.selectedFrom + '&to='+ this.selectedTo
+        getRequestUrl() {
+            return '/' + window.App.language + '/request?' + 'from=' + this.selectedFrom + '&to=' + this.selectedTo
         },
         ampm() {
             return this.pm ? "PM" : "AM";
         },
-        filteredRoutes(){
+        filteredRoutes() {
             return this.parsedRoutes.filter(r => {
-                return this.selectedFrom.length >0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
             }).filter(r => {
-                return this.selectedTo.length >0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
             })
         },
-        filteredRoutesTo(){
+        filteredRoutesTo() {
             return this.parsedRoutes.filter(r => {
-                return this.selectedFrom.length >0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
             }).filter(r => {
-                return this.selectedTo.length >0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
             })
         }
     },
     methods: {
+        submitForm(e) {
+            e.preventDefault()
+
+            const formData = new FormData(e.target);
+            const formProps = Object.fromEntries(formData);
+
+            this.$store.commit('setCart', formProps);
+
+            this.$store.commit('clearPoint');
+            return false;
+        },
         toggle(item) {
             this[item] = !this[item];
             setTimeout(() => {
@@ -199,6 +211,7 @@ export default Vue.component("v-calculator", {
         selectTo(item) {
             // this.openedTo = false;
             this.selectedTo = item.to_city;
+            this.route_id = item.route_id;
             this.updateError();
         },
         inputTo() {
@@ -209,13 +222,33 @@ export default Vue.component("v-calculator", {
             let to = this.selectedTo;
             this.selectedFrom = to;
             this.selectedTo = from;
+            this.$store.commit('clearPoint');
             this.updateError();
+        },
+        search() {
+
+            this.$store.commit('setCart', cart);
         }
     },
     mounted() {
+
         initValidation(".js-calculator");
+
+        let $this = this;
+
+        document.addEventListener("bouncerFormValid", function (el) {
+            $this.submitForm(el)
+                try {
+                    var form = event.target;
+                    form.submit(this)
+                    console.log('error');
+                } catch (e) {
+                    console.log(e);
+                    console.log("Form Submit Error!");
+                }
+        });
         this.parsedRoutes = JSON.parse(this.routes)
-        this.searchActionsUrl = '/' + (window.App.language ?? 'en')  + '/search';
+        this.searchActionsUrl = '/' + (window.App.language ?? 'en') + '/search';
         this.selectedFrom = this.request.from ?? ''
         this.selectedTo = this.request.to ?? ''
         this.selectedTo = this.request.to ?? ''

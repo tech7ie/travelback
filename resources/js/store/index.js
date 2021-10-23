@@ -22,8 +22,16 @@ const store = {
         currency_rates: null,
     },
     mutations: {
+        clearPoint(state) {
+            console.log('clearPoint');
+            Vue.set(state, 'points', [])
+        },
         setRate(state, rate) {
             state.rate = rate.rate ?? 1
+        },
+        setCart(state, cart) {
+            console.log('setCart');
+            state.cart = cart
         },
         setCurrency(state, currency) {
             state.currency = currency

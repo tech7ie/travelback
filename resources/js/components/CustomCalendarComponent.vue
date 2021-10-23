@@ -7,7 +7,7 @@
         </div>
         <div class="calendar" v-show="opened">
             <input name="data" type="hidden" :value="selectedDate">
-            <v-date-picker mode="single" :min-date="getMinDate()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>
+            <v-date-picker @change="changeDate" mode="single" :min-date="getMinDate()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>
             <!--            <v-date-picker mode="single" :min-date="new Date()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>-->
         </div>
     </div>
@@ -53,6 +53,9 @@ export default Vue.component("v-custom-calendar", {
         }
     },
     methods: {
+        changeDate(e){
+            console.log(e);
+        },
         getMinDate() {
             var current = new Date();
             var followingDay = new Date(current.getTime() + (86400000 / 2));

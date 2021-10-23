@@ -58,10 +58,13 @@ Route::group( [
     Route::post( '/cabinet', [ \App\Http\Controllers\UserController::class, 'update' ] )->name( 'edit_profile' );
 
 
+
+    Route::post( '/set_order', [ \App\Http\Controllers\RouteOrder::class, 'save' ])->name( 'save_order' );
+
+
+
     Auth::routes();
-    Route::get( '/cabinet', function () {
-        return view( 'pages/cabinet', [ 'user' => Auth::user() ] );
-    } )->name( 'cabinet' );
+    Route::get( '/cabinet', [ \App\Http\Controllers\UserController::class, 'cabinet' ])->name( 'cabinet' );
 
     Route::get( '/order', function () {
         return view( 'pages/order', [
@@ -105,10 +108,19 @@ Route::group( [
         ] );
     } )->name( 'order' );
 
+//
+//    Route::post( '/order', [ \App\Http\Controllers\RouteOrder::class, 'save' ])->name( 'save_order' );
+//
 
     Route::get( '/order-success', function () {
         return view( 'pages/order-success' );
     } )->name( 'order-success' );
+
+
+
+    Route::get( '/order-cancel', function () {
+        return view( 'pages/order-cancel' );
+    } )->name( 'order-cancel' );
 
 
     Route::get( '/request', function () {

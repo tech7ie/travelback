@@ -47,7 +47,7 @@ class SearchController extends Controller {
             return view( 'pages/search', [
                 'currentRoute' => $route,
                 'currentRoutePlaces' => $places,
-                'debug'        => [ $data, $route, $places ]
+                'debug'        => [ 'data' => $data, 'route'=>$route, 'places' => $places ]
             ] );
 
         } catch ( \Throwable $t ) {
