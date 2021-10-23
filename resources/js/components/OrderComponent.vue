@@ -267,6 +267,7 @@ export default Vue.component("v-order-route", {
             data['order_details'] = this.orderDetails
             data['stripe_token'] = this.stripeToken
             data['payment_type'] = this.payment_type
+            data['currency'] = this.currency
 
 
             axios.post('/' + window.App.language + '/set_order', data)

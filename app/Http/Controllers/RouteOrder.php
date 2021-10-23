@@ -50,6 +50,7 @@ class RouteOrder extends Controller {
             $routeOrder->comment          = $data['order_details']['comment'] ?? '';
             $routeOrder->pickup_address   = $data['order_details']['pickup_address'] ?? '';
             $routeOrder->drop_off_address = $data['order_details']['drop_off_address'] ?? '';
+            $routeOrder->currency         = $data['currency'] ?? 'eur';
             $routeOrder->route_id         = $data['route_id'];
             $routeOrder->route_date       = $data['route_date'];
             $routeOrder->amount           = $data['total'];
