@@ -280,9 +280,9 @@ export default Vue.component("v-order-route", {
                     this.$store.commit('clearPoint');
 
                     window.location.href = this.getOrderUrl();
-                }).catch(e=>{
+                }).catch(e => {
                 console.log(e);
-                window.location.href = this.getOrderCancelUrl();
+                // window.location.href = this.getOrderCancelUrl();
             })
         },
         getOrderSuccessUrl() {
