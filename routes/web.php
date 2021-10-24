@@ -122,6 +122,10 @@ Route::group( [
         return view( 'pages/order-cancel' );
     } )->name( 'order-cancel' );
 
+    Route::get( '/order-success-manual', function () {
+        return view( 'pages/order-success-manual' );
+    } )->name( 'order-success-manual' );
+
 
     Route::get( '/request', function () {
         return view( 'pages/request' );

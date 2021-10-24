@@ -272,19 +272,26 @@ export default Vue.component("v-order-route", {
 
             axios.post('/' + window.App.language + '/set_order', data)
                 .then(res => {
-                    console.log('getPlaces ress;', res);
-                    this.places = res.data ?? [];
-                    window.location.href = this.getOrderUrl();
-                    this.$store.commit('setCart', []);
-                    this.$store.commit('setRoute', []);
-                    this.$store.commit('setSelected', []);
-                    this.$store.commit('clearPoint');
 
-                    window.location.href = this.getOrderUrl();
+                    console.log('getPlaces ress;', res);
+
+                    if (res){
+                        if (res.data['status']==='success'){
+
+                            this.places = res.data ?? [];
+
+                            this.$store.commit('clearOrder');
+
+                            window.location.href = this.getUrl(res.data['path']);
+                        }
+                    }
                 }).catch(e => {
                 console.log(e);
-                window.location.href = this.getOrderCancelUrl();
+                window.location.href = this.getUrl('order-cancel');
             })
+        },
+        getUrl(path) {
+            return '/' + window.App.language + '/' + path
         },
         getOrderSuccessUrl() {
             return '/' + window.App.language + '/order-success'

@@ -16,7 +16,7 @@ class RouteOrder extends Controller {
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return bool
+     * @return string[]
      */
     public function save( \Illuminate\Http\Request $request ) {
 
@@ -105,15 +105,16 @@ class RouteOrder extends Controller {
                     $routeOrder->save();
                 }
 
-//            return $charge;
+            return ['status' => 'success', 'path' => 'order-success'];
 
             }
 
-            return true;
+            return ['status' => 'success', 'path' => 'order-success-manual'];
+
 
         } catch ( \Throwable $e ) {
             print_r($e);
-            return $e->getMessage();
+            return ['status' => 'success', 'path' => 'error', 'message' => $e->getMessage()];
         }
 //        return $data;
     }

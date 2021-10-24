@@ -55,6 +55,24 @@ const store = {
         removePoint(state, item) {
             state.points.splice(state.points.indexOf(item), 1);
         },
+        clearOrder(state, item) {
+
+            Vue.set(state, 'cart', [])
+            Vue.set(state, 'route', [])
+            Vue.set(state, 'points', [])
+            state.selected = {
+                orderRoute: {
+                    from: '',
+                    to: '',
+                    passengers: null,
+                    luggage: null,
+                    childrens: null,
+                    route_start: null,
+                    route_end: null,
+                }
+            }
+
+        },
         updatePointTime(state, item) {
             let place = state.points[state.points.indexOf(item.data)]
             Vue.set(place, 'extra', item.extra)
