@@ -114,20 +114,12 @@ class Country extends Section implements Initializable
     {
         $form = AdminForm::card()->addBody([
             AdminFormElement::columns()->addColumn([
-                AdminFormElement::text('title', 'Name')->setReadonly(true)
+                AdminFormElement::text('name', 'Name')->setReadonly(true)
                 ,
-                AdminFormElement::text('order', 'Order')
-                    ->required()
+                AdminFormElement::text('region', 'Region')->setReadonly(true)
                 ,
-                AdminFormElement::html('<hr>'),
-                AdminFormElement::datetime('created_at')
-                    ->setVisible(true)
-                    ->setReadonly(false)
-                ,
-                AdminFormElement::html('last AdminFormElement without comma')
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4')->addColumn([
-                AdminFormElement::text('id', 'ID')->setReadonly(true),
-                AdminFormElement::html('last AdminFormElement without comma')
+                AdminFormElement::number('price_increase', 'Price increase')->required()
             ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8'),
         ]);
 

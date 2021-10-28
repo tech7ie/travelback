@@ -61,12 +61,12 @@ class Car extends Section implements Initializable {
                                ->orWhere( 'title', 'like', '%' . $search . '%' )
                                ->orWhere( 'created_at', 'like', '%' . $search . '%' );
                        } ),
-            AdminColumn::text( 'places_min', 'Min places' )
+            AdminColumn::text( 'places_min', 'Min seats' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'places_min', $direction );
                        } )
                        ->setSearchable( false ),
-            AdminColumn::text( 'places_max', 'Max places' )
+            AdminColumn::text( 'places_max', 'Max seats' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'places_max', $direction );
                        } )
@@ -134,10 +134,10 @@ class Car extends Section implements Initializable {
                 AdminFormElement::text( 'luggage', 'Luggage' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'places_min', 'Min Places' )
+                AdminFormElement::text( 'places_min', 'Min seats' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'places_max', 'Max Places' )
+                AdminFormElement::text( 'places_max', 'Max seats' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
                 AdminFormElement::number( 'price', 'Car price' )
@@ -145,6 +145,7 @@ class Car extends Section implements Initializable {
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
                                 ->required(),
+                AdminFormElement::html( "<b>Only png format.</b>"),
             ], 'col-xs-12 col-sm-4 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::wysiwyg( 'note', 'Note', 'ckeditor' )
                                 ->required(),

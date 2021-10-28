@@ -149,20 +149,22 @@ class Routes extends Section implements Initializable {
                                     return $query->where( 'country_id', $item->getDependValue( 'route_to_country_id' ) );
                                 } )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::datetime( 'route_start', 'Route start' )
-                                ->required(),
-                AdminFormElement::datetime( 'route_end', 'Route start' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::number( 'price', 'Price' )
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
+//            addColumn( [
+//                AdminFormElement::datetime( 'route_start', 'Route start' )
+//                                ->required(),
+//                AdminFormElement::datetime( 'route_end', 'Route start' )
+//                                ->required(),
+//            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
+            addColumn( [
+                AdminFormElement::number( 'price', 'Price €' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [
                                     'open'   => 'open',
                                     'closed' => 'closed',
-                                    'done'   => 'done',
-                                    'fail'   => 'fail'
+//                                    'done'   => 'done',
+//                                    'fail'   => 'fail'
                                 ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [

@@ -22,6 +22,7 @@ use SleepingOwl\Admin\Navigation\Page;
 // AdminSection::addMenuPage(\App\User::class)
 
 return [
+
 //    [
 //        'title' => 'Dashboard',
 //        'icon'  => 'fas fa-tachometer-alt',

@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 //    return redirect()->back();
 //});
 
+//Route::get('', ['as' => 'admin.dashboard', function () {
+//    return redirect('/admin/pages');
+//}]);
+
 Route::get( 'setlocale/{lang}', [
     'as'   => 'lang.switch',
     'uses' => 'App\Http\Controllers\LanguageController@switchLang'
