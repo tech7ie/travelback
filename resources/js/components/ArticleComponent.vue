@@ -4,7 +4,7 @@
         <p v-html="data.body"></p>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
         <button type="button" :class="{added: addedPoint}" @click="buy">
-            Add for {{ currency.toUpperCase() + ' ' }}{{ data.price * rate }}
+            Add for {{ currency.toUpperCase() + ' ' }}{{ (data.price * rate).toFixed(2) }}
             <span>
           <svg class="icon check">
             <use xlink:href="/img/sprites/sprite.svg#check"></use>

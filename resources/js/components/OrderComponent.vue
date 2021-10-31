@@ -102,7 +102,8 @@
                                 </div>
                             </div>
                             <div class="order-sum__head">
-                                <h2>Trip summary</h2><a href="#">Edit itinerary</a>
+                                <h2>Trip summary</h2>
+                                <a :href="editOrder()">Edit itinerary</a>
                             </div>
                             <div class="order-sum__country">
                                 <div class="order-sum__country-item">
@@ -116,7 +117,9 @@
                                 </div>
                             </div>
                             <div class="order-sum__cars">
-                                <div><a href="Other-cars">Other cars</a></div>
+                                <div>
+<!--                                    <a href="Other-cars">Other cars</a>-->
+                                </div>
                                 <div class="order-sum__cars-item tickets__footer">
                                     <template v-for="(item, index) in selected.passangers">
                                         <i><img :src="'/'+ item.car['image']" alt="sedan"></i>
@@ -254,6 +257,9 @@ export default Vue.component("v-order-route", {
         });
     },
     methods: {
+        editOrder() {
+            return '/' + window.App.language + '/' + `search?route=${this.cart.route_id}&from=Barcelona&to=Bajram+Curri&data=31.10.2021&hours=9&minutes=13&adults=${this.cart.adults}&childrens=${this.cart.childrens}&luggage=${this.cart.luggage}`
+        },
         getActions() {
             return '/' + window.App.language + '/' + 'order-success'
         },

@@ -122,7 +122,7 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR {{ currency.toUpperCase() }}{{ ' ' }} {{ ((totalCarPrice + withstopsListPrce) * rate).toFixed(2) }}</span>
+                                <span>BUY FOR {{ currency.toUpperCase() }}{{ ' ' }} {{ getOrderTotal() }}</span>
                             </button>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                             <div class="tickets__footer-info">
                                 <div>
                                     Upgrade to a luxury sedan for {{ currency.toUpperCase() }}
-                                    {{ (((totalCarPrice + (passangers_extra[1].car.price)) - (totalCarPrice + withstopsListPrce)) * rate).toFixed(2) }}
+                                    {{ (((totalCarPrice + parseFloat(passangers_extra[1].car.price)) - (totalCarPrice + withstopsListPrce)) * parseFloat(rate)).toFixed(2) }}
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                 <h3>Select your ride</h3>
                 <div class="popup-select-rider">
                     <div v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
-                        <input id="select-auto-1" type="radio" name="select-ride" checked>
+<!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                         <label for="select-auto-1">
                             <div class="tickets__footer">
                                 <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
@@ -351,6 +351,7 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.adults = this.adults
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
+            this.orderRoute.price_increase = this.current.from_country.price_increase
 
             this.orderRoute.to = this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
@@ -381,6 +382,12 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
+        getOrderTotal(){
+            if(parseFloat(this.orderRoute.price_increase) > 0){
+                return (parseFloat(this.orderRoute.price_increase) * ((this.totalCarPrice + this.withstopsListPrce + parseFloat(this.current.price)) * parseFloat(this.rate))).toFixed(2)
+            }
+            return (((this.totalCarPrice + this.withstopsListPrce + parseFloat(this.current.price)) * parseFloat(this.rate))).toFixed(2)
+        },
         getPlaces() {
             console.log('getPlaces');
             axios.post('/api/get_route_places', {route: this.route_id})
@@ -419,7 +426,8 @@ export default Vue.component("v-custom-search", {
             let cart = {
                 route_id: this.route_id,
                 route_date: route_date,
-                total: ((this.totalCarPrice + this.withstopsListPrce) * this.rate).toFixed(2),
+                total: this.getOrderTotal,
+                // total: parseFloat(this.current.price) + ((this.totalCarPrice + this.withstopsListPrce) * this.rate).toFixed(2),
                 adults: this.adults,
                 childrens: this.childrens,
                 luggage: this.luggage,
@@ -432,8 +440,11 @@ export default Vue.component("v-custom-search", {
             console.log(car);
             this.passangers = [car]
             console.log(this.passangers);
-            this.passangers_extra = []
-
+            var f = window.document.getElementsByClassName('fancybox__container')
+            if (f)
+                f[0].click()
+            // this.passangers_extra = []
+return true
         },
         goToOrder(e) {
             e.preventDefault()
@@ -454,8 +465,6 @@ export default Vue.component("v-custom-search", {
         },
         addedPoint(item) {
             let issetPoint = false
-
-
             this.points.forEach(i => {
                 if (i.id === item.id) {
                     issetPoint = true
@@ -579,7 +588,9 @@ export default Vue.component("v-custom-search", {
         selectTo(item) {
             this.$store.commit('clearPoint');
             this.orderRoute.to = item.to_city;
+            this.orderRoute.price_increase = this.current.from_country.price_increase
             this.route_id = item.id
+            this.current = item
             this.getPlaces();
             this.updateError();
         },

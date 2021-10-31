@@ -41,6 +41,12 @@ class Routes extends Model
             $this->hasOne(Cities::class,'id','route_from_city_id' )->select(['name'])->get();
     }
 
+    public function fromCountry(): \Illuminate\Database\Eloquent\Relations\HasOne {
+        return
+            $this->hasOne(Country::class,'id','route_from_country_id' )->select(['name','price_increase']);
+    }
+
+
     public function getFromCountry(): \Illuminate\Database\Eloquent\Collection {
         return
             $this->hasOne(Country::class,'id','route_from_country_id' )->select(['name'])->get();
