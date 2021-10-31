@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </div>
-        <b>{{ currency.toUpperCase() + ' ' }} {{ ( rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
+        <b>{{ currency.toUpperCase() + ' ' }} {{ ( total_rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
         <button type="button" @click="remove">
             <svg class="icon minus">
                 <use xlink:href="/img/sprites/sprite.svg#close-small"></use>
@@ -47,6 +47,7 @@ export default Vue.component("v-withstops", {
     }, computed: {
         ...mapState({
             rate: store => store.rate,
+            total_rate: store => (store.rate + store.country_rate) > 0 ?(store.rate + store.country_rate):1,
             currency: store => store.currency,
         }),
     },

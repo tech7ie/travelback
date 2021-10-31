@@ -96,12 +96,12 @@
                     <div class="yourride__head">
                         <h3>Your ride</h3><a href="#Other-cars">Other cars</a>
                     </div>
-                    <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
+                    <div class="yourride__selected" :class="{two: passengers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i>
-                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.image" :alt="item.title">
+                                <img v-for="(item, index) in passengers" :key="index" :src="'/' + item.image" :alt="item.title">
                             </i>
-                            <div class="tickets__footer-info" v-for="(item, index) in passangers" :key="index">
+                            <div class="tickets__footer-info" v-for="(item, index) in passengers" :key="index">
                                 <header>
                                     <h4>{{ item.title }}</h4><em>{{ item.brand }}</em>
                                 </header>
@@ -334,7 +334,7 @@ export default Vue.component("v-custom-search", {
                     price: 82
                 }
             ],
-            passangers: [],
+            passengers: [],
             glide: {},
             orderRoute: {
                 from: null,
@@ -390,9 +390,9 @@ export default Vue.component("v-custom-search", {
             this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         returnPersone(e) {
-            this.passangers = [];
+            this.passengers = [];
             // this.$nextTick(() => {
-            //   if(e.passangers >= 1 && e.passangers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
+            //   if(e.passengers >= 1 && e.passengers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
             //     //console.log("sedan");
             //   } else {
             //     //console.log("other");
@@ -401,10 +401,10 @@ export default Vue.component("v-custom-search", {
             // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage
             // this.auto.forEach(item => {
             this.current.cars.forEach(item => {
-                let pas = e.passangers >= item.places_max && e.passangers <= item.places_min;
+                let pas = e.passengers >= item.places_max && e.passengers <= item.places_min;
                 let lug = e.luggage <= item.luggage;
                 let result = false;
-                if (e.passangers > e.luggage) {
+                if (e.passengers > e.luggage) {
                     if (pas) {
                         result = true;
                     }
@@ -414,7 +414,7 @@ export default Vue.component("v-custom-search", {
                     }
                 }
 
-                if (result) this.passangers.push(item);
+                if (result) this.passengers.push(item);
             });
         },
         addNewStopItem(item, type) {

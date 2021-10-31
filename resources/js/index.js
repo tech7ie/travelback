@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         password: /[\d\w\W\D\d].{7,}/,
         tel: /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/,
         phone: /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/,
-        passangers: /^[1-9][0-9]*$/,
+        passengers: /^[1-9][0-9]*$/,
         "day-of-birth": /(0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-([12]\d{3})/
       },
       customValidations: {

@@ -17,6 +17,8 @@ const store = {
         selected: null,
         points: points ? JSON.parse(points) : [],
         rate: 1,
+        total_rate: 1,
+        country_rate: 0,
         count: 0,
         currency: 'eur',
         currency_rates: null,
@@ -28,6 +30,11 @@ const store = {
         },
         setRate(state, rate) {
             state.rate = rate.rate ?? 1
+            state.total_rate = (state.rate + state.currency_rates) > 0 ? (state.rate + state.currency_rates) : 1
+        },
+        setCurrencyRate(state, rate) {
+            state.currency_rates = rate.currency_rates ?? 1
+            state.total_rate = (state.rate + state.currency_rates) > 0 ? (state.rate + state.currency_rates) : 1
         },
         setCart(state, cart) {
             console.log('setCart');
@@ -56,7 +63,6 @@ const store = {
             state.points.splice(state.points.indexOf(item), 1);
         },
         clearOrder(state, item) {
-
             Vue.set(state, 'cart', [])
             Vue.set(state, 'route', [])
             Vue.set(state, 'points', [])
@@ -64,7 +70,7 @@ const store = {
                 orderRoute: {
                     from: '',
                     to: '',
-                    passengers: null,
+                    passengers: [],
                     luggage: null,
                     childrens: null,
                     route_start: null,
@@ -77,10 +83,14 @@ const store = {
             let place = state.points[state.points.indexOf(item.data)]
             Vue.set(place, 'extra', item.extra)
             Vue.set(state, 'points', [...state.points])
+        },
+        choseCar(state, item) {
+            console.log('choseCar', item);
+            Vue.set(state.selected, 'passengers', [item])
+            Vue.set(state.selected, 'car_price', item.car.price)
         }
     },
     getters: {
-
     },
     plugins: [vuexLocal.plugin]
 }

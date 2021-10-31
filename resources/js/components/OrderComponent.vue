@@ -118,10 +118,10 @@
                             </div>
                             <div class="order-sum__cars">
                                 <div>
-<!--                                    <a href="Other-cars">Other cars</a>-->
+                                    <a v-if="selected.passengersExtra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
                                 </div>
                                 <div class="order-sum__cars-item tickets__footer">
-                                    <template v-for="(item, index) in selected.passangers">
+                                    <template v-for="(item, index) in selected.passengers">
                                         <i><img :src="'/'+ item.car['image']" alt="sedan"></i>
                                         <div class="tickets__footer-info">
                                             <h4>{{ item.car['title'] }}</h4><em>{{ item.car['brand'] }}</em>
@@ -141,19 +141,54 @@
                             </div>
                             <div class="order-sum__footer">
                                 <div><span>Total ({{ currency.toUpperCase() }})</span><em>VAT included</em></div>
-                                <div><b>{{ currency.toUpperCase() + ' ' }} {{ selected['price'] }}</b></div>
+                                {{total_rate}}
+                                <div><b>{{ currency.toUpperCase() + ' ' }} {{ getTotalOrderAmount() }}</b></div>
                             </div>
                         </div>
                         <div class="order-sum__submit">
                             <button class="btn" type="submit">
-                                <span>confirm and pay {{ currency.toUpperCase() + ' ' }}{{ selected['price'] }}*</span></button>
+                                <span>confirm and pay {{ currency.toUpperCase() + ' ' }}{{ getTotalOrderAmount() }}*</span></button>
                             <b>* Your payment (approx. A€136) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate.</b>
                         </div>
                     </div>
                 </aside>
             </div>
         </div>
+
+        <div class="popup --xl" id="select-ride">
+            <form class="popup__wrap">
+                <h3>Select your ride</h3>
+                <div class="popup-select-rider">
+                    <div v-for="(item, index) in selected.passengersExtra" :key="index" @click="setCar(item)">
+                        <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
+                        <label for="select-auto-1">
+                            <div class="tickets__footer">
+                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
+                                <div class="tickets__footer-info">
+                                    <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
+                                    <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
+                                        <svg class="icon">
+                                            <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                        </svg>
+                                    </div>
+                                    <div><span>{{ item.car.luggage }}</span>
+                                        <svg class="icon">
+                                            <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="tickets__footer-price">
+                                    <b>{{ currency.toUpperCase() }}{{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}</b>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <!--                <button class="btn-submit &#45;&#45;simple &#45;&#45;no-opacity &#45;&#45;sm"><span>Save</span></button>-->
+            </form>
+        </div>
     </form>
+
 </template>
 <script>
 import Vue from "vue/dist/vue.esm.browser.min";
@@ -215,6 +250,7 @@ export default Vue.component("v-order-route", {
         var elements = stripe.elements();
 
 
+
         var card = elements.create('card', {style: style});
 
         card.mount('#card-element');
@@ -257,8 +293,20 @@ export default Vue.component("v-order-route", {
         });
     },
     methods: {
+        setCar(car) {
+            console.log(car);
+            this.passengers = [car]
+            console.log(this.passengers);
+            var f = window.document.getElementsByClassName('fancybox__container')
+            if (f)
+                f[0].click()
+
+
+            this.$store.commit('choseCar', car)
+            return true
+        },
         editOrder() {
-            return '/' + window.App.language + '/' + `search?route=${this.cart.route_id}&from=Barcelona&to=Bajram+Curri&data=31.10.2021&hours=9&minutes=13&adults=${this.cart.adults}&childrens=${this.cart.childrens}&luggage=${this.cart.luggage}`
+            return '/' + window.App.language + '/' + `search?route=${this.cart.route_id}&from=Barcelona&to=Bajram+Curri&data=${this.cart.data}&hours=${this.cart.hours}&minutes=${this.cart.minutes}&adults=${this.cart.adults}&childrens=${this.cart.childrens}&luggage=${this.cart.luggage}`
         },
         getActions() {
             return '/' + window.App.language + '/' + 'order-success'
@@ -274,6 +322,7 @@ export default Vue.component("v-order-route", {
             data['stripe_token'] = this.stripeToken
             data['payment_type'] = this.payment_type
             data['currency'] = this.currency
+            data['total'] = this.getTotalOrderAmount()
 
 
             axios.post('/' + window.App.language + '/set_order', data)
@@ -305,6 +354,11 @@ export default Vue.component("v-order-route", {
         getOrderCancelUrl() {
             return '/' + window.App.language + '/order-cancel'
         },
+        getTotalOrderAmount(){
+            // console.log('getTotalOrderAmount');
+            // console.log(this.total_rate,this.selected['car_price'],this.selected['price'],this.selected['withstopsListPrice']);
+            return (this.total_rate * (parseFloat(this.selected['car_price']) + parseFloat(this.selected['price']) + parseFloat(this.selected['withstopsListPrice'])).toFixed(2)).toFixed(2)
+        }
     },
     computed: {
         ...mapState({
@@ -314,6 +368,7 @@ export default Vue.component("v-order-route", {
             points: store => store.points,
             selected: store => store.selected,
             rate: store => store.rate,
+            total_rate: store => (store.rate + store.country_rate) > 0 ? (store.rate + store.country_rate) : 1,
             currency: store => store.currency,
         }),
         getExtraMinutes() {

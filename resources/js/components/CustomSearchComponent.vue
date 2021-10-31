@@ -94,14 +94,14 @@
                 <div class="yourride">
                     <div class="yourride__head">
                         <h3>Your ride</h3>
-                        <a v-if="passangers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
+                        <a v-if="passengers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
                     </div>
-                    <div class="yourride__selected" :class="{two: passangers.length &gt; 1}">
+                    <div class="yourride__selected" :class="{two: passengers.length &gt; 1}">
                         <div class="tickets__footer">
                             <i>
-                                <img v-for="(item, index) in passangers" :key="index" :src="'/' + item.car.image" :alt="item.car.title">
+                                <img v-for="(item, index) in passengers" :key="index" :src="'/' + item.car.image" :alt="item.car.title">
                             </i>
-                            <div v-for="(item, index) in passangers" :key="index" class="tickets__footer-info">
+                            <div v-for="(item, index) in passengers" :key="index" class="tickets__footer-info">
                                 <header>
                                     <h4>{{ item.count > 1 ? item.count + ' ' : '' }}{{ item.car.title }}{{ item.count > 1 ? 's' : '' }}</h4><em>{{ item.car.brand }}</em>
                                 </header>
@@ -122,20 +122,20 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR {{ currency.toUpperCase() }}{{ ' ' }} {{ getOrderTotal() }}</span>
+                                <span>BUY FOR {{ currency.toUpperCase() }}{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)) }}</span>
                             </button>
                         </div>
                     </div>
-                    <div class="yourride__selected extra" v-if="passangers_extra.length > 1">
+                    <div class="yourride__selected extra" v-if="passengers_extra.length > 1">
                         <div style="cursor:pointer; color: #03acd1" class="tickets__footer"
-                             @click="setCar({car: passangers_extra[1].car, count: 1})">
+                             @click="setCar({car: passengers_extra[1].car, count: 1})">
                             <i>
-                                <img :src="'/' + passangers_extra[1].car.image" :alt="passangers_extra[1].car.title">
+                                <img :src="'/' + passengers_extra[1].car.image" :alt="passengers_extra[1].car.title">
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
                                     Upgrade to a luxury sedan for {{ currency.toUpperCase() }}
-                                    {{ (((totalCarPrice + parseFloat(passangers_extra[1].car.price)) - (totalCarPrice + withstopsListPrce)) * parseFloat(rate)).toFixed(2) }}
+                                    {{ calculatePrice(((totalCarPrice + parseFloat(passengers_extra[1].car.price)) - (totalCarPrice + withstopsListPrice))) }}
                                 </div>
                             </div>
                         </div>
@@ -200,8 +200,8 @@
             <form class="popup__wrap">
                 <h3>Select your ride</h3>
                 <div class="popup-select-rider">
-                    <div v-for="(item, index) in passangers_extra" :key="index" @click="setCar(item)">
-<!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
+                    <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)">
+                        <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                         <label for="select-auto-1">
                             <div class="tickets__footer">
                                 <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
@@ -219,7 +219,8 @@
                                     </div>
                                 </div>
                                 <div class="tickets__footer-price">
-                                    <b>{{ currency.toUpperCase() }}{{ (((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrce)) * rate).toFixed(2) }}</b>
+                                    <!--                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrice)) }}</b>-->
+                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice(item.car.price) }}</b>
                                 </div>
                             </div>
                         </label>
@@ -305,9 +306,9 @@ export default Vue.component("v-custom-search", {
             route_id: 0,
             places: [],
             withstopsList: [],
-            withstopsListPrce: 0,
-            passangers: [],
-            passangers_extra: [],
+            withstopsListPrice: 0,
+            passengers: [],
+            passengers_extra: [],
             glide: {},
             orderRoute: {
                 from: '',
@@ -340,9 +341,10 @@ export default Vue.component("v-custom-search", {
         });
 
 
-        console.log(this.current.places);
-        console.log(this.current_route_places);
-        console.log(this.debug);
+        console.log('price: ', this.current.price);
+        console.log('places: ', this.current.places);
+        console.log('current_route_places:', this.current_route_places);
+        console.log('debug: ', this.debug);
 
         if (this.current) {
             this.route_id = this.current.id;
@@ -382,11 +384,11 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
-        getOrderTotal(){
-            if(parseFloat(this.orderRoute.price_increase) > 0){
-                return (parseFloat(this.orderRoute.price_increase) * ((this.totalCarPrice + this.withstopsListPrce + parseFloat(this.current.price)) * parseFloat(this.rate))).toFixed(2)
+        getOrderTotal() {
+            if (parseFloat(this.orderRoute.price_increase) > 0) {
+                return (parseFloat(this.orderRoute.price_increase) * ((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)
             }
-            return (((this.totalCarPrice + this.withstopsListPrce + parseFloat(this.current.price)) * parseFloat(this.rate))).toFixed(2)
+            return (((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)
         },
         getPlaces() {
             console.log('getPlaces');
@@ -403,12 +405,12 @@ export default Vue.component("v-custom-search", {
             console.log('date: ', (this.data + " " + this.hours + ":" + this.minutes));
 
 
-            this.passangers.map(c => {
+            this.passengers.map(c => {
                 cars.push({
-                        id: c.car.id,
-                        count: c.count,
-                        price: c.car.price
-                    })
+                    id: c.car.id,
+                    count: c.count,
+                    price: c.car.price
+                })
             })
 
             this.points.map(p => {
@@ -416,35 +418,43 @@ export default Vue.component("v-custom-search", {
                     {
                         id: p.id,
                         duration: p.duration + p.extra,
-                        price: ( this.rate * (p.price + ((p.extra_durations / 2) * ((p.extra / 30))))).toFixed(2)
+                        price: ((p.price + ((p.extra_durations / 2) * ((p.extra / 30))))).toFixed(2)
                     })
             })
 
-            let route_date = Vue.moment(this.data + " " + this.hours + ":" + this.minutes + ":00","DD.MM.YYYY h:m:ss ")
+            let route_date = Vue.moment(this.data + " " + this.hours + ":" + this.minutes + ":00", "DD.MM.YYYY h:m:ss ")
                 .format('YYYY.MM.DD hh:mm:ss');
 
             let cart = {
                 route_id: this.route_id,
                 route_date: route_date,
                 total: this.getOrderTotal,
-                // total: parseFloat(this.current.price) + ((this.totalCarPrice + this.withstopsListPrce) * this.rate).toFixed(2),
+                data: this.data,
+                hours: this.hours,
+                minutes: this.minutes,
+                // total: parseFloat(this.current.price) + ((this.totalCarPrice + this.withstopsListPrice) * this.rate).toFixed(2),
                 adults: this.adults,
                 childrens: this.childrens,
                 luggage: this.luggage,
+                passengers: this.passengers,
                 cars,
-                places
+                places,
+                price: (this.current.price).toFixed(2),
+                car_price: (this.totalCarPrice).toFixed(2),
+                extraMinutes: this.getExtraMinutes,
+                passengersExtra: this.passengers_extra,
+                withstopsListPrice: this.withstopsListPrice,
             }
             this.$store.commit('setCart', cart);
         },
         setCar(car) {
             console.log(car);
-            this.passangers = [car]
-            console.log(this.passangers);
+            this.passengers = [car]
+            console.log(this.passengers);
             var f = window.document.getElementsByClassName('fancybox__container')
             if (f)
                 f[0].click()
-            // this.passangers_extra = []
-return true
+            return true
         },
         goToOrder(e) {
             e.preventDefault()
@@ -453,9 +463,12 @@ return true
             console.log(e);
             let selected = {
                 orderRoute: this.orderRoute,
-                price: ((this.totalCarPrice + this.withstopsListPrce) * this.rate).toFixed(2),
-                passangers: this.passangers,
+                price: (this.current.price).toFixed(2),
+                car_price: (this.totalCarPrice).toFixed(2),
+                passengers: this.passengers,
                 extraMinutes: this.getExtraMinutes,
+                passengersExtra: this.passengers_extra,
+                withstopsListPrice: this.withstopsListPrice,
             }
             this.$store.commit('setSelected', selected);
             window.location.href = this.getOrderUrl();
@@ -504,8 +517,8 @@ return true
         },
         returnPersone(e) {
             console.log('returnPersone: ', e);
-            this.passangers = [];
-            this.passangers_extra = [];
+            this.passengers = [];
+            this.passengers_extra = [];
             let totalPassengers = e.passengers
             let current_passengers = e.passengers
             let inOneCar = this.getCarsOrdered().filter(c => {
@@ -513,10 +526,10 @@ return true
                 return current_passengers <= c.places_max
             })
             if (inOneCar.length > 0) {
-                this.passangers.push({car: inOneCar[0], count: 1})
+                this.passengers.push({car: inOneCar[0], count: 1})
 
                 inOneCar.map(c => {
-                    this.passangers_extra.push({car: c, count: 1});
+                    this.passengers_extra.push({car: c, count: 1});
                 })
             }
             let inMoreCar = []
@@ -556,7 +569,7 @@ return true
 
 
             }
-            this.passangers.push(...inMoreCar)
+            this.passengers.push(...inMoreCar)
         },
         addNewStopItem(item, type) {
             let exists = this.withstopsList.find(val => {
@@ -587,6 +600,7 @@ return true
         },
         selectTo(item) {
             this.$store.commit('clearPoint');
+            this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
             this.orderRoute.to = item.to_city;
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.route_id = item.id
@@ -611,10 +625,13 @@ return true
             }, 300);
         },
         updatePrice() {
-            this.withstopsListPrce = 0;
+            this.withstopsListPrice = 0;
             this.points.forEach(item => {
-                this.withstopsListPrce += (item.price + ((item.extra / 30) * (item.extra_durations / 2))) * this.rate;
+                this.withstopsListPrice += (item.price + ((item.extra / 30) * (item.extra_durations / 2)))
             });
+        },
+        calculatePrice(price) {
+            return (price * this.total_rate).toFixed(2)
         }
     },
     computed: {
@@ -625,6 +642,8 @@ return true
             points: store => store.points,
             rate: store => store.rate,
             currency: store => store.currency,
+            country_rate: store => store.country_rate,
+            total_rate: store => (store.rate + store.country_rate) > 0 ? (store.rate + store.country_rate) : 1,
         }),
         getExtraMinutes() {
             let extraMinutes = 0;
@@ -635,20 +654,13 @@ return true
         },
         totalCarPrice() {
             let totalPrice = 0;
-            this.passangers.forEach(p => {
+            this.passengers.forEach(p => {
                 totalPrice += parseFloat(p.car.price)
             })
-            return totalPrice * this.rate;
+            return totalPrice;
         },
         getCurrentRoutePlaces() {
-            // return this.current_route_places
             return this.places
-
-            // return this.current_route_places.filter(i => {
-            //     return this.points.filter(p => {
-            //         return p.id === i.id
-            //     }).length === 0
-            // })
         },
         ampm() {
             return this.pm ? "PM" : "AM";
