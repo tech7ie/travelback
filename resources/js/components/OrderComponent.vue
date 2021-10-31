@@ -141,7 +141,6 @@
                             </div>
                             <div class="order-sum__footer">
                                 <div><span>Total ({{ currency.toUpperCase() }})</span><em>VAT included</em></div>
-                                {{total_rate}}
                                 <div><b>{{ currency.toUpperCase() + ' ' }} {{ getTotalOrderAmount() }}</b></div>
                             </div>
                         </div>
