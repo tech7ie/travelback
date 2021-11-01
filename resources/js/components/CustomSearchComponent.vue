@@ -354,7 +354,7 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
             this.orderRoute.price_increase = this.current.from_country.price_increase
-
+            this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
             this.orderRoute.to = this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
@@ -631,7 +631,10 @@ export default Vue.component("v-custom-search", {
             });
         },
         calculatePrice(price) {
-            return (price * this.total_rate).toFixed(2)
+            console.log('calculatePrice');
+            console.log(price);
+            console.log(this.total_rate);
+            return (parseFloat(price) * parseFloat(this.total_rate)).toFixed(2)
         }
     },
     computed: {
@@ -643,7 +646,7 @@ export default Vue.component("v-custom-search", {
             rate: store => store.rate,
             currency: store => store.currency,
             country_rate: store => store.country_rate,
-            total_rate: store => (store.rate + store.country_rate) > 0 ? (store.rate + store.country_rate) : 1,
+            total_rate: store => (store.total_rate).toFixed(2),
         }),
         getExtraMinutes() {
             let extraMinutes = 0;

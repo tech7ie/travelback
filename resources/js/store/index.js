@@ -30,12 +30,12 @@ const store = {
         },
         setRate(state, rate) {
             state.rate = rate.rate ?? 1
-            state.total_rate = (state.rate + state.currency_rates) > 0 ? (state.rate + state.currency_rates) : 1
+            state.total_rate = ((state.rate - 1) + state.currency_rates) > 0 ? ((state.rate - 1) + state.currency_rates) : state.rate
         },
         setCurrencyRate(state, currency_rates) {
             console.log('currency_rates: ', currency_rates);
             state.currency_rates = currency_rates ?? 1
-            state.total_rate = (state.rate + state.currency_rates) > 0 ? (state.rate + state.currency_rates) : 1
+            state.total_rate = ((state.rate - 1) + state.currency_rates) > 0 ? ((state.rate - 1) + state.currency_rates) : state.rate
         },
         setCart(state, cart) {
             console.log('setCart');
