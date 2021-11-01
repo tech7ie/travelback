@@ -417,7 +417,7 @@ export default Vue.component("v-custom-search", {
                 places.push(
                     {
                         id: p.id,
-                        duration: p.duration + p.extra,
+                        durations: p.durations + p.extra,
                         price: ((p.price + ((p.extra_durations / 2) * ((p.extra / 30))))).toFixed(2)
                     })
             })

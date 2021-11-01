@@ -8,6 +8,7 @@ use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -113,8 +114,12 @@ class Users extends Section implements Initializable {
                                 ->required()
                 ,
                 AdminFormElement::text( 'last_name', 'Last name' )
-                                ->required()
-                ,
+                                ->required(),
+                AdminFormElement::select( 'role_id', 'Role' )
+                                ->setModelForOptions( \App\Models\Role::class, 'name' )
+                                ->required(),
+//                AdminFormElement::checkbox( 'is_admin', 'Is Administrator' )
+//                                ->required(),
                 AdminFormElement::html( '<hr>' ),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::text( 'email', 'Email' )
@@ -147,8 +152,22 @@ class Users extends Section implements Initializable {
     /**
      * @return bool
      */
+    public function isCreatable() {
+        return Auth::user()->isAdmin();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable( Model $model ) {
+        return Auth::user()->isAdmin();
+    }
+
+    /**
+     * @return bool
+     */
     public function isDeletable( Model $model ) {
-        return true;
+        return Auth::user()->isAdmin();
     }
 
     /**

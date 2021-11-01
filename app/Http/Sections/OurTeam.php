@@ -21,18 +21,18 @@ use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 
 /**
- * Class Users
+ * Class OurTeam
  *
- * @property \App\Models\User $model
+ * @property \App\Models\OurTeam $model
  *
  * @see https://sleepingowladmin.ru/#/ru/model_configuration_section
  */
-class Place extends Section implements Initializable {
+class OurTeam extends Section implements Initializable {
 
     /**
      * @var string
      */
-    protected $createTitle = "Create Content";
+    protected $createTitle = "Create OurTeam";
 
     /**
      * @var bool
@@ -68,11 +68,11 @@ class Place extends Section implements Initializable {
                        ->setSearchCallback( function ( $column, $query, $search ) {
                            return $query
                                ->orWhere( 'content', 'like', '%' . $search . '%' )
-                               ->orWhere( 'type', 'like', '%' . $search . '%' );
+                               ->orWhere( 'position', 'like', '%' . $search . '%' );
                        } )
             ,
-            AdminColumn::text( 'price', 'Price' ),
-            AdminColumn::text( 'durations', 'Durations' ),
+            AdminColumn::text( 'position', 'Position' ),
+            AdminColumn::text( 'status', 'Status' ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setWidth( '160px' )
                        ->setOrderable( function ( $query, $direction ) {
@@ -88,6 +88,7 @@ class Place extends Section implements Initializable {
                                ->setDisplaySearch( true )
                                ->paginate( 25 )
                                ->setColumns( $columns )
+                               ->setNewEntryButtonText( 'Add new team' )
                                ->setHtmlAttribute( 'class', 'table-primary table-hover th-center' );
 
         $display->getColumnFilters()->setPlacement( 'card.heading' );
@@ -107,25 +108,7 @@ class Place extends Section implements Initializable {
 
         $form = AdminForm::card()->addBody( [
             AdminFormElement::columns()->addColumn( [
-                AdminFormElement::hidden( 'user_id' )->setDefaultValue(Auth::id()),
-                AdminFormElement::selectajax( 'country_id', 'Country' )
-                                ->setModelForOptions( Country::class, 'name' )
-                                ->required(),
-                AdminFormElement::dependentselect( 'city_id', 'City' )
-                                ->setModelForOptions( Cities::class, 'name' )
-                                ->setDataDepends( [ 'country_id' ] )
-                                ->setLoadOptionsQueryPreparer( function ( $item, $query ) {
-                                    return $query->where( 'country_id', $item->getDependValue( 'country_id' ) );
-                                } )
-                                ->required(),
-                AdminFormElement::number( 'price', 'Price' )
-                                ->required(),
-                AdminFormElement::number( 'price_per_hour', 'Price extra (hour)' )
-                                ->required(),
-                AdminFormElement::number( 'durations', 'Durations' )
-                                ->required(),
-                AdminFormElement::number( 'extra_durations', 'Extra durations' )
-                                ->required(),
+                AdminFormElement::hidden( 'user_id' )->setDefaultValue( Auth::id() ),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [ 'enabled' => 'Enabled', 'disabled' => 'Disabled' ] )
                                 ->required(),
@@ -144,6 +127,8 @@ class Place extends Section implements Initializable {
                 AdminFormElement::columns()->addColumn( [
                     AdminFormElement::text( 'title', 'Title' )
                                     ->required(),
+                    AdminFormElement::text( 'position', 'Position' )
+                                    ->required(),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
@@ -154,6 +139,7 @@ class Place extends Section implements Initializable {
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
                     AdminFormElement::text( 'title_de', 'Title' ),
+                    AdminFormElement::text( 'position_de', 'Position' ),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_de', 'Content', 'ckeditor' ),
@@ -163,6 +149,7 @@ class Place extends Section implements Initializable {
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
                     AdminFormElement::text( 'title_pl', 'Title' ),
+                    AdminFormElement::text( 'position_pl', 'Position' ),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_pl', 'Content', 'ckeditor' ),
@@ -175,6 +162,35 @@ class Place extends Section implements Initializable {
 
         $form->addHeader( [
             $tabs
+        ] );
+
+        $form->getButtons()->setButtons( [
+            'save'            => new Save(),
+            'save_and_close'  => new SaveAndClose(),
+            'save_and_create' => new SaveAndCreate(),
+            'cancel'          => ( new Cancel() ),
+        ] );
+
+        return $form;
+
+        $form = AdminForm::card()->addBody( [
+            AdminFormElement::columns()->addColumn( [
+                AdminFormElement::hidden( 'user_id' )->setDefaultValue( Auth::id() ),
+                AdminFormElement::text( 'title', 'Title' )
+                                ->required(),
+                AdminFormElement::text( 'position', 'Position' )
+                                ->required(),
+                AdminFormElement::radio( 'status', 'Status' )
+                                ->setOptions( [ 'enabled' => 'Enabled', 'disabled' => 'Disabled' ] )
+                                ->required(),
+                AdminFormElement::text( 'url', 'Url' ),
+                AdminFormElement::number( 'dody', 'Descriptions' )
+                                ->required(),
+
+                AdminFormElement::html( '<hr>' ),
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                AdminFormElement::image( 'image', 'Image' ),
+            ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
         ] );
 
         $form->getButtons()->setButtons( [
@@ -206,5 +222,13 @@ class Place extends Section implements Initializable {
      */
     public function onRestore( $id ) {
         // remove if unused
+    }
+
+    /**
+     *
+     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     */
+    public function getCreateTitle(): string {
+        return $this->createTitle;
     }
 }

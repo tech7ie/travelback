@@ -26,16 +26,6 @@ class RouteOrder extends Controller {
             $data = $request->all();
 
 
-            $d = '{
-            "route_id":1,
-            "route_date":"2021.10.24 02:44:00",
-            "total":"283.00",
-            "adults":"1",
-            "childrens":"0",
-            "luggage":"1",
-            "cars":[{"id":1,"count":1,"price":250}]
-            ,"places":[{"id":3,"duration":null,"price":"33.00"}],"user_id":1}';
-
             $data['user_id'] = \Auth::user()->id ?? 1;
 
 
@@ -57,6 +47,7 @@ class RouteOrder extends Controller {
             $routeOrder->adults           = $data['adults'];
             $routeOrder->childrens        = $data['childrens'];
             $routeOrder->luggage          = $data['luggage'];
+            $routeOrder->payment_type     = $data['payment_type'];
             $routeOrder->save();
 
             foreach ( $data['cars'] as $c ) {
@@ -75,7 +66,7 @@ class RouteOrder extends Controller {
 
                 $place->places_route_order_id = $routeOrder->id;
                 $place->place_id              = $p['id'];
-                $place->durations             = $p['duration'];
+                $place->durations             = $p['durations'];
                 $place->price                 = $p['price'];
 
                 $place->save();
@@ -105,16 +96,17 @@ class RouteOrder extends Controller {
                     $routeOrder->save();
                 }
 
-            return ['status' => 'success', 'path' => 'order-success'];
+                return [ 'status' => 'success', 'path' => 'order-success' ];
 
             }
 
-            return ['status' => 'success', 'path' => 'order-success-manual'];
+            return [ 'status' => 'success', 'path' => 'order-success-manual' ];
 
 
         } catch ( \Throwable $e ) {
-            print_r($e);
-            return ['status' => 'success', 'path' => 'error', 'message' => $e->getMessage()];
+            print_r( $e );
+
+            return [ 'status' => 'success', 'path' => 'error', 'message' => $e->getMessage() ];
         }
 //        return $data;
     }

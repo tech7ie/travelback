@@ -115,28 +115,7 @@ class Content extends Section implements Initializable {
     public function onEdit( $id = null, $payload = [] ) {
 
         $tabs = AdminDisplay::tabbed();
-
-
         $form = AdminForm::card();
-//        $form1 = AdminForm::card()->addBody( [
-//            AdminFormElement::columns()->addColumn( [
-//                AdminFormElement::text( 'label', 'Label' )
-//                                ->required(),
-//                AdminFormElement::select( 'type', 'Type', [
-//                    'social'      => 'social',
-//                    'let_us_know' => 'let_us_know',
-//                    'helpdesk'    => 'helpdesk'
-//                ] )->required(),
-//                AdminFormElement::text( 'url', 'Url' )
-//                                ->required(),
-//                //                AdminFormElement::html( '<hr>' ),
-//            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-//                AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
-//                                ->required(),
-//                AdminFormElement::image( 'image', 'Image' ),
-//            ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
-//        ] );
-
         $tabs->setTabs(function ($id) {
             $tabs = [];
 

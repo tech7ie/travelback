@@ -62,12 +62,20 @@ class RouteOrder extends Section implements Initializable {
                 $route = $model->getRoute();
                 return $route->title;
             } ),
-            AdminColumn::text( 'status', 'Status' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'status', $direction );
-                       } )
-                       ->setSearchable( false ),
-            AdminColumn::text( 'amount', 'Amount' )
+            AdminColumn::custom( 'Vehicles', function ( $model ) {
+                $cars = $model->getCars();
+                $carsLists= [];
+                $carsList = $cars->get();
+                foreach ($carsList as $key => $car){
+                    $carsLists[] = $car->title;
+                }
+                return implode(',', $carsLists);
+            } ),
+            AdminColumn::custom( 'Status', function ( $model ) {
+                $color = $model->status === 'complete' ? 'green' : 'orange';
+                return "<span style='color: ".$color."'>$model->status</span>";
+            } ),
+            AdminColumn::text( 'amount', 'Price' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'status', $direction );
                        } )
@@ -112,7 +120,8 @@ class RouteOrder extends Section implements Initializable {
      */
     public function onEdit( $id = null, $payload = [] ) {
         $form = AdminForm::card()->addBody( [
-            AdminFormElement::columns()->addColumn( [
+            AdminFormElement::columns()->
+            addColumn( [
                 AdminFormElement::hidden( 'user_id' )->setDefaultValue( Auth::id() ),
                 AdminFormElement::custom()
                                 ->setDisplay(function($instance) {
@@ -131,24 +140,74 @@ class RouteOrder extends Section implements Initializable {
                                      ";
                                 })
                                 ->setCallback(function($instance) {
-//                                    $instance->getRoute();
                                 }),
                 AdminFormElement::text( 'first_name', 'First name' )->setReadonly(true),
                 AdminFormElement::text( 'last_name', 'Last name' )->setReadonly(true),
                 AdminFormElement::text( 'email', 'Email' )->setReadonly(true),
                 AdminFormElement::text( 'phone', 'Phone' )->setReadonly(true),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::multiselect( 'places', 'Places' )
-                                ->setModelForOptions( \App\Models\Place::class, 'title' )
-                                ->required()->setReadonly(true),
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
+            addColumn( [
+                AdminFormElement::custom()
+                                ->setDisplay(function($instance) {
+
+                                    $places = $instance->places();
+                                    $placesList = '';
+                                    foreach ($places->get() as $place){
+                                        $placesList .= "<li>". $place->title ." --- " . (int)$place->pivot->durations ."min.</li>";
+                                    }
+                                    return
+                                        "<b>Places:</b>
+                                        <ul>
+                                        $placesList
+                                        </ul>
+                                     ";
+                                })
+                                ->setCallback(function($instance) {
+                                }),
+//                AdminFormElement::multiselect( 'places', 'Places' )
+//                                ->setModelForOptions( \App\Models\Place::class, 'title' )
+//                                ->required()->setReadonly(true),
                 AdminFormElement::multiselect( 'cars', 'Cars' )
                                 ->setModelForOptions( \App\Models\Car::class, 'brand' )
                                 ->required()->setReadonly(true),
                 AdminFormElement::datetime( 'route_date', 'Route date' )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                AdminFormElement::columns()->
+                addColumn(
+                    [
+                        AdminFormElement::text( 'adults', 'Adults' )
+                                      ->required()
+                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4')->
+                addColumn(
+                    [
+                        AdminFormElement::text( 'childrens', 'Childrens' )
+                                      ->required()
+                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4')->
+                addColumn(
+                    [
+                        AdminFormElement::text( 'luggage', 'Luggage' )
+                                      ->required()
+                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4'),
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
+            addColumn( [
+                AdminFormElement::text( 'pickup_address', 'Pickup address' )
+                                ->required(),
+                AdminFormElement::text( 'drop_off_address', 'Drop off address' )
+                                ->required(),
                 AdminFormElement::number( 'amount', 'Amount')
                                 ->required()->setReadonly(true),
+                AdminFormElement::number( 'currency', 'Currency')
+                                ->required()->setReadonly(true),
+                AdminFormElement::custom()
+                                ->setDisplay(function($instance) {
+
+                                    $instance->payment_type;
+                                    $payment_type = $instance->payment_type === 1 ? 'Cart' : 'Cash';
+                                    return
+                                        "<b>Payment type: ".$payment_type."</b>";
+                                })
+                                ->setCallback(function($instance) {
+                                }),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [
                                     'pending'   => 'Pending',

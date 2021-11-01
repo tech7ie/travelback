@@ -82,3 +82,10 @@ php artisan make:migration create_route_orders_table
 php artisan migrate
 php artisan make:factory CurrencyFactory -m Currency
 php artisan sleepingowl:section:generate
+
+php artisan make:model OurTeam
+php artisan make:controller OurTeam
+php artisan make:migration create_our_teams_table
+php artisan migrate
+php artisan make:factory OurTeamFactory -m OurTeam
+php artisan sleepingowl:section:generate

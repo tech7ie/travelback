@@ -25,7 +25,7 @@ class AdminAuthenticate
             }
         }
 
-        if (! $auth->user()->isAdmin()) {
+        if ($auth->user()->isCustomer()) {
             return response('Access denied.', 401);
         }
 

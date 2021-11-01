@@ -42,7 +42,7 @@
                         <div class="order__payment">
                             <div class="order__payment-item">
                                 <div class="order__payment-wrap">
-                                    <h2>Payment</h2>
+                                    <h2>Payment {{payment_type}}</h2>
                                     <div class="checkbox --violet">
                                         <input v-model="payment_type" value="1" type="radio" data-payment-check="1" id="check-strip" name="payment">
                                         <label for="check-strip"><img src="/img/stripe.png" alt="stripe"></label>
