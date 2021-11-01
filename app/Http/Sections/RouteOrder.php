@@ -164,12 +164,33 @@ class RouteOrder extends Section implements Initializable {
                                 })
                                 ->setCallback(function($instance) {
                                 }),
+                AdminFormElement::custom()
+                                ->setDisplay(function($instance) {
+
+
+                                    $cars = $instance->getCars();
+                                    $carsLists= '';
+                                    $carsList = $cars->get();
+                                    foreach ($carsList as $key => $car){
+                                        $carsLists .= "<li>". $car->title ."</li>";
+
+                                    }
+
+                                    return
+                                        "<b>Cars list:</b>
+                                        <ul>
+                                        $carsLists
+                                        </ul>
+                                     ";
+                                })
+                                ->setCallback(function($instance) {
+                                }),
 //                AdminFormElement::multiselect( 'places', 'Places' )
 //                                ->setModelForOptions( \App\Models\Place::class, 'title' )
 //                                ->required()->setReadonly(true),
-                AdminFormElement::multiselect( 'cars', 'Cars' )
-                                ->setModelForOptions( \App\Models\Car::class, 'brand' )
-                                ->required()->setReadonly(true),
+//                AdminFormElement::multiselect( 'cars', 'Cars' )
+//                                ->setModelForOptions( \App\Models\Car::class, 'brand' )
+//                                ->required()->setReadonly(true),
                 AdminFormElement::datetime( 'route_date', 'Route date' )
                                 ->required(),
                 AdminFormElement::columns()->
