@@ -140,7 +140,7 @@ class Car extends Section implements Initializable {
                 AdminFormElement::text( 'places_max', 'Max seats' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::number( 'price', 'Car price' )
+                AdminFormElement::text( 'price', 'Car price' )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )

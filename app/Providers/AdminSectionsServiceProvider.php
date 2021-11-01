@@ -13,7 +13,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
     protected $sections = [
         \App\Models\User::class => 'App\Http\Sections\Users',
         \App\Models\Page::class => 'App\Http\Sections\Page',
-        \App\Models\BlogPost::class => 'App\Http\Sections\BlogPost',
+//        \App\Models\BlogPost::class => 'App\Http\Sections\BlogPost',
         \App\Models\Role::class => 'App\Http\Sections\Role',
         \App\Models\Country::class => 'App\Http\Sections\Country',
         \App\Models\Language::class => 'App\Http\Sections\Language',

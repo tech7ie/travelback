@@ -157,7 +157,7 @@ class Routes extends Section implements Initializable {
 //                                ->required(),
 //            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
             addColumn( [
-                AdminFormElement::number( 'price', 'Price €' )
+                AdminFormElement::text( 'price', 'Price €' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [
