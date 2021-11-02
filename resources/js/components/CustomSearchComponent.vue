@@ -12,6 +12,7 @@
                     </h2>
                     <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>
                 </div>
+                {{ getRouteDate() }}
                 <div class="calc">
                     <div class="custom-select">
                         <div class="custom-select__item" :class="{'--active': openedFrom }">
@@ -384,6 +385,11 @@ export default Vue.component("v-custom-search", {
         }, 500));
     },
     methods: {
+        getRouteDate() {
+            console.log('this.pm', this.pm);
+            return Vue.moment(this.data + " " + (parseInt(this.hours) + (this.pm ? 12 : 0)) + ":" + this.minutes + ":00", "DD.MM.YYYY h:m:ss ")
+                .format('YYYY.MM.DD hh:mm:ss');
+        },
         getOrderTotal() {
             if (parseFloat(this.orderRoute.price_increase) > 0) {
                 return (parseFloat(this.orderRoute.price_increase) * ((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)
@@ -398,11 +404,11 @@ export default Vue.component("v-custom-search", {
                     this.places = res.data ?? [];
                 })
         },
-        updateCart() {
+        updateCart(formData) {
             let places = []
             let cars = []
 
-            console.log('date: ', (this.data + " " + this.hours + ":" + this.minutes));
+            // console.log('date: ', (this.data + " " + this.hours + ":" + this.minutes));
 
 
             this.passengers.map(c => {
@@ -422,8 +428,12 @@ export default Vue.component("v-custom-search", {
                     })
             })
 
-            let route_date = Vue.moment(this.data + " " + this.hours + ":" + this.minutes + ":00", "DD.MM.YYYY h:m:ss ")
-                .format('YYYY.MM.DD hh:mm:ss');
+            formData.hours = formData.pm ? (parseInt(formData.hours) + 12) : formData.hours
+
+            // console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
+
+            let route_date = Vue.moment(formData.data + " " + formData.hours + ":" + formData.minutes + ":00", "DD.MM.YYYY HH:mm:ss")
+                .format('YYYY.MM.DD HH:mm:ss');
 
             let cart = {
                 route_id: this.route_id,
@@ -459,8 +469,20 @@ export default Vue.component("v-custom-search", {
         goToOrder(e) {
             e.preventDefault()
             console.log('this.updateCart()');
-            this.updateCart()
             console.log(e);
+
+            let formData = {
+                minutes: e.target.elements.minutes.value,
+                hours: e.target.elements.hours.value,
+                pm: e.target.elements.pm.value,
+                data: e.target.elements.data.value,
+            }
+            this.updateCart(formData)
+            console.log(e);
+            console.log('e.target.elements:', e.target.elements.minutes.value);
+            console.log('e.target.elements:', e.target.elements.hours.value);
+            console.log('e.target.elements:', e.target.elements.pm.value);
+            console.log('e.target.elements:', e.target.elements.data.value);
             let selected = {
                 orderRoute: this.orderRoute,
                 price: (this.current.price).toFixed(2),
@@ -471,7 +493,7 @@ export default Vue.component("v-custom-search", {
                 withstopsListPrice: this.withstopsListPrice,
             }
             this.$store.commit('setSelected', selected);
-            window.location.href = this.getOrderUrl();
+            // window.location.href = this.getOrderUrl();
         },
         getOrderUrl() {
             return '/' + window.App.language + '/order'
@@ -586,6 +608,7 @@ export default Vue.component("v-custom-search", {
             }
         },
         updateError() {
+
             // this.errorFrom = this.selectedFrom.length <= 2;
             // this.errorTo = this.selectedTo.length <= 2;
         },

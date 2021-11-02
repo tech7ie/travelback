@@ -6,6 +6,7 @@
             </svg>
         </div>
         <div class="calendar" v-show="opened">
+            {{selectedDate}}
             <input name="data" type="hidden" :value="selectedDate">
             <v-date-picker @change="changeDate" mode="single" :min-date="getMinDate()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>
             <!--            <v-date-picker mode="single" :min-date="new Date()" :model-config="modelConfig" v-model="selectedDate" is-required locale="en-EN"></v-date-picker>-->
