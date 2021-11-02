@@ -493,7 +493,7 @@ export default Vue.component("v-custom-search", {
                 withstopsListPrice: this.withstopsListPrice,
             }
             this.$store.commit('setSelected', selected);
-            // window.location.href = this.getOrderUrl();
+            window.location.href = this.getOrderUrl();
         },
         getOrderUrl() {
             return '/' + window.App.language + '/order'
