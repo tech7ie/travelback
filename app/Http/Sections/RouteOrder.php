@@ -211,6 +211,8 @@ class RouteOrder extends Section implements Initializable {
                     ],'col-xs-12 col-sm-6 col-md-4 col-lg-4'),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
             addColumn( [
+                AdminFormElement::textarea( 'comment', 'Comment' )
+                                ->required(),
                 AdminFormElement::text( 'pickup_address', 'Pickup address' )
                                 ->required(),
                 AdminFormElement::text( 'drop_off_address', 'Drop off address' )
