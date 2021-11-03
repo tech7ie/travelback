@@ -46,14 +46,6 @@ Route::group( [
 
     Route::get( '/', [ \App\Http\Controllers\HomeController::class, 'index' ] )->name( 'home' );
 
-//    Route::get( '/', function () {
-//        return view( 'home' );
-//    } )->name('home');
-
-//    Route::get( '/', function () {
-//        return view( 'index' );
-//    } );
-
     Route::get( '/about', [ \App\Http\Controllers\PagePost::class, 'about' ] )->name( 'about' );
     Route::get( '/terms-of-use', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'terms-of-use' );
     Route::get( '/privacy-policy', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'privacy-policy' );

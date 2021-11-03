@@ -31,7 +31,7 @@ export default Vue.component("v-language-select", {
             select: document.getElementById('language_select'),
             showSearch: false,
             onChange: (info) => {
-                window.location.href = '/setlocale/' + info.value
+                window.location.href = '/setlocale/' + info.value + '?path=' + window.location.pathname
             }
         });
     }
