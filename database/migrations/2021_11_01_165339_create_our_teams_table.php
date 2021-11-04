@@ -16,15 +16,21 @@ class CreateOurTeamsTable extends Migration
         Schema::create('our_teams', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('title', 256);
-            $table->string('position', 256);
-            $table->text('body')->nullable();
+            $table->string('title_en', 256);
+            $table->string('position_en', 256);
+            $table->text('body_en')->nullable();
             $table->string('title_de', 256)->nullable();
             $table->string('position_de', 256)->nullable();
             $table->text('body_de')->nullable();
-            $table->string('title_pl', 256)->nullable();
-            $table->string('position_pl', 256)->nullable();
-            $table->text('body_pl')->nullable();
+            $table->string('title_zh', 256)->nullable();
+            $table->string('position_zh', 256)->nullable();
+            $table->text('body_zh')->nullable();
+            $table->string('title_ru', 256)->nullable();
+            $table->string('position_ru', 256)->nullable();
+            $table->text('body_ru')->nullable();
+            $table->string('title_es', 256)->nullable();
+            $table->string('position_es', 256)->nullable();
+            $table->text('body_es')->nullable();
             $table->string('url', 256)->nullable();
             $table->string('image', 64)->nullable();
             $table->enum('status',['enabled', 'disabled'])->default('enabled');

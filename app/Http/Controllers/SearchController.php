@@ -21,20 +21,6 @@ class SearchController extends Controller {
     public function index( \Illuminate\Http\Request $request ) {
         try {
             $data = $request->all();
-//            $from_city_id = Cities::select( [ 'id' ] )->where( 'name', $data['from'] )->first();
-//            $to_city_id   = Cities::select( [ 'id' ] )->where( 'name', $data['to'] )->first();
-//
-//            $where[] = [ 'status', 'open' ];
-//
-//            if ( $from_city_id ) {
-//                $where[] = [ 'route_from_city_id', $from_city_id->id ];
-//            }
-//
-//            if ( $to_city_id ) {
-//                $where[] = [ 'route_from_city_id', $from_city_id->id ];
-//            }
-
-
             $route = Routes::find($data['route']);
 
             $places = $route->places;

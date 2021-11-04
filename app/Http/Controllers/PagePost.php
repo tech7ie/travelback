@@ -24,11 +24,11 @@ class PagePost extends Controller
         return view( 'pages/page', ['content' =>
                                         [
                                             'slug' => $content['slug'],
-                                            'title' => $content['title_'.app()->getLocale()],
-                                            'body' => $content['body_'.app()->getLocale()],
-                                            'meta_title' => $content['meta_title_'.app()->getLocale()],
-                                            'meta_keywords' => $content['meta_keywords_'.app()->getLocale()],
-                                            'meta_descriptions' => $content['meta_descriptions_'.app()->getLocale()],
+                                            'title' => $this->getTranslateContent($content, 'title'),
+                                            'body' => $this->getTranslateContent($content, 'body'),
+                                            'meta_title' => $this->getTranslateContent($content, 'meta_title'),
+                                            'meta_keywords' => $this->getTranslateContent($content, 'meta_keywords'),
+                                            'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions'),
                                         ]] );
     }
 
@@ -46,9 +46,9 @@ class PagePost extends Controller
         $team_response = [];
         foreach ($our_team as $team){
             $team_response[] = [
-                'title' => strlen($team['title_'.app()->getLocale()]) > 0 ? $team['title_'.app()->getLocale()] : $team['title'],
-                'position' => strlen($team['position_'.app()->getLocale()]) > 0 ? $team['position_'.app()->getLocale()] : $team['position'],
-                'body' => strlen($team['body_'.app()->getLocale()]) > 0 ? $team['body_'.app()->getLocale()] : $team['body'],
+                'title' => $this->getTranslateContent($team, 'title'),
+                'position' => $this->getTranslateContent($team, 'position'),
+                'body' => $this->getTranslateContent($team, 'body'),
                 'image' => $team['image']
             ];
         }
@@ -56,13 +56,17 @@ class PagePost extends Controller
         return view( 'pages/about', ['content' =>
         [
             'slug' => $content['slug'],
-            'title' => $content['title_'.app()->getLocale()],
-            'body' => $content['body_'.app()->getLocale()],
-            'meta_title' => $content['meta_title_'.app()->getLocale()],
-            'meta_keywords' => $content['meta_keywords_'.app()->getLocale()],
-            'meta_descriptions' => $content['meta_descriptions_'.app()->getLocale()],
+            'title' => $this->getTranslateContent($content, 'title'),
+            'body' => $this->getTranslateContent($content, 'body'),
+            'meta_title' => $this->getTranslateContent($content, 'meta_title'),
+            'meta_keywords' => $this->getTranslateContent($content, 'meta_keywords'),
+            'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions'),
             'team_response' => $team_response,
 
         ]] );
+    }
+
+    public function getTranslateContent($content, $key){
+        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
     }
 }

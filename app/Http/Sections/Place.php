@@ -64,11 +64,11 @@ class Place extends Section implements Initializable {
     public function onDisplay( $payload = [] ) {
         $columns = [
             AdminColumn::text( 'id', '#' )->setWidth( '50px' )->setHtmlAttribute( 'class', 'text-center' ),
-            AdminColumn::link( 'title', 'Title', 'created_at' )
+            AdminColumn::link( 'title_en', 'Title', 'created_at' )
                        ->setSearchCallback( function ( $column, $query, $search ) {
                            return $query
-                               ->orWhere( 'content', 'like', '%' . $search . '%' )
-                               ->orWhere( 'type', 'like', '%' . $search . '%' );
+                               ->orWhere( 'title_en', 'like', '%' . $search . '%' )
+                               ->orWhere( 'body_en', 'like', '%' . $search . '%' );
                        } )
             ,
             AdminColumn::text( 'price', 'Price' ),
@@ -142,11 +142,11 @@ class Place extends Section implements Initializable {
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'title', 'Title' )
+                    AdminFormElement::text( 'title_en', 'Title' )
                                     ->required(),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
+                    AdminFormElement::wysiwyg( 'body_en', 'Content', 'ckeditor' )
                                     ->required(),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel( 'EN' );
@@ -162,12 +162,30 @@ class Place extends Section implements Initializable {
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'title_pl', 'Title' ),
+                    AdminFormElement::text( 'title_zh', 'Title' ),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body_pl', 'Content', 'ckeditor' ),
+                    AdminFormElement::wysiwyg( 'body_zh', 'Content', 'ckeditor' ),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
-            )->setLabel( 'PL' );
+            )->setLabel( 'ZH' );
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn( [
+                    AdminFormElement::text( 'title_ru', 'Title' ),
+                    AdminFormElement::html( '<hr>' ),
+                ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                    AdminFormElement::wysiwyg( 'body_ru', 'Content', 'ckeditor' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
+            )->setLabel( 'RU' );
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn( [
+                    AdminFormElement::text( 'title_es', 'Title' ),
+                    AdminFormElement::html( '<hr>' ),
+                ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                    AdminFormElement::wysiwyg( 'body_es', 'Content', 'ckeditor' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
+            )->setLabel( 'ES' );
 
             return $tabs;
         } );

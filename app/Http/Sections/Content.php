@@ -61,10 +61,10 @@ class Content extends Section implements Initializable {
     public function onDisplay( $payload = [] ) {
         $columns = [
             AdminColumn::text( 'id', '#' )->setWidth( '50px' )->setHtmlAttribute( 'class', 'text-center' ),
-            AdminColumn::link( 'label', 'Label', 'created_at' )
+            AdminColumn::link( 'label_en', 'Label', 'created_at' )
                        ->setSearchCallback( function ( $column, $query, $search ) {
                            return $query
-                               ->orWhere( 'label', 'like', '%' . $search . '%' )
+                               ->orWhere( 'label_en', 'like', '%' . $search . '%' )
                                ->orWhere( 'type', 'like', '%' . $search . '%' );
                        } )
             ,
@@ -121,41 +121,81 @@ class Content extends Section implements Initializable {
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'label', 'Label' )
+                    AdminFormElement::text( 'label_en', 'Label' )
                                     ->required(),
                     AdminFormElement::select( 'type', 'Type', [
                         'social'      => 'social',
                         'let_us_know' => 'let_us_know',
                         'helpdesk'    => 'helpdesk'
                     ] )->required(),
-                    AdminFormElement::text( 'url', 'Url' )
+                    AdminFormElement::text( 'url_en', 'Url' )
                                     ->required(),
-                    //                AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
+                    AdminFormElement::wysiwyg( 'body_en', 'Content', 'ckeditor' )
                                     ->required(),
-                    AdminFormElement::image( 'image', 'Image' ),
+                    AdminFormElement::image( 'image_en', 'Image' ),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
             )->setLabel('EN');
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'label_de', 'Label' )
-                                    ->required(),
+                    AdminFormElement::text( 'label_de', 'Label' ),
                     AdminFormElement::select( 'type', 'Type', [
                         'social'      => 'social',
                         'let_us_know' => 'let_us_know',
                         'helpdesk'    => 'helpdesk'
-                    ] )->required(),
-                    AdminFormElement::text( 'url_de', 'Url' )
-                                    ->required(),
-                    //                AdminFormElement::html( '<hr>' ),
+                    ] ),
+                    AdminFormElement::text( 'url_de', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body_de', 'Content', 'ckeditor' )
-                                    ->required(),
+                    AdminFormElement::wysiwyg( 'body_de', 'Content', 'ckeditor' ),
                     AdminFormElement::image( 'image_de', 'Image' ),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel('DE');
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn( [
+                    AdminFormElement::text( 'label_zh', 'Label' ),
+                    AdminFormElement::select( 'type', 'Type', [
+                        'social'      => 'social',
+                        'let_us_know' => 'let_us_know',
+                        'helpdesk'    => 'helpdesk'
+                    ] ),
+                    AdminFormElement::text( 'url_zh', 'Url' ),
+                ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                    AdminFormElement::wysiwyg( 'body_zh', 'Content', 'ckeditor' ),
+                    AdminFormElement::image( 'image_zh', 'Image' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
+            )->setLabel('ZH');
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn( [
+                    AdminFormElement::text( 'label_ru', 'Label' ),
+                    AdminFormElement::select( 'type', 'Type', [
+                        'social'      => 'social',
+                        'let_us_know' => 'let_us_know',
+                        'helpdesk'    => 'helpdesk'
+                    ] ),
+                    AdminFormElement::text( 'url_ru', 'Url' ),
+                ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                    AdminFormElement::wysiwyg( 'body_ru', 'Content', 'ckeditor' ),
+                    AdminFormElement::image( 'image_ru', 'Image' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
+            )->setLabel('RU');
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn( [
+                    AdminFormElement::text( 'label_es', 'Label' ),
+                    AdminFormElement::select( 'type', 'Type', [
+                        'social'      => 'social',
+                        'let_us_know' => 'let_us_know',
+                        'helpdesk'    => 'helpdesk'
+                    ] ),
+                    AdminFormElement::text( 'url_es', 'Url' ),
+                ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+                    AdminFormElement::wysiwyg( 'body_es', 'Content', 'ckeditor' ),
+                    AdminFormElement::image( 'image_es', 'Image' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
+            )->setLabel('ES');
 
             return $tabs;
         });

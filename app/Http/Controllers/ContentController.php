@@ -25,12 +25,29 @@ class ContentController {
      */
     public function getContacts() {
         $contacts = Content::select()->whereIn( 'type', [ 'social', 'let_us_know', 'helpdesk' ]  )->get();
-//        return $contacts;
+        $contacts_response = [];
+        foreach ($contacts as $team){
+            $contacts_response[] = [
+                'label' => $this->getTranslateContent($team, 'label'),
+                'body' => $this->getTranslateContent($team, 'body'),
+                'url' => $this->getTranslateContent($team, 'url'),
+                'image' => $this->getTranslateContent($team, 'image'),
+                'type' => $team['type']
+            ];
+        }
+
+
 
         $responseContact = [];
-        foreach ($contacts as $contact){
+        foreach ($contacts_response as $contact){
             $responseContact[$contact['type']][] = $contact;
         }
         return $responseContact;
+    }
+
+
+
+    public function getTranslateContent($content, $key){
+        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
     }
 }

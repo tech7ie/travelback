@@ -61,11 +61,11 @@ class Page extends Section implements Initializable
     {
         $columns = [
             AdminColumn::text('id', '#')->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
-            AdminColumn::link('title', 'Title', 'slug')
+            AdminColumn::link('title_en', 'Title', 'slug')
                 ->setSearchCallback(function($column, $query, $search){
                     return $query
-                        ->orWhere('title', 'like', '%'.$search.'%')
-                        ->orWhere('lang', 'like', '%'.$search.'%');
+                        ->orWhere('title_en', 'like', '%'.$search.'%')
+                        ->orWhere('body_en', 'like', '%'.$search.'%');
                 }),
 //            AdminColumn::text('title', 'Slug', 'slug'),
             AdminColumn::text('lang', 'Language', 'lang'),
@@ -91,21 +91,6 @@ class Page extends Section implements Initializable
             ->setColumns($columns)
             ->setHtmlAttribute('class', 'table-primary table-hover th-center');
 
-        $display->setColumnFilters([
-            null,null,
-//            AdminColumnFilter::text()->setPlaceholder('Language'),
-            AdminColumnFilter::select()
-                ->setOptions(\Config::get('languages'))
-//                ->setOptions(['en'=>"EN", 'de'=>"DE"])
-//                ->setModelForOptions(\App\Models\Page::class)
-                ->setLoadOptionsQueryPreparer(function($element, $query) {
-                    return $query;
-                })
-                ->setDisplay('lang')
-                ->setColumnName('lang')
-                ->setPlaceholder('All Languages')
-            ,
-        ]);
         $display->getColumnFilters()->setPlacement('card.heading');
 
         return $display;
@@ -139,79 +124,86 @@ class Page extends Section implements Initializable
                 AdminFormElement::columns()->addColumn(
                     [
                         AdminFormElement::text('title_en', 'Title')
-                                        ->required()
-                        ,
+                                        ->required(),
                         AdminFormElement::html('<hr>')
                     ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
                     AdminFormElement::text('meta_title_en', 'Meta title')
-                                    ->required()
-                    ,
+                                    ->required(),
                     AdminFormElement::text('meta_keywords_en', 'Meta keywords')
-                                    ->required()
-                    ,
+                                    ->required(),
                     AdminFormElement::textarea('meta_descriptions_en', 'Meta descriptions')
-                                    ->required()
-                    ,
+                                    ->required(),
                 ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
                     AdminFormElement::wysiwyg('body_en', 'Content', 'ckeditor')
-                                    ->required()
-                    ,
+                                    ->required(),
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
             )->setLabel('EN');
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn(
                     [
-                        AdminFormElement::text('title_de', 'Title')
-                                        ->required()
-                        ,
+                        AdminFormElement::text('title_de', 'Title'),
                         AdminFormElement::html('<hr>'),
                     ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::text('meta_title_de', 'Meta title')
-                                    ->required()
-                    ,
-                    AdminFormElement::text('meta_keywords_de', 'Meta keywords')
-                                    ->required()
-                    ,
-                    AdminFormElement::textarea('meta_descriptions_de', 'Meta descriptions')
-                                    ->required()
-                    ,
+                    AdminFormElement::text('meta_title_de', 'Meta title'),
+                    AdminFormElement::text('meta_keywords_de', 'Meta keywords'),
+                    AdminFormElement::textarea('meta_descriptions_de', 'Meta descriptions'),
                 ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::wysiwyg('body_de', 'Content', 'ckeditor')
-                                    ->required()
-                    ,
+                    AdminFormElement::wysiwyg('body_de', 'Content', 'ckeditor'),
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
             )->setLabel('DE');
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn(
                     [
-                        AdminFormElement::text('title_pl', 'Title')
-                                        ->required()
-                        ,
+                        AdminFormElement::text('title_zh', 'Title'),
                         AdminFormElement::html('<hr>'),
                     ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::text('meta_title_pl', 'Meta title')
-                                    ->required()
-                    ,
-                    AdminFormElement::text('meta_keywords_pl', 'Meta keywords')
-                                    ->required()
-                    ,
-                    AdminFormElement::textarea('meta_descriptions_pl', 'Meta descriptions')
-                                    ->required()
-                    ,
+                    AdminFormElement::text('meta_title_zh', 'Meta title'),
+                    AdminFormElement::text('meta_keywords_zh', 'Meta keywords'),
+                    AdminFormElement::textarea('meta_descriptions_zh', 'Meta descriptions'),
                 ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::wysiwyg('body_pl', 'Content', 'ckeditor')
-                                    ->required()
-                    ,
+                    AdminFormElement::wysiwyg('body_zh', 'Content', 'ckeditor'),
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
-            )->setLabel('PL');
+            )->setLabel('ZH');
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn(
+                    [
+                        AdminFormElement::text('title_ru', 'Title'),
+                        AdminFormElement::html('<hr>'),
+                    ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
+                addColumn([
+                    AdminFormElement::text('meta_title_ru', 'Meta title'),
+                    AdminFormElement::text('meta_keywords_ru', 'Meta keywords'),
+                    AdminFormElement::textarea('meta_descriptions_ru', 'Meta descriptions'),
+                ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
+                addColumn([
+                    AdminFormElement::wysiwyg('body_ru', 'Content', 'ckeditor'),
+                ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
+            )->setLabel('RU');
+
+            $tabs[] = AdminDisplay::tab(
+                AdminFormElement::columns()->addColumn(
+                    [
+                        AdminFormElement::text('title_es', 'Title'),
+                        AdminFormElement::html('<hr>'),
+                    ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
+                addColumn([
+                    AdminFormElement::text('meta_title_es', 'Meta title'),
+                    AdminFormElement::text('meta_keywords_es', 'Meta keywords'),
+                    AdminFormElement::textarea('meta_descriptions_es', 'Meta descriptions'),
+                ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
+                addColumn([
+                    AdminFormElement::wysiwyg('body_es', 'Content', 'ckeditor'),
+                ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
+            )->setLabel('ES');
 
             return $tabs;
         });
