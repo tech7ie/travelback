@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="routes3">
+    <section class="routes3"
+             style="background: url(/{{$route['image'] ?? 'url(../img/routes-bg3.jpg)'}})  top right no-repeat #202020;
+                 background-position: center;">
         <div class="routes3__form">
             <div class="container">
                 <div class="form-block">
