@@ -51,8 +51,8 @@
             </div>
             <div class="footer__copyright"><span>Copyright © 2015–2021 Daytrip. All rights reserved</span>
                 <div>
-                    <a href="{{route('terms-of-use', app()->getLocale())}}">Terms of use</a>
-                    <a href="{{route('privacy-policy', app()->getLocale())}}">Privacy policy</a>
+                    <a href="{{route('terms-of-use', app()->getLocale())}}">{!! __("menu.terms_of_use") !!}Terms of use</a>
+                    <a href="{{route('privacy-policy', app()->getLocale())}}">{!! __("menu.privacy_policy") !!}</a>
                 </div>
                 <a class="dev" href="#devruso"><span>Made in  —</span>
                     <svg class="icon">

@@ -1,7 +1,9 @@
 <template>
     <div class="custom-select">
+        {{route_id}}
         <div class="custom-select__item" :class="{'--active': openedFrom }">
             <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
+                <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
                 <input
                     name="from"
                     placeholder="From"
@@ -56,6 +58,7 @@ import ClickOutside from "vue-click-outside";
 export default Vue.component("v-select", {
     data() {
         return {
+            parsedRoutes: [],
             openedFrom: false,
             openedTo: false,
             selectedFrom: "",
@@ -63,6 +66,7 @@ export default Vue.component("v-select", {
             selectedTo: "",
             errorTo: false,
             firstStart: false,
+            route_id: null
         };
     },
     props: {
@@ -73,16 +77,41 @@ export default Vue.component("v-select", {
         returnFrom: {
             type: Function
         },
-        filteredRoutes: [],
+        routes: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        },
         orderRoute: []
+    },
+    mounted() {
+        this.parsedRoutes = JSON.parse(this.routes)
+
     },
     created() {
         this.firstStart = true;
+        console.log(this.routes);
+        console.log('dddddddd');
+        // console.log(this.filteredRoutes);
+        console.log('dddddddd');
     },
+
     computed: {
-        // errorFrom() {
-        //   return this.$store.state.errorFrom;
-        // }
+        filteredRoutes() {
+            return this.parsedRoutes.filter(r => {
+                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+            }).filter(r => {
+                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            })
+        },
+        filteredRoutesTo() {
+            return this.parsedRoutes.filter(r => {
+                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+            }).filter(r => {
+                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            })
+        }
     },
     methods: {
         updateError() {
@@ -100,6 +129,7 @@ export default Vue.component("v-select", {
         selectTo(item) {
             // this.openedTo = false;
             this.selectedTo = item.to_city;
+            this.route_id = item.route_id;
             this.updateError();
         },
         inputTo() {

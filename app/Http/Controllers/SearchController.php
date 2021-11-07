@@ -55,10 +55,28 @@ class SearchController extends Controller {
 
             $places = $route->places;
 
-            return $places;
+            $placesResponse = [];
+
+            foreach ($places as $item){
+                $placesResponse[] = [
+                    'id' => $item['id'],
+                    'title' => $this->getTranslateContent($item, 'title'),
+                    'body' => $this->getTranslateContent($item, 'body'),
+                    'image' => $item['image'],
+                    'durations' => $item['durations'],
+                    'extra_durations' => $item['extra_durations'],
+                ];
+            }
+
+            return $placesResponse;
 
         } catch ( \Throwable $t ) {
             return ['dd' => $t->getMessage()];
         }
+    }
+
+
+    public function getTranslateContent($content, $key){
+        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
     }
 }

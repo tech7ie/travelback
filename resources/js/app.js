@@ -13,6 +13,7 @@ import Bouncer from "./import/bouncer.polyfills.min";
 Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
 
 
+
 import Vuex from 'vuex';
 
 window.Vuex = Vuex;

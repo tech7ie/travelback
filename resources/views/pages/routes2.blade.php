@@ -3,7 +3,7 @@
     <div class="roites2">
         <div class="container">
             <div class="routes2__wrap">
-                <h2>Select a routes</h2>
+                <h2>{!! __("index.select_a_country") !!}</h2>
                 <div class="routes2__grid">
                     @foreach($routes as $route)
                                 <a class="routes2__item"

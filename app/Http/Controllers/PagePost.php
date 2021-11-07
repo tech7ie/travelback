@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\OurTeam;
+use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,7 @@ class PagePost extends Controller
     public function index( \Illuminate\Http\Request $request ) {
         $page = explode('/',  $request->path())[1];
         $content = Page::query()->where([['slug', '=', $page]])->first() ?? false;
+
         return view( 'pages/page', ['content' =>
                                         [
                                             'slug' => $content['slug'],
@@ -28,7 +30,7 @@ class PagePost extends Controller
                                             'body' => $this->getTranslateContent($content, 'body'),
                                             'meta_title' => $this->getTranslateContent($content, 'meta_title'),
                                             'meta_keywords' => $this->getTranslateContent($content, 'meta_keywords'),
-                                            'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions'),
+                                            'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions')
                                         ]] );
     }
 

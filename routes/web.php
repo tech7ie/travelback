@@ -104,9 +104,6 @@ Route::group( [
         ] );
     } )->name( 'order' );
 
-//
-//    Route::post( '/order', [ \App\Http\Controllers\RouteOrder::class, 'save' ])->name( 'save_order' );
-//
 
     Route::get( '/order-success', function () {
         return view( 'pages/order-success' );
@@ -130,18 +127,10 @@ Route::group( [
 
     Route::get( '/search', [ \App\Http\Controllers\SearchController::class, 'index' ] )->name( 'search' );
 
-//    Route::get( '/search', function () {
-//        return view( 'pages/search' );
-//    } )->name('search');
-
     Route::get( '/routes', [ \App\Http\Controllers\RoutesController::class, 'index' ] )->name( 'routes' );
     Route::get( '/routes/{id?}', [ \App\Http\Controllers\RoutesController::class, 'get' ] )->name( 'routesGet' );
     Route::get( '/route_details/{id?}', [ \App\Http\Controllers\RoutesController::class, 'details' ] )
          ->name( 'routeDetails' );
-
-//    Route::get( '/routes', function () {
-//        return view( 'pages/routes', ['one' => 1, 'two' => 2] );
-//    } )->name('routes');
 
 //TODO
     Route::get( '/routes2', function () {

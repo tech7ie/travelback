@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $content['meta_title'] ?? config('app.name', 'Laravel')  }}</title>
+    <title>{{ $content['meta_title'] ?? config('app.name', 'TripLine')  }}</title>
     <!-- CSRF Token -->
     <meta name="description"
           content="{{ $content['meta_description'] ?? ''  }}">
@@ -59,11 +59,11 @@
                 <div class="header__menu">
                     <nav>
                         <ul>
-                            <li><a href="#">Company</a></li>
-                            <li><a href="#">Discover</a></li>
-                            <li><a href="{{ route('routes', app()->getLocale()) }}">Routes</a></li>
-                            <li><a href="#">Become a partner</a></li>
-                            <li><a href="{{ route('about', app()->getLocale()) }}">About</a></li>
+                            <li><a href="#">{!! __("menu.company") !!}</a></li>
+                            <li><a href="#">{!! __("menu.discover") !!}</a></li>
+                            <li><a href="{{ route('routes', app()->getLocale()) }}">{!! __("menu.routes") !!}</a></li>
+                            <li><a href="#">{!! __("menu.become_a_partner") !!}</a></li>
+                            <li><a href="{{ route('about', app()->getLocale()) }}">{!! __("menu.about") !!}</a></li>
                         </ul>
                     </nav>
                 </div>

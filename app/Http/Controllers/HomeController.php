@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
 
@@ -63,9 +64,33 @@ class HomeController extends Controller {
         }
 
         $partners = new PartnerController();
+
+        $places = Place::query()->where('status', true)->limit(10)->get();
+
+
+        $placesResponse = [];
+
+        foreach ($places as $item){
+            $placesResponse[] = [
+                'id' => $item['id'],
+                'title' => $this->getTranslateContent($item, 'title'),
+                'body' => $this->getTranslateContent($item, 'body'),
+                'image' => $item['image'],
+                'durations' => $item['durations'],
+                'extra_durations' => $item['extra_durations'],
+            ];
+        }
+
         return view( 'home', [
             'routes'   => json_encode($result),
-            'partners' => $partners->list()
+            'partners' => $partners->list(),
+            'places' => $placesResponse
         ] );
+    }
+
+
+
+    public function getTranslateContent($content, $key){
+        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
     }
 }

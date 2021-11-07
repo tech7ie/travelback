@@ -7,14 +7,14 @@
                 <div class="form-block">
                     <div class="form-block__wrap">
                         <div class="calc" id="routes3">
-                            <form class="js-form-validator">
-                                <v-select></v-select>
+                            <form class="js-form-validator" action="/<?= app()->getLocale()?>/search">
+                                <v-select routes="{{$routes ?? []}}"></v-select>
                                 <div class="date-time">
                                     <v-custom-calendar></v-custom-calendar>
                                     <v-time></v-time>
                                 </div>
                                 <v-humans></v-humans>
-                                <button class="btn-submit --simple"><span>Search</span></button>
+                                <button class="btn-submit --simple"><span>{!! __("index.search") !!}</span></button>
                             </form>
                         </div>
                     </div>
@@ -23,22 +23,25 @@
         </div>
         <div class="routes3__content">
             <div class="container">
-                <h1>Eiffel Tower</h1>
+                <h1>{{$route['title'] ?? ''}}</h1>
                 <div class="routes3__grid">
                     <div class="routes3__item">
                         <svg class="icon">
                             <use xlink:href="{{asset('img/sprites/sprite.svg#pointer')}}"></use>
-                        </svg><b>Beginning</b><span>Your driver will arrive at the starting point</span>
+                        </svg>
+                        {!! __("route.beginning") !!}
                     </div>
                     <div class="routes3__item">
                         <svg class="icon">
                             <use xlink:href="{{asset('img/sprites/sprite.svg#city')}}"></use>
-                        </svg><b>Extra stops</b><span>During the ride, you will stop to sightsee a city</span>
+                        </svg>
+                        {!! __("route.extra_stops") !!}
                     </div>
                     <div class="routes3__item">
                         <svg class="icon">
                             <use xlink:href="{{asset('img/sprites/sprite.svg#baggage')}}"></use>
-                        </svg><b>Finish ride</b><span>Completing the ride with your driver who will help with your baggage up to a hotel/boat/airport</span>
+                        </svg>
+                        {!! __("route.finish_ride") !!}
                     </div>
                 </div>
             </div>
