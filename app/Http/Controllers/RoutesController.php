@@ -193,29 +193,29 @@ class RoutesController extends Controller {
                     'routes.*',
                 ]
             )->where( 'status', '=', 'open' )
-                            ->where( 'routes.id', $id )
-                            ->first();
+                           ->where( 'routes.id', $id )
+                           ->first();
 
             $places = $route->places;
 
             $placesResponse = [];
 
-            foreach ($places as $item){
+            foreach ( $places as $item ) {
                 $placesResponse[] = [
-                    'id' => $item['id'],
-                    'title' => $this->getTranslateContent($item, 'title'),
-                    'body' => $this->getTranslateContent($item, 'body'),
-                    'image' => $item['image'],
-                    'durations' => $item['durations'],
+                    'id'              => $item['id'],
+                    'title'           => $this->getTranslateContent( $item, 'title' ),
+                    'body'            => $this->getTranslateContent( $item, 'body' ),
+                    'image'           => $item['image'],
+                    'durations'       => $item['durations'],
                     'extra_durations' => $item['extra_durations'],
                 ];
             }
 
             return view( 'pages/routes3', [
-                'routes'   => json_encode($result),
-                'route' => $route,
+                'routes'          => json_encode( $result ),
+                'route'           => $route,
                 'places_response' => $placesResponse,
-                'dd' => [ $id, $lang ]
+                'dd'              => [ $id, $lang ]
             ] );
 
         } catch ( \Throwable $t ) {
@@ -223,8 +223,65 @@ class RoutesController extends Controller {
         }
     }
 
+    /**
+     * getAllRoutes list.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function getAllRoutes( \Illuminate\Http\Request $request ) {
+        try {
+            $routes = Routes::select(
+                [
+                    'id',
+                    'title',
+                    'route_from_city_id',
+                    'route_from_country_id',
+                    'route_to_city_id',
+                    'route_to_country_id',
+                    'price'
+                ]
+            )->where( 'status', '=', 'open' )
+                            ->get();
 
-    public function getTranslateContent($content, $key){
-        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
+            $result = [];
+            foreach ( $routes as $route ) {
+                $from_city    = $route->getFromCity();
+                $from_country = $route->getFromCountry();
+                $to_city      = $route->getToCity();
+                $to_country   = $route->getToCountry();
+
+                $points = [];
+                foreach ( $route->pointsName() as $point ) {
+                    $points[] = $point->name;
+                }
+
+                $result[] =
+                    [
+                        'id'                    => $route->id,
+                        'title'                 => $route->title,
+                        'from_city'             => $from_city[0]->name ?? '',
+                        'route_from_city_id'    => $route->route_from_city_id,
+                        'route_from_country_id' => $route->route_from_country_id,
+                        'route_to_city_id'      => $route->route_to_city_id,
+                        'route_to_country_id'   => $route->route_to_country_id,
+                        'from_country'          => $from_country[0]->name ?? '',
+                        'to_city'               => $to_city[0]->name ?? '',
+                        'to_country'            => $to_country[0]->name ?? '',
+                        'points'                => $points,
+                    ];
+            }
+
+            return ['routes'   => json_encode( $result ),];
+
+        } catch ( \Throwable $t ) {
+            return [ 'error' => $t->getMessage() ];
+        }
     }
+
+    public function getTranslateContent( $content, $key ) {
+        return ( isset( $content[ $key . '_' . app()->getLocale() ] ) && strlen( $content[ $key . '_' . app()->getLocale() ] ) > 0 ) ? $content[ $key . '_' . app()->getLocale() ] : $content[ $key . '_en' ];
+    }
+
 }

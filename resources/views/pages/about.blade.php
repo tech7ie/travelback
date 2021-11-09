@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    {{print_r($content)}}--}}
     <section class="pabout">
         <header style="background-image: url({{asset('img/about-head.jpg')}})">
             <div class="container">
-                {!! $content['body'] ?? '' !!}
-{{--                <p>Mytripline was founded in 2020. However, before this, the company had been securing the transport of people all around Europe. During that time we had satisfied clients and made contracts with international companies in order to provide the best possible experience during their journey’s.</p>--}}
+                <div class="img-wrap">
+                    {!! $content['body'] ?? '' !!}
+                </div>
             </div>
         </header>
         <div class="container pabout__wrap">
@@ -22,7 +22,13 @@
                 @endforeach
             </div>
         </div>
-        <div class="container pabout__footer"><img src="{{asset('img/about-group.jpg')}}" alt="about-group">
+        <div class="container pabout__footer">
+{{--            <img src="{{asset('img/about-group.jpg')}}" alt="about-group">--}}
+            <img class="pabout__footer-green-vector" src="{{asset('img/green-vector.png')}}" alt="green-vector">
+            <img class="pabout__footer-blue-vector" src="{{asset('img/blue-vector.png')}}" alt="blue-vector">
+            <img class="pabout__footer-center-img" src="{{asset('img/logo-fin2.png')}}" alt="logo-fin2">
+            <img class="pabout__footer-red-vector" src="{{asset('img/red-vector.png')}}" alt="red-vector">
+            <img class="pabout__footer-orange-vector" src="{{asset('img/orange-vector.png')}}" alt="orange-vector">
             <ul>
                 <li><span>Green color</span><b class="--green">Autumn</b>
                     <p>Even the leaves left their comfort zone and fled after our departure. New beginning. Different perspective. No delays. This is your trip. This is your MYTRIPLINE.</p>

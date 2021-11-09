@@ -42,7 +42,7 @@ class SearchController extends Controller {
         }
     }
     /**
-     * Show products list.
+     * getRoutePlaces list.
      *
      * @param \Illuminate\Http\Request $request
      *

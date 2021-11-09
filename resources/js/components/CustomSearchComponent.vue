@@ -77,7 +77,9 @@
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
                             <li class="glide__slide" v-for="(item, index) in getCurrentRoutePlaces" :key="index">
-                                <v-article :addedPoint="addedPoint(item)" :data="item" :index="index" @return="addNewStopItem"></v-article>
+                                <v-article :addedPoint="addedPoint(item)" :data="item" :index="index" @return="addNewStopItem">
+                                    <div class="glide__img-wrap"></div>
+                                </v-article>
                             </li>
                         </ul>
                     </div>

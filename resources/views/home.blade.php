@@ -97,15 +97,19 @@
     </div>
     <div class="b-efbooking">
         <div class="b-efbooking__wrap">
-            <h2>{!! __("home.block_4.title") !!}</h2>
-            <div class="b-efbooking__item"><i><img src="/img/touch-screen.svg" alt="IMG"></i>
-                <div>
-                    {!! __("home.block_4.1") !!}
+            <div class="b-efbooking__bg">
+                <h2>{!! __("home.block_4.title") !!}</h2>
+                <div class="b-efbooking__item">
+                    <i>
+                        <img src="/img/touch-screen.svg" alt="touch-screen">
+                    </i>
+                    <div>{!! __("home.block_4.1") !!}</div>
                 </div>
-            </div>
-            <div class="b-efbooking__item"><i><img src="/img/security.svg" alt="IMG"></i>
-                <div>
-                    {!! __("home.block_4.1") !!}
+                <div class="b-efbooking__item">
+                    <i>
+                        <img src="/img/security.svg" alt="security">
+                    </i>
+                    <div>{!! __("home.block_4.1") !!}</div>
                 </div>
             </div>
         </div>
