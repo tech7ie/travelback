@@ -237,7 +237,7 @@
 <script>
 import Vue from "vue/dist/vue.esm.browser.min";
 import ClickOutside from "vue-click-outside";
-import initValidation from "../../../tripline-master/src/blocks/modules/calculator/validator";
+import initValidation from "../helper/validator";
 import debounce from "lodash.debounce";
 import Glide from "@glidejs/glide";
 import {Controls} from "@glidejs/glide/dist/glide.modular.esm";
