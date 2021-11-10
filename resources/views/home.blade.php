@@ -53,7 +53,8 @@
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
                                 <use xlink:href="/img/sprites/sprite.svg#luggage"></use>
-                            </svg></i>
+                            </svg>
+                        </i>
 
                         {!! __("home.block_2.1") !!}
 
@@ -61,13 +62,15 @@
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
                                 <use xlink:href="/img/sprites/sprite.svg#employees"></use>
-                            </svg></i>
+                            </svg>
+                        </i>
                         {!! __("home.block_2.2") !!}
                     </div>
                     <div class="homehead__list-item"><i>
                             <svg class="icon">
                                 <use xlink:href="/img/sprites/sprite.svg#driver"></use>
-                            </svg></i>
+                            </svg>
+                        </i>
                         {!! __("home.block_2.3") !!}
                     </div>
                 </div>
@@ -168,7 +171,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="countries__img"><img src="/img/svg/map.svg" alt="IMG"></div>
+                <div class="countries__img">
+                    <img class="desktop" src="/img/map-color.svg" alt="desktop_map">
+                    <img class="mobile" src="/img/svg/map-2.svg" alt="mobile_map">
+                </div>
             </div>
         </div>
     </section>

@@ -24,6 +24,16 @@ export default Vue.component("v-init", {
         auth: false,
     },
     mounted() {
+
+        let menuOpenBtn = document.querySelector(".js-menu-burger");
+        let hederElement = document.querySelector(".header");
+
+        menuOpenBtn.addEventListener("click", function() {
+            menuOpenBtn.classList.toggle("--active");
+            hederElement.classList.toggle("--active");
+        });
+
+
         if(document.location.hash === '#login'){
             document.getElementById('auth_button').click()
         }

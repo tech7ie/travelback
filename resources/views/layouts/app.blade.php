@@ -55,7 +55,11 @@
     </svg>
     <header class="header">
         <div class="container">
-            <div class="header__wrap"><a class="header__logo" href="{{ route('home', app()->getLocale()) }}"><img src="{{asset('img/logo.png')}}" alt="logo"></a>
+            <div class="header__wrap">
+                <a class="header__logo"
+                                         href="{{ route('home', app()->getLocale()) }}">
+                    <img src="{{asset('img/logo.png')}}" alt="logo">
+                </a>
                 <div class="header__menu">
                     <nav>
                         <ul>
