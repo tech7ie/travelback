@@ -430,9 +430,9 @@ export default Vue.component("v-custom-search", {
                     })
             })
 
-            formData.hours = formData.pm ? (parseInt(formData.hours) + 12) : formData.hours
+            formData.hours = formData.am ? (parseInt(formData.hours) + 12) : formData.hours
 
-            // console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
+            console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
 
             let route_date = Vue.moment(formData.data + " " + formData.hours + ":" + formData.minutes + ":00", "DD.MM.YYYY HH:mm:ss")
                 .format('YYYY.MM.DD HH:mm:ss');
