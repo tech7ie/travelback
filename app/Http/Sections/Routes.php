@@ -172,7 +172,7 @@ class Routes extends Section implements Initializable {
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::multiselect( 'places', 'Places' )
-                                ->setModelForOptions( \App\Models\Place::class, 'title' )
+                                ->setModelForOptions( \App\Models\Place::class, 'title_en' )
                                 ->required(),
                 //                AdminFormElement::manyToMany( 'points', [
                 //                ] )
