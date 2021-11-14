@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OurTeam;
+use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Place;
 use App\Models\Routes;
@@ -23,6 +25,9 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
+
+        $content = Page::query()->where([['slug', '=', 'home']])->first() ?? false;
+
         $routes = Routes::select(
             [
                 'id',
@@ -85,7 +90,15 @@ class HomeController extends Controller {
         return view( 'home', [
             'routes'   => json_encode($result),
             'partners' => $partners,
-            'places' => $placesResponse
+            'places' => $placesResponse,
+            'content' => [
+                'embed_video' => $content['embed_video'],
+                'title' => $this->getTranslateContent($content, 'title'),
+                'body' => $this->getTranslateContent($content, 'body'),
+                'meta_title' => $this->getTranslateContent($content, 'meta_title'),
+                'meta_keywords' => $this->getTranslateContent($content, 'meta_keywords'),
+                'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions'),
+            ]
         ] );
     }
 

@@ -42,9 +42,10 @@
                 </div>
             </div>
         </div>
-        <section class="b-video">
-            <div class="container">
+        <section class="b-video-box">
+            <div class="container align-content-center justify-content-center text-center" style="text-align: center">
                 <h2>{!! __("VIDEO") !!}</h2>
+                {!! $content['embed_video'] !!}
             </div>
         </section>
         <div class="homehead__bottom">
