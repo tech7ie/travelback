@@ -2,7 +2,7 @@
     <div class="extrastops" v-click-outside="close" :class="{ opened }" style="z-index: 9; position:relative;">
         <div class="extrastops__item">
             <input type="hidden" :value="selected" :name="'extrastops' + index">
-            <span>Stops {{ index + 1 }}</span>
+            <span>Stops {{ index + 1}}</span>
             <div class="extrastops__select">
                 <div class="extrastops__select-head" @click="toggle">
                     <span>{{ selected }} min</span>
@@ -10,14 +10,16 @@
                         <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
                     </svg>
                 </div>
-                <ul v-if="opened">
-                    <li v-for="(item, index) in list" :key="index" @click="select(item)">
-                        <span>{{ item }} min</span>
-                    </li>
-                </ul>
+                <div class="extrastops__list" v-if="opened">
+                    <ul>
+                        <li v-for="(item, index) in list" :key="index" @click="select(item)">
+                            <span>{{ item }} min</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <button type="button" @click="remove">
+        <button type="button" class="remove" @click="remove">
             <svg class="icon close-small">
                 <use xlink:href="img/sprites/sprite.svg#close-small"></use>
             </svg>
@@ -31,9 +33,80 @@ import ClickOutside from "vue-click-outside";
 export default Vue.component("v-extrastops-item", {
     data() {
         return {
-            opened: true,
-            list: [60, 80, 100, 120, 140],
-            selected: 0
+            opened: false,
+            list: [
+                60,
+                80,
+                100,
+                120,
+                140,
+                160,
+                180,
+                200,
+                220,
+                240,
+                260,
+                280,
+                300,
+                320,
+                340,
+                360,
+                380,
+                400,
+                420,
+                440,
+                460,
+                480,
+                500,
+                520,
+                540,
+                560,
+                580,
+                600,
+                620,
+                640,
+                660,
+                680,
+                700,
+                720,
+                740,
+                760,
+                780,
+                800,
+                820,
+                840,
+                860,
+                880,
+                900,
+                920,
+                940,
+                960,
+                980,
+                1000,
+                1020,
+                1040,
+                1060,
+                1080,
+                1100,
+                1120,
+                1140,
+                1160,
+                1180,
+                1200,
+                1220,
+                1240,
+                1260,
+                1280,
+                1300,
+                1320,
+                1340,
+                1360,
+                1380,
+                1400,
+                1420,
+                1440
+            ],
+            selected: 60
         };
     },
     props: {

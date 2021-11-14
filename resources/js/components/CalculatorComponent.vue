@@ -73,14 +73,14 @@
                 <input class="half" name="last-name" placeholder="Last name:" required>
                 <input type="email" name="email" placeholder="Email:" required>
             </div>
-            <template v-if="filteredRoutes.length === 0">
+            <template v-if="filteredRoutes.length === 0 && mode === 'home'">
                 <div class="form-vue__footer --line">
                     <span>Can't find your destination?</span>
                     <a :href="getRequestUrl">Request a custom route</a>
                 </div>
             </template>
             <template v-else>
-                <div class="label --white">* required for departures within 48 hours</div>
+                <div  v-if="mode === 'home'" class="label --white">* required for departures within 48 hours</div>
             </template>
             <button class="btn-submit"><span>Search</span></button>
         </form>
@@ -124,6 +124,7 @@ export default Vue.component("v-calculator", {
         };
     },
     props: {
+        mode: 'home',
         error: {
             type: Boolean,
             default: false
@@ -237,7 +238,9 @@ export default Vue.component("v-calculator", {
         let $this = this;
 
         document.addEventListener("bouncerFormValid", function (el) {
-            $this.submitForm(el)
+
+            if (this.mode === 'home'){
+                $this.submitForm(el)
                 try {
                     var form = event.target;
                     form.submit(this)
@@ -246,6 +249,7 @@ export default Vue.component("v-calculator", {
                     console.log(e);
                     console.log("Form Submit Error!");
                 }
+            }
         });
         this.parsedRoutes = JSON.parse(this.routes)
         this.searchActionsUrl = '/' + (window.App.language ?? 'en') + '/search';
