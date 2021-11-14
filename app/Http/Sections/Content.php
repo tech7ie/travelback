@@ -154,18 +154,18 @@ class Content extends Section implements Initializable {
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'label_zh', 'Label' ),
+                    AdminFormElement::text( 'label_ch', 'Label' ),
                     AdminFormElement::select( 'type', 'Type', [
                         'social'      => 'social',
                         'let_us_know' => 'let_us_know',
                         'helpdesk'    => 'helpdesk'
                     ] ),
-                    AdminFormElement::text( 'url_zh', 'Url' ),
+                    AdminFormElement::text( 'url_ch', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body_zh', 'Content', 'ckeditor' ),
-                    AdminFormElement::image( 'image_zh', 'Image' ),
+                    AdminFormElement::wysiwyg( 'body_ch', 'Content', 'ckeditor' ),
+                    AdminFormElement::image( 'image_ch', 'Image' ),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
-            )->setLabel('ZH');
+            )->setLabel('CH');
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [

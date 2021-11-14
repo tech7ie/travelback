@@ -17,6 +17,8 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->text('user_id'); // user_id of our blog post author
             $table->string('slug', 128);
+            $table->text('embed_video');
+
             $table->string('title_en', 256);
             $table->text('body_en');
             $table->string('meta_title_en', 256);
@@ -27,11 +29,11 @@ class CreatePagesTable extends Migration
             $table->string('meta_title_de', 256)->nullable();
             $table->string('meta_keywords_de', 256)->nullable();
             $table->string('meta_descriptions_de', 256)->nullable();
-            $table->string('title_zh', 256)->nullable();
-            $table->text('body_zh')->nullable();
-            $table->string('meta_title_zh', 256)->nullable();
-            $table->string('meta_keywords_zh', 256)->nullable();
-            $table->string('meta_descriptions_zh', 256)->nullable();
+            $table->string('title_ch', 256)->nullable();
+            $table->text('body_ch')->nullable();
+            $table->string('meta_title_ch', 256)->nullable();
+            $table->string('meta_keywords_ch', 256)->nullable();
+            $table->string('meta_descriptions_ch', 256)->nullable();
             $table->string('title_ru', 256)->nullable();
             $table->text('body_ru')->nullable();
             $table->string('meta_title_ru', 256)->nullable();

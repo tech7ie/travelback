@@ -162,12 +162,12 @@ class Place extends Section implements Initializable {
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [
-                    AdminFormElement::text( 'title_zh', 'Title' ),
+                    AdminFormElement::text( 'title_ch', 'Title' ),
                     AdminFormElement::html( '<hr>' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                    AdminFormElement::wysiwyg( 'body_zh', 'Content', 'ckeditor' ),
+                    AdminFormElement::wysiwyg( 'body_ch', 'Content', 'ckeditor' ),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
-            )->setLabel( 'ZH' );
+            )->setLabel( 'CH' );
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn( [

@@ -113,7 +113,10 @@ class Page extends Section implements Initializable
                         AdminFormElement::text('slug', 'Slug')
                                         ->required(),
                         AdminFormElement::html('<hr>')
-                    ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')
+                    ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
+                addColumn([
+                    AdminFormElement::wysiwyg('embed_video', 'Embed video', 'ckeditor'),
+                ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
             ]
         );
 
@@ -160,18 +163,18 @@ class Page extends Section implements Initializable
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn(
                     [
-                        AdminFormElement::text('title_zh', 'Title'),
+                        AdminFormElement::text('title_ch', 'Title'),
                         AdminFormElement::html('<hr>'),
                     ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::text('meta_title_zh', 'Meta title'),
-                    AdminFormElement::text('meta_keywords_zh', 'Meta keywords'),
-                    AdminFormElement::textarea('meta_descriptions_zh', 'Meta descriptions'),
+                    AdminFormElement::text('meta_title_ch', 'Meta title'),
+                    AdminFormElement::text('meta_keywords_ch', 'Meta keywords'),
+                    AdminFormElement::textarea('meta_descriptions_ch', 'Meta descriptions'),
                 ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
                 addColumn([
-                    AdminFormElement::wysiwyg('body_zh', 'Content', 'ckeditor'),
+                    AdminFormElement::wysiwyg('body_ch', 'Content', 'ckeditor'),
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
-            )->setLabel('ZH');
+            )->setLabel('CH');
 
             $tabs[] = AdminDisplay::tab(
                 AdminFormElement::columns()->addColumn(

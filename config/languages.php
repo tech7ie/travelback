@@ -3,7 +3,7 @@
 return [
     'en' => 'English',
     'de' => 'Deutschland',
-    'zh' => 'Chinese',
+    'ch' => 'Czech',
     'ru' => 'Russian',
     'es' => 'Spanish',
 ];

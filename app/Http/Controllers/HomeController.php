@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
@@ -63,7 +64,7 @@ class HomeController extends Controller {
                 ];
         }
 
-        $partners = new PartnerController();
+        $partners =  Partner::query()->where('status', true)->get();
 
         $places = Place::query()->where('status', true)->limit(10)->get();
 
@@ -83,7 +84,7 @@ class HomeController extends Controller {
 
         return view( 'home', [
             'routes'   => json_encode($result),
-            'partners' => $partners->list(),
+            'partners' => $partners,
             'places' => $placesResponse
         ] );
     }

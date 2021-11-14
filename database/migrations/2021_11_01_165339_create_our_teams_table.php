@@ -22,9 +22,9 @@ class CreateOurTeamsTable extends Migration
             $table->string('title_de', 256)->nullable();
             $table->string('position_de', 256)->nullable();
             $table->text('body_de')->nullable();
-            $table->string('title_zh', 256)->nullable();
-            $table->string('position_zh', 256)->nullable();
-            $table->text('body_zh')->nullable();
+            $table->string('title_ch', 256)->nullable();
+            $table->string('position_ch', 256)->nullable();
+            $table->text('body_ch')->nullable();
             $table->string('title_ru', 256)->nullable();
             $table->string('position_ru', 256)->nullable();
             $table->text('body_ru')->nullable();

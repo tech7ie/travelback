@@ -26,6 +26,7 @@ class PagePost extends Controller
         return view( 'pages/page', ['content' =>
                                         [
                                             'slug' => $content['slug'],
+                                            'embed_video' => $content['embed_video'],
                                             'title' => $this->getTranslateContent($content, 'title'),
                                             'body' => $this->getTranslateContent($content, 'body'),
                                             'meta_title' => $this->getTranslateContent($content, 'meta_title'),
@@ -58,6 +59,7 @@ class PagePost extends Controller
         return view( 'pages/about', ['content' =>
         [
             'slug' => $content['slug'],
+            'embed_video' => $content['embed_video'],
             'title' => $this->getTranslateContent($content, 'title'),
             'body' => $this->getTranslateContent($content, 'body'),
             'meta_title' => $this->getTranslateContent($content, 'meta_title'),

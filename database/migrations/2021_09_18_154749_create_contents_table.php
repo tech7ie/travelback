@@ -23,10 +23,10 @@ class CreateContentsTable extends Migration
             $table->text('body_de')->nullable();
             $table->string('url_de', 128)->nullable();
             $table->string('image_de', 128)->nullable();
-            $table->string('label_zh', 128)->nullable();
-            $table->text('body_zh')->nullable();
-            $table->string('url_zh', 128)->nullable();
-            $table->string('image_zh', 128)->nullable();
+            $table->string('label_ch', 128)->nullable();
+            $table->text('body_ch')->nullable();
+            $table->string('url_ch', 128)->nullable();
+            $table->string('image_ch', 128)->nullable();
             $table->string('label_ru', 128)->nullable();
             $table->text('body_ru')->nullable();
             $table->string('url_ru', 128)->nullable();
