@@ -139,7 +139,7 @@
                                 <div>
                                     <div>
                                         Upgrade to a luxury sedan for <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ calculatePrice(((totalCarPrice + parseFloat(passengers_extra[1].car.price)) - (totalCarPrice + withstopsListPrice))) }}
+                                        {{ calculatePrice(((parseFloat(passengers_extra[1].car.price)) + (withstopsListPrice))) }}
                                     </div>
                                 </div>
                             </div>

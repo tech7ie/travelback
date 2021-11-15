@@ -4,15 +4,30 @@
     display: initial!important;
     max-width: 20px!important;
 }
+
+i.eur_money{
+    display: inline!important;
+}
+
 .usd_money::before {
     content:"$ ";
     font-style: normal!important;
     display: initial!important;
     max-width: 20px!important;
 }
+
+i.usd_money{
+    display: inline!important;
+}
+
 .aud_money::before {
     content:"$ ";
     font-style: normal!important;
     display: initial!important;
     max-width: 20px!important;
 }
+
+i.aud_money{
+    display: inline!important;
+}
+
