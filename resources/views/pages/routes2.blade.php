@@ -11,8 +11,8 @@
                            style="background-image: url({{asset($route['image'])}})">
                             <div class="wrap-text">
                                 <h4>{{$route['title']}}</h4>
-                                <div>{{ $route['body'] }}</div>
-{{--                                <div>{!! $route['body'] !!}</div>--}}
+{{--                                <div>{{ $route['body'] }}</div>--}}
+                                <div>{!! $route['body'] !!}</div>
                             </div>
                         </a>
                     @endforeach
