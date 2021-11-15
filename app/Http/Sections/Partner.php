@@ -95,7 +95,7 @@ class Partner extends Section implements Initializable {
                 AdminFormElement::text( 'title', 'Name' ),
                 AdminFormElement::text( 'url', 'Url' ),
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setOptions( [ 'enabled', 'disabled' ] )
+                                ->setEnum( [ 'enabled', 'disabled' ] )
                                 ->required(),
                 AdminFormElement::html( '<hr>' ),
             ], 'col-xs-12 col-sm-12 col-md-4 col-lg-4' )->addColumn( [

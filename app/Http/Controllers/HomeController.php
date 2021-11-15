@@ -69,7 +69,12 @@ class HomeController extends Controller {
                 ];
         }
 
-        $partners =  Partner::query()->where('status', true)->get();
+//        $partners =  Partner::query()->where('status', true)->get();
+        $partners = Partner::select()
+                           ->where( 'status', '=', 'enabled' )
+                           ->get();
+
+
 
         $places = Place::query()->where('status', true)->limit(10)->get();
 
