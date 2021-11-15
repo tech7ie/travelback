@@ -254,7 +254,9 @@ class RoutesController extends Controller {
 
                 $points = [];
                 foreach ( $route->pointsName() as $point ) {
-                    $points[] = $point->name;
+                    if ( $point->status === 'enabled' ) {
+                        $points[] = $point->name;
+                    }
                 }
 
                 $result[] =
@@ -273,7 +275,7 @@ class RoutesController extends Controller {
                     ];
             }
 
-            return ['routes'   => json_encode( $result ),];
+            return [ 'routes' => json_encode( $result ), ];
 
         } catch ( \Throwable $t ) {
             return [ 'error' => $t->getMessage() ];

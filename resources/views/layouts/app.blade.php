@@ -41,6 +41,8 @@
     ]) !!};
     </script>
     <link rel="stylesheet" href="{{ asset('styles/main.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('styles/extend.css') }}">
 </head>
 <body>
 <div id="app">

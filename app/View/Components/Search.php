@@ -24,7 +24,7 @@ class Search extends Component
      * @param object $currentRoutePlaces
      *
      */
-    public function __construct($debug, object $currentRoute, object $currentRoutePlaces)
+    public function __construct($debug, object $currentRoute, array $currentRoutePlaces)
     {
         $this->debug = $debug;
         $this->currentRoute = $currentRoute;

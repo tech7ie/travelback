@@ -140,13 +140,17 @@
                                 </div>
                             </div>
                             <div class="order-sum__footer">
-                                <div><span>Total ({{ currency.toUpperCase() }})</span><em>VAT included</em></div>
-                                <div><b>{{ currency.toUpperCase() + ' ' }} {{ getTotalOrderAmount() }}</b></div>
+                                <div>
+                                    <span>Total (<i :class="currency.toLowerCase() +'_money'"></i>)
+                                </span>
+                                    <em>VAT included</em>
+                                </div>
+                                <div><b><i :class="currency.toLowerCase() +'_money'"></i> {{ getTotalOrderAmount() }}</b></div>
                             </div>
                         </div>
                         <div class="order-sum__submit">
                             <button class="btn" type="submit">
-                                <span>confirm and pay {{ currency.toUpperCase() + ' ' }}{{ getTotalOrderAmount() }}*</span></button>
+                                <span>confirm and pay <i :class="currency.toLowerCase() +'_money'"></i>{{ getTotalOrderAmount() }}*</span></button>
                             <b>* Your payment (approx. A€136) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate.</b>
                         </div>
                     </div>
@@ -177,7 +181,10 @@
                                     </div>
                                 </div>
                                 <div class="tickets__footer-price">
-                                    <b>{{ currency.toUpperCase() }}{{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}</b>
+                                    <b>
+                                        <i :class="currency.toLowerCase() +'_money'"></i>
+                                        {{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}
+                                    </b>
                                 </div>
                             </div>
                         </label>

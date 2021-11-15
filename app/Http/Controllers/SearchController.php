@@ -20,27 +20,45 @@ class SearchController extends Controller {
      */
     public function index( \Illuminate\Http\Request $request ) {
         try {
-            $data = $request->all();
-            $route = Routes::find($data['route']);
+            $data  = $request->all();
+            $route = Routes::find( $data['route'] );
 
             $places = $route->places;
 
+            $placesResponse = [];
+
+            foreach ( $places as $item ) {
+                if ( $item['status'] === 'enabled' ) {
+                    $placesResponse[] = [
+                        'id'              => $item['id'],
+                        'title'           => $this->getTranslateContent( $item, 'title' ),
+                        'body'            => $this->getTranslateContent( $item, 'body' ),
+                        'image'           => $item['image'],
+                        'price'           => $item['price'],
+                        'durations'       => $item['durations'],
+                        'extra_durations' => $item['extra_durations'],
+                        'status'          => $item['status']
+                    ];
+                }
+            }
+
             $cars = $route->cars;
 
-            $from_city = $route->fromCity;
+            $from_city    = $route->fromCity;
             $from_country = $route->fromCountry;
-            $to_city = $route->toCity;
+            $to_city      = $route->toCity;
 
             return view( 'pages/search', [
-                'currentRoute' => $route,
-                'currentRoutePlaces' => $places,
-                'debug'        => [ 'data' => $data, 'route'=>$route, 'places' => $places ]
+                'currentRoute'       => $route,
+                'currentRoutePlaces' => $placesResponse,
+                'debug'              => [ 'data' => $data, 'route' => $route, 'places' => $placesResponse ]
             ] );
 
         } catch ( \Throwable $t ) {
             return view( 'pages/search', [ 'currentRoute' => [], 'debug' => $t->getMessage() ] );
         }
     }
+
     /**
      * getRoutePlaces list.
      *
@@ -50,33 +68,36 @@ class SearchController extends Controller {
      */
     public function getRoutePlaces( \Illuminate\Http\Request $request ) {
         try {
-            $data = $request->all();
-            $route = Routes::find($data['route']);
+            $data  = $request->all();
+            $route = Routes::find( $data['route'] );
 
             $places = $route->places;
 
             $placesResponse = [];
 
-            foreach ($places as $item){
-                $placesResponse[] = [
-                    'id' => $item['id'],
-                    'title' => $this->getTranslateContent($item, 'title'),
-                    'body' => $this->getTranslateContent($item, 'body'),
-                    'image' => $item['image'],
-                    'durations' => $item['durations'],
-                    'extra_durations' => $item['extra_durations'],
-                ];
+            foreach ( $places as $item ) {
+                if ( $item['status'] === 'enabled' ) {
+                    $placesResponse[] = [
+                        'id'              => $item['id'],
+                        'title'           => $this->getTranslateContent( $item, 'title' ),
+                        'body'            => $this->getTranslateContent( $item, 'body' ),
+                        'image'           => $item['image'],
+                        'durations'       => $item['durations'],
+                        'extra_durations' => $item['extra_durations'],
+                        'status'          => $item['status']
+                    ];
+                }
             }
 
             return $placesResponse;
 
         } catch ( \Throwable $t ) {
-            return ['dd' => $t->getMessage()];
+            return [ 'dd' => $t->getMessage() ];
         }
     }
 
 
-    public function getTranslateContent($content, $key){
-        return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
+    public function getTranslateContent( $content, $key ) {
+        return ( isset( $content[ $key . '_' . app()->getLocale() ] ) && strlen( $content[ $key . '_' . app()->getLocale() ] ) > 0 ) ? $content[ $key . '_' . app()->getLocale() ] : $content[ $key . '_en' ];
     }
 }

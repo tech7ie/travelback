@@ -127,7 +127,7 @@ class Place extends Section implements Initializable {
                 AdminFormElement::number( 'extra_durations', 'Extra durations' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setOptions( [ 'enabled' => 'Enabled', 'disabled' => 'Disabled' ] )
+                                ->setEnum( [ 'enabled' => 'Enabled', 'disabled' => 'Disabled' ] )
                                 ->required(),
 
                 AdminFormElement::text( 'url', 'Url' ),

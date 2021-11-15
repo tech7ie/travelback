@@ -125,7 +125,7 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR {{ currency.toUpperCase() }}{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)) }}</span>
+                                <span>BUY FOR <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)) }}</span>
                             </button>
                         </div>
                     </div>
@@ -137,8 +137,10 @@
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
-                                    Upgrade to a luxury sedan for {{ currency.toUpperCase() }}
-                                    {{ calculatePrice(((totalCarPrice + parseFloat(passengers_extra[1].car.price)) - (totalCarPrice + withstopsListPrice))) }}
+                                    <div>
+                                        Upgrade to a luxury sedan for <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
+                                        {{ calculatePrice(((totalCarPrice + parseFloat(passengers_extra[1].car.price)) - (totalCarPrice + withstopsListPrice))) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,9 +176,9 @@
                             </i><span>Bottled water</span></li>
                             <li><i>
                                 <svg class="icon">
-                                    <use xlink:href="/img/sprites/sprite.svg#undefined"></use>
+                                    <use xlink:href="/img/sprites/sprite.svg#dist"></use>
                                 </svg>
-                            </i><span>From a to be service</span></li>
+                            </i><span>Door to door service</span></li>
                         </ul>
                         <ul>
                             <li><i>
@@ -223,7 +225,7 @@
                                 </div>
                                 <div class="tickets__footer-price">
                                     <!--                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrice)) }}</b>-->
-                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice(item.car.price) }}</b>
+                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ calculatePrice(item.car.price) }}</b>
                                 </div>
                             </div>
                         </label>
@@ -361,8 +363,10 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.to = this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
-            this.price = this.current.price
-            this.places = this.current.places
+            // this.price = this.current.price
+            this.price = this.current_route_places
+            // this.places = this.current.places
+            this.places = this.current_route_places
             this.$store.commit('setRoute', this.current);
         }
 

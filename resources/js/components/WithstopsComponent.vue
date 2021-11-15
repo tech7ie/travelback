@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </div>
-        <b>{{ currency.toUpperCase() + ' ' }} {{ ( total_rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
+        <b><i :class="currency.toLowerCase() +'_money'"></i> {{ ( total_rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}</b>
         <button type="button" @click="remove">
             <svg class="icon minus">
                 <use xlink:href="/img/sprites/sprite.svg#close-small"></use>
