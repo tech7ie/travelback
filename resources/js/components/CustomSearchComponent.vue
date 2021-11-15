@@ -1,5 +1,9 @@
 <template>
     <section class="psearch" id="psearch">
+        {{this.current.price}}/
+        {{this.totalCarPrice}}/
+        {{this.withstopsListPrice}}/
+        {{this.total_rate}}
         <form class="container psearch__wrap js-psearch-from">
             <input name="route" type="text" :value="parseInt(route_id)" hidden>
             <div class="psearch__form">
@@ -129,17 +133,17 @@
                             </button>
                         </div>
                     </div>
-                    <div class="yourride__selected extra" v-if="passengers_extra.length > 1">
+                    <div v-for="(item, index) in getPassengersExtraForUpdate" class="yourride__selected extra">
                         <div style="cursor:pointer; color: #03acd1" class="tickets__footer"
-                             @click="setCar({car: passengers_extra[1].car, count: 1})">
+                             @click="setCar({car: item.car, count: 1})">
                             <i>
-                                <img :src="'/' + passengers_extra[1].car.image" :alt="passengers_extra[1].car.title">
+                                <img :src="'/' + item.car.image" :alt="item.car.title">
                             </i>
                             <div class="tickets__footer-info">
                                 <div>
                                     <div>
                                         Upgrade to a luxury sedan for <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ calculatePrice(((parseFloat(passengers_extra[1].car.price)) + (withstopsListPrice))) }}
+                                        {{ calculatePrice(((parseFloat(item.car.price)) + (withstopsListPrice))) }}
                                     </div>
                                 </div>
                             </div>
@@ -281,6 +285,10 @@ export default Vue.component("v-custom-search", {
                 return []
             }
         },
+        pm: {
+            type: Boolean,
+            default: true
+        },
         errors: [],
         current: false,
         current_route_places: [],
@@ -351,6 +359,7 @@ export default Vue.component("v-custom-search", {
         console.log('current_route_places:', this.current_route_places);
         console.log('debug: ', this.debug);
 
+        console.log('this.$route.params: ', this.$router)
         if (this.current) {
             this.route_id = this.current.id;
             this.orderRoute.from = this.current.from_city.name
@@ -423,11 +432,6 @@ export default Vue.component("v-custom-search", {
             let places = []
             let cars = []
 
-            console.log('formData: ', formData);
-
-            // console.log('date: ', (this.data + " " + this.hours + ":" + this.minutes));
-
-
             this.passengers.map(c => {
                 cars.push({
                     id: c.car.id,
@@ -479,7 +483,7 @@ export default Vue.component("v-custom-search", {
             this.passengers = [car]
             console.log(this.passengers);
             var f = window.document.getElementsByClassName('fancybox__container')
-            if (f)
+            if (f && f[0])
                 f[0].click()
             return true
         },
@@ -660,10 +664,6 @@ export default Vue.component("v-custom-search", {
             });
         },
         calculatePrice(price) {
-            // console.log('calculatePrice');
-            // console.log(price);
-            // console.log(this.total_rate);
-            // // return (parseFloat(price)).toFixed(2)
             return ((parseFloat(price) + parseFloat(this.current.price)) * parseFloat(this.total_rate)).toFixed(2)
         }
     },
@@ -678,6 +678,29 @@ export default Vue.component("v-custom-search", {
             country_rate: store => store.country_rate,
             total_rate: store => (store.total_rate).toFixed(2),
         }),
+        getPassengersExtraForUpdate(){
+            if (this.passengers.length === 1){
+
+                console.log(this.passengers[0]);
+                console.log(this.passengers_extra);
+
+                let current_car_id = this.passengers[0].car.id
+
+                let current_auto = this.passengers_extra.findIndex(function (item) {
+                    return item.car.id === current_car_id;
+                });
+                console.log('current_auto: ', current_auto);
+                console.log('this.passengers_extra.length: ', this.passengers_extra.length);
+
+                if (current_auto + 1 >= this.passengers_extra.length){
+                    return []
+                }else{
+                    return [this.passengers_extra[current_auto + 1]]
+                }
+
+            }
+            return []
+        },
         getCarsOrdered() {
             return this.current.cars.sort(function (a, b) {
                 if (a.places_max > b.places_max) {

@@ -3,9 +3,9 @@
     :current = "{{($currentRoute)}}"
     :current_route_places = "{{json_encode($currentRoutePlaces)}}"
     :debug = "{{json_encode($debug)}}"
-{{--    :currentRoutes = "'currentRoute'"--}}
     from="{{ $_GET['from'] ?? '' }}"
     to="{{ $_GET['to'] ?? '' }}"
+    pm="{{ $_GET['pm'] ?? '' }}"
     adults="{{ $_GET['adults'] ?? '' }}"
     childrens="{{ $_GET['childrens'] ?? '' }}"
     luggage="{{ $_GET['luggage'] ?? '' }}"

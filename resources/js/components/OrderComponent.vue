@@ -304,7 +304,7 @@ export default Vue.component("v-order-route", {
             this.passengers = [car]
             console.log(this.passengers);
             var f = window.document.getElementsByClassName('fancybox__container')
-            if (f)
+            if (f && f[0])
                 f[0].click()
 
 
@@ -363,7 +363,12 @@ export default Vue.component("v-order-route", {
         getTotalOrderAmount(){
             // console.log('getTotalOrderAmount');
             // console.log(this.total_rate,this.selected['car_price'],this.selected['price'],this.selected['withstopsListPrice']);
-            return (this.total_rate * (parseFloat(this.selected['car_price']) + parseFloat(this.selected['price']) + parseFloat(this.selected['withstopsListPrice'])).toFixed(2)).toFixed(2)
+            return (this.total_rate *
+                (
+                    parseFloat(this.selected['car_price']) +
+                    parseFloat(this.selected['price']) +
+                    parseFloat(this.selected['withstopsListPrice'])
+                ).toFixed(2)).toFixed(2)
         }
     },
     computed: {
@@ -374,7 +379,7 @@ export default Vue.component("v-order-route", {
             points: store => store.points,
             selected: store => store.selected,
             rate: store => store.rate,
-            total_rate: store => (store.rate + store.country_rate) > 0 ? (store.rate + store.country_rate) : 1,
+            total_rate: store => store.total_rate,
             currency: store => store.currency,
         }),
         getExtraMinutes() {
