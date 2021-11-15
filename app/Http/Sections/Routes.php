@@ -160,7 +160,7 @@ class Routes extends Section implements Initializable {
                 AdminFormElement::text( 'price', 'Price €' )
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setOptions( [
+                                ->setEnum( [
                                     'open'   => 'open',
                                     'closed' => 'closed',
 //                                    'done'   => 'done',
