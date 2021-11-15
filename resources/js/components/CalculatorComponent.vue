@@ -124,7 +124,10 @@ export default Vue.component("v-calculator", {
         };
     },
     props: {
-        mode: 'home',
+        mode: {
+            type: String,
+            default: "home"
+        },
         error: {
             type: Boolean,
             default: false
@@ -182,6 +185,8 @@ export default Vue.component("v-calculator", {
         submitForm(e) {
             e.preventDefault()
 
+            console.log('this.mode: ', this.mode);
+
             const formData = new FormData(e.target);
             const formProps = Object.fromEntries(formData);
 
@@ -233,13 +238,17 @@ export default Vue.component("v-calculator", {
     },
     mounted() {
 
+
+        console.log('this.mode: mounted:  ', this.mode);
+
         initValidation(".js-calculator");
 
         let $this = this;
 
         document.addEventListener("bouncerFormValid", function (el) {
 
-            if (this.mode === 'home'){
+            // console.log('this.mode', this.mode);
+            if ($this.mode === 'home'){
                 $this.submitForm(el)
                 try {
                     var form = event.target;
