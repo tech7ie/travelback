@@ -42,7 +42,7 @@
                         <div class="order__payment">
                             <div class="order__payment-item">
                                 <div class="order__payment-wrap">
-                                    <h2>Payment {{payment_type}}</h2>
+                                    <h2>Payment {{ payment_type }}</h2>
                                     <div class="checkbox --violet">
                                         <input v-model="payment_type" value="1" type="radio" data-payment-check="1" id="check-strip" name="payment">
                                         <label for="check-strip"><img src="/img/stripe.png" alt="stripe"></label>
@@ -183,7 +183,8 @@
                                 <div class="tickets__footer-price">
                                     <b>
                                         <i :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}
+                                        {{ getCarUpdatePrice(item.car.price) }}
+                                        <!--                                        {{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}-->
                                     </b>
                                 </div>
                             </div>
@@ -254,7 +255,6 @@ export default Vue.component("v-order-route", {
 
         var stripe = Stripe('pk_test_51JnNJWEyrjgWWtiTKguEGz7IQ6Lu7bIEgNoL5aMQ6X6qbDlIIqqEnB0nR1VyZQ3cuoOMMIkg7NOMYRuKYzlufLdg00pJ2qrBa3');
         var elements = stripe.elements();
-
 
 
         var card = elements.create('card', {style: style});
@@ -336,8 +336,8 @@ export default Vue.component("v-order-route", {
 
                     console.log('getPlaces ress;', res);
 
-                    if (res){
-                        if (res.data['status']==='success'){
+                    if (res) {
+                        if (res.data['status'] === 'success') {
 
                             this.places = res.data ?? [];
 
@@ -360,12 +360,20 @@ export default Vue.component("v-order-route", {
         getOrderCancelUrl() {
             return '/' + window.App.language + '/order-cancel'
         },
-        getTotalOrderAmount(){
+        getTotalOrderAmount() {
             // console.log('getTotalOrderAmount');
             // console.log(this.total_rate,this.selected['car_price'],this.selected['price'],this.selected['withstopsListPrice']);
             return (this.total_rate *
                 (
                     parseFloat(this.selected['car_price']) +
+                    parseFloat(this.selected['price']) +
+                    parseFloat(this.selected['withstopsListPrice'])
+                ).toFixed(2)).toFixed(2)
+        },
+        getCarUpdatePrice(car_price) {
+            return (this.total_rate *
+                (
+                    parseFloat(car_price) +
                     parseFloat(this.selected['price']) +
                     parseFloat(this.selected['withstopsListPrice'])
                 ).toFixed(2)).toFixed(2)

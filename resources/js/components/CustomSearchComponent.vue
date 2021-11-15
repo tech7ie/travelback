@@ -1,9 +1,9 @@
 <template>
     <section class="psearch" id="psearch">
-        {{this.current.price}}/
-        {{this.totalCarPrice}}/
-        {{this.withstopsListPrice}}/
-        {{this.total_rate}}
+<!--        {{this.current.price}}/-->
+<!--        {{this.totalCarPrice}}/-->
+<!--        {{this.withstopsListPrice}}/-->
+<!--        {{this.total_rate}}-->
         <form class="container psearch__wrap js-psearch-from">
             <input name="route" type="text" :value="parseInt(route_id)" hidden>
             <div class="psearch__form">
