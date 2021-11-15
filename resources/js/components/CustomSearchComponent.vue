@@ -125,7 +125,7 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)) }}</span>
+                                <span>BUY FOR <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
                             </button>
                         </div>
                     </div>
@@ -666,7 +666,7 @@ export default Vue.component("v-custom-search", {
             // console.log(price);
             // console.log(this.total_rate);
             // // return (parseFloat(price)).toFixed(2)
-            return (parseFloat(price) * parseFloat(this.total_rate)).toFixed(2)
+            return ((parseFloat(price) + parseFloat(this.current.price)) * parseFloat(this.total_rate)).toFixed(2)
         }
     },
     computed: {
