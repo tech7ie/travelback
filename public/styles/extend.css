@@ -1,18 +1,18 @@
 .eur_money::before {
     content:"€ ";
-    font-style: normal;
-    display: initial;
-    max-width: 20px;
+    font-style: normal!important;
+    display: initial!important;
+    max-width: 20px!important;
 }
 .usd_money::before {
     content:"$ ";
-    font-style: normal;
-    display: initial;
-    max-width: 20px;
+    font-style: normal!important;
+    display: initial!important;
+    max-width: 20px!important;
 }
 .aud_money::before {
     content:"$ ";
-    font-style: normal;
-    display: initial;
-    max-width: 20px;
+    font-style: normal!important;
+    display: initial!important;
+    max-width: 20px!important;
 }
