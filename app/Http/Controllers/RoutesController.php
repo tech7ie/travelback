@@ -32,8 +32,51 @@ class RoutesController extends Controller {
     }
 
 
+    public function getRoute( \Illuminate\Http\Request $request ) {
+        try {
+            $data  = $request->all();
+            $route = Routes::find( $data['route'] );
+
+            $places = $route->places;
+
+            $placesResponse = [];
+
+            foreach ( $places as $item ) {
+                if ( $item['status'] === 'enabled' ) {
+                    $placesResponse[] = [
+                        'id'              => $item['id'],
+                        'title'           => $this->getTranslateContent( $item, 'title' ),
+                        'body'            => $this->getTranslateContent( $item, 'body' ),
+                        'image'           => $item['image'],
+                        'price'           => $item['price'],
+                        'durations'       => $item['durations'],
+                        'extra_durations' => $item['extra_durations'],
+                        'status'          => $item['status']
+                    ];
+                }
+            }
+
+            $cars = $route->cars;
+
+            $from_city    = $route->fromCity;
+            $from_country = $route->fromCountry;
+            $to_city      = $route->toCity;
+
+            return [
+                'current_route'       => $route,
+                'current_route_places' => $placesResponse
+            ];
+
+        } catch ( \Throwable $t ) {
+            return [
+                'current_route'       => [],
+                'current_route_places' => []
+            ];
+        }
+    }
+
     /**
-     * Show products list.
+     * routes list.
      *
      * @return array
      */

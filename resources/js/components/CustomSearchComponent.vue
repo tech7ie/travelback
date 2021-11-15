@@ -410,6 +410,15 @@ export default Vue.component("v-custom-search", {
                     this.places = res.data ?? [];
                 })
         },
+        getRoute() {
+            console.log('getPlaces');
+            axios.post('/api/get_route', {route: this.route_id})
+                .then(res => {
+                    console.log('getPlaces ress;', res);
+                    this.places = res.data['current_route_places'] ?? [];
+                    this.current = res.data['current_route'] ?? [];
+                })
+        },
         updateCart(formData) {
             let places = []
             let cars = []
@@ -533,25 +542,13 @@ export default Vue.component("v-custom-search", {
 
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
-        getCarsOrdered() {
-            return this.current.cars.sort(function (a, b) {
-                if (a.places_max > b.places_max) {
-                    return 1;
-                }
-                if (a.places_max < b.places_max) {
-                    return -1;
-                }
-                // a должно быть равным b
-                return 0;
-            });
-        },
         returnPersone(e) {
             console.log('returnPersone: ', e);
             this.passengers = [];
             this.passengers_extra = [];
             let totalPassengers = e.passengers
             let current_passengers = e.passengers
-            let inOneCar = this.getCarsOrdered().filter(c => {
+            let inOneCar = this.getCarsOrdered.filter(c => {
                 // return current_passengers >= c.places_min && current_passengers <= c.places_max
                 return current_passengers <= c.places_max
             })
@@ -563,36 +560,36 @@ export default Vue.component("v-custom-search", {
                 })
             }
             let inMoreCar = []
-            console.log('this.getCarsOrdered().length: ', this.getCarsOrdered().length);
+            console.log('this.getCarsOrdered.length: ', this.getCarsOrdered.length);
             console.log('-------------------------------------------------------------');
             if (inOneCar.length === 0) {
-                for (let i = this.getCarsOrdered().length - 1; i >= 0; i--) {
-                    console.log('inMoreCar: ', this.getCarsOrdered()[i]['places_max']);
+                for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
+                    console.log('inMoreCar: ', this.getCarsOrdered[i]['places_max']);
                     console.log('totalPassengers: ', totalPassengers);
                     if (totalPassengers > 0) {
-                        console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max'])));
-                        let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']));
-                        let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']))
+                        console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
+                        let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']));
+                        let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
                         if (cars >= 0) {
-                            if (carsFloat - cars > 0.50 || this.getCarsOrdered().length === 1) {
+                            if (carsFloat - cars > 0.50 || this.getCarsOrdered.length === 1) {
                                 cars += 1;
                             }
                             console.log('cars: ', cars);
-                            inMoreCar.push({car: this.getCarsOrdered()[i], count: cars})
-                            totalPassengers -= parseInt(this.getCarsOrdered()[i]['places_max']) * (cars === 0 ? 1 : cars)
+                            inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
+                            totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max']) * (cars === 0 ? 1 : cars)
                         }
                     }
                 }
                 if (totalPassengers > 0) {
-                    for (let i = this.getCarsOrdered().length - 1; i >= 0; i--) {
-                        console.log('inMoreCar2: ', this.getCarsOrdered()[i]['places_max']);
+                    for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
+                        console.log('inMoreCar2: ', this.getCarsOrdered[i]['places_max']);
                         console.log('totalPassengers2: ', totalPassengers);
                         if (totalPassengers > 0) {
-                            console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max'])));
-                            let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered()[i]['places_max']))
+                            console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
+                            let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
                             console.log('cars2: ', cars);
-                            inMoreCar.push({car: this.getCarsOrdered()[i], count: cars})
-                            totalPassengers -= parseInt(this.getCarsOrdered()[i]['places_max'])
+                            inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
+                            totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max'])
                         }
                     }
                 }
@@ -636,7 +633,8 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.route_id = item.id
             this.current = item
-            this.getPlaces();
+            // this.getPlaces();
+            this.getRoute();
             this.updateError();
         },
         inputTo() {
@@ -680,6 +678,18 @@ export default Vue.component("v-custom-search", {
             country_rate: store => store.country_rate,
             total_rate: store => (store.total_rate).toFixed(2),
         }),
+        getCarsOrdered() {
+            return this.current.cars.sort(function (a, b) {
+                if (a.places_max > b.places_max) {
+                    return 1;
+                }
+                if (a.places_max < b.places_max) {
+                    return -1;
+                }
+                // a должно быть равным b
+                return 0;
+            });
+        },
         getExtraMinutes() {
             let extraMinutes = 0;
             this.points.forEach(item => {
