@@ -4,6 +4,7 @@
             <input hidden name="hours" :value="hours"/>
             <input hidden name="minutes" :value="minutes"/>
             <input hidden name="pm" :value="pm"/>
+            <input hidden name="am" :value="!pm"/>
             <svg class="icon arrow-down">
                 <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
             </svg>

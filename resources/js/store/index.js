@@ -21,6 +21,7 @@ const store = {
         country_rate: 0,
         count: 0,
         currency: 'eur',
+        currency_rate: 1,
         currency_rates: null,
     },
     mutations: {
@@ -30,12 +31,12 @@ const store = {
         },
         setRate(state, rate) {
             state.rate = rate.rate ?? 1
-            state.total_rate = (state.currency_rates) > 0 ? ((state.rate - 1) + state.currency_rates) : state.rate
+            state.total_rate = (state.currency_rate) > 0 ? ((state.rate - 1) + state.currency_rate) : state.rate
         },
-        setCurrencyRate(state, currency_rates) {
-            console.log('currency_rates: ', currency_rates);
-            state.currency_rates = currency_rates ?? 1
-            state.total_rate = (state.currency_rates) > 0 ? ((state.rate - 1) + state.currency_rates) : state.rate
+        setCurrencyRate(state, currency_rate) {
+            console.log('currency_rates: ', currency_rate);
+            state.currency_rate = currency_rate ?? 1
+            state.total_rate = (state.currency_rate) > 0 ? ((state.rate - 1) + state.currency_rate) : state.rate
         },
         setCart(state, cart) {
             console.log('setCart');

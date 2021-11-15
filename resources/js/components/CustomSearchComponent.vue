@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="tickets__footer-price">
                                     <!--                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrice)) }}</b>-->
-                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ calculatePrice(item.car.price) }}</b>
+                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ calculatePrice(item.car.price + (withstopsListPrice)) }}</b>
                                 </div>
                             </div>
                         </label>
@@ -371,7 +371,7 @@ export default Vue.component("v-custom-search", {
         }
 
         this.updatePrice()
-        this.updateCart()
+        // this.updateCart()
 
 
         if (window.matchMedia("(max-width: 900px)").matches) {
@@ -414,6 +414,8 @@ export default Vue.component("v-custom-search", {
             let places = []
             let cars = []
 
+            console.log('formData: ', formData);
+
             // console.log('date: ', (this.data + " " + this.hours + ":" + this.minutes));
 
 
@@ -434,7 +436,7 @@ export default Vue.component("v-custom-search", {
                     })
             })
 
-            formData.hours = formData.am ? (parseInt(formData.hours) + 12) : formData.hours
+            formData.hours = formData.pm ? (parseInt(formData.hours) + 12) : formData.hours
 
             console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
 
@@ -660,9 +662,10 @@ export default Vue.component("v-custom-search", {
             });
         },
         calculatePrice(price) {
-            console.log('calculatePrice');
-            console.log(price);
-            console.log(this.total_rate);
+            // console.log('calculatePrice');
+            // console.log(price);
+            // console.log(this.total_rate);
+            // // return (parseFloat(price)).toFixed(2)
             return (parseFloat(price) * parseFloat(this.total_rate)).toFixed(2)
         }
     },
