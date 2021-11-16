@@ -1,7 +1,7 @@
 <template>
     <article :style="'background-image: url(/'+data.image+')'">
         <b>{{ data.title }}</b>
-        <p v-html="data.body"></p>
+        <template v-html="data.body"></template>
         <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
         <button type="button" :class="{added: addedPoint}" @click="buy">
             Add for <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
