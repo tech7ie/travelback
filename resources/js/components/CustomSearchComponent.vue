@@ -401,9 +401,8 @@ export default Vue.component("v-custom-search", {
     },
     methods: {
         getRouteDate() {
-            console.log('this.pm', this.pm);
-            return Vue.moment(this.data + " " + (parseInt(this.hours) + (this.pm ? 12 : 0)) + ":" + this.minutes + ":00", "DD.MM.YYYY h:m:ss ")
-                .format('YYYY.MM.DD hh:mm:ss');
+            return Vue.moment(this.data + " " + (parseInt(this.hours)) + ":" + this.minutes + (this.pm ? ' PM': ' AM'), "DD.MM.YYYY h:m A")
+                .format('YYYY.MM.DD HH:mm:ss');
         },
         getOrderTotal() {
             if (parseFloat(this.orderRoute.price_increase) > 0) {
