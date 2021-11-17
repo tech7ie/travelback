@@ -18,6 +18,8 @@ class CreatePagesTable extends Migration
             $table->text('user_id'); // user_id of our blog post author
             $table->string('slug', 128);
             $table->text('embed_video');
+            $table->string('block_image', 128);
+            $table->string('video_block_title', 256);
 
             $table->string('title_en', 256);
             $table->text('body_en');

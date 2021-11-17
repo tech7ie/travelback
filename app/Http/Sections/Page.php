@@ -116,7 +116,13 @@ class Page extends Section implements Initializable
                     ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
                 addColumn([
                     AdminFormElement::textarea('embed_video', 'Embed video', 'ckeditor'),
-                ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
+                ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
+                addColumn( [
+                    AdminFormElement::image( 'block_image', 'Image' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )->
+                addColumn( [
+                    AdminFormElement::text( 'video_block_title', 'Video block title' ),
+                ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
             ]
         );
 
