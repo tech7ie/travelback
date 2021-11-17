@@ -24,6 +24,10 @@ Route::post('/get_all_routes', [ \App\Http\Controllers\RoutesController::class, 
 Route::post('/get_route', [ \App\Http\Controllers\RoutesController::class, 'getRoute' ]);
 
 
+
+Route::post('/set_request', [ \App\Http\Controllers\SearchController::class, 'setRequest' ]);
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

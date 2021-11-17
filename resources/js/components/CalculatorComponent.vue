@@ -195,7 +195,32 @@ export default Vue.component("v-calculator", {
 
             this.$store.commit('setCart', formProps);
 
-            console.log('formProps: ', formProps);
+            console.log(formProps);
+
+            if (this.mode === 'request'){
+                // axios.post('/' + window.App.language + '/set_request', formProps)
+                axios.post('/api/set_request', formProps)
+                    .then(res => {
+
+                        console.log('getPlaces ress;', res);
+
+                        if (res) {
+                            if (res.data['status'] === 'success') {
+
+                                this.places = res.data ?? [];
+
+                                this.$store.commit('clearOrder');
+
+                                // window.location.href = this.getUrl(res.data['path']);
+                            }
+                        }
+                    }).catch(e => {
+                    console.log(e);
+                    // window.location.href = this.getUrl('order-cancel');
+                })
+            }
+
+
 
             this.$store.commit('clearPoint');
             return false;

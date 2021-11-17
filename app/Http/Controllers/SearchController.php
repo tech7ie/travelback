@@ -7,7 +7,9 @@ use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
 
 class SearchController extends Controller {
 
@@ -93,6 +95,31 @@ class SearchController extends Controller {
 
         } catch ( \Throwable $t ) {
             return [ 'dd' => $t->getMessage() ];
+        }
+    }
+
+
+    public function setRequest( \Illuminate\Http\Request $request ) {
+//        $to_email = 'bogbuk@gmail.com';
+        $to_email = 'route@mytripline.com';
+
+        $data_send = $request->all();
+
+        unset( $data_send['route'] );
+        unset( $data_send['pm'] );
+        unset( $data_send['am'] );
+
+        try {
+            Mail::send( 'emails.request', [ 'data_send' => $data_send ], function ( $message ) use (
+                $to_email
+            ) {
+                $message->to( $to_email )
+                        ->subject( 'TripLine Request' );
+            } );
+
+            return true;
+        } catch ( Exception $e ) {
+            return $e->getMessage();
         }
     }
 
