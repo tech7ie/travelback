@@ -40,7 +40,7 @@ export default Vue.component("v-init", {
         new Swiper(".partners-slider", {
             slidesPerView: "auto",
             spaceBetween: 47,
-            loop: true,
+            loop: false,
             breakpoints: {
                 0: {
                     spaceBetween: 15,

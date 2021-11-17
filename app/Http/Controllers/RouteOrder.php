@@ -76,6 +76,7 @@ class RouteOrder extends Controller {
 
             if ( isset( $data['payment_type'] ) && $data['payment_type'] === 1 ) {
                 $stripe = new \Stripe\StripeClient( env( 'STRIPE_SECRET_API' ) );
+//                $stripe = new \Stripe\StripeClient( env( 'STRIPE_SECRET_API_TEST' ) );
 
                 $token = $data['stripe_token'];
 
@@ -104,8 +105,6 @@ class RouteOrder extends Controller {
 
 
         } catch ( \Throwable $e ) {
-            print_r( $e );
-
             return [ 'status' => 'success', 'path' => 'error', 'message' => $e->getMessage() ];
         }
 //        return $data;

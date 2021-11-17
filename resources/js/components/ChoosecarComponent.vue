@@ -7,7 +7,7 @@
                 </i>
                 <span>{{ selected.name }}</span>
                 <svg class="icon arrow-down">
-                    <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
+                    <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
                 </svg>
             </div>
         </div>

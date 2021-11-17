@@ -171,12 +171,12 @@
                                     <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
                                     <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
                                         <svg class="icon">
-                                            <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                            <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                         </svg>
                                     </div>
                                     <div><span>{{ item.car.luggage }}</span>
                                         <svg class="icon">
-                                            <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                            <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                         </svg>
                                     </div>
                                 </div>
@@ -208,6 +208,7 @@ export default Vue.component("v-order-route", {
             payment_type: 1,
             checked: false,
             stripeToken: null,
+            stripePublishableKey: 'pk_test_kpe60iKVJCwXf6qeQ6ZvkzMl',
             orderDetails: {
                 email: '',
                 first_name: '',
@@ -253,7 +254,8 @@ export default Vue.component("v-order-route", {
             },
         };
 
-        var stripe = Stripe('pk_test_51JnNJWEyrjgWWtiTKguEGz7IQ6Lu7bIEgNoL5aMQ6X6qbDlIIqqEnB0nR1VyZQ3cuoOMMIkg7NOMYRuKYzlufLdg00pJ2qrBa3');
+        // var stripe = Stripe('pk_test_51JnNJWEyrjgWWtiTKguEGz7IQ6Lu7bIEgNoL5aMQ6X6qbDlIIqqEnB0nR1VyZQ3cuoOMMIkg7NOMYRuKYzlufLdg00pJ2qrBa3');
+        var stripe = Stripe(this.stripePublishableKey);
         var elements = stripe.elements();
 
 
@@ -348,7 +350,7 @@ export default Vue.component("v-order-route", {
                     }
                 }).catch(e => {
                 console.log(e);
-                window.location.href = this.getUrl('order-cancel');
+                // window.location.href = this.getUrl('order-cancel');
             })
         },
         getUrl(path) {
@@ -361,8 +363,6 @@ export default Vue.component("v-order-route", {
             return '/' + window.App.language + '/order-cancel'
         },
         getTotalOrderAmount() {
-            // console.log('getTotalOrderAmount');
-            // console.log(this.total_rate,this.selected['car_price'],this.selected['price'],this.selected['withstopsListPrice']);
             return (this.total_rate *
                 (
                     parseFloat(this.selected['car_price']) +

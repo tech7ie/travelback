@@ -63,6 +63,10 @@ class Partner extends Section implements Initializable {
                                ->orWhere( 'created_at', 'like', '%' . $search . '%' );
                        } )
             ,
+            AdminColumn::custom( 'Status', function ( $model ) {
+                $color = $model->status === 'enabled' ? 'green' : 'red';
+                return "<span style='color: ".$color."'>$model->status</span>";
+            } ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setOrderable( function ( $query, $direction ) {
                            $query->orderBy( 'updated_at', $direction );

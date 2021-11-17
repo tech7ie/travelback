@@ -43,7 +43,7 @@ export default Vue.component("v-withstops", {
     },
     props: ["data"],
     mounted() {
-        this.selected = this.data.extra
+        this.selected = 0
     }, computed: {
         ...mapState({
             rate: store => store.rate,
@@ -58,7 +58,7 @@ export default Vue.component("v-withstops", {
             this.$emit("update_time", {data: this.data, extra: this.selected});
         },
         minus() {
-            if (this.selected <= this.data.durations) return false;
+            if (this.selected <= 0) return false;
             this.selected -= this.step;
             this.$emit("update_time", {data: this.data, extra: this.selected});
         },

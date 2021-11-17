@@ -80,9 +80,12 @@
                 </div>
             </template>
             <template v-else>
-                <div  v-if="mode === 'home'" class="label --white">* required for departures within 48 hours</div>
+                <div  v-if="mode === 'request' || mode === 'home'" class="label --white">* required for departures within 48 hours</div>
             </template>
-            <button class="btn-submit"><span>Search</span></button>
+            <button class="btn-submit">
+                <span v-if="mode === 'home'">Search</span>
+                <span v-else>Request</span>
+            </button>
         </form>
     </div>
 </template>
@@ -191,6 +194,8 @@ export default Vue.component("v-calculator", {
             const formProps = Object.fromEntries(formData);
 
             this.$store.commit('setCart', formProps);
+
+            console.log('formProps: ', formProps);
 
             this.$store.commit('clearPoint');
             return false;

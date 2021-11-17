@@ -95,7 +95,12 @@
             <div class="psearch__last">
                 <div class="withstops" v-if="points.length"><em>With stops in</em>
                     <div class="withstops__list">
-                        <v-withstops v-for="(item, index) in points" @update_time="updateWithstopsItem" @remove="removeWithstopsItem(item)" :key="index" :data="item"></v-withstops>
+                        <v-withstops
+                            v-for="(item, index) in points"
+                            @update_time="updateWithstopsItem"
+                            @remove="removeWithstopsItem(item)"
+                            :key="index" :data="item"
+                        ></v-withstops>
                     </div>
                 </div>
                 <div class="yourride">
@@ -218,12 +223,12 @@
                                     <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
                                     <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
                                         <svg class="icon">
-                                            <use xlink:href="img/sprites/sprite.svg#users"></use>
+                                            <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                         </svg>
                                     </div>
                                     <div><span>{{ item.car.luggage }}</span>
                                         <svg class="icon">
-                                            <use xlink:href="img/sprites/sprite.svg#suitecase"></use>
+                                            <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                         </svg>
                                     </div>
                                 </div>
@@ -452,8 +457,7 @@ export default Vue.component("v-custom-search", {
 
             console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
 
-            let route_date = Vue.moment(formData.data + " " + formData.hours + ":" + formData.minutes + ":00", "DD.MM.YYYY HH:mm:ss")
-                .format('YYYY.MM.DD HH:mm:ss');
+            let route_date = this.getRouteDate()
 
             let cart = {
                 route_id: this.route_id,

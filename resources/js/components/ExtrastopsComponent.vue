@@ -8,14 +8,14 @@
                     <div class="extrastops__select-head" @click="toggle">
                         <span>0 min</span>
                         <svg class="icon arrow-down">
-                            <use xlink:href="img/sprites/sprite.svg#arrow-down"></use>
+                            <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
                         </svg>
                     </div>
                 </div>
             </div>
             <button type="button" @click="addItem">
                 <svg class="icon plus">
-                    <use xlink:href="img/sprites/sprite.svg#plus"></use>
+                    <use xlink:href="/img/sprites/sprite.svg#plus"></use>
                 </svg>
             </button>
         </div>

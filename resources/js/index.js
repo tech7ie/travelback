@@ -24,9 +24,6 @@ tickets.forEach(item => {
 });
 
 
-
-
-
 // Tab
 function tab(btn, content, event = "change") {
   let btns = [].slice.call(document.querySelectorAll(btn));
