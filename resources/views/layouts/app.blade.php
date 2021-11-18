@@ -46,7 +46,7 @@
 </head>
 <body>
 <div id="app">
-    <v-init auth="{{(Auth::check())}}" ></v-init>
+    <v-init auth="{{(Auth::check())}}"></v-init>
     <svg style="width: 0; height: 0; overflow: hidden; position: absolute; left: -100%;" width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <lineargradient id="gradient">
@@ -59,7 +59,7 @@
         <div class="container">
             <div class="header__wrap">
                 <a class="header__logo"
-                                         href="{{ route('home', app()->getLocale()) }}">
+                   href="{{ route('home', app()->getLocale()) }}">
                     <img src="{{asset('img/logo.png')}}" alt="logo">
                 </a>
                 <div class="header__menu">
@@ -112,17 +112,27 @@
             </div>
             <div class="header__mobile">
                 <div class="header__burger js-menu-burger"><span><i></i></span></div>
-                <a class="header__mobile-logo" href="#logo"><img src="/img/svg/logo.svg" alt="logo"></a>
-                <div class="header__user"><a href="{{ route('home', app()->getLocale()) }}" alt="user">
-                        <svg class="icon">
-                            <use xlink:href="/img/sprites/sprite.svg#user"></use>
-                        </svg>
-                    </a></div>
+                <a class="header__mobile-logo" href="{{ route('home', app()->getLocale()) }}"><img src="/img/svg/logo.svg" alt="logo"></a>
+                <div class="header__user">
+                    @auth
+                        <a href="{{ route('cabinet', app()->getLocale()) }}" alt="user">
+                            <svg class="icon">
+                                <use xlink:href="/img/sprites/sprite.svg#user"></use>
+                            </svg>
+                        </a>
+                    @else
+                        <a data-fancybox data-src="#login" alt="user">
+                            <svg class="icon">
+                                <use xlink:href="/img/sprites/sprite.svg#user"></use>
+                            </svg>
+                        </a>
+                    @endauth
+                </div>
             </div>
         </div>
     </header>
     @yield('content')
-    <x-footer />
+    <x-footer/>
 </div>
 @auth
 
