@@ -14,9 +14,9 @@
                         </svg>
                         {{ orderRoute.to }}
                     </h2>
-                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>
+<!--                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>-->
                 </div>
-                {{ getRouteDate() }}
+<!--                {{ getRouteDate() }}-->
                 <div class="calc">
                     <div class="custom-select">
                         <div class="custom-select__item" :class="{'--active': openedFrom }">
