@@ -208,6 +208,29 @@
             iti.promise.then(function () {
                 $(phoneInputID).trigger("countrychange");
             });
+
+            // Tab
+            function tab(btn, content, event = "change") {
+                let btns = [].slice.call(document.querySelectorAll(btn));
+                let contents = [].slice.call(document.querySelectorAll(content));
+                btns.forEach(item => {
+                    item.addEventListener(event, e => {
+                        let index = btns.indexOf(e.currentTarget);
+
+                        contents.map(item => (item.classList.remove("active")));
+                        contents[index].classList.add("active");
+
+                        if(event === "click") {
+                            btns.map(item => (item.classList.remove("active")));
+                            btns[index].classList.add("active");
+                        }
+                    });
+                });
+            }
+
+// Cabinet Tab
+            tab("[data-cabinet-btn]", "[data-cabinet-content]", "click");
+
         });
     </script>
 @endsection
