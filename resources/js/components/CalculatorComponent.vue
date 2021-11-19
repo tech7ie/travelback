@@ -75,6 +75,7 @@
             </div>
             <template v-if="filteredRoutes.length === 0 && mode === 'home'">
                 <div class="form-vue__footer --line">
+                    <div class="label mobile">Chauffeur will wait 15 minutes free of charge</div>
                     <span>Can't find your destination?</span>
                     <a :href="getRequestUrl">Request a custom route</a>
                 </div>
@@ -86,6 +87,7 @@
                 <span v-if="mode === 'home'">Search</span>
                 <span v-else>Request</span>
             </button>
+            <div class="label desktop">Chauffeur will wait 15 minutes free of charge</div>
         </form>
     </div>
 </template>
