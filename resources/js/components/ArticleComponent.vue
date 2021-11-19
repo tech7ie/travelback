@@ -1,17 +1,26 @@
 <template>
     <article :style="'background-image: url(/'+data.image+')'">
-        <b>{{ data.title }}</b>
-        <div :style="{'max-height':'60%', 'overflow':'hidden'}" v-html="data.body"></div>
-        <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
-        <button type="button" :class="{added: addedPoint}" @click="buy">
-            Add for <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
-            <span>
+        <div style="
+      width: 19rem;
+      background: rgba(0, 0, 0, .6);
+      display: inline-table;
+      justify-content: center;
+      flex-direction: column;
+      padding: 21px;
+      border-radius: 22px;">
+            <b>{{ data.title }}</b>
+            <div :style="{'max-height':'60%', 'overflow':'hidden'}" v-html="data.body"></div>
+            <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
+            <button type="button" :class="{added: addedPoint}" @click="buy">
+                Add for <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
+                <span>
           <svg class="icon check">
             <use xlink:href="/img/sprites/sprite.svg#check"></use>
           </svg>
           added
         </span>
-        </button>
+            </button>
+        </div>
     </article>
 </template>
 <script>
