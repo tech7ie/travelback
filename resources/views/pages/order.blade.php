@@ -2,10 +2,7 @@
 
 @section('content')
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.8/jquery.inputmask.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">
+
     <div class="header-block --border" style="background-image: url({{asset('img/order-bg.jpg')}});">
         <div class="container">
             <div class="header-block__wrap">
@@ -18,8 +15,9 @@
     ></v-order-route>
 
     <script>
-        $(function () {
+        $(document).ready(function($){
 
+            $j=jQuery.noConflict();
             /*
             * International Telephone Input v16.0.0
             * https://github.com/jackocnr/intl-tel-input.git
@@ -31,8 +29,6 @@
                 iti.destroy();
 
                 // Get the current number in the given format
-
-
             }
             for (var i = 0; i < input.length; i++) {
                 iti = intlTelInput(input[i], {
@@ -61,6 +57,7 @@
                     var pl = $(this).data('placeholder') + '';
                     var res = pl.replace(/X/g, '9');
                     if (res !== 'undefined') {
+                        console.log($(this));
                         $(this).inputmask(res, {placeholder: "X", clearMaskOnLostFocus: true});
                     }
 
@@ -72,8 +69,6 @@
                 });
 
             }
-
-
         })
     </script>
 @endsection

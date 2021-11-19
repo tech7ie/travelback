@@ -25,25 +25,27 @@
         </div>
         <div class="routes3__content">
             <div class="container">
-                <h1>{{$route['title'] ?? ''}}</h1>
-                <div class="routes3__grid">
-                    <div class="routes3__item">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#pointer')}}"></use>
-                        </svg>
-                        {!! __("route.beginning") !!}
-                    </div>
-                    <div class="routes3__item">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#city')}}"></use>
-                        </svg>
-                        {!! __("route.extra_stops") !!}
-                    </div>
-                    <div class="routes3__item">
-                        <svg class="icon">
-                            <use xlink:href="{{asset('img/sprites/sprite.svg#baggage')}}"></use>
-                        </svg>
-                        {!! __("route.finish_ride") !!}
+                <div class="routes3__wrap">
+                    <h1>{{$route['title'] ?? ''}}</h1>
+                    <div class="routes3__grid">
+                        <div class="routes3__item">
+                            <svg class="icon">
+                                <use xlink:href="{{asset('img/sprites/sprite.svg#pointer')}}"></use>
+                            </svg>
+                            {!! __("route.beginning") !!}
+                        </div>
+                        <div class="routes3__item">
+                            <svg class="icon">
+                                <use xlink:href="{{asset('img/sprites/sprite.svg#city')}}"></use>
+                            </svg>
+                            {!! __("route.extra_stops") !!}
+                        </div>
+                        <div class="routes3__item">
+                            <svg class="icon">
+                                <use xlink:href="{{asset('img/sprites/sprite.svg#baggage')}}"></use>
+                            </svg>
+                            {!! __("route.finish_ride") !!}
+                        </div>
                     </div>
                 </div>
             </div>

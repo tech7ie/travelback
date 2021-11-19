@@ -19,7 +19,7 @@
                             <input v-model="orderDetails.birth_day" id="dayofbirth" class="js-input-mask" name="day-of-birth" data-mask="99.99.9999" placeholder="Day of birth" required>
                         </div>
                         <div class="input-block input-phone">
-                            <input v-model="orderDetails.phone" type="tel" id="phone" name="phone" required>
+                            <input v-model="orderDetails.phone" type="tel" id="phone" name="phone"  required placeholder="Phone number">
                         </div>
                         <div class="textarea-block">
                             <textarea v-model="orderDetails.comment" name="comment" placeholder="Comment"></textarea>
@@ -263,102 +263,6 @@ export default Vue.component("v-order-route", {
 
         card.mount('#card-element');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // let dayofbirth = $("#dayofbirth");
-            // dayofbirth.mask("99.99.9999");
-            var phoneInputID = "#phone";
-            var input = document.querySelector(phoneInputID);
-            window.iti = window.intlTelInput(input, {
-                // allowDropdown: false,
-                // autoHideDialCode: false,
-                // autoPlaceholder: "off",
-                // dropdownContainer: $(".input-phone") || document.body,
-                // excludeCountries: ["us"],
-
-                separateDialCode: false,
-                formatOnDisplay: true,
-                geoIpLookup: function(callback) {
-                    $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-                        var countryCode = (resp && resp.country) ? resp.country : "";
-                        callback(countryCode);
-                    });
-                },
-                hiddenInput: "full_number",
-                // initialCountry: "auto",
-                // localizedCountries: { 'de': 'Deutschland' },
-                // nationalMode: false,
-                // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-                // placeholderNumberType: "MOBILE",
-                // separateDialCode: true,
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-            });
-
-
-            $(phoneInputID).on("countrychange", function(event) {
-
-                // Get the selected country data to know which country is selected.
-
-                var selectedCountryData = iti.getSelectedCountryData();
-                console.log(selectedCountryData)
-                // Get an example number for the selected country to use as placeholder.
-                var newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
-                // var dialCode = $('.iti__selected-dial-code').text()
-                console.log(newPlaceholder)
-                // Reset the phone number input.
-                iti.setNumber("");
-
-                // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
-                mask = newPlaceholder.replace(/[1-9]/g, "0");
-                console.log(mask)
-                // Apply the new mask for the input
-                $(this).mask(mask);
-            });
-            // When the plugin loads for the first time, we have to trigger the "countrychange" event manually,
-            // but after making sure that the plugin is fully loaded by associating handler to the promise of the
-            // plugin instance.
-
-            iti.promise.then(function() {
-                $(phoneInputID).trigger("countrychange");
-            });
-        });
-
-
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     let dayofbirth = $("#dayofbirth");
-        //     dayofbirth.mask("99.99.9999");
-        //     var phoneInputID = "#phone";
-        //     var input = document.querySelector(phoneInputID);
-        //     var iti = window.intlTelInput(input, {
-        //         separateDialCode: true,
-        //         formatOnDisplay: true,
-        //         geoIpLookup: function (callback) {
-        //             $.get("http://ipinfo.io", function () {
-        //             }, "jsonp").always(function (resp) {
-        //                 var countryCode = (resp && resp.country) ? resp.country : "";
-        //                 callback(countryCode);
-        //             });
-        //         },
-        //         hiddenInput: "full_number",
-        //         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-        //     });
-        //
-        //     $(phoneInputID).on("countrychange", function (event) {
-        //         console.log('countrychange');
-        //         var selectedCountryData = iti.getSelectedCountryData();
-        //
-        //         var newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
-        //
-        //
-        //             mask = newPlaceholder.replace(/[1-9]/g, "0");
-        //
-        //         // Apply the new mask for the input
-        //         $(this).mask(mask);
-        //     });
-        //
-        //     iti.promise.then(function () {
-        //         $(phoneInputID).trigger("countrychange");
-        //     });
-        // });
     },
     methods: {
         setCar(car) {

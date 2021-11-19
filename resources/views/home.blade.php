@@ -43,22 +43,12 @@
         </div>
         <section class="b-video"
                  data-fancybox="" data-src="{{$content['embed_video'] ?? 'https://www.youtube.com/watch?v=NpEaa2P7qZI'}}"
-                 style="background: url({{ strlen($content['block_image']) > 0  ? $content['block_image'] : '../img/video-bg.jpg'}}) center center no-repeat; background-size: cover;
+                 style="cursor:pointer; background: url({{ strlen($content['block_image']) > 0  ? $content['block_image'] : '../img/video-bg.jpg'}}) center center no-repeat; background-size: cover;
                      }">
             <div class="container">
                 <h2>{!! $content['video_block_title'] ?? '' !!}</h2>
             </div>
         </section>
-
-{{--        <iframe width="560" height="315" src="https://www.youtube.com/embed/l8bc3Ffqt0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>--}}
-        {{--        <section class="b-video-box">--}}
-        {{--            <div class="container align-content-center justify-content-center text-center"--}}
-        {{--                 style="text-align: center">--}}
-        {{--                <h2>{!! $content['video_block_title'] || '' !!}</h2>--}}
-        {{--                {!! $content['block_image'] !!}--}}
-        {{--                {!! $content['embed_video'] !!}--}}
-        {{--            </div>--}}
-        {{--        </section>--}}
         <div class="homehead__bottom">
             <div class="container">
                 <div class="homehead__list">

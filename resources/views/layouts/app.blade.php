@@ -33,6 +33,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+{{--    <script src="{{ asset('js/jquery-inputmask.min.js') }}" defer></script>--}}
     <script>
         window.App = {!! json_encode([
         'user' => Auth::user(),
@@ -186,5 +193,10 @@
     </div>
 @endauth
 </body>
-<script src="{{ asset('js/app.js') }}" defer></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.8/jquery.inputmask.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
 </html>
