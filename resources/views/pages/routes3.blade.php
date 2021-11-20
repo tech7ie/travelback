@@ -26,7 +26,7 @@
         <div class="routes3__content">
             <div class="container">
                 <div class="routes3__wrap">
-                    <h1>{{$route['title'] ?? ''}}</h1>
+                    <h1 class="routes3__title">{{$route['title'] ?? ''}}</h1>
                     <div class="routes3__grid">
                         <div class="routes3__item">
                             <svg class="icon">

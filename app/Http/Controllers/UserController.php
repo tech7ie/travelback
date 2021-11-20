@@ -44,10 +44,16 @@ class UserController extends Controller {
         ] );
     }
 
-    public function cabinet(\Illuminate\Http\Request $request){
+    public function cabinet( \Illuminate\Http\Request $request ) {
+        if ( Auth::check() ) {
             return view( 'pages/cabinet',
-                [ 'user' => Auth::user(),
-                  'orders' => \App\Models\RouteOrder::select()->where('user_id',Auth::user()->id)->get()]
+                [
+                    'user'   => Auth::user(),
+                    'orders' => \App\Models\RouteOrder::select()->where( 'user_id', Auth::user()->id )->get()
+                ]
             );
+        } else {
+            return redirect()->guest(route('home', '#login', app()->getLocale()));
+        }
     }
 }
