@@ -10,7 +10,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     window.mask = window.mask = require('jquery-mask-plugin');
-    window.inputmask = window.inputmask = require('inputmask');
+    // window.inputmask = window.inputmask = require('inputmask');
 
     require('bootstrap');
 
