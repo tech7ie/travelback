@@ -39,7 +39,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--    <script src="{{ asset('js/jquery-inputmask.min.js') }}" defer></script>--}}
+    <script src="{{ asset('js/jquery-inputmask.min.js') }}" defer></script>
     <script>
         window.App = {!! json_encode([
         'user' => Auth::user(),
@@ -196,7 +196,8 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.8/jquery.inputmask.bundle.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.8/jquery.inputmask.bundle.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">
 </html>

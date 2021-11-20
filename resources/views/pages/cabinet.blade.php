@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/intlTelInput.js"></script>--}}
-{{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">--}}
     <div class="pcabinet">
         <div class="header-block --border" style="background-image: url(/img/cabinet-bg.jpg);">
             <div class="container">
@@ -40,7 +38,7 @@
                             <input name="day_of_birth" id="dayofbirth" placeholder="__.__.____" required value="{{date('d.m.Y',strtotime($user['day_of_birth'])) ?? ''}}">
                         </div>
                         <div class="input-block input-phone"><em>Phone number</em>
-                            <input type="tel" id="phone" name="phone" required value="{{$user['full_number'] ?? ''}}">
+                            <input type="tel" id="phone" name="phone" required placeholder="Phone number" value="{{$user['full_number'] ?? ''}}">
                         </div>
                         <button class="btn-submit --simple"><span>save</span></button>
                     </form>
@@ -153,7 +151,7 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function($){
             let dayofbirth = $("#dayofbirth");
             dayofbirth.mask("99.99.9999");
             var phoneInputID = "#phone";
@@ -209,7 +207,7 @@
                 $(phoneInputID).trigger("countrychange");
             });
 
-            $(document).ready(function($){
+            // $(document).ready(function($){
 
                 $j=jQuery.noConflict();
                 /*
@@ -257,13 +255,12 @@
 
 
                     });
-                    console.log(333)
                     $('input[name="phone"]').on("focusout", function (e, countryData) {
                         var intlNumber = iti.getNumber();
                     });
 
                 }
-            })
+            // })
 
 
             // Tab
