@@ -4,12 +4,14 @@
         <input type="number" name="childrens" :value="(childrens == 0 ? 0 : childrens)">
         <input type="number" required name="luggage" :value="luggage">
         <div class="select-humans__head" @click="opened = !opened">
-            <div :class="{error: errorHumans}"><em>passengers:</em><span>{{ parseInt(adults) + parseInt(childrens) }}</span>
+            <div :class="{error: errorHumans}">
+                <em>{{$t("passengers")}}:</em>
+                <span>{{ parseInt(adults) + parseInt(childrens) }}</span>
                 <svg class="icon users">
                     <use xlink:href="/img/sprites/sprite.svg#users"></use>
                 </svg>
             </div>
-            <div><em>luggage: </em><span>{{ luggage }}</span>
+            <div><em>{{$t("luggage")}}: </em><span>{{ luggage }}</span>
                 <svg class="icon suitecase">
                     <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                 </svg>
@@ -17,18 +19,18 @@
         </div>
         <div class="select-humans__list" v-show="opened">
             <div class="select-humans__list-item">
-                <div><span>Adults</span><em>Age: 12+</em></div>
+                <div><span>{{$t("Adults")}}</span><em>{{$t("Age")}}: 12+</em></div>
                 <v-incdec :value="adults" :min="1"
                           :sync="true"
                           @value="changeValue('adults', $event)"></v-incdec>
             </div>
             <div class="select-humans__list-item">
-                <div><span>Childrens</span><em>Age: 0-12</em></div>
+                <div><span>{{$t("Childrens")}}</span><em>{{$t("Age")}}: 0-12</em></div>
                 <v-incdec :value="childrens" :min="0"
                     :sync="true" @value="changeValue('childrens', $event)"></v-incdec>
             </div>
             <div class="select-humans__list-item">
-                <div><span>Luggage</span><em>Sets of bags</em></div>
+                <div><span>{{$t("Luggage")}}</span><em>{{$t("Sets of bags")}}</em></div>
                 <v-incdec :value="luggage" :min="(adults + childrens)"
                           :sync="true"
                           @value="changeValue('luggage', $event)"

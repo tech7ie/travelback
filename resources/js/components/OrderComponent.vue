@@ -5,33 +5,34 @@
             <div class="order__wrap">
                 <div class="order__form">
                     <section>
-                        <h2>Lead passenger</h2>
+                        <h2>{{$t("Luggage")}}Lead passenger</h2>
                         <div class="block-input">
-                            <input v-model="orderDetails.email" type="email" name="email" placeholder="Email" required>
+                            <input v-model="orderDetails.email" type="email" name="email" :placeholder="$t('Email')" required>
                         </div>
                         <div class="block-input half">
-                            <input v-model="orderDetails.first_name" name="first-name" placeholder="First name" required>
+                            <input v-model="orderDetails.first_name" name="first-name" :placeholder="$t('First name')" required>
                         </div>
                         <div class="block-input half">
-                            <input v-model="orderDetails.last_name" name="last-name" placeholder="Last name" required>
+                            <input v-model="orderDetails.last_name" name="last-name" :placeholder="$t('Last name')" required>
                         </div>
                         <div class="block-input">
-                            <input v-model="orderDetails.birth_day" id="dayofbirth" class="js-input-mask" name="day-of-birth" data-mask="99.99.9999" placeholder="Day of birth" required>
+                            <input v-model="orderDetails.birth_day" id="dayofbirth" class="js-input-mask" name="day-of-birth" data-mask="99.99.9999" :placeholder="$t('Day of birth')" required>
                         </div>
                         <div class="input-block input-phone">
-                            <input v-model="orderDetails.phone" type="tel" id="phone" name="phone" required placeholder="Phone number">
+                            <input v-model="orderDetails.phone" type="tel" id="phone" name="phone" required :placeholder="$t('Phone number')">
                         </div>
                         <div class="textarea-block">
-                            <textarea v-model="orderDetails.comment" name="comment" placeholder="Comment"></textarea>
+                            <textarea v-model="orderDetails.comment" name="comment" :placeholder="$t('Comment')"></textarea>
                         </div>
                     </section>
                     <section class="--two">
-                        <h2>Pick up and drop-off</h2><em>You can add or change these up to 24 hours before departure.</em>
+                        <h2>{{$t("Pick up and drop-off")}}</h2>
+                        <em>{{$t("You can add or change these up to 24 hours before departure.")}}</em>
                         <div class="block-input">
-                            <input v-model="orderDetails.pickup_address" name="pickup-address" placeholder="Pickup address" required>
+                            <input v-model="orderDetails.pickup_address" name="pickup-address" :placeholder="$t('Pickup address')" required>
                         </div>
                         <div class="block-input">
-                            <input v-model="orderDetails.drop_off_address" name="drop-off-address" placeholder="Drop-off address" required>
+                            <input v-model="orderDetails.drop_off_address" name="drop-off-address" :placeholder="$t('Drop-off address')" required>
                         </div>
                     </section>
 
@@ -42,7 +43,7 @@
                         <div class="order__payment">
                             <div class="order__payment-item">
                                 <div class="order__payment-wrap">
-                                    <h2>Payment {{ payment_type }}</h2>
+                                    <h2>{{$t("Payment")}} {{ payment_type }}</h2>
                                     <div class="checkbox --violet">
                                         <input v-model="payment_type" value="1" type="radio" data-payment-check="1" id="check-strip" name="payment">
                                         <label for="check-strip"><img src="/img/stripe.png" alt="stripe"></label>
@@ -53,14 +54,14 @@
                                             <svg class="icon">
                                                 <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                             </svg>
-                                            <span>Cash</span>
+                                            <span>{{$t("Cash")}}</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="order__payment-item">
                                 <div class="order__payment-type --violete active" data-payment-content="1">
-                                    <h4>Pay in Stripe</h4>
+                                    <h4>{{$t("Pay in Stripe")}}</h4>
                                     <ul>
                                         <li v-for="(item, index) in payment_methods">
                                             <img :src="item['img']">
@@ -71,9 +72,10 @@
                                         <!-- A Stripe Element will be inserted here. -->
                                     </div>
                                 </div>
-                                <div class="order__payment-type" data-payment-content="2"><b>Pay your driver directly at the end of your trip.</b>
-                                    <p>- Pay in any currency.</p>
-                                    <p>- Gratuity isn’t included in the total price. While not required, if you had a great trip, you can reward your driver with an optional tip (10% is sufficient).</p>
+                                <div class="order__payment-type" data-payment-content="2">
+                                    <b>{{$t("Pay your driver directly at the end of your trip")}}.</b>
+                                    <p>- {{$t("Pay in any currency")}}.</p>
+                                    <p>- {{$t("Gratuity isn’t included in the total price. While not required, if you had a great trip, you can reward your driver with an optional tip (10% is sufficient)")}}.</p>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +84,7 @@
                 <aside class="order__aside">
                     <div class="order__aside-wrap">
                         <div class="order-sum js-order-sum-toggle">
-                            <div class="order-sum__title-mobile"><b>€136</b><em>VAT included</em>
+                            <div class="order-sum__title-mobile"><b>€136</b><em>{{$t("VAT included")}}</em>
                                 <div class="tickets__footer-info">
                                     <div><span>1-3</span>
                                         <svg class="icon">
@@ -102,23 +104,23 @@
                                 </div>
                             </div>
                             <div class="order-sum__head">
-                                <h2>Trip summary</h2>
-                                <a :href="editOrder()">Edit itinerary</a>
+                                <h2>{{$t("Trip summary")}}</h2>
+                                <a :href="editOrder()">{{$t("Edit itinerary")}}</a>
                             </div>
                             <div class="order-sum__country">
                                 <div class="order-sum__country-item">
                                     <b>{{ selected.orderRoute['from'] }}</b>
-                                    <span>Departure: {{ selected.orderRoute.route_start | moment("ddd, MMM, D, h:mm A") }}</span>
+                                    <span>{{$t("Departure")}}: {{ selected.orderRoute.route_start | moment("ddd, MMM, D, h:mm A") }}</span>
                                 </div>
                                 <div class="order-sum__country-item">
                                     <b>{{ selected.orderRoute['to'] }}</b>
-                                    <span>Estimated arrival: {{ selected.orderRoute.route_end | moment("add", getExtraMinues + " m", "ddd, MMM, D, h:mm A") }}</span>
+                                    <span>{{$t("Estimated arrival")}}: {{ selected.orderRoute.route_end | moment("add", getExtraMinues + " m", "ddd, MMM, D, h:mm A") }}</span>
 
                                 </div>
                             </div>
                             <div class="order-sum__cars">
                                 <div>
-                                    <a v-if="selected.passengersExtra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
+                                    <a v-if="selected.passengersExtra.length > 1" data-fancybox data-src="#select-ride" href="#">{{$t("Other cars")}}</a>
                                 </div>
                                 <div class="order-sum__cars-item tickets__footer">
                                     <template v-for="(item, index) in selected.passengers">
@@ -141,17 +143,18 @@
                             </div>
                             <div class="order-sum__footer">
                                 <div>
-                                    <span>Total (<i :class="currency.toLowerCase() +'_money'"></i>)
+                                    <span>{{$t("Total")}} (<i :class="currency.toLowerCase() +'_money'"></i>)
                                 </span>
-                                    <em>VAT included</em>
+                                    <em>{{$t("VAT included")}}</em>
                                 </div>
                                 <div><b><i :class="currency.toLowerCase() +'_money'"></i> {{ getTotalOrderAmount() }}</b></div>
                             </div>
                         </div>
                         <div class="order-sum__submit">
                             <button class="btn" type="submit">
-                                <span>confirm and pay <i :class="currency.toLowerCase() +'_money'"></i>{{ getTotalOrderAmount() }}*</span></button>
-                            <b>* Your payment (approx. A€136) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate.</b>
+                                <span>
+                                    {{$t("confirm and pay")}} <i :class="currency.toLowerCase() +'_money'"></i>{{ getTotalOrderAmount() }}*</span></button>
+                            <b>* {{$t("Your payment (approx. A€136) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate")}}.</b>
                         </div>
                     </div>
                 </aside>
@@ -160,7 +163,7 @@
 
         <div class="popup --xl" id="select-ride">
             <form class="popup__wrap">
-                <h3>Select your ride</h3>
+                <h3>{{$t("Select your ride")}}</h3>
                 <div class="popup-select-rider">
                     <div v-for="(item, index) in selected.passengersExtra" :key="index" @click="setCar(item)">
                         <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->

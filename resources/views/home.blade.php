@@ -8,7 +8,7 @@
                     <div class="homehead__form">
                         <div class="form-block">
                             <div class="form-block__wrap">
-                                <div class="label">{!! __("widgets.calculator.title") !!}</div>
+                                <div class="label">@lang('widgets.calculator.title')</div>
                                 <div class="homehead-form form-vue calc" id="homehead-form">
                                     <v-calculator :request="{{json_encode($_GET)}}" :short="true" mode="home" routes="{{$routes ?? []}}">
                                     </v-calculator>
@@ -114,7 +114,7 @@
                     <i>
                         <img src="/img/security.svg" alt="security">
                     </i>
-                    <div>{!! __("home.block_4.1") !!}</div>
+                    <div>{!! __("home.block_4.2") !!}</div>
                 </div>
             </div>
         </div>

@@ -20,6 +20,25 @@ window.Vuex = Vuex;
 
 Vue.use(Vuex);
 
+import de from '../lang/de.json'
+import en from '../lang/en.json'
+import es from '../lang/es.json'
+import ru from '../lang/ru.json'
+import ch from '../lang/ch.json'
+
+
+import VueI18n from 'vue-i18n';
+
+const i18n = new VueI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: {
+        de, en, es, ru, ch
+    }
+})
+
+Vue.use(VueI18n);
+
 // Vue.use(SlimSelect);
 
 /**
@@ -54,5 +73,6 @@ Vue.use(require('vue-moment'));
 Vue.config.devtools = true;
 const app = new Vue({
     el: '#app',
+    i18n,
     store: new Vuex.Store(store)
 });

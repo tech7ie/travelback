@@ -58,36 +58,36 @@
             </div>
             <v-humans :data="{adults,childrens,luggage}"></v-humans>
             <div v-if="!this.short" class="calc__items">
-                <div class="calc__item"><b @click="toggle('extrastops')">+ Extra stops</b>
+                <div class="calc__item"><b @click="toggle('extrastops')">+ {{$t('Extra stops')}}</b>
                     <v-extrastops v-if="extrastops"></v-extrastops>
                 </div>
-                <div class="calc__item"><b @click="toggle('choosecar')">+ Choose car</b>
+                <div class="calc__item"><b @click="toggle('choosecar')">+ {{$t('Choose car')}}</b>
                     <v-choosecar v-if="choosecar"></v-choosecar>
                 </div>
-                <div class="calc__item"><b @click="toggle('requirements')">+ Requirements</b>
+                <div class="calc__item"><b @click="toggle('requirements')">+ {{$t('added')}}</b>
                     <v-requirements v-if="requirements"></v-requirements>
                 </div>
             </div>
             <div v-if="!this.short" class="calc__form">
-                <input class="half" name="first-name" placeholder="First name:" required>
-                <input class="half" name="last-name" placeholder="Last name:" required>
-                <input type="email" name="email" placeholder="Email:" required>
+                <input class="half" name="first-name" :placeholder="$t('First name') + ':'" required>
+                <input class="half" name="last-name" :placeholder="$t('Last name') + ':'" required>
+                <input type="email" name="email" :placeholder="$t('Email') + ':'" required>
             </div>
             <template v-if="filteredRoutes.length === 0 && mode === 'home'">
                 <div class="form-vue__footer --line">
-                    <div class="label mobile">Chauffeur will wait 15 minutes free of charge</div>
-                    <span>Can't find your destination?</span>
-                    <a :href="getRequestUrl">Request a custom route</a>
+                    <div class="label mobile">{{$t('Chauffeur will wait 15 minutes free of charge')}}</div>
+                    <span>{{$t("Can't find your destination?")}}</span>
+                    <a :href="getRequestUrl">{{$t("Request a custom route")}}</a>
                 </div>
             </template>
             <template v-else>
-                <div  v-if="mode === 'request' || mode === 'home'" class="label --white">* required for departures within 48 hours</div>
+                <div  v-if="mode === 'request' || mode === 'home'" class="label --white">* {{$t("required for departures within 48 hours")}}</div>
             </template>
             <button class="btn-submit">
-                <span v-if="mode === 'home'">Search</span>
-                <span v-else>Request</span>
+                <span v-if="mode === 'home'">{{$t("Search")}}</span>
+                <span v-else>{{$t("Request")}}</span>
             </button>
-            <div class="label desktop">Chauffeur will wait 15 minutes free of charge</div>
+            <div class="label desktop">{{$t("Chauffeur will wait 15 minutes free of charge")}}</div>
         </form>
 
         <div class="popup --sm popup-success" id="success">

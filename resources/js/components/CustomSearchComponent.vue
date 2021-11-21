@@ -1,9 +1,5 @@
 <template>
     <section class="psearch" id="psearch">
-<!--        {{this.current.price}}/-->
-<!--        {{this.totalCarPrice}}/-->
-<!--        {{this.withstopsListPrice}}/-->
-<!--        {{this.total_rate}}-->
         <form class="container psearch__wrap js-psearch-from">
             <input name="route" type="text" :value="parseInt(route_id)" hidden>
             <div class="psearch__form">
@@ -14,9 +10,7 @@
                         </svg>
                         {{ orderRoute.to }}
                     </h2>
-<!--                    <em>Estimated arrival {{ orderRoute.route_end | moment("add", getExtraMinutes + " m", "h:mm:ss A") }}</em>-->
                 </div>
-<!--                {{ getRouteDate() }}-->
                 <div class="calc">
                     <div class="custom-select">
                         <div class="custom-select__item" :class="{'--active': openedFrom }">
@@ -76,7 +70,7 @@
                 </div>
             </div>
             <div class="psearch__other">
-                <h3>Visit along the way</h3>
+                <h3>{{$t('Visit along the way')}}</h3>
                 <div class="glide">
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
@@ -93,7 +87,7 @@
                 </div>
             </div>
             <div class="psearch__last">
-                <div class="withstops" v-if="points.length"><em>With stops in</em>
+                <div class="withstops" v-if="points.length"><em>{{$t('With stops in')}}</em>
                     <div class="withstops__list">
                         <v-withstops
                             v-for="(item, index) in points"
@@ -105,8 +99,8 @@
                 </div>
                 <div class="yourride">
                     <div class="yourride__head">
-                        <h3>Your ride</h3>
-                        <a v-if="passengers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">Other cars</a>
+                        <h3>{{$t('Your ride')}}</h3>
+                        <a v-if="passengers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">{{$t('Other cars')}}</a>
                     </div>
                     <div class="yourride__selected" :class="{two: passengers.length &gt; 1}">
                         <div class="tickets__footer">
@@ -134,7 +128,7 @@
 
                         <div>
                             <button>
-                                <span>BUY FOR <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
+                                <span>{{$t('BUY FOR')}} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
                             </button>
                         </div>
                     </div>
@@ -147,7 +141,7 @@
                             <div class="tickets__footer-info">
                                 <div>
                                     <div>
-                                        Upgrade to a luxury sedan for <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
+                                        {{$t('Upgrade to a luxury sedan for')}} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
                                         {{ calculatePrice(((parseFloat(item.car.price)) + (withstopsListPrice))) }}
                                     </div>
                                 </div>
@@ -160,51 +154,51 @@
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#chat"></use>
                                 </svg>
-                            </i><span>Support 24/7</span></li>
+                            </i><span>{{$t('Support 24/7')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#driver-2"></use>
                                 </svg>
-                            </i><span>English-speaking driver</span></li>
+                            </i><span>{{$t('English-speaking driver')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#disabled"></use>
                                 </svg>
-                            </i><span>Prepared for handicapped</span></li>
+                            </i><span>{{$t('Prepared for handicapped')}}</span></li>
                         </ul>
                         <ul>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#car"></use>
                                 </svg>
-                            </i><span>Clean, comfortable car</span></li>
+                            </i><span>{{$t('Clean, comfortable car')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#bottle"></use>
                                 </svg>
-                            </i><span>Bottled water</span></li>
+                            </i><span>{{$t('Bottled water')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#dist"></use>
                                 </svg>
-                            </i><span>Door to door service</span></li>
+                            </i><span>{{$t('Door to door service')}}</span></li>
                         </ul>
                         <ul>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#little-kid"></use>
                                 </svg>
-                            </i><span>Child seats</span></li>
+                            </i><span>{{$t('Child seats')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#smoking"></use>
                                 </svg>
-                            </i><span>No-smoking</span></li>
+                            </i><span>{{$t('No-smoking')}}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#paw"></use>
                                 </svg>
-                            </i><span>Pet friendly</span></li>
+                            </i><span>{{$t('Pet friendly')}}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -212,7 +206,7 @@
         </form>
         <div class="popup --xl" id="select-ride">
             <form class="popup__wrap">
-                <h3>Select your ride</h3>
+                <h3>{{$t('Select your ride')}}</h3>
                 <div class="popup-select-rider">
                     <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)">
                         <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
