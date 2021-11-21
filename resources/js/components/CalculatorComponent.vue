@@ -89,6 +89,14 @@
             </button>
             <div class="label desktop">Chauffeur will wait 15 minutes free of charge</div>
         </form>
+
+        <div class="popup --sm popup-success" id="success">
+            <a id="success_request" data-fancybox data-src="#success" alt="user" style="display: none"></a>
+            <form class="popup__wrap js-form-validator">
+                <img src="/img/success.svg" alt="success icon">
+                <h3 class="--center">{{popupMessage}}</h3>
+            </form>
+        </div>
     </div>
 </template>
 <script>
@@ -109,6 +117,7 @@ export default Vue.component("v-calculator", {
     },
     data() {
         return {
+            popupMessage: "Your request already sended !!!",
             searchActionsUrl: '',
             parsedRoutes: [],
             extrastops: false,
@@ -188,6 +197,10 @@ export default Vue.component("v-calculator", {
     },
     methods: {
         submitForm(e) {
+
+
+
+
             e.preventDefault()
 
             console.log('this.mode: ', this.mode);
@@ -207,16 +220,23 @@ export default Vue.component("v-calculator", {
                         console.log('getPlaces ress;', res);
 
                         if (res) {
-                            if (res.data['status'] === 'success') {
+                            // if (res.data['status'] === 'success') {
+
+                                this.popupMessage = "Your request already sended !!!"
+                                document.getElementById('success_request').click()
 
                                 this.places = res.data ?? [];
 
                                 this.$store.commit('clearOrder');
 
                                 // window.location.href = this.getUrl(res.data['path']);
-                            }
+                            // }
                         }
                     }).catch(e => {
+                    console.log(e.message);
+                    this.popupMessage = "Your request already sended !!!"
+                    document.getElementById('success_request').click()
+
                     console.log(e);
                     // window.location.href = this.getUrl('order-cancel');
                 })
