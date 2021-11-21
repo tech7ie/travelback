@@ -263,6 +263,11 @@ export default Vue.component("v-order-route", {
 
         card.mount('#card-element');
 
+        document.addEventListener('DOMContentLoaded', function () {
+            let dayofbirth = $("#dayofbirth");
+            dayofbirth.mask("99.99.9999");
+        });
+
     },
     methods: {
         setCar(car) {

@@ -62,7 +62,6 @@
 
 
                 });
-                console.log(333)
                 $('input[name="phone"]').on("focusout", function (e, countryData) {
                     var intlNumber = iti.getNumber();
                 });

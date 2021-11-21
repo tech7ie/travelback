@@ -249,7 +249,6 @@
                         var pl = $(this).data('placeholder') + '';
                         var res = pl.replace(/X/g, '9');
                         if (res !== 'undefined') {
-                            console.log($(this));
                             $(this).inputmask(res, {placeholder: "X", clearMaskOnLostFocus: true});
                         }
 
