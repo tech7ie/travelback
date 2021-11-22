@@ -4,7 +4,7 @@
     <section class="routes">
         <div class="routes-header">
             <div class="container">
-                <h2>{!! __("index.routes") !!}</h2><span>{!! __("index.select_a_country") !!}</span>
+                <h2>{!! __("routes.routes") !!}</h2><span>{!! __("routes.select_a_country") !!}</span>
             </div>
         </div>
         <div class="routes-content container">

@@ -16,7 +16,7 @@
                                     <v-time></v-time>
                                 </div>
                                 <v-humans></v-humans>
-                                <button class="btn-submit --simple"><span>{!! __("index.search") !!}</span></button>
+                                <button class="btn-submit --simple"><span>{!! __("search") !!}</span></button>
                             </form>
                         </div>
                     </div>
@@ -32,19 +32,19 @@
                             <svg class="icon">
                                 <use xlink:href="{{asset('img/sprites/sprite.svg#pointer')}}"></use>
                             </svg>
-                            {!! __("route.beginning") !!}
+                            {!! __("routes3.beginning") !!}
                         </div>
                         <div class="routes3__item">
                             <svg class="icon">
                                 <use xlink:href="{{asset('img/sprites/sprite.svg#city')}}"></use>
                             </svg>
-                            {!! __("route.extra_stops") !!}
+                            {!! __("routes3.extra_stops") !!}
                         </div>
                         <div class="routes3__item">
                             <svg class="icon">
                                 <use xlink:href="{{asset('img/sprites/sprite.svg#baggage')}}"></use>
                             </svg>
-                            {!! __("route.finish_ride") !!}
+                            {!! __("routes3.finish_ride") !!}
                         </div>
                     </div>
                 </div>

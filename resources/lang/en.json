@@ -86,14 +86,16 @@
     "home.block_5.3": "<h3>Reliability.<\/h3>\n                            <p>The journey always sets off on time. Our drivers will get you from A to B point while choosing the most comfortable route from multiple possibilities. This journey provided by our company also adds the best stops at must-see destinations.<\/p>",
     "home.block_6.title": "Countries where we work",
     "home.VIDEO": "VIDEO",
-    "home.routes": "Routes",
-    "home.select_a_country": "Every detail matters,<br>although detail is just a word.",
+    "routes2.select_a_country": "Every detail matters,<br>although detail is just a word.",
+    "routes.routes": "Routes",
+    "search": "Search",
     "home.search": "Search",
 
 
 
     "menu.company": "Company",
     "menu.discover": "Discover",
+    "menu.routes": "Routes",
     "menu.become_a_partner": "Become a partner",
     "menu.about": "About",
     "menu.terms_of_use": "Terms of use",
@@ -105,10 +107,11 @@
     "throttled": "Please wait before retrying.",
     "token": "This password reset token is invalid.",
     "user": "We can't find a user with that email address.",
-    "beginning": "<b>Beginning<\/b><span>Your driver will arrive at the starting point<\/span>",
-    "extra_stops": "<b>Extra stops<\/b><span>During the ride, you will stop to sightsee a city<\/span>",
-    "finish_ride": "<b>Finish ride<\/b><span>Completing the ride with your driver who will help with your baggage up to a hotel\/boat\/airport<\/span>",
     "widgets.calculator.title": "One way",
+
+    "routes3.beginning": "<b>Beginning<\/b><span>Your driver will arrive at the starting point<\/span>",
+    "routes3.extra_stops": "<b>Extra stops<\/b><span>During the ride, you will stop to sightsee a city<\/span>",
+    "routes3.finish_ride": "<b>Finish ride<\/b><span>Completing the ride with your driver who will help with your baggage up to a hotel\/boat\/airport<\/span>",
 
 
 
