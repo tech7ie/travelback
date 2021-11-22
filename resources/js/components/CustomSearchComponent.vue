@@ -2,6 +2,8 @@
     <section class="psearch" id="psearch">
         <form class="container psearch__wrap js-psearch-from">
             <input name="route" type="text" :value="parseInt(route_id)" hidden>
+            <input type="number" :value="invert" name="invert" hidden>
+
             <div class="psearch__form">
                 <div class="psearch__head">
                     <h2>{{ orderRoute.from }}
@@ -311,9 +313,14 @@ export default Vue.component("v-custom-search", {
             type: Number,
             default: 1
         },
+        invert: {
+            type: Number,
+            default: false
+        },
     },
     data() {
         return {
+            invert: false,
             price: 0,
             route_id: 0,
             places: [],
@@ -642,12 +649,16 @@ export default Vue.component("v-custom-search", {
             this.updateError();
         },
         change() {
-            let from = this.selectedFrom;
-            let to = this.selectedTo;
-            this.selectedFrom = to;
-            this.selectedTo = from;
+            console.log('change');
+            console.log(this.orderRoute);
+            let from = this.orderRoute.from;
+            let to = this.orderRoute.to;
+            this.orderRoute.from = to;
+            this.orderRoute.to = from;
+            this.invert = !this.invert
             this.updateError();
         },
+
         toggle() {
             setTimeout(() => {
                 this.openedFrom = false;
@@ -731,11 +742,30 @@ export default Vue.component("v-custom-search", {
             return this.pm ? "PM" : "AM";
         },
         filteredRoutes() {
-            return this.routes.filter(r => {
+
+            if (this.invert === 1)
+                return this.filteredRoutesTo()
+
+            const fromRoutesResult =  this.routes.filter(r => {
                 return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+            }).map(i => {
+                return {from_city: i.from_city, from_country: i.from_country}
             })
+            const fromCitiesList = [];
+
+            fromRoutesResult.forEach(i=>{
+                if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
+                    fromCitiesList.push(i)
+                }
+            })
+            return fromCitiesList
         },
+
         filteredRoutesTo() {
+
+            if (this.invert === 1)
+                return this.filteredRoutes()
+
             return this.routes.filter(r => {
                 return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
             }).filter(r => {

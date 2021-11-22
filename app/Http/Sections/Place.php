@@ -42,7 +42,7 @@ class Place extends Section implements Initializable {
     /**
      * @var string
      */
-    protected $title;
+    protected $title = 'Extra stops';
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class Place extends Section implements Initializable {
      * Initialize class.
      */
     public function initialize() {
-        $this->addToNavigation()->setPriority( 150 )->setIcon( 'fas fa-users' );
+        $this->addToNavigation()->setPriority( 150 )->setIcon( 'fas fa-users' )->setTitle('Extra stops');
     }
 
     /**
@@ -88,6 +88,7 @@ class Place extends Section implements Initializable {
                                ->setDisplaySearch( true )
                                ->paginate( 25 )
                                ->setColumns( $columns )
+                               ->setNewEntryButtonText( 'Add new extra stops' )
                                ->setHtmlAttribute( 'class', 'table-primary table-hover th-center' );
 
         $display->getColumnFilters()->setPlacement( 'card.heading' );
@@ -128,6 +129,7 @@ class Place extends Section implements Initializable {
                                 ->required(),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setEnum( [ 'enabled', 'disabled' ] )
+                    ->setDefaultValue('enabled')
                                 ->required(),
 
                 AdminFormElement::text( 'url', 'Url' ),

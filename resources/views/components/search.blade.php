@@ -12,5 +12,6 @@
     data="{{ $_GET['data'] ?? '' }}"
     hours="{{ $_GET['hours'] ?? '' }}"
     minutes="{{ $_GET['minutes'] ?? '' }}"
+    invert="{{ $_GET['invert'] ?? 0 }}"
 >
 </v-custom-search>

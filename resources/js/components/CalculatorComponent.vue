@@ -3,6 +3,7 @@
         <form @submit.prevent="submitForm" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
                 <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
+                <input type="number" :value="invert" name="invert" hidden>
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
                     <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
                         <input
@@ -58,13 +59,13 @@
             </div>
             <v-humans :data="{adults,childrens,luggage}"></v-humans>
             <div v-if="!this.short" class="calc__items">
-                <div class="calc__item"><b @click="toggle('extrastops')">+ {{$t('Extra stops')}}</b>
+                <div class="calc__item"><b @click="toggle('extrastops')">+ {{ $t('Extra stops') }}</b>
                     <v-extrastops v-if="extrastops"></v-extrastops>
                 </div>
-                <div class="calc__item"><b @click="toggle('choosecar')">+ {{$t('Choose car')}}</b>
+                <div class="calc__item"><b @click="toggle('choosecar')">+ {{ $t('Choose car') }}</b>
                     <v-choosecar v-if="choosecar"></v-choosecar>
                 </div>
-                <div class="calc__item"><b @click="toggle('requirements')">+ {{$t('added')}}</b>
+                <div class="calc__item"><b @click="toggle('requirements')">+ {{ $t('added') }}</b>
                     <v-requirements v-if="requirements"></v-requirements>
                 </div>
             </div>
@@ -75,26 +76,26 @@
             </div>
             <template v-if="filteredRoutes.length === 0 && mode === 'home'">
                 <div class="form-vue__footer --line">
-                    <div class="label mobile">{{$t('Chauffeur will wait 15 minutes free of charge')}}</div>
-                    <span>{{$t("Can't find your destination?")}}</span>
-                    <a :href="getRequestUrl">{{$t("Request a custom route")}}</a>
+                    <div class="label mobile">{{ $t('Chauffeur will wait 15 minutes free of charge') }}</div>
+                    <span>{{ $t("Can't find your destination?") }}</span>
+                    <a :href="getRequestUrl">{{ $t("Request a custom route") }}</a>
                 </div>
             </template>
             <template v-else>
-                <div  v-if="mode === 'request' || mode === 'home'" class="label --white">* {{$t("required for departures within 48 hours")}}</div>
+                <div v-if="mode === 'request' || mode === 'home'" class="label --white">* {{ $t("required for departures within 48 hours") }}</div>
             </template>
             <button class="btn-submit">
-                <span v-if="mode === 'home'">{{$t("Search")}}</span>
-                <span v-else>{{$t("Request")}}</span>
+                <span v-if="mode === 'home'">{{ $t("Search") }}</span>
+                <span v-else>{{ $t("Request") }}</span>
             </button>
-            <div class="label desktop">{{$t("Chauffeur will wait 15 minutes free of charge")}}</div>
+            <div class="label desktop">{{ $t("Chauffeur will wait 15 minutes free of charge") }}</div>
         </form>
 
         <div class="popup --sm popup-success" id="success">
             <a id="success_request" data-fancybox data-src="#success" alt="user" style="display: none"></a>
             <form class="popup__wrap js-form-validator">
                 <img src="/img/success.svg" alt="success icon">
-                <h3 class="--center">{{popupMessage}}</h3>
+                <h3 class="--center">{{ popupMessage }}</h3>
             </form>
         </div>
     </div>
@@ -117,6 +118,7 @@ export default Vue.component("v-calculator", {
     },
     data() {
         return {
+            invert: 0,
             popupMessage: "Your request already sended !!!",
             searchActionsUrl: '',
             parsedRoutes: [],
@@ -181,13 +183,33 @@ export default Vue.component("v-calculator", {
             return this.pm ? "PM" : "AM";
         },
         filteredRoutes() {
-            return this.parsedRoutes.filter(r => {
+
+
+            if (this.invert === 1)
+                return this.filteredRoutesTo()
+
+            console.log('this.parsedRoutes: ', this.parsedRoutes);
+            const fromRoutesResult = this.parsedRoutes.filter(r => {
                 return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
             }).filter(r => {
                 return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            }).map(i => {
+                return {from_city: i.from_city, from_country: i.from_country}
             })
+            const fromCitiesList = [];
+
+            fromRoutesResult.forEach(i=>{
+                if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
+                    fromCitiesList.push(i)
+                }
+            })
+            return fromCitiesList
         },
         filteredRoutesTo() {
+
+            if (this.invert === 1)
+                return this.filteredRoutes()
+
             return this.parsedRoutes.filter(r => {
                 return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
             }).filter(r => {
@@ -197,8 +219,6 @@ export default Vue.component("v-calculator", {
     },
     methods: {
         submitForm(e) {
-
-
 
 
             e.preventDefault()
@@ -212,7 +232,7 @@ export default Vue.component("v-calculator", {
 
             console.log(formProps);
 
-            if (this.mode === 'request'){
+            if (this.mode === 'request') {
                 // axios.post('/' + window.App.language + '/set_request', formProps)
                 axios.post('/api/set_request', formProps)
                     .then(res => {
@@ -222,14 +242,14 @@ export default Vue.component("v-calculator", {
                         if (res) {
                             // if (res.data['status'] === 'success') {
 
-                                this.popupMessage = "Your request already sended !!!"
-                                document.getElementById('success_request').click()
+                            this.popupMessage = "Your request already sended !!!"
+                            document.getElementById('success_request').click()
 
-                                this.places = res.data ?? [];
+                            this.places = res.data ?? [];
 
-                                this.$store.commit('clearOrder');
+                            this.$store.commit('clearOrder');
 
-                                // window.location.href = this.getUrl(res.data['path']);
+                            // window.location.href = this.getUrl(res.data['path']);
                             // }
                         }
                     }).catch(e => {
@@ -241,7 +261,6 @@ export default Vue.component("v-calculator", {
                     // window.location.href = this.getUrl('order-cancel');
                 })
             }
-
 
 
             this.$store.commit('clearPoint');
@@ -281,6 +300,7 @@ export default Vue.component("v-calculator", {
             this.selectedFrom = to;
             this.selectedTo = from;
             this.$store.commit('clearPoint');
+            this.invert = !this.invert
             this.updateError();
         },
         search() {
@@ -300,7 +320,7 @@ export default Vue.component("v-calculator", {
         document.addEventListener("bouncerFormValid", function (el) {
 
             // console.log('this.mode', this.mode);
-            if ($this.mode === 'home'){
+            if ($this.mode === 'home') {
                 $this.submitForm(el)
                 try {
                     var form = event.target;

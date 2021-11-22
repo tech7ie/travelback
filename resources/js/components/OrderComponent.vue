@@ -36,9 +36,9 @@
                         </div>
                     </section>
 
-                    <p>Test Card</p>
-                    <p>4242424242424242 12/25 123 12345</p>
-                    <p>4000002500003155 12/25 123 12345</p>
+<!--                    <p>Test Card</p>-->
+<!--                    <p>4242424242424242 12/25 123 12345</p>-->
+<!--                    <p>4000002500003155 12/25 123 12345</p>-->
                     <section class="--last">
                         <div class="order__payment">
                             <div class="order__payment-item">

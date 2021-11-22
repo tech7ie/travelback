@@ -109,8 +109,6 @@ class HomeController extends Controller {
         ] );
     }
 
-
-
     public function getTranslateContent($content, $key){
         return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
     }
