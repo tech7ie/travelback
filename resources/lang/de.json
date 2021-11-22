@@ -89,14 +89,15 @@
     "home.routes": "Routes",
     "home.select_a_country": "Every detail matters,<br>although detail is just a word.",
     "home.search": "Search",
-    "home.company": "Company",
-    "home.discover": "Discover",
 
 
-    "become_a_partner": "Become a partner",
-    "about": "About",
-    "terms_of_use": "Terms of use",
-    "privacy_policy": "Privacy policy",
+
+    "menu.company": "Company",
+    "menu.discover": "Discover",
+    "menu.become_a_partner": "Become a partner",
+    "menu.about": "About",
+    "menu.terms_of_use": "Terms of use",
+    "menu.privacy_policy": "Privacy policy",
     "previous": "&laquo; Previous",
     "next": "Next &raquo;",
     "reset": "Your password has been reset!",
