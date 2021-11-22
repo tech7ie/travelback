@@ -124,9 +124,11 @@ class Place extends Section implements Initializable {
                 AdminFormElement::number( 'price_per_hour', 'Price extra (hour)' )
                                 ->required(),
                 AdminFormElement::number( 'durations', 'Durations' )
-                                ->required(),
+                                ->required()
+                                ->setDefaultValue(60),
                 AdminFormElement::number( 'extra_durations', 'Extra durations' )
-                                ->required(),
+                                ->required()
+                ->setDefaultValue(30),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setEnum( [ 'enabled', 'disabled' ] )
                     ->setDefaultValue('enabled')
