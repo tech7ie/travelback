@@ -82,17 +82,21 @@
             </div>
         </div>
     </div>
-    <div class="sliderhome">
-        <div class="container">
+    <div class="sliderhome-desktop">
+        <div class="sliderhome">
             <div class="sliderhome__wrap">
-                <h2 class="--fw-normal">{!! __("home.block_places_slider") !!}</h2>
+                <div class="container">
+                    <h2 class="--fw-normal">{!! __("home.block_places_slider") !!}</h2>
+                </div>
                 <div class="sliderhome-slider swiper-container">
                     <!-- Additional required wrapper-->
                     <div class="swiper-wrapper">
                         <!-- Slides-->
                         @foreach($places as $item)
                             <div class="swiper-slide"><i><img src="{{$item['image']}}" alt="IMG"></i><b>{{$item['title']}}</b>
-                                <p>{!! $item['body'] !!}</p>
+                                <div class="swipe_body" style="max-height: 190px">
+                                    {!! $item['body'] !!}
+                                </div>
                             </div>
                         @endforeach
                     </div>
