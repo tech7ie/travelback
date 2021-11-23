@@ -20,8 +20,8 @@
                     </div>
                     <div class="custom-select__options" :class="{ '--opened': openedFrom }">
                         <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
-                            <b>{{ item.from_city }}</b>
-                            <em>{{ item.from_country }}</em>
+                            <b>{{ invert ? item.to_city : item.from_city }}</b>
+                            <em>{{ invert ? item.to_country : item.from_country }}</em>
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                     </div>
                     <div class="custom-select__options" :class="{ '--opened': openedTo }">
                         <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
-                            <b>{{ item.to_city }}</b>
-                            <em>{{ item.to_country }}</em>
+                            <b>{{ invert ? item.from_city : item.to_city }}</b>
+                            <em>{{ invert ? item.from_country :  item.to_country }}</em>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ export default Vue.component("v-calculator", {
     },
     data() {
         return {
-            invert: 0,
+            invert: false,
             popupMessage: "Your request already sended !!!",
             searchActionsUrl: '',
             parsedRoutes: [],
@@ -183,10 +183,30 @@ export default Vue.component("v-calculator", {
             return this.pm ? "PM" : "AM";
         },
         filteredRoutes() {
+            if (this.invert){
+                console.log('this.parsedRoutes: ', this.parsedRoutes);
+                const fromRoutesResult = this.parsedRoutes.filter(r => {
+                    return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                }).filter(r => {
+                    return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                }).map(i => {
+                    return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                })
+                const fromCitiesList = [];
 
+                fromRoutesResult.forEach(i=>{
+                    if (fromCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                        fromCitiesList.push(i)
+                    }
+                })
+                return fromCitiesList
 
-            if (this.invert === 1)
-                return this.filteredRoutesTo()
+                // return this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // })
+            }
 
             console.log('this.parsedRoutes: ', this.parsedRoutes);
             const fromRoutesResult = this.parsedRoutes.filter(r => {
@@ -194,7 +214,7 @@ export default Vue.component("v-calculator", {
             }).filter(r => {
                 return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
             }).map(i => {
-                return {from_city: i.from_city, from_country: i.from_country}
+                return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
             })
             const fromCitiesList = [];
 
@@ -207,8 +227,30 @@ export default Vue.component("v-calculator", {
         },
         filteredRoutesTo() {
 
-            if (this.invert === 1)
-                return this.filteredRoutes()
+            if (this.invert){
+
+                return this.parsedRoutes.filter(r => {
+                    return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                }).filter(r => {
+                    return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                })
+
+                // const toRoutesResult = this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // }).map(i => {
+                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                // })
+                // const toCitiesList = [];
+                //
+                // toRoutesResult.forEach(i=>{
+                //     if (toCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                //         toCitiesList.push(i)
+                //     }
+                // })
+                // return toCitiesList
+            }
 
             return this.parsedRoutes.filter(r => {
                 return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
@@ -279,7 +321,7 @@ export default Vue.component("v-calculator", {
         },
         selectFrom(item) {
             // this.openedFrom = false;
-            this.selectedFrom = item.from_city;
+            this.selectedFrom = this.invert ? item.to_city : item.from_city;
             this.updateError();
         },
         inputFrom() {
@@ -287,7 +329,7 @@ export default Vue.component("v-calculator", {
         },
         selectTo(item) {
             // this.openedTo = false;
-            this.selectedTo = item.to_city;
+            this.selectedTo = this.invert ? item.from_city : item.to_city;
             this.route_id = item.route_id;
             this.updateError();
         },

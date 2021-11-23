@@ -31,8 +31,8 @@
                             </div>
                             <div class="custom-select__options" :class="{ '--opened': openedFrom }">
                                 <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
-                                    <b>{{ item.from_city }}</b>
-                                    <em>{{ item.from_country }}</em>
+                                    <b>{{ invert ? item.to_city : item.from_city }}</b>
+                                    <em>{{ invert ? item.to_country : item.from_country }}</em>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                             </div>
                             <div class="custom-select__options" :class="{ '--opened': openedTo }">
                                 <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
-                                    <b>{{ item.to_city }}</b>
-                                    <em>{{ item.to_country }}</em>
+                                    <b>{{ invert ? item.from_city : item.to_city }}</b>
+                                    <em>{{ invert ? item.from_country :  item.to_country }}</em>
                                 </div>
                             </div>
                         </div>
@@ -314,13 +314,12 @@ export default Vue.component("v-custom-search", {
             default: 1
         },
         invert: {
-            type: Number,
+            type: Boolean,
             default: false
         },
     },
     data() {
         return {
-            invert: false,
             price: 0,
             route_id: 0,
             places: [],
@@ -368,14 +367,14 @@ export default Vue.component("v-custom-search", {
         console.log('this.$route.params: ', this.$router)
         if (this.current) {
             this.route_id = this.current.id;
-            this.orderRoute.from = this.current.from_city.name
+            this.orderRoute.from = this.invert ? this.current.to_city.name : this.current.from_city.name
             // this.orderRoute.to = this.to
             this.orderRoute.adults = this.adults
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
-            this.orderRoute.to = this.current.to_city.name
+            this.orderRoute.to = this.invert ? this.current.from_city.name : this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             // this.price = this.current.price
@@ -741,15 +740,40 @@ export default Vue.component("v-custom-search", {
         ampm() {
             return this.pm ? "PM" : "AM";
         },
+
         filteredRoutes() {
+            if (this.invert){
+                console.log('this.parsedRoutes: ', this.routes);
+                const fromRoutesResult = this.routes.filter(r => {
+                    return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+                }).filter(r => {
+                    return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+                }).map(i => {
+                    return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                })
+                const fromCitiesList = [];
 
-            if (this.invert === 1)
-                return this.filteredRoutesTo()
+                fromRoutesResult.forEach(i=>{
+                    if (fromCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                        fromCitiesList.push(i)
+                    }
+                })
+                return fromCitiesList
 
-            const fromRoutesResult =  this.routes.filter(r => {
+                // return this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // })
+            }
+
+            console.log('this.parsedRoutes: ', this.routes);
+            const fromRoutesResult = this.routes.filter(r => {
                 return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+            }).filter(r => {
+                return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
             }).map(i => {
-                return {from_city: i.from_city, from_country: i.from_country}
+                return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
             })
             const fromCitiesList = [];
 
@@ -760,11 +784,32 @@ export default Vue.component("v-custom-search", {
             })
             return fromCitiesList
         },
-
         filteredRoutesTo() {
 
-            if (this.invert === 1)
-                return this.filteredRoutes()
+            if (this.invert){
+
+                return this.routes.filter(r => {
+                    return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+                }).filter(r => {
+                    return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+                })
+
+                // const toRoutesResult = this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // }).map(i => {
+                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                // })
+                // const toCitiesList = [];
+                //
+                // toRoutesResult.forEach(i=>{
+                //     if (toCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                //         toCitiesList.push(i)
+                //     }
+                // })
+                // return toCitiesList
+            }
 
             return this.routes.filter(r => {
                 return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
@@ -772,6 +817,57 @@ export default Vue.component("v-custom-search", {
                 return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
             })
         }
+
+
+        // filteredRoutes() {
+        //
+        //     if (this.invert === 1){
+        //         return this.routes.filter(r => {
+        //             return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+        //         }).filter(r => {
+        //             return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+        //         })
+        //     }
+        //
+        //     const fromRoutesResult =  this.routes.filter(r => {
+        //         return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+        //     }).map(i => {
+        //         return {from_city: i.from_city, from_country: i.from_country}
+        //     })
+        //     const fromCitiesList = [];
+        //
+        //     fromRoutesResult.forEach(i=>{
+        //         if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
+        //             fromCitiesList.push(i)
+        //         }
+        //     })
+        //     return fromCitiesList
+        // },
+        //
+        // filteredRoutesTo() {
+        //
+        //     if (this.invert === 1){
+        //         const fromRoutesResult =  this.routes.filter(r => {
+        //             return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+        //         }).map(i => {
+        //             return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+        //         })
+        //         const fromCitiesList = [];
+        //
+        //         fromRoutesResult.forEach(i=>{
+        //             if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
+        //                 fromCitiesList.push(i)
+        //             }
+        //         })
+        //         return fromCitiesList
+        //     }
+        //
+        //     return this.routes.filter(r => {
+        //         return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+        //     }).filter(r => {
+        //         return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+        //     })
+        // }
     },
     watch: {
         points() {
