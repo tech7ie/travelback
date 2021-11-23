@@ -20,8 +20,8 @@
                     </div>
                     <div class="custom-select__options" :class="{ '--opened': openedFrom }">
                         <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
-                            <b>{{ invert ? item.to_city : item.from_city }}</b>
-                            <em>{{ invert ? item.to_country : item.from_country }}</em>
+                            <b>{{ item.city}}</b>
+                            <em>{{ item.country }}</em>
                         </div>
                     </div>
                 </div>
@@ -183,19 +183,34 @@ export default Vue.component("v-calculator", {
             return this.pm ? "PM" : "AM";
         },
         filteredRoutes() {
-            if (this.invert){
+            if (true){
                 console.log('this.parsedRoutes: ', this.parsedRoutes);
-                const fromRoutesResult = this.parsedRoutes.filter(r => {
-                    return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                }).filter(r => {
-                    return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                }).map(i => {
-                    return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+
+                const allRoutesResult = []
+
+                this.parsedRoutes.forEach(p=>{
+                    allRoutesResult.push({city: p.from_city, country: p.from_country, invert: false})
+                    allRoutesResult.push({city: p.to_city, country: p.to_country, invert: true})
                 })
+
+
+
+                // const fromRoutesResult = this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // }).map(i => {
+                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                // })
+
+                const fromRoutesResult = allRoutesResult.filter(r => {
+                    return this.selectedFrom.length > 0 ? r.city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                })
+
                 const fromCitiesList = [];
 
                 fromRoutesResult.forEach(i=>{
-                    if (fromCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                    if (fromCitiesList.findIndex( (element) => element.city === i.city) < 0){
                         fromCitiesList.push(i)
                     }
                 })
@@ -321,7 +336,8 @@ export default Vue.component("v-calculator", {
         },
         selectFrom(item) {
             // this.openedFrom = false;
-            this.selectedFrom = this.invert ? item.to_city : item.from_city;
+            this.selectedFrom = item.city
+            this.invert = item.invert
             this.updateError();
         },
         inputFrom() {

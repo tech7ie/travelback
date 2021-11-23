@@ -2,7 +2,7 @@
     <section class="psearch" id="psearch">
         <form class="container psearch__wrap js-psearch-from">
             <input name="route" type="text" :value="parseInt(route_id)" hidden>
-            <input type="number" :value="invert" name="invert" hidden>
+            <input type="number" :value="searchInvert" name="invert" hidden>
 
             <div class="psearch__form">
                 <div class="psearch__head">
@@ -31,8 +31,8 @@
                             </div>
                             <div class="custom-select__options" :class="{ '--opened': openedFrom }">
                                 <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
-                                    <b>{{ invert ? item.to_city : item.from_city }}</b>
-                                    <em>{{ invert ? item.to_country : item.from_country }}</em>
+                                    <b>{{ item.city }}</b>
+                                    <em>{{ item.country}}</em>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                             </div>
                             <div class="custom-select__options" :class="{ '--opened': openedTo }">
                                 <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
-                                    <b>{{ invert ? item.from_city : item.to_city }}</b>
-                                    <em>{{ invert ? item.from_country :  item.to_country }}</em>
+                                    <b>{{ searchInvert ? item.from_city : item.to_city }}</b>
+                                    <em>{{ searchInvert ? item.from_country : item.to_country }}</em>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="psearch__other">
-                <h3>{{$t('Visit along the way')}}</h3>
+                <h3>{{ $t('Visit along the way') }}</h3>
                 <div class="glide">
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="psearch__last">
-                <div class="withstops" v-if="points.length"><em>{{$t('With stops in')}}</em>
+                <div class="withstops" v-if="points.length"><em>{{ $t('With stops in') }}</em>
                     <div class="withstops__list">
                         <v-withstops
                             v-for="(item, index) in points"
@@ -101,8 +101,8 @@
                 </div>
                 <div class="yourride">
                     <div class="yourride__head">
-                        <h3>{{$t('Your ride')}}</h3>
-                        <a v-if="passengers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">{{$t('Other cars')}}</a>
+                        <h3>{{ $t('Your ride') }}</h3>
+                        <a v-if="passengers_extra.length > 1" data-fancybox data-src="#select-ride" href="#">{{ $t('Other cars') }}</a>
                     </div>
                     <div class="yourride__selected" :class="{two: passengers.length &gt; 1}">
                         <div class="tickets__footer">
@@ -130,7 +130,7 @@
 
                         <div>
                             <button>
-                                <span>{{$t('BUY FOR')}} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
+                                <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
                             </button>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                             <div class="tickets__footer-info">
                                 <div>
                                     <div>
-                                        {{$t('Upgrade to a luxury sedan for')}} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
+                                        {{ $t('Upgrade to a luxury sedan for') }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
                                         {{ calculatePrice(((parseFloat(item.car.price)) + (withstopsListPrice))) }}
                                     </div>
                                 </div>
@@ -156,51 +156,51 @@
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#chat"></use>
                                 </svg>
-                            </i><span>{{$t('Support 24/7')}}</span></li>
+                            </i><span>{{ $t('Support 24/7') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#driver-2"></use>
                                 </svg>
-                            </i><span>{{$t('English-speaking driver')}}</span></li>
+                            </i><span>{{ $t('English-speaking driver') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#disabled"></use>
                                 </svg>
-                            </i><span>{{$t('Prepared for handicapped')}}</span></li>
+                            </i><span>{{ $t('Prepared for handicapped') }}</span></li>
                         </ul>
                         <ul>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#car"></use>
                                 </svg>
-                            </i><span>{{$t('Clean, comfortable car')}}</span></li>
+                            </i><span>{{ $t('Clean, comfortable car') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#bottle"></use>
                                 </svg>
-                            </i><span>{{$t('Bottled water')}}</span></li>
+                            </i><span>{{ $t('Bottled water') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#dist"></use>
                                 </svg>
-                            </i><span>{{$t('Door to door service')}}</span></li>
+                            </i><span>{{ $t('Door to door service') }}</span></li>
                         </ul>
                         <ul>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#little-kid"></use>
                                 </svg>
-                            </i><span>{{$t('Child seats')}}</span></li>
+                            </i><span>{{ $t('Child seats') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#smoking"></use>
                                 </svg>
-                            </i><span>{{$t('No-smoking')}}</span></li>
+                            </i><span>{{ $t('No-smoking') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#paw"></use>
                                 </svg>
-                            </i><span>{{$t('Pet friendly')}}</span></li>
+                            </i><span>{{ $t('Pet friendly') }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
         </form>
         <div class="popup --xl" id="select-ride">
             <form class="popup__wrap">
-                <h3>{{$t('Select your ride')}}</h3>
+                <h3>{{ $t('Select your ride') }}</h3>
                 <div class="popup-select-rider">
                     <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)">
                         <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
@@ -320,6 +320,7 @@ export default Vue.component("v-custom-search", {
     },
     data() {
         return {
+            searchInvert: false,
             price: 0,
             route_id: 0,
             places: [],
@@ -366,15 +367,16 @@ export default Vue.component("v-custom-search", {
 
         console.log('this.$route.params: ', this.$router)
         if (this.current) {
+            this.searchInvert = this.invert
             this.route_id = this.current.id;
-            this.orderRoute.from = this.invert ? this.current.to_city.name : this.current.from_city.name
+            this.orderRoute.from = this.searchInvert ? this.current.to_city.name : this.current.from_city.name
             // this.orderRoute.to = this.to
             this.orderRoute.adults = this.adults
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
-            this.orderRoute.to = this.invert ? this.current.from_city.name : this.current.to_city.name
+            this.orderRoute.to = this.searchInvert ? this.current.from_city.name : this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             // this.price = this.current.price
@@ -406,7 +408,7 @@ export default Vue.component("v-custom-search", {
     },
     methods: {
         getRouteDate() {
-            return Vue.moment(this.data + " " + (parseInt(this.hours)) + ":" + this.minutes + (this.pm ? ' PM': ' AM'), "DD.MM.YYYY h:m A")
+            return Vue.moment(this.data + " " + (parseInt(this.hours)) + ":" + this.minutes + (this.pm ? ' PM' : ' AM'), "DD.MM.YYYY h:m A")
                 .format('YYYY.MM.DD HH:mm:ss');
         },
         getOrderTotal() {
@@ -625,7 +627,9 @@ export default Vue.component("v-custom-search", {
             // this.errorTo = this.selectedTo.length <= 2;
         },
         selectFrom(item) {
-            this.orderRoute.from = item.from_city;
+            this.orderRoute.from = item.city;
+            this.searchInvert = item.invert;
+            // this.orderRoute.from = item.from_city;
             this.$store.commit('clearPoint');
             this.updateError();
         },
@@ -654,7 +658,7 @@ export default Vue.component("v-custom-search", {
             let to = this.orderRoute.to;
             this.orderRoute.from = to;
             this.orderRoute.to = from;
-            this.invert = !this.invert
+            this.searchInvert = !this.searchInvert
             this.updateError();
         },
 
@@ -685,8 +689,8 @@ export default Vue.component("v-custom-search", {
             country_rate: store => store.country_rate,
             total_rate: store => (store.total_rate).toFixed(2),
         }),
-        getPassengersExtraForUpdate(){
-            if (this.passengers.length === 1){
+        getPassengersExtraForUpdate() {
+            if (this.passengers.length === 1) {
 
                 console.log(this.passengers[0]);
                 console.log(this.passengers_extra);
@@ -699,9 +703,9 @@ export default Vue.component("v-custom-search", {
                 console.log('current_auto: ', current_auto);
                 console.log('this.passengers_extra.length: ', this.passengers_extra.length);
 
-                if (current_auto + 1 >= this.passengers_extra.length){
+                if (current_auto + 1 >= this.passengers_extra.length) {
                     return []
-                }else{
+                } else {
                     return [this.passengers_extra[current_auto + 1]]
                 }
 
@@ -742,51 +746,86 @@ export default Vue.component("v-custom-search", {
         },
 
         filteredRoutes() {
-            if (this.invert){
-                console.log('this.parsedRoutes: ', this.routes);
-                const fromRoutesResult = this.routes.filter(r => {
-                    return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-                }).filter(r => {
-                    return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-                }).map(i => {
-                    return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+
+            if (true) {
+                console.log('this.parsedRoutes: ', this.parsedRoutes);
+
+                const allRoutesResult = []
+
+                this.routes.forEach(p => {
+                    allRoutesResult.push({city: p.from_city, country: p.from_country, invert: false})
+                    allRoutesResult.push({city: p.to_city, country: p.to_country, invert: true})
                 })
+
+
+                // const fromRoutesResult = this.parsedRoutes.filter(r => {
+                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                // }).filter(r => {
+                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                // }).map(i => {
+                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+                // })
+
+                const fromRoutesResult = allRoutesResult.filter(r => {
+                    return this.orderRoute.from.length > 0 ? r.city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+                })
+
                 const fromCitiesList = [];
 
-                fromRoutesResult.forEach(i=>{
-                    if (fromCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
+                fromRoutesResult.forEach(i => {
+                    if (fromCitiesList.findIndex((element) => element.city === i.city) < 0) {
                         fromCitiesList.push(i)
                     }
                 })
                 return fromCitiesList
 
-                // return this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // })
             }
-
-            console.log('this.parsedRoutes: ', this.routes);
-            const fromRoutesResult = this.routes.filter(r => {
-                return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-            }).filter(r => {
-                return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-            }).map(i => {
-                return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-            })
-            const fromCitiesList = [];
-
-            fromRoutesResult.forEach(i=>{
-                if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
-                    fromCitiesList.push(i)
-                }
-            })
-            return fromCitiesList
+            //
+            // if (this.invert) {
+            //     console.log('this.parsedRoutes: ', this.routes);
+            //     const fromRoutesResult = this.routes.filter(r => {
+            //         return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+            //     }).filter(r => {
+            //         return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+            //     }).map(i => {
+            //         return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+            //     })
+            //     const fromCitiesList = [];
+            //
+            //     fromRoutesResult.forEach(i => {
+            //         if (fromCitiesList.findIndex((element) => element.to_city === i.to_city) < 0) {
+            //             fromCitiesList.push(i)
+            //         }
+            //     })
+            //     return fromCitiesList
+            //
+            //     // return this.parsedRoutes.filter(r => {
+            //     //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+            //     // }).filter(r => {
+            //     //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+            //     // })
+            // }
+            //
+            // console.log('this.parsedRoutes: ', this.routes);
+            // const fromRoutesResult = this.routes.filter(r => {
+            //     return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
+            // }).filter(r => {
+            //     return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
+            // }).map(i => {
+            //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
+            // })
+            // const fromCitiesList = [];
+            //
+            // fromRoutesResult.forEach(i => {
+            //     if (fromCitiesList.findIndex((element) => element.from_city === i.from_city) < 0) {
+            //         fromCitiesList.push(i)
+            //     }
+            // })
+            // return fromCitiesList
         },
         filteredRoutesTo() {
 
-            if (this.invert){
+            if (this.searchInvert) {
 
                 return this.routes.filter(r => {
                     return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
