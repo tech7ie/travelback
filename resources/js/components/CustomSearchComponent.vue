@@ -32,7 +32,7 @@
                             <div class="custom-select__options" :class="{ '--opened': openedFrom }">
                                 <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
                                     <b>{{ item.city }}</b>
-                                    <em>{{ item.country}}</em>
+                                    <em>{{ item.country }}</em>
                                 </div>
                             </div>
                         </div>
@@ -156,17 +156,23 @@
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#chat"></use>
                                 </svg>
-                            </i><span>{{ $t('Support 24/7') }}</span></li>
+                            </i>
+                                <span>{{ $t('Support 24/7') }}</span></li>
                             <li><i>
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#driver-2"></use>
                                 </svg>
-                            </i><span>{{ $t('English-speaking driver') }}</span></li>
-                            <li><i>
-                                <svg class="icon">
-                                    <use xlink:href="/img/sprites/sprite.svg#disabled"></use>
-                                </svg>
-                            </i><span>{{ $t('Prepared for handicapped') }}</span></li>
+                            </i>
+                                <span>{{ $t('English-speaking driver') }}</span>
+                            </li>
+                            <li>
+                                <i>
+                                    <svg class="icon">
+                                        <use xlink:href="/img/sprites/sprite.svg#disabled"></use>
+                                    </svg>
+                                </i>
+                                <span>{{ $t('Prepared for handicapped') }}</span>
+                            </li>
                         </ul>
                         <ul>
                             <li><i>

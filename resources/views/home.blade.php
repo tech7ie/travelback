@@ -18,9 +18,9 @@
                     </div>
                     <div class="homehead__content">
                         <h1>{!! __("home.home_title") !!}</h1>
-                        <div class="homehead__content-label"><i><img src="/img/logo-min.svg" alt="IMG"></i>
-                            <div>{!! __("home.home_sub_title") !!}</div>
-                        </div>
+{{--                        <div class="homehead__content-label"><i><img src="/img/logo-min.svg" alt="IMG"></i>--}}
+{{--                            <div>{!! __("home.home_sub_title") !!}</div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -93,7 +93,8 @@
                     <div class="swiper-wrapper">
                         <!-- Slides-->
                         @foreach($places as $item)
-                            <div class="swiper-slide"><i><img src="{{$item['image']}}" alt="IMG"></i><b>{{$item['title']}}</b>
+                            <div class="swiper-slide"><i><img src="{{$item['image']}}" alt="IMG"></i>
+                                <b>{{$item['title']}}</b>
                                 <div class="swipe_body" style="max-height: 190px">
                                     {!! $item['body'] !!}
                                 </div>

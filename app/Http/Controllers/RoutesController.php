@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
@@ -63,13 +64,13 @@ class RoutesController extends Controller {
             $to_city      = $route->toCity;
 
             return [
-                'current_route'       => $route,
+                'current_route'        => $route,
                 'current_route_places' => $placesResponse
             ];
 
         } catch ( \Throwable $t ) {
             return [
-                'current_route'       => [],
+                'current_route'        => [],
                 'current_route_places' => []
             ];
         }
@@ -157,7 +158,6 @@ class RoutesController extends Controller {
 
 
     /**
-     * Show products list.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -177,6 +177,24 @@ class RoutesController extends Controller {
 
         } catch ( \Throwable $t ) {
             return view( 'pages/routes2', [ 'routes' => [], 'dd' => [ $id, $lang ] ] );
+        }
+    }
+
+    /**
+     * Prepare cars list for request page.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     */
+    public function getCarsList() {
+        try {
+            $cars = Car::select()->get();
+
+            return view( 'pages/request', [ 'cars' => $cars ] );
+
+        } catch ( \Throwable $t ) {
+            return view( 'pages/request', [ 'cars' => [] ] );
         }
     }
 

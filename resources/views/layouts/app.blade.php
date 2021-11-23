@@ -72,11 +72,10 @@
                 <div class="header__menu">
                     <nav>
                         <ul>
-                            <li><a href="#">{!! __("menu.company") !!}</a></li>
+                            <li><a href="{{ route('company', app()->getLocale()) }}">{!! __("menu.company") !!}</a></li>
                             <li><a href="#">{!! __("menu.discover") !!}</a></li>
                             <li><a href="{{ route('routes', app()->getLocale()) }}">{!! __("menu.routes") !!}</a></li>
                             <li><a href="#">{!! __("menu.become_a_partner") !!}</a></li>
-                            <li><a href="{{ route('about', app()->getLocale()) }}">{!! __("menu.about") !!}</a></li>
                         </ul>
                     </nav>
                 </div>

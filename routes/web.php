@@ -46,7 +46,7 @@ Route::group( [
 
     Route::get( '/', [ \App\Http\Controllers\HomeController::class, 'index' ] )->name( 'home' );
 
-    Route::get( '/about', [ \App\Http\Controllers\PagePost::class, 'about' ] )->name( 'about' );
+    Route::get( '/company', [ \App\Http\Controllers\PagePost::class, 'company' ] )->name( 'company' );
     Route::get( '/terms-of-use', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'terms-of-use' );
     Route::get( '/privacy-policy', [ \App\Http\Controllers\PagePost::class, 'index' ] )->name( 'privacy-policy' );
 
@@ -56,6 +56,11 @@ Route::group( [
 
 
     Route::post( '/set_order', [ \App\Http\Controllers\RouteOrder::class, 'save' ])->name( 'save_order' );
+
+
+
+
+    Route::post( '/get_payment_token', [ \App\Http\Controllers\RouteOrder::class, 'get_payment_token' ])->name( 'save_order' );
 
 
 
@@ -120,9 +125,9 @@ Route::group( [
     } )->name( 'order-success-manual' );
 
 
-    Route::get( '/request', function () {
-        return view( 'pages/request' );
-    } )->name( 'request' );
+    Route::get( '/request',
+        [ \App\Http\Controllers\RoutesController::class, 'getCarsList' ] )
+         ->name( 'request' );
 
 
     Route::get( '/search', [ \App\Http\Controllers\SearchController::class, 'index' ] )->name( 'search' );

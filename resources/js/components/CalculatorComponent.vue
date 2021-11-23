@@ -63,9 +63,9 @@
                     <v-extrastops v-if="extrastops"></v-extrastops>
                 </div>
                 <div class="calc__item"><b @click="toggle('choosecar')">+ {{ $t('Choose car') }}</b>
-                    <v-choosecar v-if="choosecar"></v-choosecar>
+                    <v-choosecar :cars="cars" v-if="choosecar"></v-choosecar>
                 </div>
-                <div class="calc__item"><b @click="toggle('requirements')">+ {{ $t('added') }}</b>
+                <div class="calc__item"><b @click="toggle('requirements')">+ {{ $t('Requirements') }}</b>
                     <v-requirements v-if="requirements"></v-requirements>
                 </div>
             </div>
@@ -152,6 +152,10 @@ export default Vue.component("v-calculator", {
             type: String,
             default: "[]"
         },
+        cars: {
+            type: String,
+            default: "[]"
+        },
         short: false,
         adults: {
             type: Number,
@@ -193,16 +197,6 @@ export default Vue.component("v-calculator", {
                     allRoutesResult.push({city: p.to_city, country: p.to_country, invert: true})
                 })
 
-
-
-                // const fromRoutesResult = this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // }).map(i => {
-                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-                // })
-
                 const fromRoutesResult = allRoutesResult.filter(r => {
                     return this.selectedFrom.length > 0 ? r.city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
                 })
@@ -216,14 +210,8 @@ export default Vue.component("v-calculator", {
                 })
                 return fromCitiesList
 
-                // return this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // })
             }
 
-            console.log('this.parsedRoutes: ', this.parsedRoutes);
             const fromRoutesResult = this.parsedRoutes.filter(r => {
                 return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
             }).filter(r => {
@@ -250,21 +238,6 @@ export default Vue.component("v-calculator", {
                     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
                 })
 
-                // const toRoutesResult = this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // }).map(i => {
-                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-                // })
-                // const toCitiesList = [];
-                //
-                // toRoutesResult.forEach(i=>{
-                //     if (toCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
-                //         toCitiesList.push(i)
-                //     }
-                // })
-                // return toCitiesList
             }
 
             return this.parsedRoutes.filter(r => {
@@ -276,12 +249,8 @@ export default Vue.component("v-calculator", {
     },
     methods: {
         submitForm(e) {
-
-
             e.preventDefault()
-
             console.log('this.mode: ', this.mode);
-
             const formData = new FormData(e.target);
             const formProps = Object.fromEntries(formData);
 

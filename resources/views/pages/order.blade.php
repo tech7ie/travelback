@@ -15,7 +15,6 @@
     ></v-order-route>
     <script>
         $(function () {
-
             /*
             * International Telephone Input v16.0.0
             * https://github.com/jackocnr/intl-tel-input.git

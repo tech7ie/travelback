@@ -8,7 +8,11 @@
                     <h2>Enjoy your trip</h2>
                     <div class="form-block__wrap">
                         <div class="label">One way</div>
-                        <v-calculator :request="{{json_encode($_GET)}}" mode="request"></v-calculator>
+                        <v-calculator
+                            :request="{{json_encode($_GET)}}"
+                            :cars="{{json_encode($cars)}}"
+                            mode="request"
+                        ></v-calculator>
                     </div>
                 </div>
 

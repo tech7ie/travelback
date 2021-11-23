@@ -5332,7 +5332,7 @@ input.error ~ .select-humans__head div {
     object-position: center
 }
 
-.sliderhome-slider .swiper-slide b {
+.sliderhome-slider .swiper-slide > b {
     font-weight: 700;
     font-size: 30px;
     line-height: 27px;
