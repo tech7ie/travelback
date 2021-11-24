@@ -2,7 +2,6 @@
     <div class="calc" id="calculator">
         <form @submit.prevent="submitForm" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
-                {{this.invert}}
                 <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
                 <input type="number" :value="invert" name="invert" hidden>
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
