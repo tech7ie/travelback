@@ -10,10 +10,20 @@ use Illuminate\Support\Facades\Redirect;
 class LanguageController extends Controller {
 
     public function switchLang( $lang, Request $req ) {
+
         if ( array_key_exists( $lang, Config::get( 'languages' ) ) ) {
-            Session::put( 'applocale', $lang );
+
             $path = $_GET['path'];
-            $path = str_replace( '/' . app()->getLocale(), $lang, $path );
+
+            if (strlen($path) === 3){
+                $path = '/' . $lang;
+            }else{
+                $path = str_replace( substr($path,0,3), $lang, $path );
+
+            }
+            Session::put( 'applocale', $lang );
+            app()->setLocale($lang);
+
 
             return Redirect::to( $path );
         }
