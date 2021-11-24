@@ -126,10 +126,10 @@
     </div>
     @if($partners && count($partners) > 0)
         <section class="partners">
-            <div class="container">
-            </div>
             <div class="partners__slider">
-                <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
+                <div class="container">
+                    <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
+                </div>
                 <div class="partners-slider swiper-container">
                     <!-- Additional required wrapper-->
                     <div class="swiper-wrapper">
