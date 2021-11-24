@@ -27,6 +27,7 @@
     "dependencies": {
         "@fancyapps/ui": "^4.0.0-beta.2",
         "@glidejs/glide": "^3.4.1",
+        "@vue-stripe/vue-stripe": "^4.2.9",
         "jquery-mask-plugin": "^1.14.16",
         "lodash.debounce": "^4.0.8",
         "moment": "^2.29.1",

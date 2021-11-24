@@ -12,6 +12,17 @@ import Bouncer from "./import/bouncer.polyfills.min";
 
 Vue = window.Vue = require('vue/dist/vue.esm.browser.min').default;
 
+import { StripePlugin } from '@vue-stripe/vue-stripe';
+
+const options = {
+    pk: 'pk_test_kpe60iKVJCwXf6qeQ6ZvkzMl',
+    // stripeAccount: process.env.STRIPE_ACCOUNT,
+    apiVersion: '2020-08-27',
+    locale: 'en',
+};
+
+
+Vue.use(StripePlugin, options);
 
 
 import Vuex from 'vuex';

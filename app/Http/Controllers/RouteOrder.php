@@ -75,39 +75,39 @@ class RouteOrder extends Controller {
 
 
             if ( isset( $data['payment_type'] ) && $data['payment_type'] === 1 ) {
-//                $stripe = new \Stripe\StripeClient( env( 'STRIPE_SECRET_API' ) );
-//
-//                $token = $data['stripe_token'];
-//
-//                $charge = $stripe->charges->create( [
-//                    'amount'      => (int) $routeOrder->amount * 100,
-//                    'currency'    => 'usd',
-//                    'description' => 'Example charge',
-//                    'source'      => $token,
-//                    'metadata'    => [ 'order_id' => $routeOrder->id ]
-//                ] );
-//
-//
-//                if ( $charge['status'] && $charge['status'] === 'succeeded' ) {
-//                    $routeOrder->status = 'complete';
-//                    $routeOrder->save();
-//                } else {
-//                    $routeOrder->status = 'fail';
-//                    $routeOrder->save();
-//                }
+                $stripe = new \Stripe\StripeClient( env( 'STRIPE_SECRET_API' ) );
 
-//                return [ 'status' => 'success', 'path' => 'order-success' ];
+                $token = $data['stripe_token'];
 
-                \Stripe\Stripe::setApiKey(env( 'STRIPE_SECRET_API' ));
+                $charge = $stripe->charges->create( [
+                    'amount'      => (int) $routeOrder->amount * 100,
+                    'currency'    => 'usd',
+                    'description' => 'Example charge',
+                    'source'      => $token,
+                    'metadata'    => [ 'order_id' => $routeOrder->id ]
+                ] );
 
 
-                $paymentIntent = \Stripe\PaymentIntent::create([
-                    'amount' => (int) $routeOrder->amount * 100,
-                    'currency' => 'eur',
-                    'automatic_payment_methods' => [
-                        'enabled' => true,
-                    ],
-                ]);
+                if ( $charge['status'] && $charge['status'] === 'succeeded' ) {
+                    $routeOrder->status = 'complete';
+                    $routeOrder->save();
+                } else {
+                    $routeOrder->status = 'fail';
+                    $routeOrder->save();
+                }
+
+                return [ 'status' => 'success', 'path' => 'order-success' ];
+
+//                \Stripe\Stripe::setApiKey(env( 'STRIPE_SECRET_API' ));
+//
+//
+//                $paymentIntent = \Stripe\PaymentIntent::create([
+//                    'amount' => (int) $routeOrder->amount * 100,
+//                    'currency' => 'eur',
+//                    'automatic_payment_methods' => [
+//                        'enabled' => true,
+//                    ],
+//                ]);
 
 
 

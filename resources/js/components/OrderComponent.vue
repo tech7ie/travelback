@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div id="payment-message" class="hidden"></div>
         <form id="payment-form" class="order js-form-validator" :data-submit="submit_form">
             <input type="text" name="csrf" :value="csrf" hidden>
             <div class="container">
@@ -37,6 +36,7 @@
                                 <input v-model="orderDetails.drop_off_address" name="drop-off-address" :placeholder="$t('Drop-off address')" required>
                             </div>
                         </section>
+                        <div id="payment-message" class="hidden"></div>
 
                         <!--                    <p>Test Card</p>-->
                         <!--                    <p>4242424242424242 12/25 123 12345</p>-->
@@ -70,7 +70,17 @@
                                             </li>
                                         </ul>
                                         <br>
+                                        <div class="stripe">
+                                            <label>Card Number</label>
+                                            <div id="card-number"></div>
+                                            <label>Card Expiry</label>
+                                            <div id="card-expiry"></div>
+                                            <label>Card CVC</label>
+                                            <div id="card-cvc"></div>
+                                            <div id="card-error"></div>
+                                        </div>
                                         <div v-if="payment_type === 1" id="card-element">
+                                            <!-- stripe-checkout -->
                                             <!-- A Stripe Element will be inserted here. -->
                                         </div>
                                     </div>
@@ -206,14 +216,25 @@
 import Vue from "vue/dist/vue.esm.browser.min";
 import {mapState} from "vuex";
 import initValidation from "./helper/validator";
-
 export default Vue.component("v-order-route", {
     data() {
         return {
+
+            token: null,
+            cardNumber: null,
+            cardExpiry: null,
+            cardCvc: null,
+
+            loading: false,
+            lineItems: [
+                {
+                    price: 'some-price-id', // The id of the one-time price you created in your Stripe dashboard
+                    quantity: 1,
+                },
+            ],
             payment_type: 1,
             checked: false,
             stripeToken: null,
-            stripePublishableKey: 'pk_test_kpe60iKVJCwXf6qeQ6ZvkzMl',
             orderDetails: {
                 email: '',
                 first_name: '',
@@ -224,137 +245,55 @@ export default Vue.component("v-order-route", {
                 pickup_address: '',
                 drop_off_address: '',
             },
-            elements: null
         };
     },
     props: ["data", "index", "addedPoint", "payment_methods", "csrf"],
 
-    mounted() {
+    async mounted() {
+
+        const style = {
+            base: {
+                color: 'black',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4',
+                },
+                padding: '5px'
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a',
+            },
+        };
+        this.cardNumber = this.stripeElements.create('cardNumber', {style});
+        this.cardNumber.mount('#card-number');
+        this.cardExpiry = this.stripeElements.create('cardExpiry', {style});
+        this.cardExpiry.mount('#card-expiry');
+        this.cardCvc = this.stripeElements.create('cardCvc', {style});
+        this.cardCvc.mount('#card-cvc');
+
         initValidation(".js-form-validator");
 
         let $this = this;
         document.addEventListener("bouncerFormValid", async function (el) {
-            $this.submit_form(el)
-            console.log('bouncerFormValid');
-            console.log(el);
             if ($this.payment_type === 1) {
                 //4242424242424242
-                var stripe = Stripe($this.stripePublishableKey);
-
-                console.log('$this.elements:', $this.elements);
-
-                const {error} = await stripe.confirmPayment({
-                    elements: $this.elements,
-                    confirmParams: {
-                        // Make sure to change this to your payment completion page
-                        return_url: "order-success",
-                    },
-                });
-
-                console.log('bouncerFormValid:error ', error);
-
-                console.log('error.type ', error.type)
-
-                if (error.type === "card_error" || error.type === "validation_error") {
-                    showMessage(error.message);
+                const token = await $this.createStripeToken()
+                console.log('token: ', token);
+                if (token) {
+                    $this.stripeToken = token.id
+                    $this.submit_form(el)
                 } else {
-                    showMessage("An unexpected error occured.");
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
                 }
-
-
-// Fetches the payment intent status after payment submission
-                async function checkStatus() {
-                    const clientSecret = new URLSearchParams(window.location.search).get(
-                        "payment_intent_client_secret"
-                    );
-
-                    if (!clientSecret) {
-                        return;
-                    }
-
-                    const {paymentIntent} = await stripe.retrievePaymentIntent(clientSecret);
-
-                    switch (paymentIntent.status) {
-                        case "succeeded":
-                            showMessage("Payment succeeded!");
-                            break;
-                        case "processing":
-                            showMessage("Your payment is processing.");
-                            break;
-                        case "requires_payment_method":
-                            showMessage("Your payment was not successful, please try again.");
-                            break;
-                        default:
-                            showMessage("Something went wrong.");
-                            break;
-                    }
-                }
-
-// ------- UI helpers -------
-
-                function showMessage(messageText) {
-                    const messageContainer = document.querySelector("#payment-message");
-
-                    messageContainer.classList.remove("hidden");
-                    messageContainer.textContent = messageText;
-
-                    setTimeout(function () {
-                        messageContainer.classList.add("hidden");
-                        messageText.textContent = "";
-                    }, 4000);
-                }
-
-// Show a spinner on payment submission
-                function setLoading(isLoading) {
-                    if (isLoading) {
-                        // Disable the button and show a spinner
-                        document.querySelector("#submit").disabled = true;
-                        document.querySelector("#spinner").classList.remove("hidden");
-                        document.querySelector("#button-text").classList.add("hidden");
-                    } else {
-                        document.querySelector("#submit").disabled = false;
-                        document.querySelector("#spinner").classList.add("hidden");
-                        document.querySelector("#button-text").classList.remove("hidden");
-                    }
-                }
-
-
-                // stripe.createToken(card).then(function (result) {
-                //     console.log('createToken: ', result);
-                //     if (result.error) {
-                //         // Inform the customer that there was an error.
-                //         var errorElement = document.getElementById('card-errors');
-                //         errorElement.textContent = result.error.message;
-                //     } else {
-                //         $this.stripeToken = result.token.id
-                //         $this.submit_form(el)
-                //     }
-                // });
             } else {
                 $this.submit_form(el)
 
             }
         });
-
-
-        this.getPaymentToken()
-
-        var style = {
-            base: {
-                // Add your base input styles here. For example:
-                fontSize: '16px',
-                color: '#32325d',
-            },
-        };
-
-        // var stripe = Stripe('pk_test_51JnNJWEyrjgWWtiTKguEGz7IQ6Lu7bIEgNoL5aMQ6X6qbDlIIqqEnB0nR1VyZQ3cuoOMMIkg7NOMYRuKYzlufLdg00pJ2qrBa3');
-        // var stripe = Stripe(this.stripePublishableKey);
-        // var elements = stripe.elements();
-
-
-        // var card = elements.create('card', {style: style});
-        //
-        // card.mount('#card-element');
 
         document.addEventListener('DOMContentLoaded', function () {
             let dayofbirth = $("#dayofbirth");
@@ -363,33 +302,43 @@ export default Vue.component("v-order-route", {
 
     },
     methods: {
-        getPaymentToken() {
+        async createStripeToken() {
+            console.log('createStripeToken: ', this.cardNumber);
+            const {token, error} = await this.$stripe.createToken(this.cardNumber);
+            if (error) {
+                // handle error here
+                this.showMessage(error.message)
+                document.getElementById('card-error').innerHTML = error.message;
+                return false;
+            }
 
-            console.log('getPaymentToken');
+            console.log(token);
+            return token
+            // handle the token
+            // send it to your server
+        },
+        setLoading(isLoading) {
+            if (isLoading) {
+                // Disable the button and show a spinner
+                document.querySelector("#submit").disabled = true;
+                document.querySelector("#spinner").classList.remove("hidden");
+                document.querySelector("#button-text").classList.add("hidden");
+            } else {
+                document.querySelector("#submit").disabled = false;
+                document.querySelector("#spinner").classList.add("hidden");
+                document.querySelector("#button-text").classList.remove("hidden");
+            }
+        },
+        showMessage(messageText) {
+            const messageContainer = document.querySelector("#payment-message");
 
-            axios.post('/' + window.App.language + '/get_payment_token', {
-                payment_type: this.payment_type,
-                currency: this.currency,
-                total: this.getTotalOrderAmount()
-            })
-                .then(res => {
-                    if (res) {
-                        if (res.data['status'] === 'success') {
-                            console.log('res.data: ', res.data);
-                            var stripe = Stripe(this.stripePublishableKey);
+            messageContainer.classList.remove("hidden");
+            messageContainer.textContent = messageText;
 
-                            this.elements = stripe.elements({clientSecret: res.data['clientSecret']});
-
-                            const paymentElement = this.elements.create("payment");
-                            paymentElement.mount("#card-element");
-
-                            // window.location.href = this.getUrl(res.data['path']);
-                        }
-                    }
-                }).catch(e => {
-                console.log(e);
-                // window.location.href = this.getUrl('order-cancel');
-            })
+            setTimeout(function () {
+                messageContainer.classList.add("hidden");
+                messageText.textContent = "";
+            }, 4000);
         },
         setCar(car) {
             console.log(car);
@@ -409,10 +358,12 @@ export default Vue.component("v-order-route", {
         getActions() {
             return '/' + window.App.language + '/' + 'order-success'
         },
-        submit_form(e) {
-            console.log(e);
+        async submit_form(e) {
+            console.log('submit_form', e);
             e.preventDefault()
+
             this.$emit("return", this.data, this.checked);
+
             this.checked = !this.checked;
 
             let data = this.cart
@@ -421,14 +372,11 @@ export default Vue.component("v-order-route", {
             data['payment_type'] = this.payment_type
             data['currency'] = this.currency
             data['total'] = this.getTotalOrderAmount()
-            data['elements'] = this.elements
 
-
+            console.log(data);
             axios.post('/' + window.App.language + '/set_order', data)
                 .then(res => {
-
-                    console.log('getPlaces ress;', res);
-
+                    console.log(res);
                     if (res) {
                         if (res.data['status'] === 'success') {
 
@@ -436,19 +384,12 @@ export default Vue.component("v-order-route", {
 
                             this.$store.commit('clearOrder');
 
-                            var stripe = Stripe(this.stripePublishableKey);
-
-                            var elements = stripe.elements({clientSecret: res.data['clientSecret']});
-
-                            const paymentElement = elements.create("payment");
-                            paymentElement.mount("#card-element");
-
-                            // window.location.href = this.getUrl(res.data['path']);
+                            window.location.href = this.getUrl(res.data['path']);
                         }
                     }
                 }).catch(e => {
                 console.log(e);
-                // window.location.href = this.getUrl('order-cancel');
+                window.location.href = this.getUrl('order-cancel');
             })
         },
         getUrl(path) {
@@ -488,6 +429,9 @@ export default Vue.component("v-order-route", {
             total_rate: store => store.total_rate,
             currency: store => store.currency,
         }),
+        stripeElements() {
+            return this.$stripe.elements();
+        },
         getExtraMinutes() {
             let extraMinutes = 0;
             this.points.forEach(item => {
