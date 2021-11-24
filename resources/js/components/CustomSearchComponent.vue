@@ -320,8 +320,8 @@ export default Vue.component("v-custom-search", {
             default: 1
         },
         invert: {
-            type: Boolean,
-            default: false
+            type: Number,
+            default: 0
         },
         invert_route: {
             type: Boolean,
@@ -370,6 +370,7 @@ export default Vue.component("v-custom-search", {
         });
 
 
+        console.log('this.current: ', this.current);
         console.log('price: ', this.current.price);
         console.log('places: ', this.current.places);
         console.log('current_route_places:', this.current_route_places);
@@ -381,14 +382,14 @@ export default Vue.component("v-custom-search", {
         if (this.current) {
             this.searchInvert = this.invert === 1
             this.route_id = this.current.id;
-            this.orderRoute.from = this.searchInvert ? this.current.to_city.name : this.current.from_city.name
+            this.orderRoute.from = parseInt(this.invert) === 1 ? this.current.to_city.name : this.current.from_city.name
             // this.orderRoute.to = this.to
             this.orderRoute.adults = this.adults
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
-            this.orderRoute.to = this.searchInvert ? this.current.from_city.name : this.current.to_city.name
+            this.orderRoute.to = parseInt(this.invert)  ? this.current.from_city.name : this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             // this.price = this.current.price
