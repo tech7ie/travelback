@@ -73,10 +73,16 @@
                                         <div class="stripe">
                                             <label>Card Number</label>
                                             <div id="card-number"></div>
-                                            <label>Card Expiry</label>
-                                            <div id="card-expiry"></div>
-                                            <label>Card CVC</label>
-                                            <div id="card-cvc"></div>
+                                            <div class="card_details">
+                                                <div>
+                                                    <label>Card Expiry</label>
+                                                    <div id="card-expiry"></div>
+                                                </div>
+                                                <div>
+                                                    <label>Card CVC</label>
+                                                    <div id="card-cvc"></div>
+                                                </div>
+                                            </div>
                                             <div id="card-error"></div>
                                         </div>
                                         <div v-if="payment_type === 1" id="card-element">
@@ -216,6 +222,7 @@
 import Vue from "vue/dist/vue.esm.browser.min";
 import {mapState} from "vuex";
 import initValidation from "./helper/validator";
+
 export default Vue.component("v-order-route", {
     data() {
         return {
@@ -260,6 +267,9 @@ export default Vue.component("v-order-route", {
                 '::placeholder': {
                     color: '#aab7c4',
                 },
+                background: '#f8f8f8',
+                border: '1px solid',
+                'border-radius': '7px',
                 padding: '5px'
             },
             invalid: {
@@ -442,3 +452,28 @@ export default Vue.component("v-order-route", {
     }
 });
 </script>
+<style scoped>
+.card_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+#card-number{
+    border-radius: 7px;
+    border: 1px #c1c1c1c1 solid;
+    padding: 7px;
+    margin: 5px 0;
+}
+#card-expiry{
+    border-radius: 7px;
+    border: 1px #c1c1c1c1 solid;
+    padding: 7px;
+    margin: 5px 0;
+}
+#card-cvc{
+    border-radius: 7px;
+    border: 1px #c1c1c1c1 solid;
+    padding: 7px;
+    margin: 5px 0;
+}
+</style>

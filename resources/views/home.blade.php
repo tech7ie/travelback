@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div class="sliderhome-desktop">
+    <div class="sliderhome-desktop-mob">
         <div class="sliderhome">
             <div class="sliderhome__wrap">
                 <div class="container">
