@@ -153,7 +153,7 @@ class RouteOrder extends Section implements Initializable {
                                     $places = $instance->places();
                                     $placesList = '';
                                     foreach ($places->get() as $place){
-                                        $placesList .= "<li>". $place->title ." --- " . (int)$place->pivot->durations ."min.</li>";
+                                        $placesList .= "<li>". $place->title_en ." --- " . (int)$place->pivot->durations ."min.</li>";
                                     }
                                     return
                                         "<b>Places:</b>
