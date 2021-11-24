@@ -323,6 +323,10 @@ export default Vue.component("v-custom-search", {
             type: Boolean,
             default: false
         },
+        invert_route: {
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {
@@ -370,10 +374,12 @@ export default Vue.component("v-custom-search", {
         console.log('places: ', this.current.places);
         console.log('current_route_places:', this.current_route_places);
         console.log('debug: ', this.debug);
+        console.log('invert: ', this.invert);
+        console.log('invert_route: ', this.invert_route);
 
         console.log('this.$route.params: ', this.$router)
         if (this.current) {
-            this.searchInvert = this.invert
+            this.searchInvert = this.invert === 1
             this.route_id = this.current.id;
             this.orderRoute.from = this.searchInvert ? this.current.to_city.name : this.current.from_city.name
             // this.orderRoute.to = this.to

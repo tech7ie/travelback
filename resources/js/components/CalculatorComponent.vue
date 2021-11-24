@@ -47,8 +47,8 @@
                     </div>
                     <div class="custom-select__options" :class="{ '--opened': openedTo }">
                         <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
-                            <b>{{ invert ? item.from_city : item.to_city }}</b>
-                            <em>{{ invert ? item.from_country :  item.to_country }}</em>
+                            <b>{{ invert === 1 ? item.from_city : item.to_city }}</b>
+                            <em>{{ invert === 1 ? item.from_country :  item.to_country }}</em>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ export default Vue.component("v-calculator", {
     },
     data() {
         return {
-            invert: false,
+            invert: 0,
             popupMessage: "Your request already sended !!!",
             searchActionsUrl: '',
             parsedRoutes: [],
@@ -193,8 +193,8 @@ export default Vue.component("v-calculator", {
                 const allRoutesResult = []
 
                 this.parsedRoutes.forEach(p=>{
-                    allRoutesResult.push({city: p.from_city, country: p.from_country, invert: false})
-                    allRoutesResult.push({city: p.to_city, country: p.to_country, invert: true})
+                    allRoutesResult.push({city: p.from_city, country: p.from_country, invert: 0})
+                    allRoutesResult.push({city: p.to_city, country: p.to_country, invert: 1})
                 })
 
                 const fromRoutesResult = allRoutesResult.filter(r => {
@@ -230,7 +230,7 @@ export default Vue.component("v-calculator", {
         },
         filteredRoutesTo() {
 
-            if (this.invert){
+            if (this.invert === 1){
 
                 return this.parsedRoutes.filter(r => {
                     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
@@ -305,6 +305,7 @@ export default Vue.component("v-calculator", {
         },
         selectFrom(item) {
             // this.openedFrom = false;
+            console.log('item.invert: ', item.invert);
             this.selectedFrom = item.city
             this.invert = item.invert
             this.updateError();
@@ -314,7 +315,7 @@ export default Vue.component("v-calculator", {
         },
         selectTo(item) {
             // this.openedTo = false;
-            this.selectedTo = this.invert ? item.from_city : item.to_city;
+            this.selectedTo = this.invert === 1 ? item.from_city : item.to_city;
             this.route_id = item.route_id;
             this.updateError();
         },
@@ -327,7 +328,7 @@ export default Vue.component("v-calculator", {
             this.selectedFrom = to;
             this.selectedTo = from;
             this.$store.commit('clearPoint');
-            this.invert = !this.invert
+            this.invert = this.invert > 0 ? 1 : 0
             this.updateError();
         },
         search() {
@@ -336,9 +337,6 @@ export default Vue.component("v-calculator", {
         }
     },
     mounted() {
-
-
-        console.log('this.mode: mounted:  ', this.mode);
 
         initValidation(".js-calculator");
 
@@ -362,8 +360,6 @@ export default Vue.component("v-calculator", {
         this.parsedRoutes = JSON.parse(this.routes)
         this.searchActionsUrl = '/' + (window.App.language ?? 'en') + '/search';
         this.selectedFrom = this.request.from ?? ''
-        this.selectedTo = this.request.to ?? ''
-        this.selectedTo = this.request.to ?? ''
         this.selectedTo = this.request.to ?? ''
     },
     directives: {

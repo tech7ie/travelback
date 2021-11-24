@@ -13,5 +13,6 @@
     hours="{{ $_GET['hours'] ?? '' }}"
     minutes="{{ $_GET['minutes'] ?? '' }}"
     invert="{{ $_GET['invert'] ?? 0 }}"
+    invert_route="{{ $_GET['invert'] ?? 0 }}"
 >
 </v-custom-search>
