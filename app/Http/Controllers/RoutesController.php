@@ -47,7 +47,7 @@ class RoutesController extends Controller {
                     $placesResponse[] = [
                         'id'              => $item['id'],
                         'title'           => $this->getTranslateContent( $item, 'title' ),
-                        'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 220) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 220) ? '...' : ''),
+                        'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 350) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 350) ? '...' : ''),
                         'image'           => $item['image'],
                         'price'           => $item['price'],
                         'durations'       => $item['durations'],
@@ -265,7 +265,7 @@ class RoutesController extends Controller {
                 $placesResponse[] = [
                     'id'              => $item['id'],
                     'title'           => $this->getTranslateContent( $item, 'title' ),
-                    'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 220) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 220) ? '...' : ''),
+                    'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 350) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 350) ? '...' : ''),
                     'image'           => $item['image'],
                     'durations'       => $item['durations'],
                     'extra_durations' => $item['extra_durations'],
