@@ -5,7 +5,9 @@
         <header style="background-image: url({{asset('img/about-head.jpg')}})">
             <div class="container">
                 <div class="img-wrap">
-                    {!! $content['body'] ?? '' !!}
+                    <p>
+                        {!! $content['body'] ?? '' !!}
+                    </p>
                 </div>
             </div>
         </header>

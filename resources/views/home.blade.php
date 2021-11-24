@@ -96,7 +96,9 @@
                             <div class="swiper-slide"><i><img src="{{$item['image']}}" alt="IMG"></i>
                                 <b>{{$item['title']}}</b>
                                 <div class="swipe_body" style="max-height: 190px">
-                                    {!! $item['body'] !!}
+                                    <p>
+                                        {!! $item['body'] !!}
+                                    </p>
                                 </div>
                             </div>
                         @endforeach

@@ -2,6 +2,6 @@
 
 @section('content')
     <section class="page">
-        {!! $content['body'] ?? '' !!}
+        <p>{!! $content['body'] ?? '' !!}</p>
     </section>
 @endsection
