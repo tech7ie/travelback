@@ -105,9 +105,9 @@
 
                                 {!! $content['embed_video'] !!}
             </div>
-            <div class="container">
-                <h2>{!! $content['video_block_title'] ?? '' !!}</h2>
-            </div>
+{{--            <div class="container">--}}
+{{--                <h2>{!! $content['video_block_title'] ?? '' !!}</h2>--}}
+{{--            </div>--}}
         </section>
         <div class="homehead__bottom">
             <div class="container">
