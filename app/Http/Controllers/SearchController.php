@@ -82,7 +82,7 @@ class SearchController extends Controller {
                     $placesResponse[] = [
                         'id'              => $item['id'],
                         'title'           => $this->getTranslateContent( $item, 'title' ),
-                        'body'            => $this->getTranslateContent( $item, 'body' ),
+                        'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 220) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 220) ? '...' : ''),
                         'image'           => $item['image'],
                         'durations'       => $item['durations'],
                         'extra_durations' => $item['extra_durations'],
