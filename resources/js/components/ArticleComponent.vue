@@ -9,7 +9,9 @@
       padding: 21px;
       border-radius: 22px;">
             <b>{{ data.title }}</b>
-            <div :style="{'max-height':'60%', 'overflow':'hidden'}" v-html="data.body"></div>
+            <div :style="{'max-height':'60%', 'overflow':'hidden'}">
+                <p v-html="data.body"></p>
+            </div>
             <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
             <button type="button" :class="{added: addedPoint}" @click="buy">
                 {{$t('Add for')}} <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
