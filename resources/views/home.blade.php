@@ -127,18 +127,18 @@
     @if($partners && count($partners) > 0)
         <section class="partners">
             <div class="container">
-                <div class="partners__slider">
-                    <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
-                    <div class="partners-slider swiper-container">
-                        <!-- Additional required wrapper-->
-                        <div class="swiper-wrapper">
-                            <!-- Slides-->
-                            @foreach($partners as $partner)
-                                <div class="swiper-slide">
-                                    <img src="{{$partner['image']}}" alt="{{$partner['title']}}">
-                                </div>
-                            @endforeach
-                        </div>
+            </div>
+            <div class="partners__slider">
+                <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
+                <div class="partners-slider swiper-container">
+                    <!-- Additional required wrapper-->
+                    <div class="swiper-wrapper">
+                        <!-- Slides-->
+                        @foreach($partners as $partner)
+                            <div class="swiper-slide">
+                                <img src="{{$partner['image']}}" alt="{{$partner['title']}}">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
