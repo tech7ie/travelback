@@ -250,3 +250,13 @@
         </div>
     </section>
 @endsection
+<style>
+    @media only screen and (max-width: 600px) {
+        .video_box > iframe{
+            width: 100%!important;
+            height: auto!important;
+            padding: 20px;
+        }
+    }
+
+</style>

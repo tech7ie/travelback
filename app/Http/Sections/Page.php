@@ -115,7 +115,7 @@ class Page extends Section implements Initializable
                         AdminFormElement::html('<hr>')
                     ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
                 addColumn([
-                    AdminFormElement::html('<b>Ex: https://www.youtube.com/watch?v=NpEaa2P7qZI</b>'),
+                    AdminFormElement::html('<b>Ex: https://www.youtube.com/watch?v=NpEaa2P7qZI</b><br>params: ?autoplay=1&mute=1 for autoplay'),
                     AdminFormElement::textarea('embed_video', 'Video url:', 'ckeditor'),
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
                 addColumn( [
