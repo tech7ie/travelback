@@ -143,10 +143,9 @@
     </header>
     @yield('content')
     <x-footer/>
-</div>
-@auth
+    @auth
 
-@else
+    @else
     <div class="popup --sm popup-forgotpass" id="forgotpass">
         <div class="popup__wrap">
             <h3 class="--center">{{ __('Forgot password') }}</h3>
@@ -194,7 +193,8 @@
             </form>
         </div>
     </div>
-@endauth
+    @endauth
+</div>
 </body>
 
 
