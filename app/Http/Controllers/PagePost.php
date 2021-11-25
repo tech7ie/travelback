@@ -28,7 +28,7 @@ class PagePost extends Controller {
                     'slug'              => $content['slug'],
                     'embed_video'       => $content['embed_video'],
                     'title'             => $this->getTranslateContent( $content, 'title' ),
-                    'body'              => $this->getTranslateContent( $content, 'body' ),
+                    'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
                     'meta_title'        => $this->getTranslateContent( $content, 'meta_title' ),
                     'meta_keywords'     => $this->getTranslateContent( $content, 'meta_keywords' ),
                     'meta_descriptions' => $this->getTranslateContent( $content, 'meta_descriptions' )
@@ -52,7 +52,7 @@ class PagePost extends Controller {
             $team_response[] = [
                 'title'    => $this->getTranslateContent( $team, 'title' ),
                 'position' => $this->getTranslateContent( $team, 'position' ),
-                'body'     => $this->getTranslateContent( $team, 'body' ),
+                'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
                 'image'    => $team['image']
             ];
         }
@@ -64,7 +64,7 @@ class PagePost extends Controller {
                         'slug'              => $content['slug'],
                         'embed_video'       => $content['embed_video'],
                         'title'             => $this->getTranslateContent( $content, 'title' ),
-                        'body'              => $this->getTranslateContent( $content, 'body' ),
+                        'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
                         'meta_title'        => $this->getTranslateContent( $content, 'meta_title' ),
                         'meta_keywords'     => $this->getTranslateContent( $content, 'meta_keywords' ),
                         'meta_descriptions' => $this->getTranslateContent( $content, 'meta_descriptions' ),

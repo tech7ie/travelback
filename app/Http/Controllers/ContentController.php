@@ -29,7 +29,9 @@ class ContentController {
         foreach ($contacts as $team){
             $contacts_response[] = [
                 'label' => $this->getTranslateContent($team, 'label'),
-                'body' => $this->getTranslateContent($team, 'body'),
+                'body'              => strip_tags($this->getTranslateContent( $team, 'body' )),
+
+//                'body' => $this->getTranslateContent($team, 'body'),
                 'url' => $this->getTranslateContent($team, 'url'),
                 'image' => $this->getTranslateContent($team, 'image'),
                 'type' => $team['type']
