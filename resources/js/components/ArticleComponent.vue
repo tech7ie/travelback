@@ -8,20 +8,27 @@
       flex-direction: column;
       padding: 21px;
       border-radius: 22px;">
-            <b>{{ data.title }}</b>
-            <div :style="{'max-height':'60%', 'overflow':'hidden'}">
-                <p v-html="data.body"></p>
-            </div>
+            <a data-fancybox :data-src="'#hidden-content_' + data.id" href="javascript:;">
+
+                <b>{{ data.title }}</b>
+                <div :style="{'max-height':'60%', 'overflow':'hidden'}">
+                    <p v-html="data.body"></p>
+                </div>
+            </a>
             <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
             <button type="button" :class="{added: addedPoint}" @click="buy">
-                {{$t('Add for')}} <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
+                {{ $t('Add for') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ (parseFloat(data.price) * rate).toFixed(2) }}
                 <span>
           <svg class="icon check">
             <use xlink:href="/img/sprites/sprite.svg#check"></use>
           </svg>
-                    {{$t('added')}}
+                    {{ $t('added') }}
         </span>
             </button>
+            <div style="display: none;" :id="'hidden-content_' + data.id">
+                <h2>{{ data.title }}</h2>
+                <p v-html="data.body"></p>
+            </div>
         </div>
     </article>
 </template>
@@ -50,3 +57,14 @@ export default Vue.component("v-article", {
     }
 });
 </script>
+<style scoped>
+.psearch__other article p {
+    max-height: 127px;
+    overflow: hidden;
+}
+</style>
+<style scoped>
+article a {
+    text-decoration: none;
+}
+</style>
