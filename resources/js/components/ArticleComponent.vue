@@ -66,5 +66,6 @@ export default Vue.component("v-article", {
 <style scoped>
 article a {
     text-decoration: none;
+    text-transform: none;
 }
 </style>
