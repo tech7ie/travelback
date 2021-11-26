@@ -85,7 +85,7 @@ class HomeController extends Controller {
             $placesResponse[] = [
                 'id' => $item['id'],
                 'title' => $this->getTranslateContent($item, 'title'),
-                'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 286) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 286) ? '...' : ''),
+                'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
                 'image' => $item['image'],
                 'durations' => $item['durations'],
                 'extra_durations' => $item['extra_durations'],
