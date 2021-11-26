@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cities;
+use App\Models\Page;
 use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
@@ -22,6 +23,10 @@ class SearchController extends Controller {
      */
     public function index( \Illuminate\Http\Request $request ) {
         try {
+
+            $content = Page::query()->where([['slug', '=', 'search']])->first() ?? false;
+
+
             $data  = $request->all();
             $route = Routes::find( $data['route'] );
 
@@ -53,7 +58,19 @@ class SearchController extends Controller {
             return view( 'pages/search', [
                 'currentRoute'       => $route,
                 'currentRoutePlaces' => $placesResponse,
-                'debug'              => [ 'data' => $data, 'route' => $route, 'places' => $placesResponse ]
+                'debug'              => [ 'data' => $data, 'route' => $route, 'places' => $placesResponse ],
+                'content' => [
+                    'title' => $this->getTranslateContent($content, 'title'),
+                    'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
+
+                    //                'body' => $this->getTranslateContent($content, 'body'),
+                    'meta_title' => $this->getTranslateContent($content, 'meta_title'),
+                    'meta_keywords' => $this->getTranslateContent($content, 'meta_keywords'),
+                    'meta_descriptions' => $this->getTranslateContent($content, 'meta_descriptions'),
+                    'embed_video' => $content['embed_video'],
+                    'video_block_title' => $content['video_block_title'],
+                    'block_image' => $content['block_image'],
+                ]
             ] );
 
         } catch ( \Throwable $t ) {
