@@ -31,3 +31,7 @@ i.aud_money{
     display: inline!important;
 }
 
+a:hover,a:active,a:link {
+    outline: 0 !important;
+    text-decoration: none !important;
+}

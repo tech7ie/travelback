@@ -294,5 +294,7 @@
         text-decoration: none;
         text-transform: none;
         color: #000000;
+        outline-offset: unset;
+
     }
 </style>

@@ -56,6 +56,13 @@
     <link rel="stylesheet" href="{{ asset('styles/extend.css') }}">
 </head>
 <body>
+<style>
+    .swiper-wrapper a:hover, .swiper-wrapper a:active, .swiper-wrapper a:link {
+        outline: 0 !important;
+        text-decoration: none !important;
+    }
+
+</style>
 <div id="app">
     <v-init auth="{{(Auth::check())}}"></v-init>
     <svg style="width: 0; height: 0; overflow: hidden; position: absolute; left: -100%;" width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
