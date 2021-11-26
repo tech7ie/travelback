@@ -128,8 +128,8 @@
                             </div>
                         </div>
 
-                        <div>
-                            <button>
+                        <div class="tickets__buy">
+                        <button>
                                 <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
                             </button>
                         </div>
@@ -389,7 +389,7 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.luggage = this.luggage
             this.orderRoute.price_increase = this.current.from_country.price_increase
             this.$store.commit('setCurrencyRate', this.current.from_country.price_increase);
-            this.orderRoute.to = parseInt(this.invert)  ? this.current.from_city.name : this.current.to_city.name
+            this.orderRoute.to = parseInt(this.invert) ? this.current.from_city.name : this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
             // this.price = this.current.price
@@ -928,3 +928,15 @@ export default Vue.component("v-custom-search", {
     }
 });
 </script>
+<style>
+.yourride__selected.extra{
+    padding-top: 20px;
+}
+
+@media (max-width: 580px) {
+    .yourride__selected .tickets__buy {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+}
+</style>
