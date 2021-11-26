@@ -919,7 +919,7 @@ textarea {
   position: relative;
 
   @media(max-width: 520px) {
-    background: none !important;
+
   }
 
   &:after {
@@ -949,8 +949,8 @@ textarea {
     }
 
     @media(max-width: 520px) {
-      padding-top: 45px;
-      padding-bottom: 19px;
+      padding-top: 32px;
+      padding-bottom: 32px;
     }
     @media(max-width: 350px) {
       padding-top: 30px;
@@ -980,7 +980,7 @@ textarea {
       font-style: normal;
       font-weight: bold;
       font-size: 30px;
-      color: $black;
+      color: white;
     }
 
     @media(max-width: 350px) {

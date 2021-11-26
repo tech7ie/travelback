@@ -188,13 +188,26 @@
     </div>
     @if($partners && count($partners) > 0)
         <section class="partners">
+            <div class="container">
+                <div class="partners__wrap">
+                    <div class="partners__text">
+                        <h4>We made a decision in 2020 to equalize the opportunities and maintain the sameexperience for every customer via this simple system: To interconnect certain destinantions and simplify the travelling itself for everyone.</h4>
+                        <p>We supposed public transport might turn into stressful and time-consuming sport, which has encouraged us to come up with this idea: The services we are offering are managed into from A to B“ journeys, naturally mastered with high comfort and efficiency of the ride.</p>
+                        <div class="btn-border"><span>Read more</span>
+                            <svg class="icon">
+                                <use xlink:href="img/sprites/sprite.svg#arrow-long"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="partners__slider">
                 <div class="container">
                     <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
                 </div>
                 <div class="partners-slider swiper-container">
                     <!-- Additional required wrapper-->
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper" style="height: '118px'">
                         <!-- Slides-->
                         @foreach($partners as $partner)
                             <div class="swiper-slide">
@@ -257,6 +270,14 @@
             height: auto!important;
             padding: 20px;
         }
+    }
+
+    .partners__slider .swiper-wrapper{
+        height: 118px!important;
+    }
+
+    .swiper-wrapper{
+        height: auto!important;
     }
 
 </style>
