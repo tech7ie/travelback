@@ -48,66 +48,66 @@
         >
             <div class="video_box" style="text-align: center">
                 <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-{{--                <div id="player"></div>--}}
+                {{--                <div id="player"></div>--}}
 
-{{--                <script>--}}
-{{--                    // 2. This code loads the IFrame Player API code asynchronously.--}}
-{{--                    var tag = document.createElement('script');--}}
+                {{--                <script>--}}
+                {{--                    // 2. This code loads the IFrame Player API code asynchronously.--}}
+                {{--                    var tag = document.createElement('script');--}}
 
-{{--                    tag.src = "https://www.youtube.com/iframe_api";--}}
-{{--                    var firstScriptTag = document.getElementsByTagName('script')[0];--}}
-{{--                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);--}}
+                {{--                    tag.src = "https://www.youtube.com/iframe_api";--}}
+                {{--                    var firstScriptTag = document.getElementsByTagName('script')[0];--}}
+                {{--                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);--}}
 
-{{--                    // 3. This function creates an <iframe> (and YouTube player)--}}
-{{--                    //    after the API code downloads.--}}
-{{--                    var player;--}}
+                {{--                    // 3. This function creates an <iframe> (and YouTube player)--}}
+                {{--                    //    after the API code downloads.--}}
+                {{--                    var player;--}}
 
-{{--                    function onYouTubeIframeAPIReady() {--}}
-{{--                        player = new YT.Player('player', {--}}
-{{--                            height: '360',--}}
-{{--                            width: '640',--}}
-{{--                            videoId: 'l8bc3Ffqt0Q',--}}
-{{--                            events: {--}}
-{{--                                'onReady': onPlayerReady,--}}
-{{--                                'onStateChange': onPlayerStateChange--}}
-{{--                            }--}}
-{{--                        });--}}
-{{--                    }--}}
+                {{--                    function onYouTubeIframeAPIReady() {--}}
+                {{--                        player = new YT.Player('player', {--}}
+                {{--                            height: '360',--}}
+                {{--                            width: '640',--}}
+                {{--                            videoId: 'l8bc3Ffqt0Q',--}}
+                {{--                            events: {--}}
+                {{--                                'onReady': onPlayerReady,--}}
+                {{--                                'onStateChange': onPlayerStateChange--}}
+                {{--                            }--}}
+                {{--                        });--}}
+                {{--                    }--}}
 
-{{--                    // 4. The API will call this function when the video player is ready.--}}
-{{--                    function onPlayerReady(event) {--}}
-{{--                        console.log('onPlayerReady');--}}
-{{--                        event.target.playVideo();--}}
-{{--                    }--}}
+                {{--                    // 4. The API will call this function when the video player is ready.--}}
+                {{--                    function onPlayerReady(event) {--}}
+                {{--                        console.log('onPlayerReady');--}}
+                {{--                        event.target.playVideo();--}}
+                {{--                    }--}}
 
-{{--                    // 5. The API calls this function when the player's state changes.--}}
-{{--                    //    The function indicates that when playing a video (state=1),--}}
-{{--                    //    the player should play for six seconds and then stop.--}}
-{{--                    var done = false;--}}
+                {{--                    // 5. The API calls this function when the player's state changes.--}}
+                {{--                    //    The function indicates that when playing a video (state=1),--}}
+                {{--                    //    the player should play for six seconds and then stop.--}}
+                {{--                    var done = false;--}}
 
-{{--                    function onPlayerStateChange(event) {--}}
+                {{--                    function onPlayerStateChange(event) {--}}
 
-{{--                        console.log(event.data);--}}
-{{--                        if (event.data !== 1) {--}}
-{{--                            event.target.playVideo()--}}
-{{--                        }--}}
-{{--                        console.log('onPlayerStateChange: ', event);--}}
-{{--                        if (event.data == YT.PlayerState.PLAYING && !done) {--}}
-{{--                            setTimeout(stopVideo, 6000);--}}
-{{--                            done = true;--}}
-{{--                        }--}}
-{{--                    }--}}
+                {{--                        console.log(event.data);--}}
+                {{--                        if (event.data !== 1) {--}}
+                {{--                            event.target.playVideo()--}}
+                {{--                        }--}}
+                {{--                        console.log('onPlayerStateChange: ', event);--}}
+                {{--                        if (event.data == YT.PlayerState.PLAYING && !done) {--}}
+                {{--                            setTimeout(stopVideo, 6000);--}}
+                {{--                            done = true;--}}
+                {{--                        }--}}
+                {{--                    }--}}
 
-{{--                    function stopVideo() {--}}
-{{--                        player.stopVideo();--}}
-{{--                    }--}}
-{{--                </script>--}}
+                {{--                    function stopVideo() {--}}
+                {{--                        player.stopVideo();--}}
+                {{--                    }--}}
+                {{--                </script>--}}
 
-                                {!! $content['embed_video'] !!}
+                {!! $content['embed_video'] !!}
             </div>
-{{--            <div class="container">--}}
-{{--                <h2>{!! $content['video_block_title'] ?? '' !!}</h2>--}}
-{{--            </div>--}}
+            {{--            <div class="container">--}}
+            {{--                <h2>{!! $content['video_block_title'] ?? '' !!}</h2>--}}
+            {{--            </div>--}}
         </section>
         <div class="homehead__bottom">
             <div class="container">
@@ -153,13 +153,23 @@
                     <div class="swiper-wrapper">
                         <!-- Slides-->
                         @foreach($places as $item)
-                            <div class="swiper-slide"><i><img src="{{$item['image']}}" alt="IMG"></i>
-                                <b>{{$item['title']}}</b>
-                                <div class="swipe_body" style="max-height: 190px">
-                                    <p>
-                                        {!! $item['body'] !!}
-                                    </p>
-                                </div>
+
+                            <div class="swiper-slide">
+                                <a data-fancybox data-src="#hidden-content_{{$item['id']}}" href="javascript:;">
+                                    <i><img src="{{$item['image']}}" alt="IMG"></i>
+                                    <b>{{$item['title']}}</b>
+                                    <div class="swipe_body" style="max-height: 190px">
+                                        <p>
+                                            {!! $item['body'] !!}
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div style="display: none;" id="hidden-content_{{$item['id']}}">
+                                <h2>{{$item['title']}}</h2>
+                                <p>
+                                    {!! $item['body'] !!}
+                                </p>
                             </div>
                         @endforeach
                     </div>
@@ -265,19 +275,24 @@
 @endsection
 <style>
     @media only screen and (max-width: 600px) {
-        .video_box > iframe{
-            width: 100%!important;
-            height: auto!important;
+        .video_box > iframe {
+            width: 100% !important;
+            height: auto !important;
             padding: 20px;
         }
     }
 
-    .partners__slider .swiper-wrapper{
-        height: 118px!important;
+    .partners__slider .swiper-wrapper {
+        height: 118px !important;
     }
 
-    .swiper-wrapper{
-        height: auto!important;
+    .swiper-wrapper {
+        height: auto !important;
     }
 
+    .swiper-wrapper a {
+        text-decoration: none;
+        text-transform: none;
+        color: #000000;
+    }
 </style>
