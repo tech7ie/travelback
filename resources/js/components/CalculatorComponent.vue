@@ -370,3 +370,9 @@ export default Vue.component("v-calculator", {
 });
 
 </script>
+<style scoped>
+.custom-select__item{
+    max-height: 450px;
+    overflow: scroll;
+}
+</style>
