@@ -283,7 +283,7 @@
     }
 
     .partners__slider .swiper-wrapper {
-        height: 118px !important;
+        /*height: 118px !important;*/
     }
 
     .swiper-wrapper {
