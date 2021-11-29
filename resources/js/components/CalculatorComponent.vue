@@ -2,7 +2,7 @@
     <div class="calc" id="calculator">
         <form @submit.prevent="submitForm" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
-                <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
+                <input type="number" :value="route_id" name="route" hidden>
                 <input type="number" :value="invert" name="invert" hidden>
                 <div class="custom-select__item" :class="{'--active': openedFrom }">
                     <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
@@ -315,8 +315,9 @@ export default Vue.component("v-calculator", {
         },
         selectTo(item) {
             // this.openedTo = false;
+            console.log('selectTo:', item);
             this.selectedTo = this.invert === 1 ? item.from_city : item.to_city;
-            this.route_id = item.route_id;
+            this.route_id = item.id;
             this.updateError();
         },
         inputTo() {
@@ -329,7 +330,7 @@ export default Vue.component("v-calculator", {
             this.selectedFrom = to;
             this.selectedTo = from;
             this.$store.commit('clearPoint');
-            this.invert = this.invert > 0 ? 1 : 0
+            this.invert = this.invert === 0 ? 1 : 0
             this.updateError();
         },
         search() {
