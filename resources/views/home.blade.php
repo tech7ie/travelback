@@ -265,10 +265,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="countries__img">
-                    <img class="desktop" src="/img/map-color.svg" alt="desktop_map">
-                    <img class="mobile" src="/img/svg/map-2.svg" alt="mobile_map">
-                </div>
+{{--                <div class="countries__img">--}}
+{{--                    <img class="desktop" src="/img/map-color.svg" alt="desktop_map">--}}
+{{--                    <img class="mobile" src="/img/svg/map-2.svg" alt="mobile_map">--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>
