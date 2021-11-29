@@ -253,22 +253,22 @@
         <div class="container">
             <div class="countries__wrap">
                 <h2>{!! __("home.block_6.title") !!}</h2>
-{{--                <div class="countries__form">--}}
-{{--                    <div class="form-block">--}}
-{{--                        <div class="form-block__wrap">--}}
-{{--                            <div class="label">{!! __("widgets.calculator.title") !!}</div>--}}
+                <div class="countries__form">
+                    <div class="form-block">
+                        <div class="form-block__wrap">
+                            <div class="label">{!! __("widgets.calculator.title") !!}</div>
 {{--                            <div class="homehead-form form-vue calc" id="homehead-form">--}}
 {{--                                <v-calculator :request="{{json_encode($_GET)}}" :short="true" routes="{{$routes ?? []}}">--}}
 
 {{--                                </v-calculator>--}}
 {{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="countries__img">--}}
-{{--                    <img class="desktop" src="/img/map-color.svg" alt="desktop_map">--}}
-{{--                    <img class="mobile" src="/img/svg/map-2.svg" alt="mobile_map">--}}
-{{--                </div>--}}
+                        </div>
+                    </div>
+                </div>
+                <div class="countries__img">
+                    <img class="desktop" src="/img/map-color.svg" alt="desktop_map">
+                    <img class="mobile" src="/img/svg/map-2.svg" alt="mobile_map">
+                </div>
             </div>
         </div>
     </section>
