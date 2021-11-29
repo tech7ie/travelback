@@ -45,7 +45,7 @@
                             <div class="order__payment">
                                 <div class="order__payment-item">
                                     <div class="order__payment-wrap">
-                                        <h2>{{ $t("Payment") }}</h2>
+                                        <h2>{{ $t("Payment") }}}</h2>
                                         <div class="checkbox --violet">
                                             <input v-model="payment_type" value="1" type="radio" data-payment-check="1" id="check-strip" name="payment">
                                             <label for="check-strip"><img src="/img/stripe.png" alt="stripe"></label>
@@ -70,7 +70,7 @@
                                             </li>
                                         </ul>
                                         <br>
-                                        <div v-show="payment_type === 1" id="card-element">
+                                        <div v-show="parseInt(payment_type) === 1" id="card-element">
                                             <div class="stripe">
                                                 <label>Card Number</label>
                                                 <div id="card-number"></div>
