@@ -12,6 +12,7 @@
                             <div class="wrap-text">
                                 <h4>{{$route['title']}}</h4>
                                 <div
+                                    style="max-height: 80%; overflow:hidden;"
                                     data-fancybox data-src="#hidden-content_{{$route['id']}}"
                                 >{!! $route['body'] !!}</div>
                             </div>
