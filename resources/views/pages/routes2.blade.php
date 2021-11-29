@@ -17,9 +17,7 @@
                             </div>
                             <div style="display: none;" id="hidden-content_{{$route['id']}}">
                                 <h2>{{$route['title']}}</h2>
-                                <p>
                                     {!! $route['body'] !!}
-                                </p>
                             </div>
                         </a>
                     @endforeach
