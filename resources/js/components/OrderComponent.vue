@@ -70,7 +70,7 @@
                                             </li>
                                         </ul>
                                         <br>
-                                        <div v-if="payment_type === 1" id="card-element">
+                                        <div v-show="payment_type === 1" id="card-element">
                                             <div class="stripe">
                                                 <label>Card Number</label>
                                                 <div id="card-number"></div>
