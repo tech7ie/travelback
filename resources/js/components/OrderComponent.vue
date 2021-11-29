@@ -70,22 +70,22 @@
                                             </li>
                                         </ul>
                                         <br>
-                                        <div class="stripe">
-                                            <label>Card Number</label>
-                                            <div id="card-number"></div>
-                                            <div class="card_details">
-                                                <div>
-                                                    <label>Card Expiry</label>
-                                                    <div id="card-expiry"></div>
-                                                </div>
-                                                <div>
-                                                    <label>Card CVC</label>
-                                                    <div id="card-cvc"></div>
-                                                </div>
-                                            </div>
-                                            <div id="card-error"></div>
-                                        </div>
                                         <div v-if="payment_type === 1" id="card-element">
+                                            <div class="stripe">
+                                                <label>Card Number</label>
+                                                <div id="card-number"></div>
+                                                <div class="card_details">
+                                                    <div>
+                                                        <label>Card Expiry</label>
+                                                        <div id="card-expiry"></div>
+                                                    </div>
+                                                    <div>
+                                                        <label>Card CVC</label>
+                                                        <div id="card-cvc"></div>
+                                                    </div>
+                                                </div>
+                                                <div id="card-error"></div>
+                                            </div>
                                             <!-- stripe-checkout -->
                                             <!-- A Stripe Element will be inserted here. -->
                                         </div>
