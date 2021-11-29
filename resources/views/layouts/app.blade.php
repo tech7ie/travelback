@@ -33,6 +33,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
 
+
+    <link rel="stylesheet" href="{{ asset('styles/main.min.css') }}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 
 
@@ -51,7 +54,6 @@
         'language' => app()->getLocale()
     ]) !!};
     </script>
-    <link rel="stylesheet" href="{{ asset('styles/main.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('styles/extend.css') }}">
 </head>
