@@ -9,10 +9,10 @@
                         <a class="routes2__item"
                            href="{{ route('routeDetails', app()->getLocale()) . '/' . $route['id'] }}"
                            style="background-image: url({{asset($route['image'])}})">
-                            <div class="wrap-text">
+                            <div class="wrap-text"
+                                 style="max-height: 80%; overflow:hidden;">
                                 <h4>{{$route['title']}}</h4>
                                 <div
-                                    style="max-height: 80%; overflow:hidden;"
                                     data-fancybox data-src="#hidden-content_{{$route['id']}}"
                                 >{!! $route['body'] !!}</div>
                             </div>
