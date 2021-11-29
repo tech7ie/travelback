@@ -51,11 +51,11 @@
                     <div class="tickets">
                         @foreach ($orders as $order)
                             @php
-                            //print_r($order)
-                                //print_r($order->getRoute()->fromCity['name']);
-                                //print_r($order->places);
-                                //print_r($order->places);
-                                //print_r($order->cars);
+                                //print_r($order)
+                                    //print_r($order->getRoute()->fromCity['name']);
+                                    //print_r($order->places);
+                                    //print_r($order->places);
+                                    //print_r($order->cars);
                             @endphp
 
                             <div class="tickets__item js-ticket">
@@ -151,114 +151,69 @@
             });
         });
 
-        $(document).ready(function($){
-            let dayofbirth = $("#dayofbirth");
-            dayofbirth.mask("99.99.9999");
-            // var phoneInputID = "#phone";
-            // var input = document.querySelector(phoneInputID);
-            // var iti = window.intlTelInput(input, {
-            //     // allowDropdown: false,
-            //     // autoHideDialCode: false,
-            //     // autoPlaceholder: "off",
-            //     // dropdownContainer: $(".input-phone") || document.body,
-            //     // excludeCountries: ["us"],
-            //     separateDialCode: true,
-            //     formatOnDisplay: true,
-            //     geoIpLookup: function (callback) {
-            //         $.get("http://ipinfo.io", function () {
-            //         }, "jsonp").always(function (resp) {
-            //             var countryCode = (resp && resp.country) ? resp.country : "";
-            //             callback(countryCode);
-            //         });
-            //     },
-            //     hiddenInput: "full_number",
-            //     // initialCountry: "auto",
-            //     // localizedCountries: { 'de': 'Deutschland' },
-            //     // nationalMode: false,
-            //     // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-            //     // placeholderNumberType: "MOBILE",
-            //     // separateDialCode: true,
-            //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-            // });
+        $(document).ready(function ($) {
 
-            {{--$(phoneInputID).on("countrychange", function (event) {--}}
-            {{--    console.log('countrychange');--}}
-            {{--    // Get the selected country data to know which country is selected.--}}
-            {{--    var selectedCountryData = iti.getSelectedCountryData();--}}
-
-            {{--    // Get an example number for the selected country to use as placeholder.--}}
-            {{--    newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),--}}
-
-            {{--        // Reset the phone number input.--}}
-            {{--        --}}{{--iti.setNumber({{$user['full_number'] ?? ''}});--}}
-
-            {{--        // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s--}}
-            {{--        mask = newPlaceholder.replace(/[1-9]/g, "0");--}}
-
-            {{--    // Apply the new mask for the input--}}
-            {{--    $(this).mask(mask);--}}
-            {{--});--}}
-
-            // When the plugin loads for the first time, we have to trigger the "countrychange" event manually,
-            // but after making sure that the plugin is fully loaded by associating handler to the promise of the
-            // plugin instance.
-
-            // iti.promise.then(function () {
-            //     $(phoneInputID).trigger("countrychange");
-            // });
-
-            // $(document).ready(function($){
-            $j=jQuery.noConflict();
-                /*
-                * International Telephone Input v16.0.0
-                * https://github.com/jackocnr/intl-tel-input.git
-                * Licensed under the MIT license
-                */
-                var input = document.querySelectorAll("input[name=phone]");
-                var iti_el = $('.iti.iti--allow-dropdown.iti--separate-dial-code');
-                if (iti_el.length) {
-                    iti.destroy();
-
-                    // Get the current number in the given format
-                }
-                for (var i = 0; i < input.length; i++) {
-                    iti = intlTelInput(input[i], {
-                        autoHideDialCode: false,
-                        autoPlaceholder: "aggressive",
-                        initialCountry: "us",
-                        separateDialCode: true,
-                        preferredCountries: ['ru', 'th'],
-                        customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-                            var phone = $('input[name="phone"]').val()
-                            var placeholder = '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
-                            $('input[name="phone"]').data('placeholder', placeholder)
-                            return !phone ? 'Phone number' : placeholder
-                        },
-                        geoIpLookup: function (callback) {
-                            $.get('https://ipinfo.io', function () {
-                            }, "jsonp").always(function (resp) {
-                                var countryCode = (resp && resp.country) ? resp.country : "";
-                                callback(countryCode);
-                            });
-                        },
-                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" // just for
-                    });
-
-                    $('input[name="phone"]').on("focus click countrychange", function (e, countryData) {
-                        var pl = $(this).data('placeholder') + '';
-                        var res = pl.replace(/X/g, '9');
-                        if (res !== 'undefined') {
-                            $(this).inputmask(res, {placeholder: "X", clearMaskOnLostFocus: true});
-                        }
+            console.log($)
+            $(document).ready(function () {
+                let dayofbirth = $("#dayofbirth");
+                dayofbirth.mask("99.99.9999");
+                var phoneInputID = "#phone";
+                var input = document.querySelector(phoneInputID);
+                var iti = window.intlTelInput(input, {
+                    // allowDropdown: false,
+                    // autoHideDialCode: false,
+                    // autoPlaceholder: "off",
+                    // dropdownContainer: $(".input-phone") || document.body,
+                    // excludeCountries: ["us"],
+                    separateDialCode: true,
+                    formatOnDisplay: true,
+                    geoIpLookup: function (callback) {
+                        $.get("http://ipinfo.io", function () {
+                        }, "jsonp").always(function (resp) {
+                            var countryCode = (resp && resp.country) ? resp.country : "";
+                            callback(countryCode);
+                        });
+                    },
+                    hiddenInput: "full_number",
+                    // initialCountry: "auto",
+                    // localizedCountries: { 'de': 'Deutschland' },
+                    // nationalMode: false,
+                    // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+                    // placeholderNumberType: "MOBILE",
+                    // separateDialCode: true,
+                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+                });
 
 
-                    });
-                    $('input[name="phone"]').on("focusout", function (e, countryData) {
-                        var intlNumber = iti.getNumber();
-                    });
+                $(phoneInputID).on("countrychange", function (event) {
 
-                }
-            // })
+                    // Get the selected country data to know which country is selected.
+                    var selectedCountryData = iti.getSelectedCountryData();
+
+                    // Get an example number for the selected country to use as placeholder.
+                    newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
+
+                        // Reset the phone number input.
+
+                    // if (iti.getNumber().length === 0) {
+                    //     iti.setNumber("");
+                    // }
+
+                    // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
+                    mask = newPlaceholder.replace(/[1-9]/g, "0");
+
+                    // Apply the new mask for the input
+                    $(this).mask(mask);
+                });
+
+                // When the plugin loads for the first time, we have to trigger the "countrychange" event manually,
+                // but after making sure that the plugin is fully loaded by associating handler to the promise of the
+                // plugin instance.
+
+                iti.promise.then(function () {
+                    $(phoneInputID).trigger("countrychange");
+                });
+            });
 
 
             // Tab
@@ -272,7 +227,7 @@
                         contents.map(item => (item.classList.remove("active")));
                         contents[index].classList.add("active");
 
-                        if(event === "click") {
+                        if (event === "click") {
                             btns.map(item => (item.classList.remove("active")));
                             btns[index].classList.add("active");
                         }

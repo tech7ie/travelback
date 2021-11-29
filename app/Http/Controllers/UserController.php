@@ -39,9 +39,12 @@ class UserController extends Controller {
             'full_number'  => $data['full_number'],
         ] )->save();
 
-        return view( 'pages/cabinet', [
-            'user' => $user
-        ] );
+        return view( 'pages/cabinet',
+            [
+                'user'   => Auth::user(),
+                'orders' => \App\Models\RouteOrder::select()->where( 'user_id', Auth::user()->id )->get()
+            ]
+        );
     }
 
     public function cabinet( \Illuminate\Http\Request $request ) {

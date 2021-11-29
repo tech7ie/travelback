@@ -20,7 +20,7 @@
                                 <input v-model="orderDetails.birth_day" id="dayofbirth" class="js-input-mask" name="day-of-birth" data-mask="99.99.9999" :placeholder="$t('Day of birth')" required>
                             </div>
                             <div class="input-block input-phone">
-                                <input v-model="orderDetails.phone" type="tel" id="phone" name="phone" required :placeholder="$t('Phone number')">
+                                <input type="tel" id="phone" name="phone" required :placeholder="$t('Phone number')">
                             </div>
                             <div class="textarea-block">
                                 <textarea v-model="orderDetails.comment" name="comment" :placeholder="$t('Comment')"></textarea>
@@ -246,7 +246,7 @@ export default Vue.component("v-order-route", {
                 email: '',
                 first_name: '',
                 last_name: '',
-                phone: '',
+                phone: null,
                 birth_day: '',
                 comment: '',
                 pickup_address: '',
@@ -369,7 +369,7 @@ export default Vue.component("v-order-route", {
             return '/' + window.App.language + '/' + 'order-success'
         },
         async submit_form(e) {
-            console.log('submit_form', e);
+
             e.preventDefault()
 
             this.$emit("return", this.data, this.checked);
@@ -380,10 +380,10 @@ export default Vue.component("v-order-route", {
             data['order_details'] = this.orderDetails
             data['stripe_token'] = this.stripeToken
             data['payment_type'] = this.payment_type
+            data['phone'] = window.iti.getNumber()
             data['currency'] = this.currency
             data['total'] = this.getTotalOrderAmount()
 
-            console.log(data);
             axios.post('/' + window.App.language + '/set_order', data)
                 .then(res => {
                     console.log(res);
