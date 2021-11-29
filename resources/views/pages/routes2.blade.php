@@ -13,11 +13,14 @@
                                 <h4>{{$route['title']}}</h4>
                                 <div
                                     data-fancybox data-src="#hidden-content_{{$route['id']}}"
-                                >{!! substr($route['body'], 0, 420) !!}</div>
+                                >{{substr(strip_tags($route['body']), 0, 420)}}
+                                </div>
                             </div>
                             <div style="display: none;" id="hidden-content_{{$route['id']}}">
                                 <h2>{{$route['title']}}</h2>
-                                    {!! $route['body'] !!}
+                                    <div>
+                                        {{strip_tags($route['body'])}}
+                                    </div>
                             </div>
                         </a>
                     @endforeach
