@@ -154,3 +154,9 @@ export default Vue.component("v-select", {
     }
 });
 </script>
+<style scoped>
+.custom-select__options{
+    max-height: 450px;
+    overflow: scroll;
+}
+</style>
