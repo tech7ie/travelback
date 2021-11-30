@@ -114,7 +114,7 @@ class RouteOrder extends Controller {
 
             }
 
-            return [ 'status' => 'success', 'path' => 'order-success-manual', 'clientSecret' => $paymentIntent->client_secret ];
+            return [ 'status' => 'success', 'path' => 'order-success-manual' ];
 
 
         } catch ( \Throwable $e ) {

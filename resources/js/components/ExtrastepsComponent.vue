@@ -2,19 +2,10 @@
     <div class="extrastops" v-click-outside="close" :class="{ opened }" style="z-index: 9; position:relative;">
         <div class="extrastops__item">
             <input type="hidden" :value="selected" :name="'extrastops' + index">
-            <span>
-                <input type="text" :value="step" :placeholder="'Stops' +  (index + 1)"
-                       style="{
-                width: 100%;
-                background-color: rgb(255, 255, 255);
-                margin-bottom: 0;
-                outline: 0;
-                }">
-            </span>
-
+            <input class="extrastops__item-1" :placeholder="'Stop' + '' + (index + 2)">
             <div class="extrastops__select">
                 <div class="extrastops__select-head" @click="toggle">
-                    <span>{{ selected }} min</span>
+                    <span style="color: black">{{ selected }} min</span>
                     <svg class="icon arrow-down">
                         <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
                     </svg>
@@ -43,7 +34,6 @@ export default Vue.component("v-extrastops-item", {
     data() {
         return {
             opened: false,
-            step: '',
             list: [
                 60,
                 80,
@@ -136,7 +126,7 @@ export default Vue.component("v-extrastops-item", {
             this.$emit("return", value);
         },
         remove() {
-            this.$emit("remove", this.index)
+            this.$emit("remove", this.index);
         }
     },
     directives: {
