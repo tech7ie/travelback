@@ -130,7 +130,7 @@
 
                         <div class="tickets__buy">
                         <button>
-                                <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice((((this.totalCarPrice + this.withstopsListPrice))).toFixed(2)) }}</span>
+                                <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ calculatePrice(this.totalCarPrice.toFixed(2), this.withstopsListPrice) }}</span>
                             </button>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                                 <div>
                                     <div>
                                         {{ $t('Upgrade to a luxury sedan for') }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ calculatePrice(((parseFloat(item.car.price)) + (withstopsListPrice))) }}
+                                        {{ calculatePrice(parseFloat(item.car.price) ,withstopsListPrice) }}
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="tickets__footer-price">
                                     <!--                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrice)) }}</b>-->
-                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ calculatePrice(item.car.price + (withstopsListPrice)) }}</b>
+                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ calculatePrice(item.car.price, withstopsListPrice) }}</b>
                                 </div>
                             </div>
                         </label>
@@ -464,7 +464,7 @@ export default Vue.component("v-custom-search", {
                     {
                         id: p.id,
                         durations: p.durations + p.extra,
-                        price: ((p.price + ((p.extra_durations / 2) * ((p.extra / 30))))).toFixed(2)
+                        price: ((p.price + ((p.price_per_hour / 2) * ((p.extra / 30))))).toFixed(2)
                     })
             })
 
@@ -684,11 +684,14 @@ export default Vue.component("v-custom-search", {
         updatePrice() {
             this.withstopsListPrice = 0;
             this.points.forEach(item => {
-                this.withstopsListPrice += (item.price + ((item.extra / 30) * (item.extra_durations / 2)))
+                this.withstopsListPrice += (item.price + ((item.extra / 30) * (item.price_per_hour / 2)))
             });
         },
-        calculatePrice(price) {
-            return ((parseFloat(price) + parseFloat(this.current.price)) * parseFloat(this.total_rate)).toFixed(2)
+        calculatePrice(price, withstopsListPrice) {
+            return (
+                ((parseFloat(price) +
+                parseFloat(this.current.price)) *
+                parseFloat(this.total_rate)) + parseFloat(withstopsListPrice)).toFixed(2)
         }
     },
     computed: {

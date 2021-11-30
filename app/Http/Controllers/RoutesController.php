@@ -54,6 +54,7 @@ class RoutesController extends Controller {
                         'price'           => $item['price'],
                         'durations'       => $item['durations'],
                         'extra_durations' => $item['extra_durations'],
+                        'price_per_hour' => $item['price_per_hour'],
                         'status'          => $item['status']
                     ];
                 }
@@ -273,6 +274,7 @@ class RoutesController extends Controller {
                     'image'           => $item['image'],
                     'durations'       => $item['durations'],
                     'extra_durations' => $item['extra_durations'],
+                    'price_per_hour' => $item['price_per_hour'],
                 ];
             }
 

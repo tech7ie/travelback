@@ -90,6 +90,7 @@ class HomeController extends Controller {
                 'image' => $item['image'],
                 'durations' => $item['durations'],
                 'extra_durations' => $item['extra_durations'],
+                'price_per_hour' => $item['price_per_hour'],
             ];
         }
 

@@ -412,12 +412,15 @@ export default Vue.component("v-order-route", {
             return '/' + window.App.language + '/order-cancel'
         },
         getTotalOrderAmount() {
-            return (this.total_rate *
+            return (
                 (
-                    parseFloat(this.selected['car_price']) +
-                    parseFloat(this.selected['price']) +
-                    parseFloat(this.selected['withstopsListPrice'])
-                ).toFixed(2)).toFixed(2)
+                    this.total_rate *
+                    (
+                        parseFloat(this.selected['car_price']) +
+                        parseFloat(this.selected['price'])
+                    )) +
+                parseFloat(this.selected['withstopsListPrice'])
+            ).toFixed(2)
         },
         getCarUpdatePrice(car_price) {
             return (this.total_rate *

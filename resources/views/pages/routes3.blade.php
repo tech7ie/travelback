@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="routes3" style="background-color: #ffffff; background-image: none">
+    <section class="routes3" style="background-image: none">
         <div class="routes3__form">
             <div class="container">
                 <div class="form-block">
@@ -23,7 +23,7 @@
         </div>
         <div class="routes3__content">
             <div class="container"
-                 style="background: url(/{{$route['image'] ?? 'url(../img/routes-bg3.jpg)'}})  top right no-repeat #202020;
+                 style="border-radius: 22px; padding: 20px; background: url(/{{$route['image'] ?? 'url(../img/routes-bg3.jpg)'}})  top right no-repeat #202020;
                      background-position: center; background-size: cover!important">
                 <div class="routes3__wrap">
                     <h1 class="routes3__title">{{$route['title'] ?? ''}}</h1>
