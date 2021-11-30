@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="routes3" style="background-color: none; background-image: none">
+    <section class="routes3" style="background-color: #ffffff; background-image: none">
         <div class="routes3__form">
             <div class="container">
                 <div class="form-block">
