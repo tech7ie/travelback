@@ -7,6 +7,8 @@ use AdminColumnFilter;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -18,13 +20,16 @@ use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 
 /**
- * Class Country
+ * Class City
  *
- * @property \App\Models\Country $model
+ * @property \App\Models\Cities $model
  *
  * @see https://sleepingowladmin.ru/#/ru/model_configuration_section
  */
-class Car extends Section implements Initializable {
+class Cities extends Section implements Initializable {
+
+    protected $createTitle = "Add City";
+
     /**
      * @var bool
      */
@@ -55,39 +60,24 @@ class Car extends Section implements Initializable {
     public function onDisplay( $payload = [] ) {
         $columns = [
             AdminColumn::text( 'id', '#' )->setWidth( '50px' )->setHtmlAttribute( 'class', 'text-center' ),
-            AdminColumn::link( 'title', 'Name', 'created_at' )
+            AdminColumn::link( 'name', 'Name', 'label' )
                        ->setSearchCallback( function ( $column, $query, $search ) {
                            return $query
-                               ->orWhere( 'title', 'like', '%' . $search . '%' )
-                               ->orWhere( 'created_at', 'like', '%' . $search . '%' );
-                       } ),
-            AdminColumn::text( 'places_min', 'Min seats' )
+                               ->orWhere( 'name', 'like', '%' . $search . '%' )
+                               ->orWhere( 'label', 'like', '%' . $search . '%' );
+                       } )
+            ,
+            AdminColumn::text( 'country_code', 'Country code' )
                        ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'places_min', $direction );
+                           $query->orderBy( 'order', $direction );
                        } )
                        ->setSearchable( false ),
-            AdminColumn::text( 'places_max', 'Max seats' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'places_max', $direction );
-                       } )
-                       ->setSearchable( false ),
-            AdminColumn::text( 'luggage', 'Luggage' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'luggage', $direction );
-                       } )
-                       ->setSearchable( false ),
-            AdminColumn::text( 'price', 'Car price' )
-                       ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'price', $direction );
-                       } )
-                       ->setSearchable( false ),
-            AdminColumn::text( 'priority', 'Priority order' ),
-            AdminColumn::text( 'vehicle.title', 'Vehicle Body Type' ),
             AdminColumn::text( 'created_at', 'Created / updated', 'updated_at' )
                        ->setOrderable( function ( $query, $direction ) {
-                           $query->orderBy( 'created_at', $direction );
+                           $query->orderBy( 'updated_at', $direction );
                        } )
-                       ->setSearchable( false ),
+                       ->setSearchable( false )
+            ,
         ];
 
         $display = AdminDisplay::datatables()
@@ -123,34 +113,20 @@ class Car extends Section implements Initializable {
     public function onEdit( $id = null, $payload = [] ) {
         $form = AdminForm::card()->addBody( [
             AdminFormElement::columns()->addColumn( [
-                AdminFormElement::text( 'title', 'Title' )
-            ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )->addColumn( [
-                AdminFormElement::select( 'vehicle_body_type', 'Vehicle Body Type' )
-                                ->setModelForOptions( \App\Models\VehicleBodyType::class, 'title' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::number( 'priority', 'Priority' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'luggage', 'Luggage' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'places_min', 'Min seats' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'places_max', 'Max seats' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-2 col-lg-2' )->addColumn( [
-                AdminFormElement::text( 'price', 'Car price' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-3' )->addColumn( [
-                AdminFormElement::image( 'image', 'Image' )
-                                ->required(),
-                AdminFormElement::html( "<b>Only png format.</b>"),
-            ], 'col-xs-12 col-sm-4 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::wysiwyg( 'note', 'Note', 'ckeditor' )
-                                ->required(),
-            ], 'col-xs-12 col-sm-8 col-md-8 col-lg-8' ),
+                AdminFormElement::text( 'label', 'Label' )->required()
+                ,
+                AdminFormElement::text( 'name', 'Name' )->required()
+                ,
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
+
+                AdminFormElement::selectajax( 'country_id', 'Country' )
+                                ->setModelForOptions( Country::class, 'name' )
+                                ->required()
+                ,
+                AdminFormElement::selectajax( 'state_id', 'State' )
+                                ->setModelForOptions( State::class, 'name' )
+                                ->required()
+            ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
         ] );
 
         $form->getButtons()->setButtons( [
@@ -174,6 +150,15 @@ class Car extends Section implements Initializable {
      * @return bool
      */
     public function isDeletable( Model $model ) {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function creating( Model $model ) {
+
+        print_r($model);
         return true;
     }
 

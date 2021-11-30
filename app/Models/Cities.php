@@ -12,6 +12,33 @@ class Cities extends Model
 {
     use HasFactory;
 
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($item) {
+            \Log::info('Item Created Event:'.$item);
+        });
+
+        static::creating(function($item) {
+
+            $state = State::find($item['state_id'])->first();
+            $country = Country::find($item['country_id'])->first();
+
+//            \Log::info('Item State Event:'.$state);
+//            \Log::info('Item Country Event:'.$country);
+//            `label``name``state_id``state_code``country_id``country_code``latitude``longitude``flag``wikiDataId`
+
+            $item['state_code'] = $state['iso2'];
+            $item['country_code'] = $country['iso2'];
+            $item['latitude'] = 0;
+            $item['longitude'] = 0;
+            $item['flag'] = 0;
+            $item['wikiDataId'] = 'Q';
+//            \Log::info('Item Created Event:'.$item);
+        });
+
+    }
 
     function index(){
         return $this->where('country_id' ,'=', 144)->get();

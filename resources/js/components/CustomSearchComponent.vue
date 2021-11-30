@@ -730,15 +730,25 @@ export default Vue.component("v-custom-search", {
         },
         getCarsOrdered() {
             return this.current.cars.sort(function (a, b) {
-                if (a.places_max > b.places_max) {
+                if (a.priority > b.priority) {
                     return 1;
                 }
-                if (a.places_max < b.places_max) {
+                if (a.priority < b.priority) {
                     return -1;
                 }
                 // a должно быть равным b
                 return 0;
             });
+            // return this.current.cars.sort(function (a, b) {
+            //     if (a.places_max > b.places_max) {
+            //         return 1;
+            //     }
+            //     if (a.places_max < b.places_max) {
+            //         return -1;
+            //     }
+            //     // a должно быть равным b
+            //     return 0;
+            // });
         },
         getExtraMinutes() {
             let extraMinutes = 0;

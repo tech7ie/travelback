@@ -25,6 +25,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Content::class => 'App\Http\Sections\Content',
         \App\Models\Place::class => 'App\Http\Sections\Place',
         \App\Models\ExchangeRate::class => 'App\Http\Sections\ExchangeRate',
+        \App\Models\Cities::class => 'App\Http\Sections\Cities',
         \App\Models\Currency::class => 'App\Http\Sections\Currency',
         \App\Models\RouteOrder::class => 'App\Http\Sections\RouteOrder',
     ];

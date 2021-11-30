@@ -8,6 +8,7 @@ use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -155,5 +156,12 @@ class Country extends Section implements Initializable
     public function onRestore($id)
     {
         // remove if unused
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCreatable() {
+        return false;
     }
 }
