@@ -111,7 +111,8 @@ class Page extends Section implements Initializable
                     [
                         AdminFormElement::hidden( 'user_id' )->setDefaultValue(Auth::id()),
                         AdminFormElement::text('slug', 'Slug')
-                                        ->required(),
+                                        ->required()
+                        ->setReadonly($id !== null),
                         AdminFormElement::html('<hr>')
                     ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
                 addColumn([
