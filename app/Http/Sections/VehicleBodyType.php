@@ -124,7 +124,7 @@ class VehicleBodyType extends Section implements Initializable
      */
     public function isDeletable(Model $model)
     {
-        return true;
+        return false;
     }
 
     /**

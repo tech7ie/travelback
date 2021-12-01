@@ -220,7 +220,7 @@ class Place extends Section implements Initializable {
      * @return bool
      */
     public function isDeletable( Model $model ) {
-        return true;
+        return false;
     }
 
     /**

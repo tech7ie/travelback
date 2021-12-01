@@ -150,17 +150,9 @@ class Cities extends Section implements Initializable {
      * @return bool
      */
     public function isDeletable( Model $model ) {
-        return true;
+        return false;
     }
 
-    /**
-     * @return bool
-     */
-    public function creating( Model $model ) {
-
-        print_r($model);
-        return true;
-    }
 
     /**
      * @return void
