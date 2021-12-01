@@ -49,6 +49,7 @@ class RouteOrder extends Controller {
             $routeOrder->luggage          = $data['luggage'];
             $routeOrder->payment_type     = $data['payment_type'];
             $routeOrder->phone            = $data['phone'];
+            $routeOrder->currency         = $data['currency'] ?? 'EUR';
             $routeOrder->save();
 
             foreach ( $data['cars'] as $c ) {

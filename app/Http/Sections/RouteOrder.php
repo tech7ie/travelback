@@ -60,20 +60,23 @@ class RouteOrder extends Section implements Initializable {
             AdminColumn::text( 'id', '#' )->setWidth( '50px' )->setHtmlAttribute( 'class', 'text-center' ),
             AdminColumn::custom( 'Route', function ( $model ) {
                 $route = $model->getRoute();
+
                 return $route->title;
             } ),
             AdminColumn::custom( 'Vehicles', function ( $model ) {
-                $cars = $model->getCars();
-                $carsLists= [];
-                $carsList = $cars->get();
-                foreach ($carsList as $key => $car){
+                $cars      = $model->getCars();
+                $carsLists = [];
+                $carsList  = $cars->get();
+                foreach ( $carsList as $key => $car ) {
                     $carsLists[] = $car->title;
                 }
-                return implode(',', $carsLists);
+
+                return implode( ',', $carsLists );
             } ),
             AdminColumn::custom( 'Status', function ( $model ) {
                 $color = $model->status === 'complete' ? 'green' : 'orange';
-                return "<span style='color: ".$color."'>$model->status</span>";
+
+                return "<span style='color: " . $color . "'>$model->status</span>";
             } ),
             AdminColumn::text( 'amount', 'Price' )
                        ->setOrderable( function ( $query, $direction ) {
@@ -106,6 +109,19 @@ class RouteOrder extends Section implements Initializable {
                              ->setColumnName( 'name' )
                              ->setPlaceholder( 'All names' )
             ,
+            AdminColumnFilter::select()
+                             ->setOptions( [
+                                 'pending'  => 'Pending',
+                                 'complete' => 'Complete',
+                                 'fail'     => 'Fail'
+                             ] )
+                             ->setLoadOptionsQueryPreparer( function ( $element, $query ) {
+                                 return $query;
+                             } )
+                             ->setDisplay( 'status' )
+                             ->setColumnName( 'status' )
+                             ->setPlaceholder( 'All statuses' )
+            ,
         ] );
         $display->getColumnFilters()->setPlacement( 'card.heading' );
 
@@ -120,59 +136,59 @@ class RouteOrder extends Section implements Initializable {
      */
     public function onEdit( $id = null, $payload = [] ) {
         $form = AdminForm::card()->addBody( [
-            AdminFormElement::columns()->
-            addColumn( [
+            AdminFormElement::columns()->addColumn( [
                 AdminFormElement::hidden( 'user_id' )->setDefaultValue( Auth::id() ),
                 AdminFormElement::custom()
-                                ->setDisplay(function($instance) {
+                                ->setDisplay( function ( $instance ) {
 
                                     $route = $instance->getRoute();
                                     $title = $route['title'];
-                                    $from = $instance->getCity($route['route_from_city_id'])['label'];
-                                    $to = $instance->getCity($route['route_to_city_id'])['label'];
+                                    $from  = $instance->getCity( $route['route_from_city_id'] )['label'];
+                                    $to    = $instance->getCity( $route['route_to_city_id'] )['label'];
+
                                     return
                                         "
                                         <ul>
-                                        <li>Route: ".json_encode($title)."</li>
+                                        <li>Route: " . json_encode( $title ) . "</li>
                                         <li>From: $from</li>
                                         <li>To: $to</li>
                                         </ul>
                                      ";
-                                })
-                                ->setCallback(function($instance) {
-                                }),
-                AdminFormElement::text( 'first_name', 'First name' )->setReadonly(true),
-                AdminFormElement::text( 'last_name', 'Last name' )->setReadonly(true),
-                AdminFormElement::text( 'email', 'Email' )->setReadonly(true),
-                AdminFormElement::text( 'phone', 'Phone' )->setReadonly(true),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
-            addColumn( [
+                                } )
+                                ->setCallback( function ( $instance ) {
+                                } ),
+                AdminFormElement::text( 'first_name', 'First name' )->setReadonly( true ),
+                AdminFormElement::text( 'last_name', 'Last name' )->setReadonly( true ),
+                AdminFormElement::text( 'email', 'Email' )->setReadonly( true ),
+                AdminFormElement::text( 'phone', 'Phone' )->setReadonly( true ),
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::custom()
-                                ->setDisplay(function($instance) {
+                                ->setDisplay( function ( $instance ) {
 
-                                    $places = $instance->places();
+                                    $places     = $instance->places();
                                     $placesList = '';
-                                    foreach ($places->get() as $place){
-                                        $placesList .= "<li>". $place->title_en ." --- " . (int)$place->pivot->durations ."min.</li>";
+                                    foreach ( $places->get() as $place ) {
+                                        $placesList .= "<li>" . $place->title_en . " --- " . (int) $place->pivot->durations . "min.</li>";
                                     }
+
                                     return
                                         "<b>Places:</b>
                                         <ul>
                                         $placesList
                                         </ul>
                                      ";
-                                })
-                                ->setCallback(function($instance) {
-                                }),
+                                } )
+                                ->setCallback( function ( $instance ) {
+                                } ),
                 AdminFormElement::custom()
-                                ->setDisplay(function($instance) {
+                                ->setDisplay( function ( $instance ) {
 
 
-                                    $cars = $instance->getCars();
-                                    $carsLists= '';
-                                    $carsList = $cars->get();
-                                    foreach ($carsList as $key => $car){
-                                        $carsLists .= "<li>". $car->title ."</li>";
+                                    $cars      = $instance->getCars();
+                                    $carsLists = '';
+                                    $carsList  = $cars->get();
+                                    foreach ( $carsList as $key => $car ) {
+                                        $carsLists .= "<li>" . $car->title . "</li>";
 
                                     }
 
@@ -182,60 +198,57 @@ class RouteOrder extends Section implements Initializable {
                                         $carsLists
                                         </ul>
                                      ";
-                                })
-                                ->setCallback(function($instance) {
-                                }),
-//                AdminFormElement::multiselect( 'places', 'Places' )
-//                                ->setModelForOptions( \App\Models\Place::class, 'title' )
-//                                ->required()->setReadonly(true),
-//                AdminFormElement::multiselect( 'cars', 'Cars' )
-//                                ->setModelForOptions( \App\Models\Car::class, 'brand' )
-//                                ->required()->setReadonly(true),
+                                } )
+                                ->setCallback( function ( $instance ) {
+                                } ),
+                //                AdminFormElement::multiselect( 'places', 'Places' )
+                //                                ->setModelForOptions( \App\Models\Place::class, 'title' )
+                //                                ->required()->setReadonly(true),
+                //                AdminFormElement::multiselect( 'cars', 'Cars' )
+                //                                ->setModelForOptions( \App\Models\Car::class, 'brand' )
+                //                                ->required()->setReadonly(true),
                 AdminFormElement::datetime( 'route_date', 'Route date' )
                                 ->required(),
-                AdminFormElement::columns()->
-                addColumn(
+                AdminFormElement::columns()->addColumn(
                     [
                         AdminFormElement::text( 'adults', 'Adults' )
-                                      ->required()
-                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4')->
-                addColumn(
+                                        ->required()
+                    ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn(
                     [
                         AdminFormElement::text( 'childrens', 'Childrens' )
-                                      ->required()
-                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4')->
-                addColumn(
+                                        ->required()
+                    ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn(
                     [
                         AdminFormElement::text( 'luggage', 'Luggage' )
-                                      ->required()
-                    ],'col-xs-12 col-sm-6 col-md-4 col-lg-4'),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
-            addColumn( [
+                                        ->required()
+                    ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' ),
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::textarea( 'comment', 'Comment' )
                                 ->required(),
                 AdminFormElement::text( 'pickup_address', 'Pickup address' )
                                 ->required(),
                 AdminFormElement::text( 'drop_off_address', 'Drop off address' )
                                 ->required(),
-                AdminFormElement::number( 'amount', 'Amount')
-                                ->required()->setReadonly(true),
-                AdminFormElement::number( 'currency', 'Currency')
-                                ->required()->setReadonly(true),
+                AdminFormElement::number( 'amount', 'Amount' )
+                                ->required()->setReadonly( true ),
+                AdminFormElement::number( 'currency', 'Currency' )
+                                ->required()->setReadonly( true ),
                 AdminFormElement::custom()
-                                ->setDisplay(function($instance) {
+                                ->setDisplay( function ( $instance ) {
 
                                     $instance->payment_type;
                                     $payment_type = $instance->payment_type === 1 ? 'Cart' : 'Cash';
+
                                     return
-                                        "<b>Payment type: ".$payment_type."</b>";
-                                })
-                                ->setCallback(function($instance) {
-                                }),
+                                        "<b>Payment type: " . $payment_type . "</b>";
+                                } )
+                                ->setCallback( function ( $instance ) {
+                                } ),
                 AdminFormElement::radio( 'status', 'Status' )
                                 ->setOptions( [
-                                    'pending'   => 'Pending',
+                                    'pending'  => 'Pending',
                                     'complete' => 'Complete',
-                                    'fail'   => 'Fail'
+                                    'fail'     => 'Fail'
                                 ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )
