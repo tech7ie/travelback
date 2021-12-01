@@ -277,6 +277,14 @@ class RouteOrder extends Section implements Initializable {
         return false;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function isCreatable() {
+        return false;
+    }
+
     /**
      * @return void
      */
