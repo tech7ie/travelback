@@ -48,6 +48,7 @@ class RouteOrder extends Controller {
             $routeOrder->childrens        = $data['childrens'];
             $routeOrder->luggage          = $data['luggage'];
             $routeOrder->payment_type     = $data['payment_type'];
+            $routeOrder->phone            = $data['phone'];
             $routeOrder->save();
 
             foreach ( $data['cars'] as $c ) {
@@ -110,8 +111,6 @@ class RouteOrder extends Controller {
 //                ]);
 
 
-
-
             }
 
             return [ 'status' => 'success', 'path' => 'order-success-manual' ];
@@ -128,17 +127,17 @@ class RouteOrder extends Controller {
         try {
             $data = $request->all();
             if ( isset( $data['payment_type'] ) && $data['payment_type'] === 1 ) {
-                \Stripe\Stripe::setApiKey(env( 'STRIPE_SECRET_API' ));
-                $paymentIntent = \Stripe\PaymentIntent::create([
-                    'amount' => (int) $data['total'] * 100,
-                    'currency' => 'eur',
+                \Stripe\Stripe::setApiKey( env( 'STRIPE_SECRET_API' ) );
+                $paymentIntent = \Stripe\PaymentIntent::create( [
+                    'amount'                    => (int) $data['total'] * 100,
+                    'currency'                  => 'eur',
                     'automatic_payment_methods' => [
                         'enabled' => true,
                     ],
-                ]);
+                ] );
             }
 
-            return [ 'status' => 'success','clientSecret' => $paymentIntent->client_secret ];
+            return [ 'status' => 'success', 'clientSecret' => $paymentIntent->client_secret ];
 
 
         } catch ( \Throwable $e ) {

@@ -22,7 +22,6 @@
             </div>
         </div>
         <b>
-            {{this.selected}}
             <i :class="currency.toLowerCase() +'_money'"></i>
             {{ getPrice }}
             <!--            {{ ( total_rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}-->
