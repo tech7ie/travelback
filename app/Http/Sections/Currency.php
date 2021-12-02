@@ -119,6 +119,14 @@ class Currency extends Section implements Initializable
                 AdminFormElement::text('label', 'Label')
                     ->required()
                 ,
+                AdminFormElement::radio( 'status', 'Status' )
+                                ->setEnum( [
+                                    1   => 'Enabled',
+                                    0 => 'Disabled',
+                                    //                                    'done'   => 'done',
+                                    //                                    'fail'   => 'fail'
+                                ] )
+                                ->required(),
                 AdminFormElement::html('<hr>'),
                 AdminFormElement::datetime('created_at')
                     ->setVisible(true)
