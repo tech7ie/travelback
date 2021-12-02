@@ -120,9 +120,9 @@ class Currency extends Section implements Initializable
                     ->required()
                 ,
                 AdminFormElement::radio( 'status', 'Status' )
-                                ->setEnum( [
+                                ->setOptions( [
                                     1   => 'Enabled',
-                                    0 => 'Disabled',
+                                    0   => 'Disabled',
                                     //                                    'done'   => 'done',
                                     //                                    'fail'   => 'fail'
                                 ] )
