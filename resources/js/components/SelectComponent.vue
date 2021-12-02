@@ -156,7 +156,8 @@ export default Vue.component("v-select", {
 <style scoped>
 .custom-select__options{
     max-height: 450px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
 }
 </style>
