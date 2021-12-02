@@ -1,6 +1,5 @@
 <template>
     <div class="custom-select">
-        {{route_id}}
         <div class="custom-select__item" :class="{'--active': openedFrom }">
             <div class="custom-select__head" data-input-parent :class="{error: errorFrom}">
                 <input type="number" :value="filteredRoutesTo.length > 0 ? filteredRoutesTo[0].id : 0" name="route" hidden>
@@ -158,5 +157,6 @@ export default Vue.component("v-select", {
 .custom-select__options{
     max-height: 450px;
     overflow: scroll;
+
 }
 </style>

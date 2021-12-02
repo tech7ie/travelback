@@ -941,7 +941,13 @@ export default Vue.component("v-custom-search", {
     }
 });
 </script>
-<style>
+<style scoped>
+.custom-select__options{
+    max-height: 450px;
+    overflow: scroll;
+
+}
+
 .yourride__selected.extra{
     padding-top: 20px;
 }

@@ -74,7 +74,7 @@
                 <input class="half" name="last-name" :placeholder="$t('Last name') + ':'" required>
                 <input type="email" name="email" :placeholder="$t('Email') + ':'" required>
             </div>
-            <template v-if="filteredRoutes.length === 0 && mode === 'home'">
+            <template v-if="(filteredRoutes.length === 0 || filteredRoutesTo.length === 0) && mode === 'home'">
                 <div class="form-vue__footer --line">
                     <div class="label mobile">{{ $t('Chauffeur will wait 15 minutes free of charge') }}</div>
                     <span>{{ $t("Can't find your destination?") }}</span>
@@ -370,3 +370,10 @@ export default Vue.component("v-calculator", {
 });
 
 </script>
+<style scoped>
+.custom-select__options{
+    max-height: 450px;
+    overflow: scroll;
+
+}
+</style>
