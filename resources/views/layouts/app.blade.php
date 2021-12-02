@@ -96,7 +96,8 @@
                     <div class="header__currency">
                         <div class="custom-select">
                             <v-currency-select
-                                currencylist="{{json_encode(Config::get('app.currency_list'))}}"
+{{--                                currencylist="{{json_encode(Config::get('app.currency_list'))}}"--}}
+                                currencylist="{{json_encode(\App\Helper\Helper::getCurrencyList())}}"
                                 currentcurrency="{{\App\Helper\Helper::getCurrency()}}"
                                 currentcurrencyexchanges="{{json_encode(\App\Helper\Helper::getCurrencyExchanges())}}"
                             ></v-currency-select>
