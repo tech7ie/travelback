@@ -116,6 +116,9 @@ class Currency extends Section implements Initializable
                 AdminFormElement::text('currency', 'Currency')
                     ->required()
                 ,
+                AdminFormElement::text('label', 'Label')
+                    ->required()
+                ,
                 AdminFormElement::html('<hr>'),
                 AdminFormElement::datetime('created_at')
                     ->setVisible(true)
