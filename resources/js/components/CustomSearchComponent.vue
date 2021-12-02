@@ -29,7 +29,7 @@
                                     @blur="toggle"
                                 />
                             </div>
-                            <div class="custom-select__options" :class="{ '--opened': openedFrom }">
+                            <div class="custom-select__options" v-if="filteredRoutes.length > 0" :class="{ '--opened': openedFrom }">
                                 <div class="custom-select__option" @click="selectFrom(item)" v-for="(item, index) in filteredRoutes" :key="index">
                                     <b>{{ item.city }}</b>
                                     <em>{{ item.country }}</em>
@@ -55,7 +55,7 @@
                                     @blur="toggle"
                                 />
                             </div>
-                            <div class="custom-select__options" :class="{ '--opened': openedTo }">
+                            <div class="custom-select__options" v-if="filteredRoutesTo.length > 0" :class="{ '--opened': openedTo }">
                                 <div class="custom-select__option" @click="selectTo(item)" v-for="(item, index) in filteredRoutesTo" :key="index">
                                     <b>{{ searchInvert ? item.from_city : item.to_city }}</b>
                                     <em>{{ searchInvert ? item.from_country : item.to_country }}</em>
