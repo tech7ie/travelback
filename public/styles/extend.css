@@ -53,5 +53,5 @@ a:hover,a:active,a:link {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #666666;
 }
