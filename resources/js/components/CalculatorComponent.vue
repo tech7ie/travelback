@@ -77,8 +77,8 @@
             <template v-if="(filteredRoutes.length === 0 || filteredRoutesTo.length === 0) && mode === 'home'">
                 <div class="form-vue__footer --line">
                     <div class="label mobile">{{ $t('Chauffeur will wait 15 minutes free of charge') }}</div>
-                    <span>{{ $t("Can't find your destination?") }}</span>
-                    <a :href="getRequestUrl">{{ $t("Request a custom route") }}</a>
+                    <span :style="{display:'block', color:'#ffffff'}">{{ $t("Can't find your destination?") }}</span>
+                    <a :style="{display:'block'}" :href="getRequestUrl">{{ $t("Request a custom route") }}</a>
                 </div>
             </template>
             <template v-else>
