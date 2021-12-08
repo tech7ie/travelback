@@ -257,7 +257,7 @@
                     <div class="form-block">
                         <div class="form-block__wrap">
                             <div class="label">{!! __("widgets.calculator.title") !!}</div>
-                            <div class="homehead-form form-vue calc" id="homehead-form">
+                            <div class="homehead homehead-form form-vue calc" id="homehead-form">
                                 <v-calculator :request="{{json_encode($_GET)}}" :short="true" mode="home" routes="{{$routes ?? []}}">
                                 </v-calculator>
                             </div>
