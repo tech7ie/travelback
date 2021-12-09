@@ -19,6 +19,7 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 /**
  * Class Users
@@ -137,7 +138,14 @@ class Place extends Section implements Initializable {
                 AdminFormElement::text( 'url', 'Url' ),
                 AdminFormElement::html( '<hr>' ),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::image( 'image', 'Image' ),
+                AdminFormElement::image( 'image', 'Image' )
+                    ->setAfterSaveCallback(function ($value, $model) {
+                        if ($value) {
+                            $map = collect($value)->map(function ($item) {
+                                ImageOptimizer::optimize($item);
+                            });
+                        }
+                    }),
             ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
         ] );
 

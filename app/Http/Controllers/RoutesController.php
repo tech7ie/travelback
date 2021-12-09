@@ -7,6 +7,12 @@ use App\Models\Place;
 use App\Models\Routes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Monolog\Logger;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+
+// the image will be replaced with an optimized version which should be smaller
 
 class RoutesController extends Controller {
 
@@ -210,6 +216,7 @@ class RoutesController extends Controller {
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
     public function details( $lang, $id ) {
+
         $routes = Routes::select(
             [
                 'id',
@@ -259,19 +266,36 @@ class RoutesController extends Controller {
             )->where( 'status', '=', 'open' )
                            ->where( 'routes.id', $id )
                            ->first();
+//            ImageOptimizer::optimize($route->image);
 
             $places = $route->places;
 
             $placesResponse = [];
 
             foreach ( $places as $item ) {
+
+
+                try {
+//                    $i = ImageOptimizer::optimize($item['image']);
+//print_r($i);
+//die();
+                }catch (\Throwable $t){
+                    print_r($t->getMessage());
+                    die();
+                }
+
+
                 $placesResponse[] = [
                     'id'              => $item['id'],
                     'title'           => $this->getTranslateContent( $item, 'title' ),
                     'body' => strip_tags($this->getTranslateContent($item, 'body')),
 
 //                    'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
+//                    'image'           => $optimizerChain->useLogger(new Logger('stack'))->optimize($item['image']),
                     'image'           => $item['image'],
+//                    'image'           => ImageOptimizer::optimize($item['image']),
+//                    'image'           => app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($item['image']),
+//                    'image'           => app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($item['image']),
                     'durations'       => $item['durations'],
                     'extra_durations' => $item['extra_durations'],
                     'price_per_hour' => $item['price_per_hour'],

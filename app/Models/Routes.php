@@ -6,6 +6,7 @@ use App\Models\Cities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Country;
+use SleepingOwl\Admin\Form\Element\Image;
 
 class Routes extends Model
 {
@@ -67,4 +68,5 @@ class Routes extends Model
         return
             $this->hasOne(Country::class,'id','route_to_country_id' )->select(['name'])->get();
     }
+
 }

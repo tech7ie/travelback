@@ -16,6 +16,7 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 /**
  * Class Users
@@ -133,7 +134,13 @@ class Content extends Section implements Initializable {
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_en', 'Content', 'ckeditor' )
                                     ->required(),
-                    AdminFormElement::image( 'image_en', 'Image' ),
+                    AdminFormElement::image( 'image_en', 'Image' )                    ->setAfterSaveCallback(function ($value, $model) {
+                        if ($value) {
+                            $map = collect($value)->map(function ($item) {
+                                ImageOptimizer::optimize($item);
+                            });
+                        }
+                    }),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' ),
             )->setLabel('EN');
 
@@ -148,7 +155,14 @@ class Content extends Section implements Initializable {
                     AdminFormElement::text( 'url_de', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_de', 'Content', 'ckeditor' ),
-                    AdminFormElement::image( 'image_de', 'Image' ),
+                    AdminFormElement::image( 'image_de', 'Image' )
+                        ->setAfterSaveCallback(function ($value, $model) {
+                            if ($value) {
+                                $map = collect($value)->map(function ($item) {
+                                    ImageOptimizer::optimize($item);
+                                });
+                            }
+                        }),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel('DE');
 
@@ -163,7 +177,14 @@ class Content extends Section implements Initializable {
                     AdminFormElement::text( 'url_ch', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_ch', 'Content', 'ckeditor' ),
-                    AdminFormElement::image( 'image_ch', 'Image' ),
+                    AdminFormElement::image( 'image_ch', 'Image' )
+                        ->setAfterSaveCallback(function ($value, $model) {
+                            if ($value) {
+                                $map = collect($value)->map(function ($item) {
+                                    ImageOptimizer::optimize($item);
+                                });
+                            }
+                        }),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel('CH');
 
@@ -178,7 +199,14 @@ class Content extends Section implements Initializable {
                     AdminFormElement::text( 'url_ru', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_ru', 'Content', 'ckeditor' ),
-                    AdminFormElement::image( 'image_ru', 'Image' ),
+                    AdminFormElement::image( 'image_ru', 'Image' )
+                        ->setAfterSaveCallback(function ($value, $model) {
+                            if ($value) {
+                                $map = collect($value)->map(function ($item) {
+                                    ImageOptimizer::optimize($item);
+                                });
+                            }
+                        }),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel('RU');
 
@@ -193,7 +221,14 @@ class Content extends Section implements Initializable {
                     AdminFormElement::text( 'url_es', 'Url' ),
                 ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                     AdminFormElement::wysiwyg( 'body_es', 'Content', 'ckeditor' ),
-                    AdminFormElement::image( 'image_es', 'Image' ),
+                    AdminFormElement::image( 'image_es', 'Image' )
+                        ->setAfterSaveCallback(function ($value, $model) {
+                            if ($value) {
+                                $map = collect($value)->map(function ($item) {
+                                    ImageOptimizer::optimize($item);
+                                });
+                            }
+                        }),
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )
             )->setLabel('ES');
 
