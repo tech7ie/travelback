@@ -180,15 +180,15 @@ class Routes extends Section implements Initializable {
                                 ImageOptimizer::optimize($item);
                             });
                             $map = collect($value)->map(function ($item) {
-
                                 $pathinfo = pathinfo($item);
-//  ( [dirname] => images/uploads [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg [extension] => jpg [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
-
-                                $pathinfo['basename'] = '360x230_' . $pathinfo['basename'];
-
+//  ( [dirname] => images/uploads
+// [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg
+// [extension] => jpg
+// [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
+                                $pathinfo['basename'] = '404x309_' . $pathinfo['basename'];
                                 $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
                                 $img = Image::make($item);
-                                $img->resize(360, 230, function ($const) {
+                                $img->resize(404, 309, function ($const) {
                                     $const->aspectRatio();
                                 })->save($resized_image);
                             });

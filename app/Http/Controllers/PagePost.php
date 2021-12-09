@@ -53,7 +53,7 @@ class PagePost extends Controller {
                 'title'    => $this->getTranslateContent( $team, 'title' ),
                 'position' => $this->getTranslateContent( $team, 'position' ),
                 'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
-                'image'    => $team['image']
+                'image'    => $this->getImageBySize('130x130', $team['image'])
             ];
         }
 
@@ -80,5 +80,13 @@ class PagePost extends Controller {
 
     public function getTranslateContent( $content, $key ) {
         return ( isset( $content[ $key . '_' . app()->getLocale() ] ) && strlen( $content[ $key . '_' . app()->getLocale() ] ) > 0 ) ? $content[ $key . '_' . app()->getLocale() ] : $content[ $key . '_en' ];
+    }
+
+
+    public function getImageBySize($size, $image): string {
+        $pathinfo = pathinfo($image);
+        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+        $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        return $resized_image;
     }
 }

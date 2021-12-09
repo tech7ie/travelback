@@ -87,7 +87,7 @@ class HomeController extends Controller {
                 'title' => $this->getTranslateContent($item, 'title'),
                 'body' => strip_tags($this->getTranslateContent($item, 'body')),
 //                'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
-                'image' => $item['image'],
+                'image' => $this->getImageBySize('360x230', $item['image']),
                 'durations' => $item['durations'],
                 'extra_durations' => $item['extra_durations'],
                 'price_per_hour' => $item['price_per_hour'],
@@ -115,5 +115,12 @@ class HomeController extends Controller {
 
     public function getTranslateContent($content, $key){
         return (isset($content[$key.'_'.app()->getLocale()]) && strlen($content[$key.'_'.app()->getLocale()]) > 0 ) ?$content[$key.'_'.app()->getLocale()] : $content[$key.'_en'];
+    }
+
+    public function getImageBySize($size, $image): string {
+        $pathinfo = pathinfo($image);
+        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+        $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        return $resized_image;
     }
 }

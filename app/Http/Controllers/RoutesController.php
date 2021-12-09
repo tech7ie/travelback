@@ -53,14 +53,14 @@ class RoutesController extends Controller {
                     $placesResponse[] = [
                         'id'              => $item['id'],
                         'title'           => $this->getTranslateContent( $item, 'title' ),
-                        'body' => strip_tags($this->getTranslateContent($item, 'body')),
+                        'body'            => strip_tags( $this->getTranslateContent( $item, 'body' ) ),
 
-//                        'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
+                        //                        'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
                         'image'           => $item['image'],
                         'price'           => $item['price'],
                         'durations'       => $item['durations'],
                         'extra_durations' => $item['extra_durations'],
-                        'price_per_hour' => $item['price_per_hour'],
+                        'price_per_hour'  => $item['price_per_hour'],
                         'status'          => $item['status']
                     ];
                 }
@@ -182,6 +182,11 @@ class RoutesController extends Controller {
                             ->where( 'routes.route_to_country_id', $id )
                             ->get();
 
+            foreach ( $routes as $route ) {
+                $route->image = $this->getImageBySize('404x309',$route->image);
+            }
+
+
             return view( 'pages/routes2', [ 'routes' => $routes, 'dd' => [ $id, $lang ] ] );
 
         } catch ( \Throwable $t ) {
@@ -271,34 +276,15 @@ class RoutesController extends Controller {
             $places = $route->places;
 
             $placesResponse = [];
-
             foreach ( $places as $item ) {
-
-
-                try {
-//                    $i = ImageOptimizer::optimize($item['image']);
-//print_r($i);
-//die();
-                }catch (\Throwable $t){
-                    print_r($t->getMessage());
-                    die();
-                }
-
-
                 $placesResponse[] = [
                     'id'              => $item['id'],
                     'title'           => $this->getTranslateContent( $item, 'title' ),
-                    'body' => strip_tags($this->getTranslateContent($item, 'body')),
-
-//                    'body' => substr(strip_tags($this->getTranslateContent($item, 'body')),0, 320) . ((strlen(strip_tags($this->getTranslateContent($item, 'body'))) > 320) ? '...' : ''),
-//                    'image'           => $optimizerChain->useLogger(new Logger('stack'))->optimize($item['image']),
-                    'image'           => $item['image'],
-//                    'image'           => ImageOptimizer::optimize($item['image']),
-//                    'image'           => app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($item['image']),
-//                    'image'           => app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($item['image']),
+                    'body'            => strip_tags( $this->getTranslateContent( $item, 'body' ) ),
+                    'image'           => $this->getImageBySize( '360x230', $item['image'] ),
                     'durations'       => $item['durations'],
                     'extra_durations' => $item['extra_durations'],
-                    'price_per_hour' => $item['price_per_hour'],
+                    'price_per_hour'  => $item['price_per_hour'],
                 ];
             }
 
@@ -375,6 +361,15 @@ class RoutesController extends Controller {
 
     public function getTranslateContent( $content, $key ) {
         return ( isset( $content[ $key . '_' . app()->getLocale() ] ) && strlen( $content[ $key . '_' . app()->getLocale() ] ) > 0 ) ? $content[ $key . '_' . app()->getLocale() ] : $content[ $key . '_en' ];
+    }
+
+
+    public function getImageBySize( $size, $image ): string {
+        $pathinfo             = pathinfo( $image );
+        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+        $resized_image        = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+
+        return $resized_image;
     }
 
 }

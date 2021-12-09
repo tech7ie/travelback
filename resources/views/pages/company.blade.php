@@ -16,7 +16,8 @@
                 <h2>Meet the team</h2>
                 @if($content)
                     @foreach($content['team_response'] as $team)
-                        <div class="pabout__grid-item"><i><img src="{{asset($team['image'])}}" alt="Alexandra Gburova"></i>
+                        <div class="pabout__grid-item"><i>
+                                <img src="{{asset($team['image'])}}" alt="{{$team['title']}}"></i>
                             <h4>{{$team['title']}}</h4><em>{{$team['position']}}</em>
                             <p>
                                 {!! $team['body'] !!}
