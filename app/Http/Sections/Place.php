@@ -11,6 +11,7 @@ use App\Models\Cities;
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -138,11 +139,23 @@ class Place extends Section implements Initializable {
                 AdminFormElement::text( 'url', 'Url' ),
                 AdminFormElement::html( '<hr>' ),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
-                AdminFormElement::image( 'image', 'Image' )
+                AdminFormElement::image( 'image', 'Image' )   //360X230
                     ->setAfterSaveCallback(function ($value, $model) {
                         if ($value) {
                             $map = collect($value)->map(function ($item) {
                                 ImageOptimizer::optimize($item);
+                            });
+                            $map = collect($value)->map(function ($item) {
+                                $pathinfo = pathinfo($item);
+//  ( [dirname] => images/uploads [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg [extension] => jpg [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
+
+                                $pathinfo['basename'] = '360x230_' . $pathinfo['basename'];
+
+                                $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+                                $img = Image::make($item);
+                                $img->resize(360, 230, function ($const) {
+                                    $const->aspectRatio();
+                                })->save($resized_image);
                             });
                         }
                     })

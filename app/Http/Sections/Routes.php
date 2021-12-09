@@ -12,6 +12,7 @@ use App\Models\Country;
 use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -177,6 +178,19 @@ class Routes extends Section implements Initializable {
                         if ($value) {
                             $map = collect($value)->map(function ($item) {
                                 ImageOptimizer::optimize($item);
+                            });
+                            $map = collect($value)->map(function ($item) {
+
+                                $pathinfo = pathinfo($item);
+//  ( [dirname] => images/uploads [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg [extension] => jpg [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
+
+                                $pathinfo['basename'] = '360x230_' . $pathinfo['basename'];
+
+                                $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+                                $img = Image::make($item);
+                                $img->resize(360, 230, function ($const) {
+                                    $const->aspectRatio();
+                                })->save($resized_image);
                             });
                         }
                     })
