@@ -18,7 +18,7 @@ use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 use Illuminate\Support\Facades\Auth;
-use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+//use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 
 /**
@@ -122,13 +122,14 @@ class Page extends Section implements Initializable
                 ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12')->
                 addColumn( [
                     AdminFormElement::image( 'block_image', 'Image' )
-                        ->setAfterSaveCallback(function ($value, $model) {
-                            if ($value) {
-                                $map = collect($value)->map(function ($item) {
-                                    ImageOptimizer::optimize($item);
-                                });
-                            }
-                        }),
+//                        ->setAfterSaveCallback(function ($value, $model) {
+//                            if ($value) {
+//                                $map = collect($value)->map(function ($item) {
+//                                    ImageOptimizer::optimize($item);
+//                                });
+//                            }
+//                        })
+                    ,
                 ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8' )->
                 addColumn( [
                     AdminFormElement::text( 'video_block_title', 'Video block title' ),

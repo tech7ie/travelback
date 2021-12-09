@@ -20,8 +20,8 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
-use Spatie\ImageOptimizer\Image;
-use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+//use Spatie\ImageOptimizer\Image;
+//use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 /**
  * Class Country
@@ -173,13 +173,13 @@ class Routes extends Section implements Initializable {
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
                                 ->required()
-                    ->setAfterSaveCallback(function ($value, $model) {
-                        if ($value) {
-                            $map = collect($value)->map(function ($item) {
-                                ImageOptimizer::optimize($item);
-                            });
-                        }
-                    })
+//                    ->setAfterSaveCallback(function ($value, $model) {
+//                        if ($value) {
+//                            $map = collect($value)->map(function ($item) {
+//                                ImageOptimizer::optimize($item);
+//                            });
+//                        }
+//                    })
 //                    ->setAfterSaveCallback(function ($value, $model) {
 //                        if ($value) {
 //                            $map = collect($value)->map(function ($item) {
@@ -249,45 +249,4 @@ class Routes extends Section implements Initializable {
     public function onRestore( $id ) {
         // remove if unused
     }
-
-    public function setImage($field, $image)
-    {
-        die('setImage');
-        parent::setImage($field, $image);
-        $file = $this->$field;
-        if ( ! $file->exists()) return;
-        $path = $file->getFullPath();
-        \SleepingOwl\Admin\Form\Element\Image::make($path)->resize(10, 10)->save();
-    }
-
-    public function resize()
-    {
-        print_r($this->name);
-
-    }
-
-    public function saveFile( \Illuminate\Http\UploadedFile $file, $path, $filename, array $settings)
-    {
-
-        if (is_callable($callback = $this->getSaveCallback())) {
-            return $callback($file, $path, $filename, $settings);
-        }
-
-        if (class_exists('Intervention\Image\Facades\Image') && (bool) getimagesize($file->getRealPath())) {
-            $image = \Intervention\Image\Facades\Image::make($file);
-
-            foreach ($settings as $method => $args) {
-                call_user_func_array([$image, $method], $args);
-            }
-
-            $value = $path.'/'.$filename;
-
-            $image->save($value);
-
-            return ['path' => asset($value), 'value' => $value];
-        }
-
-        return parent::saveFile($file, $path, $filename, $settings);
-    }
-
 }
