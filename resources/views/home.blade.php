@@ -156,7 +156,7 @@
 
                             <div class="swiper-slide">
                                 <a data-fancybox data-src="#hidden-content_{{$item['id']}}" href="javascript:;">
-                                    <i><img src="{{$item['image']}}" alt="IMG"></i>
+                                    <i><img src="{{$item['image']}}" alt="{{$item['title']}}"></i>
                                     <b>{{$item['title']}}</b>
                                     <div class="swipe_body" style="max-height: 190px">
                                         <p>

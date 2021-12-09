@@ -29,6 +29,7 @@ export default Vue.component("v-init", {
                 slidesPerView: "auto",
                 spaceBetween: 47,
                 loop: true,
+                lazy: true,
                 centeredSlides: true,
                 roundLengths: true,
                 autoplay: {
@@ -50,6 +51,7 @@ export default Vue.component("v-init", {
                 slidesPerView: "auto",
                 spaceBetween: 47,
                 loop: true,
+                lazy: true,
                 centeredSlides: true,
                 roundLengths: true,
                 autoplay: {
