@@ -50,6 +50,6 @@
                 </div>
             </div>
         </div>
-        <div class="routes3__img"><img src="{{asset('img/route2-img-2.jpg')}}" alt="IMG"></div>
+{{--        <div class="routes3__img"><img src="{{asset('img/route2-img-2.jpg')}}" alt="IMG"></div>--}}
     </section>
 @endsection
