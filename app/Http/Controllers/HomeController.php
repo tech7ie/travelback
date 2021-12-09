@@ -75,7 +75,7 @@ class HomeController extends Controller {
                            ->get();
 
         foreach ($partners as $partner){
-            $partner->image = $this->getImageBySize('130x130', $partner->image);
+            $partner->image = $this->getImageBySize('274x118', $partner->image);
         }
 
 
