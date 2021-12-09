@@ -21,7 +21,7 @@ use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 //use Spatie\ImageOptimizer\Image;
-//use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 /**
  * Class Country
@@ -173,13 +173,13 @@ class Routes extends Section implements Initializable {
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
                                 ->required()
-//                    ->setAfterSaveCallback(function ($value, $model) {
-//                        if ($value) {
-//                            $map = collect($value)->map(function ($item) {
-//                                ImageOptimizer::optimize($item);
-//                            });
-//                        }
-//                    })
+                    ->setAfterSaveCallback(function ($value, $model) {
+                        if ($value) {
+                            $map = collect($value)->map(function ($item) {
+                                ImageOptimizer::optimize($item);
+                            });
+                        }
+                    })
 //                    ->setAfterSaveCallback(function ($value, $model) {
 //                        if ($value) {
 //                            $map = collect($value)->map(function ($item) {
