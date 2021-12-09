@@ -74,6 +74,9 @@ class HomeController extends Controller {
                            ->where( 'status', '=', 'enabled' )
                            ->get();
 
+        foreach ($partners as $partner){
+            $partner->image = $this->getImageBySize('130x130', $partner->image);
+        }
 
 
         $places = Place::query()->where('status', true)->limit(10)->get();
