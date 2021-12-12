@@ -377,4 +377,7 @@ export default Vue.component("v-calculator", {
     overflow-x: hidden;
 
 }
+.tickets__footer-price b{
+    margin-left: 5px
+}
 </style>

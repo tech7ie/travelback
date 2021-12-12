@@ -143,7 +143,7 @@
                             <div class="tickets__footer-info">
                                 <div>
                                     <div>
-                                        {{ $t('Upgrade to a luxury sedan for') }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
+                                        {{ $t('Upgrade to a car_name for', { msg: item.car.title + ' ' + item.car.brand }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
                                         {{ calculatePrice(parseFloat(item.car.price) ,withstopsListPrice) }}
                                     </div>
                                 </div>
@@ -957,5 +957,8 @@ export default Vue.component("v-custom-search", {
         width: 100%;
         margin-bottom: 40px;
     }
+}
+.tickets__footer-price b{
+    margin-left: 5px
 }
 </style>

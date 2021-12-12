@@ -6,7 +6,7 @@
     "Your ride": "Your ride",
     "Other cars": "Other cars",
     "BUY FOR": "BUY FOR",
-    "Upgrade to a luxury sedan for": "Upgrade to a luxury sedan for",
+    "Upgrade to a car_name for": "Upgrade to a %{msg} for",
     "Support 24/7": "Support 24/7",
     "English-speaking driver": "English-speaking driver",
     "Prepared for handicapped": "Prepared for handicapped",

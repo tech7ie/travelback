@@ -31,7 +31,7 @@
             </div>
             <div class="select-humans__list-item">
                 <div><span>{{$t("Luggage")}}</span><em>{{$t("Sets of bags")}}</em></div>
-                <v-incdec :value="luggage" :min="(adults + childrens)"
+                <v-incdec :value="luggage" :min="(adults + childrens) >= 2 ? ((adults + childrens) -2) : 0"
                           :sync="true"
                           @value="changeValue('luggage', $event)"
                 ></v-incdec>
@@ -71,8 +71,9 @@ export default Vue.component("v-humans", {
         changeValue(param, value) {
             this[param] = value;
             this.returnValues();
-            this.luggage = (this.adults + this.childrens)
+            // this.luggage = (this.adults + this.childrens)
             // this.luggage = (this.adults + this.childrens) > this.luggage ? (this.adults + this.childrens) : this.luggage;
+            this.luggage = this.luggage < ((this.adults + this.childrens) - 2) ? ((this.adults + this.childrens) - 2) : this.luggage;
             this.returnValues();
         },
         returnValues() {

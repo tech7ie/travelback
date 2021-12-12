@@ -199,7 +199,7 @@
                     <input type="text" placeholder="Password confirm" name="password" required>
                 </div>
                 <button class="btn-submit --simple --no-opacity"><span>{{ __('Register') }}</span></button>
-                <a data-fancybox data-src="#forgotpass">Forgot password</a>
+{{--                <a data-fancybox data-src="#forgotpass">Forgot password</a>--}}
             </form>
         </div>
     </div>
