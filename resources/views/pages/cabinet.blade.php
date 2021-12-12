@@ -81,7 +81,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="tickets__price"><b>{{$order['currency']}}{{$order['amount']}}</b></div>
+                                    <div class="tickets__price"><b><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$order['amount']}}</b></div>
                                     <div class="tickets__arrow">
                                         <svg class="icon">
                                             <use xlink:href="/img/sprites/sprite.svg#arrow-down"></use>
