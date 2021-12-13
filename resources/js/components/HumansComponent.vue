@@ -70,16 +70,19 @@ export default Vue.component("v-humans", {
         },
         changeValue(param, value) {
             this[param] = value;
-            this.returnValues();
-            // this.luggage = (this.adults + this.childrens)
-            // this.luggage = (this.adults + this.childrens) > this.luggage ? (this.adults + this.childrens) : this.luggage;
-            this.luggage = this.luggage < ((this.adults + this.childrens) - 2) ? ((this.adults + this.childrens) - 2) : this.luggage;
+            if (this.luggage < ((this.adults + this.childrens) - 2)){
+                this.luggage = ((this.adults + this.childrens) - 2)
+            }else {
+                if (this.luggage > ((this.adults + this.childrens) + 2)){
+                    this.luggage = ((this.adults + this.childrens) + 2)
+                }
+            }
             this.returnValues();
         },
         returnValues() {
             this.$emit("return", {
                 passengers: this.adults + this.childrens,
-                luggage: (this.adults + this.childrens) < this.luggage ? this.luggage : (this.adults + this.childrens)
+                luggage: this.luggage
             });
         }
     },

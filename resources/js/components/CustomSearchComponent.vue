@@ -143,7 +143,7 @@
                             <div class="tickets__footer-info">
                                 <div>
                                     <div>
-                                        {{ $t('Upgrade to a car_name for', { msg: item.car.title + ' ' + item.car.brand }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
+                                        {{ $t('Upgrade to a car_name for', { msg: item.car.title }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
                                         {{ calculatePrice(parseFloat(item.car.price) ,withstopsListPrice) }}
                                     </div>
                                 </div>

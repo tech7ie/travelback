@@ -95,7 +95,7 @@
                                                 <div>
                                                     <h4>{{$place->title}}</h4><em>9:48 AM - 11:03 AM</em>
                                                 </div>
-                                                <span>{{$order['currency']}}{{$place->pivot['price']}}</span>
+                                                <span><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$place->pivot['price']}}</span>
                                             </div>
                                         @endforeach
                                     </div>
@@ -115,7 +115,7 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <div class="tickets__footer-price"><em>Total</em><b>{{$order['currency']}}{{$car->price}}</b></div>
+                                            <div class="tickets__footer-price"><em>Total</em><b><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$car->price}}</b></div>
                                             <div class="tickets__footer-bottom">
                                                 <div class="tickets__amount">
                                                     <div><span>{{$car->places_min}}-{{$car->places_max}}</span>
@@ -123,13 +123,13 @@
                                                             <use xlink:href="/img/sprites/sprite.svg#users"></use>
                                                         </svg>
                                                     </div>
-                                                    <div><{{$car->luggage}}>3</span>
+                                                    <div><span>{{$car->luggage}}3</span>
                                                         <svg class="icon">
                                                             <use xlink:href="/img/sprites/sprite.svg#suitecase"></use>
                                                         </svg>
                                                     </div>
                                                 </div>
-                                                <b>{{$order['currency']}}{{$car->price}}</b>
+                                                <b><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$car->price}}</b>
                                             </div>
                                         @endforeach
                                     </div>
