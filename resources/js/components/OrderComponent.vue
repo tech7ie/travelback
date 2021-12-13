@@ -102,7 +102,7 @@
                     <aside class="order__aside">
                         <div class="order__aside-wrap">
                             <div class="order-sum js-order-sum-toggle">
-                                <div class="order-sum__title-mobile"><b>€136</b><em>{{ $t("VAT included") }}</em>
+                                <div class="order-sum__title-mobile"><b><i :class="currency.toLowerCase() +'_money'"></i> {{ getTotalOrderAmount() }}</b><em>{{ $t("VAT included") }}</em>
                                     <div class="tickets__footer-info">
                                         <div><span>1-3</span>
                                             <svg class="icon">
