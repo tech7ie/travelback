@@ -144,7 +144,9 @@
                                 <div>
                                     <div>
                                         {{ $t('Upgrade to a car_name for', { msg: item.car.title }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ calculatePrice(parseFloat(item.car.price) ,withstopsListPrice) }}
+                                        {{ (parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice)) - parseFloat(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))).toFixed(2) }}
+<!--                                        {{ (parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice))).toFixed(2) }}//-->
+<!--                                        {{(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))}}-->
                                     </div>
                                 </div>
                             </div>

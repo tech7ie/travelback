@@ -1,7 +1,7 @@
 <template>
     <article :style="'background-image: url(/'+data.image+')'">
         <div style="
-      width: 19rem;
+      width: 18rem;
       background: rgba(0, 0, 0, .6);
       display: inline-table;
       justify-content: center;
@@ -11,7 +11,7 @@
             <a data-fancybox :data-src="'#hidden-content_' + data.id" href="javascript:;">
 
                 <b>{{ data.title }}</b>
-                <div :style="{'max-height':'60%', 'overflow':'hidden'}">
+                <div :style="{'max-height':'45px', 'overflow':'hidden'}">
                     <p v-html="data.body"></p>
                 </div>
             </a>

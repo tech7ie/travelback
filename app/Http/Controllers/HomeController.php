@@ -79,8 +79,9 @@ class HomeController extends Controller {
         }
 
 
-        $places = Place::query()->where('status', true)->limit(10)->get();
-
+//        $places = Place::query()->where('status', true)->limit(10)->get();
+        $places = Place::query()->where('status', true)->get()->random(10);
+//        Images::all()->random(4);
 
         $placesResponse = [];
 
