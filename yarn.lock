@@ -885,10 +885,10 @@
   "resolved" "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz"
   "version" "0.5.3"
 
-"@fancyapps/ui@^4.0.0-beta.2":
-  "integrity" "sha512-CS0XzHLEAkFybBqR1Pi4E2jA9HVshR8vHTpJJXRsBzVAG1rxwXGej6paa7SBRHve0Mflb2uIxSYOVuO/KFYNKg=="
-  "resolved" "https://registry.npmjs.org/@fancyapps/ui/-/ui-4.0.2.tgz"
-  "version" "4.0.2"
+"@fancyapps/ui@^4.0.11":
+  "integrity" "sha512-/FWdARBqycdNvKeYM52z19gW4OiufnNOseesKDFAH1rCPD12DRAWiO5yBBtf2o6nmHO3nJgrqNWWc48Whc6DXw=="
+  "resolved" "https://registry.npmjs.org/@fancyapps/ui/-/ui-4.0.11.tgz"
+  "version" "4.0.11"
 
 "@glidejs/glide@^3.4.1":
   "integrity" "sha512-C34AEcK1HjSyxilRToUL54I6KAoodojUbeRlXoruobZuG0eGm8xfDL+3kgkWj7AJK4EZtunSOYfoqMp70eDtwg=="

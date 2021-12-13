@@ -39,7 +39,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 
 
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css" rel="stylesheet">
 
     <script src="https://js.stripe.com/v3/"></script>
@@ -96,7 +95,7 @@
                     <div class="header__currency">
                         <div class="custom-select">
                             <v-currency-select
-{{--                                currencylist="{{json_encode(Config::get('app.currency_list'))}}"--}}
+                                {{--                                currencylist="{{json_encode(Config::get('app.currency_list'))}}"--}}
                                 currencylist="{{json_encode(\App\Helper\Helper::getCurrencyList())}}"
                                 currentcurrency="{{\App\Helper\Helper::getCurrency()}}"
                                 currentcurrencyexchanges="{{json_encode(\App\Helper\Helper::getCurrencyExchanges())}}"
@@ -156,53 +155,53 @@
     @auth
 
     @else
-    <div class="popup --sm popup-forgotpass" id="forgotpass">
-        <div class="popup__wrap">
-            <h3 class="--center">{{ __('Forgot password') }}</h3>
-            <form class="js-form-validator">
-                <div class="input-block">
-                    <input type="email" placeholder="Email" name="email" required>
-                </div>
-                <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
-            </form>
+        <div class="popup --sm popup-forgotpass" id="forgotpass">
+            <div class="popup__wrap">
+                <h3 class="--center">{{ __('Forgot password') }}</h3>
+                <form class="js-form-validator">
+                    <div class="input-block">
+                        <input type="email" placeholder="Email" name="email" required>
+                    </div>
+                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="popup --sm popup-login" id="login">
-        <div class="popup__wrap">
-            <h3 class="--center">{{ __('Login in') }}</h3>
-            <form method="POST" class="js-form-validator" action="{{ route('login', app()->getLocale()) }}">
-                @csrf
-                <div class="input-block">
-                    <input type="email" placeholder="Email" name="email" required>
-                </div>
-                <div class="input-block">
-                    <input type="password" placeholder="Password" name="password" required>
-                </div>
-                <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
-                <a data-fancybox data-src="#forgotpass">Forgot password</a>
-                <a data-fancybox data-src="#registration">Registration</a>
-            </form>
+        <div class="popup --sm popup-registration" id="registration">
+            <div class="popup__wrap">
+                <h3 class="--center">{{ __('Register') }}</h3>
+                <form method="POST" class="js-form-validator" action="{{ route('register', app()->getLocale()) }}">
+                    @csrf
+                    <div class="input-block">
+                        <input type="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="input-block">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="input-block">
+                        <input type="password" placeholder="Password confirm" name="re_password" required>
+                    </div>
+                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Register') }}</span></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="popup --sm popup-registration" id="registration">
-        <div class="popup__wrap">
-            <h3 class="--center">{{ __('Register') }}</h3>
-            <form method="POST" class="js-form-validator_" action="{{ route('register', app()->getLocale()) }}">
-                @csrf
-                <div class="input-block">
-                    <input type="email" placeholder="Email" name="email" required>
-                </div>
-                <div class="input-block">
-                    <input type="password" placeholder="Password" name="password" required>
-                </div>
-                <div class="input-block">
-                    <input type="text" placeholder="Password confirm" name="password" required>
-                </div>
-                <button class="btn-submit --simple --no-opacity"><span>{{ __('Register') }}</span></button>
-{{--                <a data-fancybox data-src="#forgotpass">Forgot password</a>--}}
-            </form>
+
+        <div class="popup --sm popup-login" id="login">
+            <div class="popup__wrap">
+                <h3 class="--center">{{ __('Login in') }}</h3>
+                <form method="POST" class="js-form-validator" action="{{ route('login', app()->getLocale()) }}">
+                    @csrf
+                    <div class="input-block">
+                        <input type="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="input-block">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
+                    <a data-fancybox data-caption="Optional caption" data-src="#forgotpass">Forgot password</a>
+                    <a data-fancybox data-options='{"mainClass": "Registration"}' data-src="#registration">Registration</a>
+                </form>
+            </div>
         </div>
-    </div>
     @endauth
 </div>
 </body>

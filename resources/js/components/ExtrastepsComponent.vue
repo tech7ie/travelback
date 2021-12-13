@@ -1,5 +1,5 @@
 <template>
-    <div class="extrastops" v-click-outside="close" :class="{ opened }" style="z-index: 9; position:relative;">
+    <div class="extrastops" v-click-outside="close" :class="{ opened }" style="position:relative;">
         <div class="extrastops__item">
             <input type="hidden" :value="selected" :name="'extrastops' + index">
             <input class="extrastops__item-1" :placeholder="'Stop' + '' + (index + 2)">
