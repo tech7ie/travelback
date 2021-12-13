@@ -18,9 +18,9 @@
                     </div>
                     <div class="homehead__content">
                         <h1>{!! __("home.home_title") !!}</h1>
-                        {{--                        <div class="homehead__content-label"><i><img src="/img/logo-min.svg" alt="IMG"></i>--}}
-                        {{--                            <div>{!! __("home.home_sub_title") !!}</div>--}}
-                        {{--                        </div>--}}
+                        <div class="homehead__content-label"><i><img src="/img/logo-min.svg" alt="IMG"></i>
+                            <div>{!! __("home.home_sub_title") !!}</div>
+                        </div>
                     </div>
                 </div>
             </div>

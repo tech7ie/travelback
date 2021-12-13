@@ -7,8 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-
-class LoginController extends Controller
+class LogoutController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +39,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function logout(\Illuminate\Http\Request $request)
+    public function logout(\Request $request)
     {
         Auth::logout();
 

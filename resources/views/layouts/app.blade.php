@@ -54,6 +54,41 @@
     ]) !!};
     </script>
 
+    <style>
+
+        .header__logout{
+            padding-left: 5px;
+        }
+
+        .header__logout a {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 100%
+        }
+
+        .header__logout a:hover svg {
+            fill: #ec824a
+        }
+
+        .header__logout a svg {
+            width: 14px;
+            height: 14px;
+            -webkit-transition: .2s;
+            -o-transition: .2s;
+            transition: .2s;
+            fill: rgba(255,255,255,.7)
+        }
+    </style>
     <link rel="stylesheet" href="{{ asset('styles/extend.css') }}">
 </head>
 <body>
@@ -111,6 +146,16 @@
                         </div>
                     </div>
                     @auth
+                        <div class="header__logout">
+                            <a href="{{ route('logout', app()->getLocale()) }}" alt="close">
+                                <svg class="icon">
+                                    <use xlink:href="/img/sprites/sprite.svg#close"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    @endauth
+
+                    @auth
                         <div class="header__user">
                             <a href="{{ route('cabinet', app()->getLocale()) }}" alt="user">
                                 <svg class="icon">
@@ -120,7 +165,7 @@
                         </div>
                     @else
                         <div class="header__user">
-                            <a id="auth_button" data-fancybox data-src="#login" alt="user">
+                            <a id="auth_button" href="#login">
                                 <svg class="icon">
                                     <use xlink:href="/img/sprites/sprite.svg#user"></use>
                                 </svg>
@@ -131,7 +176,9 @@
             </div>
             <div class="header__mobile">
                 <div class="header__burger js-menu-burger"><span><i></i></span></div>
-                <a class="header__mobile-logo" href="{{ route('home', app()->getLocale()) }}"><img src="/img/svg/logo.svg" alt="logo"></a>
+                <a class="header__mobile-logo" href="{{ route('home', app()->getLocale()) }}">
+                    <img src="/img/svg/logo.svg" alt="logo">
+                </a>
                 <div class="header__user">
                     @auth
                         <a href="{{ route('cabinet', app()->getLocale()) }}" alt="user">
@@ -155,53 +202,56 @@
     @auth
 
     @else
-        <div class="popup --sm popup-forgotpass" id="forgotpass">
-            <div class="popup__wrap">
-                <h3 class="--center">{{ __('Forgot password') }}</h3>
-                <form class="js-form-validator">
-                    <div class="input-block">
-                        <input type="email" placeholder="Email" name="email" required>
-                    </div>
-                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
-                </form>
-            </div>
-        </div>
-        <div class="popup --sm popup-registration" id="registration">
-            <div class="popup__wrap">
-                <h3 class="--center">{{ __('Register') }}</h3>
-                <form method="POST" class="js-form-validator" action="{{ route('register', app()->getLocale()) }}">
-                    @csrf
-                    <div class="input-block">
-                        <input type="email" placeholder="Email" name="email" required>
-                    </div>
-                    <div class="input-block">
-                        <input type="password" placeholder="Password" name="password" required>
-                    </div>
-                    <div class="input-block">
-                        <input type="password" placeholder="Password confirm" name="re_password" required>
-                    </div>
-                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Register') }}</span></button>
-                </form>
-            </div>
-        </div>
 
-        <div class="popup --sm popup-login" id="login">
-            <div class="popup__wrap">
-                <h3 class="--center">{{ __('Login in') }}</h3>
-                <form method="POST" class="js-form-validator" action="{{ route('login', app()->getLocale()) }}">
-                    @csrf
-                    <div class="input-block">
-                        <input type="email" placeholder="Email" name="email" required>
-                    </div>
-                    <div class="input-block">
-                        <input type="password" placeholder="Password" name="password" required>
-                    </div>
-                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>
-                    <a data-fancybox data-caption="Optional caption" data-src="#forgotpass">Forgot password</a>
-                    <a data-fancybox data-options='{"mainClass": "Registration"}' data-src="#registration">Registration</a>
-                </form>
-            </div>
-        </div>
+        <v-popups
+            csrf="{{csrf_token()}}"
+        ></v-popups>
+        {{--        <div class="popup --sm popup-forgotpass" id="forgotpass">--}}
+        {{--            <div class="popup__wrap">--}}
+        {{--                <h3 class="--center">{{ __('Forgot password') }}</h3>--}}
+        {{--                <form class="js-form-validator">--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="email" placeholder="Email" name="email" required>--}}
+        {{--                    </div>--}}
+        {{--                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>--}}
+        {{--                </form>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        {{--        <div class="popup --sm popup-registration" id="registration">--}}
+        {{--            <div class="popup__wrap">--}}
+        {{--                <h3 class="--center">{{ __('Register') }}</h3>--}}
+        {{--                <form method="POST" class="js-form-validator" action="{{ route('register', app()->getLocale()) }}">--}}
+        {{--                    @csrf--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="email" placeholder="Email" name="email" required>--}}
+        {{--                    </div>--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="password" placeholder="Password" name="password" required>--}}
+        {{--                    </div>--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="password" placeholder="Password confirm" name="re_password" required>--}}
+        {{--                    </div>--}}
+        {{--                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Register') }}</span></button>--}}
+        {{--                </form>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        {{--        <div class="popup --sm popup-login" id="login">--}}
+        {{--            <div class="popup__wrap">--}}
+        {{--                <h3 class="--center">{{ __('Login in') }}</h3>--}}
+        {{--                <form method="POST" class="js-form-validator" action="{{ route('login', app()->getLocale()) }}">--}}
+        {{--                    @csrf--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="email" placeholder="Email" name="email" required>--}}
+        {{--                    </div>--}}
+        {{--                    <div class="input-block">--}}
+        {{--                        <input type="password" placeholder="Password" name="password" required>--}}
+        {{--                    </div>--}}
+        {{--                    <button class="btn-submit --simple --no-opacity"><span>{{ __('Save') }}</span></button>--}}
+        {{--                    <a data-fancybox data-src="#forgotpass">Forgot password</a>--}}
+        {{--                    <a data-fancybox data-src="#registration">Registration</a>--}}
+        {{--                </form>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
     @endauth
 </div>
 </body>

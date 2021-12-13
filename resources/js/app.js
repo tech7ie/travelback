@@ -67,6 +67,7 @@ import VCalendar from "v-calendar";
 Vue.use(VCalendar);
 
 Vue.component('v-init', require('./components/InitComponent').default);
+Vue.component('v-popups', require('./components/PopupsComponent').default);
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-select', require('./components/SelectComponent.vue').default);
 Vue.component('v-custom-calendar', require('./components/CustomCalendarComponent').default);
