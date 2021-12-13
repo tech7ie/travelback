@@ -160,8 +160,17 @@ export default Vue.component("v-popups", {
                 }).catch(e => {
                 let errors = e?.response?.data?.errors || []
 
-                this.popupMessage += this.$t(e?.response?.data?.errors?.email[0]) || ''
-                this.popupMessage += this.$t(e?.response?.data?.errors?.password[0]) || ''
+                try {
+                    this.popupMessage += this.$t(e?.response?.data?.errors?.email[0]) || ''
+
+                }catch (e){
+                    console.log(e);
+                }
+                try {
+                    this.popupMessage += this.$t(e?.response?.data?.errors?.password[0]) || ''
+                }catch (e){
+                    console.log(e);
+                }
                 //
                 // console.log(errors);
                 // errors.forEach(e=>{
