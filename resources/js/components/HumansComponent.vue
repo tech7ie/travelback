@@ -33,7 +33,7 @@
                 <div><span>{{$t("Luggage")}}</span><em>{{$t("Sets of bags")}}</em></div>
                 <v-incdec :value="luggage" :min="0"
                           :sync="true"
-                          @value="changeValue('luggage', $event)"
+                          @value="changeLuggage('luggage', $event)"
                 ></v-incdec>
             </div>
         </div>
@@ -70,13 +70,11 @@ export default Vue.component("v-humans", {
         },
         changeValue(param, value) {
             this[param] = value;
-            // if (this.luggage < ((this.adults + this.childrens) - 2)){
-            //     this.luggage = ((this.adults + this.childrens) - 2)
-            // }else {
-            //     if (this.luggage > ((this.adults + this.childrens) + 2)){
-            //         this.luggage = ((this.adults + this.childrens) + 2)
-            //     }
-            // }
+            this.luggage = (this.adults + this.childrens)
+            this.returnValues();
+        },
+        changeLuggage(param, value) {
+            this[param] = value;
             this.returnValues();
         },
         returnValues() {
