@@ -61,13 +61,17 @@
                             <div class="tickets__item js-ticket">
                                 <div class="tickets__wrap">
                                     <div class="tickets__fromto">
-                                        <div class="tickets__ft"><b>{{$order->getRoute()->fromCity['name']}}</b><em>Departure: Tue, Feb 9, 9:00 AM</em></div>
+                                        <div class="tickets__ft"><b>{{$order->getRoute()->fromCity['name']}}</b>
+{{--                                            <em>Departure: Tue, Feb 9, 9:00 AM</em>--}}
+                                        </div>
                                         <div class="tickets__between">
                                             <svg class="icon">
                                                 <use xlink:href="/img/sprites/sprite.svg#arrow-long"></use>
                                             </svg>
                                         </div>
-                                        <div class="tickets__ft --last"><b>{{$order->getRoute()->toCity['name']}}</b><em>Estimated arrival: Tue, Feb 9, 12:05 PM</em></div>
+                                        <div class="tickets__ft --last"><b>{{$order->getRoute()->toCity['name']}}</b>
+{{--                                            <em>Estimated arrival: Tue, Feb 9, 12:05 PM</em>--}}
+                                        </div>
                                     </div>
                                     <div class="tickets__amount">
                                         <div><span>{{$order['adults'] + $order['childrens']}}</span>
@@ -93,9 +97,10 @@
                                         @foreach ($order->places as $place)
                                             <div class="tickets__list-item"><i><img src="/{{$place->image}}" alt="IMG"></i>
                                                 <div>
-                                                    <h4>{{$place->title}}</h4><em>9:48 AM - 11:03 AM</em>
+                                                    <h4>{{$place->title_en}}</h4>
+{{--                                                    <em>9:48 AM - 11:03 AM</em>--}}
                                                 </div>
-                                                <span><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$place->pivot['price']}}</span>
+                                                <span><i style="margin-right: 5px" class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$place->pivot['price']}}</span>
                                             </div>
                                         @endforeach
                                     </div>
@@ -115,7 +120,7 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <div class="tickets__footer-price"><em>Total</em><b><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$car->price}}</b></div>
+                                            <div class="tickets__footer-price"><em>Total</em><b><i class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$order['amount']}}</b></div>
                                             <div class="tickets__footer-bottom">
                                                 <div class="tickets__amount">
                                                     <div><span>{{$car->places_min}}-{{$car->places_max}}</span>

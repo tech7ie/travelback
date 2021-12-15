@@ -11,7 +11,7 @@
             <a data-fancybox :data-src="'#hidden-content_' + data.id" href="javascript:;">
 
                 <b>{{ data.title }}</b>
-                <div :style="{'max-height':'45px', 'overflow':'hidden'}">
+                <div :style="{'max-height':'40px', 'overflow':'hidden', 'margin-bottom': '5px'}">
                     <p v-html="data.body"></p>
                 </div>
             </a>
