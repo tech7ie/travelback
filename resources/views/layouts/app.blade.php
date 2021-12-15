@@ -146,13 +146,13 @@
                         </div>
                     </div>
                     @auth
-                        <div class="header__logout">
-                            <a href="{{ route('logout', app()->getLocale()) }}" alt="close">
-                                <svg class="icon">
-                                    <use xlink:href="/img/sprites/sprite.svg#close"></use>
-                                </svg>
-                            </a>
-                        </div>
+{{--                        <div class="header__logout">--}}
+{{--                            <a href="{{ route('logout', app()->getLocale()) }}" alt="close">--}}
+{{--                                <svg class="icon">--}}
+{{--                                    <use xlink:href="/img/sprites/sprite.svg#close"></use>--}}
+{{--                                </svg>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
                     @endauth
 
                     @auth
