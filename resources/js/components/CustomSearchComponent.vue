@@ -218,11 +218,11 @@
             <form class="popup__wrap">
                 <h3>{{ $t('Select your ride') }}</h3>
                 <div class="popup-select-rider">
-                    <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)">
+                    <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)" @once="setCar(item)">
                         <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                         <label for="select-auto-1">
                             <div class="tickets__footer">
-                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
+                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>  q
                                 <div class="tickets__footer-info">
                                     <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
                                     <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
@@ -367,18 +367,18 @@ export default Vue.component("v-custom-search", {
 
         let $this = this;
         document.addEventListener("bouncerFormValid", function (el) {
-            console.log('bouncerFormValid');
+            console.log('goToOrder  bouncerFormValid');
             $this.goToOrder(el)
         });
 
 
-        console.log('this.current: ', this.current);
-        console.log('price: ', this.current.price);
-        console.log('places: ', this.current.places);
-        console.log('current_route_places:', this.current_route_places);
-        console.log('debug: ', this.debug);
-        console.log('invert: ', this.invert);
-        console.log('invert_route: ', this.invert_route);
+        // console.log('this.current: ', this.current);
+        // console.log('price: ', this.current.price);
+        // console.log('places: ', this.current.places);
+        // console.log('current_route_places:', this.current_route_places);
+        // console.log('debug: ', this.debug);
+        // console.log('invert: ', this.invert);
+        // console.log('invert_route: ', this.invert_route);
 
         console.log('this.$route.params: ', this.$router)
         if (this.current) {
@@ -502,9 +502,19 @@ export default Vue.component("v-custom-search", {
             console.log(car);
             this.passengers = [car]
             console.log(this.passengers);
+            // var f = window.document.getElementsByClassName('fancybox__container')
+            var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
+            var b = box.getElementsByClassName('carousel__button')
+            console.log('f', f);
+            console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
+
+            console.log('f', b);
+            console.log('f', b[0]);
+            if (b && b[0])
+                b[0].click()
             return true
         },
         goToOrder(e) {

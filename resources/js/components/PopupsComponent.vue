@@ -1,11 +1,11 @@
 <template>
     <div class="popup_wrapper fancybox__container" id="popup_box" v-show="active" @click="close">
-        <modal v-if="showLoginModal" @close="closeModal()">
-            <div class="popup --sm popup-login" id="login" v-show="form === '#login'">
+        <modal v-show="showLoginModal" @close="closeModal()">
+            <div class="popup --sm-- popup-login" id="login" v-show="form === '#login'">
                 <div class="popup__wrap">
                     <h3 class="--center">{{ $t('Login in') }}</h3>
-                    <form @submit.prevent="loginRequest" method="POST" class="js-form-validator">
-                        <!--                    <form method="POST" class="js-form-validator" action="/en/login">-->
+                    <form data-entity="login" @submit.prevent="loginRequest" method="POST" class="js-form-validator_popup">
+                        <!--                    <form method="POST" class="js-form-validator_popup" action="/en/login">-->
                         <input type="hidden" name="_token" :value="csrf">
                         <div class="input-block">
                             <input type="email" placeholder="Email" name="email" required>
@@ -13,7 +13,7 @@
                         <div class="input-block">
                             <input type="password" placeholder="Password" name="password" required>
                         </div>
-                        <button type="submit" class="btn-submit --simple --no-opacity"><span>{{ $t('Save') }}</span></button>
+                        <button type="submit" class="btn-submit --simple --no-opacity"><span>{{ $t('Login in') }}</span></button>
                         <a @click="openForgot">Forgot password</a>
                         <a @click="openRegistration">Registration</a>
                     </form>
@@ -27,42 +27,23 @@
                 </button>
             </div>
         </modal>
-        <modal v-if="showForgotModal" @close="closeModal()">
-            <div class="popup --sm popup-forgotpass" id="forgotpass" v-show="form === '#forgotpass'">
-                <div class="popup__wrap">
-                    <h3 class="--center">{{ $t('Forgot password') }}</h3>
-                    <form class="js-form-validator">
-                        <input type="hidden" name="_token" :value="csrf">
-                        <div class="input-block">
-                            <input type="email" placeholder="Email" name="email" required>
-                        </div>
-                        <button class="btn-submit --simple --no-opacity"><span>{{ $t('Save') }}</span></button>
-                    </form>
-                </div>
-                <button @click="closeModal()"
-                        class="carousel__button is-close"
-                        title="Close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1">
-                        <path d="M20 20L4 4m16 0L4 20"></path>
-                    </svg>
-                </button>
-            </div>
-        </modal>
-        <modal v-if="showRegisterModal" @close="closeModal()">
-            <div class="popup --sm popup-registration" id="registration" v-show="form === '#registration'">
+        <modal v-show="showRegisterModal" @close="closeModal()">
+            <div class="popup --sm-- popup-login" id="registration" v-show="form === '#registration'">
                 <div class="popup__wrap">
                     <h3 class="--center">{{ $t('Register') }}</h3>
-                    <!--                <form method="POST" class="js-form-validator" action="en/register">-->
-                    <form @submit.prevent="registerRequest" method="POST" class="js-form-validator">
+                    <!--                <form method="POST" class="js-form-validator_popup" action="en/register">-->
+                    <form data-entity="register" class="js-form-validator_popup">
                         <input type="hidden" name="_token" :value="csrf">
                         <div class="input-block">
                             <input type="email" placeholder="Email" name="email" required>
                         </div>
                         <div class="input-block">
-                            <input type="password" placeholder="Password" name="password" required>
+                            <input id="password" type="password" placeholder="Password" name="password" required>
                         </div>
                         <div class="input-block">
-                            <input type="password" placeholder="Password confirm" name="password_confirmation" required>
+                            <input
+                                data-bouncer-match="#password"
+                                type="password" placeholder="Password confirm" name="password_confirmation" required>
                         </div>
                         <button type="submit" class="btn-submit --simple --no-opacity"><span>{{ $t('Register') }}</span></button>
                     </form>
@@ -76,11 +57,41 @@
                 </button>
             </div>
         </modal>
-        <div class="popup --sm popup-success" id="message_box" style="display:none">
-            <a id="message_box_request" data-fancybox data-src="#message_box" alt="user" style="display: none"></a>
-            <form class="popup__wrap js-form-validator">
+
+
+        <modal v-show="showForgotModal" @close="closeModal()">
+            <div class="popup --sm popup-forgotpass" id="forgotpass" v-show="form === '#forgotpass'">
+                <div class="popup__wrap">
+                    <h3 class="--center">{{ $t('Forgot password') }}</h3>
+                    <form data-entity="forgot" class="js-form-validator_popup">
+                        <input type="hidden" name="_token" :value="csrf">
+                        <div class="input-block">
+                            <input type="email" placeholder="Email" name="email" required>
+                        </div>
+                        <button class="btn-submit --simple --no-opacity"><span>{{ $t('Send') }}</span></button>
+                    </form>
+                </div>
+                <button @click="closeModal()"
+                        class="carousel__button is-close"
+                        title="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1">
+                        <path d="M20 20L4 4m16 0L4 20"></path>
+                    </svg>
+                </button>
+            </div>
+        </modal>
+        <div class="popup --sm-- popup-success" id="message_success_box" style="display:none">
+            <a id="message_success_box_request" data-fancybox data-src="#message_success_box" alt="user" style="display: none"></a>
+            <form class="popup__wrap js-form-validator_popup">
                 <img src="/img/success.svg" alt="success icon">
-                <h3 class="--center">{{ popupMessage }}</h3>
+                <h3 style="font-size:20px" class="--center">{{ popupMessage }}</h3>
+            </form>
+        </div>
+        <div class="popup --sm popup-success" id="message_error_box" style="display:none">
+            <a id="message_error_box_request" data-fancybox data-src="#message_error_box" alt="user" style="display: none"></a>
+            <form class="popup__wrap js-form-validator_popup">
+                <img src="/img/error.svg" alt="success icon">
+                <h3 style="font-size:20px" class="--center">{{ popupMessage }}</h3>
             </form>
         </div>
     </div>
@@ -89,6 +100,7 @@
 import Vue from "vue/dist/vue.esm.browser.min";
 
 import Swiper from 'swiper/bundle';
+import initValidation from "./helper/validator";
 
 export default Vue.component("v-popups", {
     props: {
@@ -118,11 +130,61 @@ export default Vue.component("v-popups", {
         };
     },
     mounted() {
+
+        initValidation(".js-form-validator_popup");
         if (document.location.hash === '#login') {
             this.showLoginModal = true
             this.active = true;
             this.form = '#login'
         }
+
+        const $this = this
+
+        document.addEventListener("bouncerFormValid", function (el) {
+            console.log('PopupsComponent.vue bouncerFormValid', el);
+            console.log('entity', el.target.dataset?.entity );
+                if (el.target.dataset?.entity === 'login') {
+                    try {
+                        var form = el.target;
+                        console.log(form);
+                        $this.loginRequest(form)
+                    } catch (e) {
+                        console.log(e);
+                        console.log("Form Submit Error!");
+                    }
+
+                }
+
+                if (el.target.dataset?.entity === 'register') {
+                    try {
+                        var form = el.target;
+
+                        console.log(form);
+                        // form.submit(this)
+                        $this.registerRequest(form)
+
+                    } catch (e) {
+                        console.log(e);
+                        console.log("Form Submit Error!");
+                    }
+
+                }
+
+                if (el.target.dataset?.entity === 'forgot') {
+                    try {
+                        var form = el.target;
+
+                        console.log(form);
+                        $this.registerForgot(form)
+
+                        // form.submit(this)
+                    } catch (e) {
+                        console.log(e);
+                        console.log("Form Submit Error!");
+                    }
+
+                }
+        });
         window.addEventListener('hashchange', this.hashChange.bind(this))
     },
     methods: {
@@ -139,24 +201,28 @@ export default Vue.component("v-popups", {
                     }
                 }).catch(e => {
                 this.popupMessage = e?.response?.data?.message
-                document.getElementById('message_box_request').click()
+                document.getElementById('message_error_box_request').click()
             })
         },
 
         registerRequest(e) {
-            const formData = new FormData(e.target);
+            // e.preventDefault()
+            console.log('registerRequest', e);
+            const formData = new FormData(e);
             const formProps = Object.fromEntries(formData);
+            this.popupMessage = ''
+
             axios.post('/' + window.App.language + '/register', formProps
             // axios.post('/register', formProps
             )
                 .then(res => {
                     console.log(res);
-                    // if (res) {
-                    //     window.location.href = '/' + window.App.language
-                    // }
+                    if (res) {
+                        window.location.href = '/' + window.App.language + '/cabinet'
+                    }
 
                     this.popupMessage = 'Success !!!'
-                    document.getElementById('message_box_request').click()
+                    document.getElementById('message_success_box_request').click()
                 }).catch(e => {
                 let errors = e?.response?.data?.errors || []
 
@@ -179,8 +245,55 @@ export default Vue.component("v-popups", {
                 // })
 
                 // this.popupMessage = e?.response?.data?.message
-                document.getElementById('message_box_request').click()
+                document.getElementById('message_error_box_request').click()
             })
+            return false
+        },
+
+        registerForgot(e) {
+            // e.preventDefault()
+            console.log('registerRequest', e);
+            const formData = new FormData(e);
+            const formProps = Object.fromEntries(formData);
+            this.popupMessage = ''
+
+            axios.post('/' + window.App.language + '/password/email', formProps
+            // axios.post('/' + window.App.language + '/forgot', formProps
+            // axios.post('/register', formProps
+            )
+                .then(res => {
+                    console.log(res);
+                    if (res) {
+                        window.location.href = '/' + window.App.language
+                    }
+
+                    this.popupMessage = 'Success !!!'
+                    document.getElementById('message_success_box_request').click()
+                }).catch(e => {
+                let errors = e?.response?.data?.errors || []
+
+                try {
+                    this.popupMessage += this.$t(e?.response?.data?.errors?.email[0]) || ''
+
+                }catch (e){
+                    console.log(e);
+                }
+                try {
+                    this.popupMessage += this.$t(e?.response?.data?.errors?.password[0]) || ''
+                }catch (e){
+                    console.log(e);
+                }
+                //
+                // console.log(errors);
+                // errors.forEach(e=>{
+                //     console.log(e);
+                //     this.popupMessage += e
+                // })
+
+                // this.popupMessage = e?.response?.data?.message
+                document.getElementById('message_error_box_request').click()
+            })
+            return false
         },
 
         hashChange() {

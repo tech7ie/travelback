@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }, false);
 
         document.addEventListener("bouncerFormValid", function (el) {
+            console.log('bouncerFormValid index');
             try {
                 var fn = el.target.dataset.submit;
                 window[fn](el);

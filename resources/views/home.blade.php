@@ -198,19 +198,19 @@
     </div>
     @if($partners && count($partners) > 0)
         <section class="partners">
-            <div class="container">
-                <div class="partners__wrap">
-                    <div class="partners__text">
-                        <h4>We made a decision in 2020 to equalize the opportunities and maintain the sameexperience for every customer via this simple system: To interconnect certain destinantions and simplify the travelling itself for everyone.</h4>
-                        <p>We supposed public transport might turn into stressful and time-consuming sport, which has encouraged us to come up with this idea: The services we are offering are managed into from A to B“ journeys, naturally mastered with high comfort and efficiency of the ride.</p>
-                        <div class="btn-border"><span>Read more</span>
-                            <svg class="icon">
-                                <use xlink:href="img/sprites/sprite.svg#arrow-long"></use>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="container">--}}
+{{--                <div class="partners__wrap">--}}
+{{--                    <div class="partners__text">--}}
+{{--                        <h4>We made a decision in 2020 to equalize the opportunities and maintain the sameexperience for every customer via this simple system: To interconnect certain destinantions and simplify the travelling itself for everyone.</h4>--}}
+{{--                        <p>We supposed public transport might turn into stressful and time-consuming sport, which has encouraged us to come up with this idea: The services we are offering are managed into from A to B“ journeys, naturally mastered with high comfort and efficiency of the ride.</p>--}}
+{{--                        <div class="btn-border"><span>Read more</span>--}}
+{{--                            <svg class="icon">--}}
+{{--                                <use xlink:href="img/sprites/sprite.svg#arrow-long"></use>--}}
+{{--                            </svg>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="partners__slider">
                 <div class="container">
                     <h2 class="--fw-400">{!! __("home.block_partners_slider") !!}</h2>
@@ -236,16 +236,48 @@
                     <h2>{!! __("home.block_5.title") !!}</h2>
                 </div>
                 <div class="description__items">
-                    <div class="description__item"><i><img src="/img/shield-svg.svg" alt="IMG"></i>
-                        <div>{!! __("home.block_5.1") !!}</div>
+                    <div class="description__item">
+                        <i>
+                            <img src="img/shield-svg.svg" alt="IMG">
+                            <svg class="icon">
+                                <use xlink:href="img/sprites/sprite.svg#shield"></use>
+                            </svg></i>
+                        <div>
+                            <h3>Safety.</h3>
+                            <p>Each driver working for MYTRIPLINE has gone through the strict selection procedure. Speaking of our highest aim, getting your from A to B point while offering the greatest possible comfort meets up your and our desire. Time spent on getting to your final point does not have to be time wasted. With us it is simply enjoyable.</p>
+                        </div>
                     </div>
-                    <div class="description__item"><i><img src="/img/like-svg.svg" alt="IMG"></i>
-                        <div>{!! __("home.block_5.2") !!}</div>
+                    <div class="description__item"><i><img src="img/like-svg.svg" alt="IMG">
+                            <svg class="icon">
+                                <use xlink:href="img/sprites/sprite.svg#like"></use>
+                            </svg></i>
+                        <div>
+                            <h3>Quality.</h3>
+                            <p>To our precious clients, Mytripline guarantees every single ride to be a comfortable and delightful experience when facilitated through our company. In this respect, we pay full attention to the quality and cleanliness of our vehicles and driver selection, who will become your guide throughtout the journey.</p>
+                        </div>
                     </div>
-                    <div class="description__item"><i><img src="/img/lock-svg.svg" alt="IMG"></i>
-                        <div>{!! __("home.block_5.3") !!}</div>
+                    <div class="description__item"><i><img src="img/lock-svg.svg" alt="IMG">
+                            <svg class="icon">
+                                <use xlink:href="img/sprites/sprite.svg#lock"></use>
+                            </svg></i>
+                        <div>
+                            <h3>Reliability.</h3>
+                            <p>The journey always sets off on time. Our drivers will get you from A to B point while choosing the most comfortable route from multiple possibilities. This journey provided by our company also adds the best stops at must-see destinations.</p>
+                        </div>
                     </div>
                 </div>
+
+{{--                <div class="description__items">--}}
+{{--                    <div class="description__item"><i><img src="/img/shield-svg.svg" alt="IMG"></i>--}}
+{{--                        <div>{!! __("home.block_5.1") !!}</div>--}}
+{{--                    </div>--}}
+{{--                    <div class="description__item"><i><img src="/img/like-svg.svg" alt="IMG"></i>--}}
+{{--                        <div>{!! __("home.block_5.2") !!}</div>--}}
+{{--                    </div>--}}
+{{--                    <div class="description__item"><i><img src="/img/lock-svg.svg" alt="IMG"></i>--}}
+{{--                        <div>{!! __("home.block_5.3") !!}</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>

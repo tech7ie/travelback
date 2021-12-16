@@ -187,7 +187,8 @@
                             </svg>
                         </a>
                     @else
-                        <a data-fancybox data-src="#login" alt="user">
+                        <a id="auth_button" href="#login">
+{{--                        <a data-fancybox data-src="#login" alt="user">--}}
                             <svg class="icon">
                                 <use xlink:href="/img/sprites/sprite.svg#user"></use>
                             </svg>

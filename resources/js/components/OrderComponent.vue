@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form id="payment-form" class="order js-form-validator" :data-submit="submit_form">
+        <form data-entity="payment" id="payment-form" class="order js-form-validator" :data-submit="submit_form">
             <input type="text" name="csrf" :value="csrf" hidden>
             <div class="container">
                 <div class="order__wrap">
@@ -288,21 +288,27 @@ export default Vue.component("v-order-route", {
 
         let $this = this;
         document.addEventListener("bouncerFormValid", async function (el) {
-            if ($this.payment_type === 1) {
-                //4242424242424242
-                const token = await $this.createStripeToken()
-                console.log('token: ', token);
-                if (token) {
-                    $this.stripeToken = token.id
-                    $this.submit_form(el)
-                } else {
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                }
-            } else {
-                $this.submit_form(el)
+            'bouncerFormValid payment'
 
-            }
+                if (el.target.dataset?.entity === 'payment') {
+                    if ($this.payment_type === 1) {
+                        //4242424242424242
+                        const token = await $this.createStripeToken()
+                        console.log('token: ', token);
+                        if (token) {
+                            $this.stripeToken = token.id
+                            $this.submit_form(el)
+                        } else {
+                            var errorElement = document.getElementById('card-errors');
+                            errorElement.textContent = result.error.message;
+                        }
+                    } else {
+                        $this.submit_form(el)
+
+                    }
+                }
+
+
         });
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -354,10 +360,23 @@ export default Vue.component("v-order-route", {
             console.log(car);
             this.passengers = [car]
             console.log(this.passengers);
+
+            console.log(car);
+            this.passengers = [car]
+            console.log(this.passengers);
+            // var f = window.document.getElementsByClassName('fancybox__container')
+            var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
+            var b = box.getElementsByClassName('carousel__button')
+            console.log('f', f);
+            console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
 
+            console.log('f', b);
+            console.log('f', b[0]);
+            if (b && b[0])
+                b[0].click()
 
             this.$store.commit('choseCar', car)
             return true
