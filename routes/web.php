@@ -39,7 +39,7 @@ Route::get( '/', function () {
 } );
 
 Route::group( [
-    'prefix'     => '{lang}',
+    'prefix'     => '{lang?}',
     'where'      => [ 'lang' => '[a-zA-Z]{2}' ],
     'middleware' => 'languageSwitcher'
 ], function () {

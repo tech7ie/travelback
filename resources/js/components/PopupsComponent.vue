@@ -257,6 +257,7 @@ export default Vue.component("v-popups", {
             const formProps = Object.fromEntries(formData);
             this.popupMessage = ''
 
+            // axios.post('/' + window.App.language + '/password/reset', formProps
             axios.post('/' + window.App.language + '/password/email', formProps
             // axios.post('/' + window.App.language + '/forgot', formProps
             // axios.post('/register', formProps
@@ -264,7 +265,7 @@ export default Vue.component("v-popups", {
                 .then(res => {
                     console.log(res);
                     if (res) {
-                        window.location.href = '/' + window.App.language
+                        // window.location.href = '/' + window.App.language + '#login'
                     }
 
                     this.popupMessage = 'Success !!!'
