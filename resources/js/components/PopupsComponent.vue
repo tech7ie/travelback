@@ -177,7 +177,43 @@ export default Vue.component("v-popups", {
                         console.log(form);
                         $this.registerForgot(form)
 
-                        // form.submit(this)
+                    } catch (e) {
+                        console.log(e);
+                        console.log("Form Submit Error!");
+                    }
+
+                }
+
+                if (el.target.dataset?.entity === 'search') {
+                    try {
+                        // var form = el.target;
+                        //
+
+                        // var emitEvent = function (elem, type, details) {
+                        //     if (typeof window.CustomEvent !== 'function') return;
+                        //     var event = new CustomEvent(type, {
+                        //         bubbles: true,
+                        //         detail: details || {}
+                        //     });
+                        //     elem.dispatchEvent(event);
+                        // };
+
+                        //				emitEvent(event.target, 'bouncerFormValid');
+
+                        if (typeof window.CustomEvent !== 'function') return;
+                        let event = new CustomEvent('bouncerFormValidRequest', {
+                            bubbles: true,
+                            detail: {}
+                        });
+                        el.target.dispatchEvent(event);
+
+
+                        // console.log(form);
+                        // let event = new Event("bouncerFormValidRequest",  el);
+
+                        // document.dispatchEvent(event)
+                        // return el
+
                     } catch (e) {
                         console.log(e);
                         console.log("Form Submit Error!");

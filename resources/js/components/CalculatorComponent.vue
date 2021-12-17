@@ -1,6 +1,6 @@
 <template>
     <div class="calc" id="calculator">
-        <form data-entity="search" @submit.prevent="submitForm" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
+        <form data-entity="search" class="js-calculator" data-submit="calculatorSubmit" :action="searchActionsUrl">
             <div class="custom-select">
                 <input type="number" :value="route_id" name="route" hidden>
                 <input type="number" :value="invert" name="invert" hidden>
@@ -344,17 +344,13 @@ export default Vue.component("v-calculator", {
 
         let $this = this;
 
-        document.addEventListener("bouncerFormValid", function (el) {
-            console.log('Calc bouncerFormValid', el);
-            // console.log('this.mode -------- entity', el.target.dataset?.entity === 'search');
-
-            // throw ('dddd');
-            if (el.target.dataset?.entity === 'search' && $this.mode === 'home') {
-                $this.submitForm(el)
+        document.addEventListener("bouncerFormValidRequest", function (el) {
+            if (el.target.dataset?.entity === 'search' && $this.mode === 'request') {
                 try {
-                    var form = el.target;
-                    form.submit(this)
-                    console.log('error');
+                    $this.submitForm(el)
+                    // var form = el.target;
+                    // form.submit(this)
+                    // console.log('error');
                 } catch (e) {
                     console.log(e);
                     console.log("Form Submit Error!");
