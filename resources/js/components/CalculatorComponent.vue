@@ -249,17 +249,12 @@ export default Vue.component("v-calculator", {
     },
     methods: {
         submitForm(e) {
-            e.preventDefault()
-            console.log('this.mode: ', this.mode);
-            const formData = new FormData(e.target);
-            const formProps = Object.fromEntries(formData);
-
-            this.$store.commit('setCart', formProps);
-
-            console.log(formProps);
-
             if (this.mode === 'request') {
-                // axios.post('/' + window.App.language + '/set_request', formProps)
+                e.preventDefault()
+                const formData = new FormData(e.target);
+                const formProps = Object.fromEntries(formData);
+
+                this.$store.commit('setCart', formProps);
                 axios.post('/api/set_request', formProps)
                     .then(res => {
 
@@ -279,13 +274,11 @@ export default Vue.component("v-calculator", {
                             // }
                         }
                     }).catch(e => {
-                    console.log(e.message);
                     this.popupMessage = "Your request already sended !!!"
                     document.getElementById('success_request').click()
-
-                    console.log(e);
-                    // window.location.href = this.getUrl('order-cancel');
                 })
+            }else{
+                e.target.submit()
             }
 
 
@@ -345,7 +338,7 @@ export default Vue.component("v-calculator", {
         let $this = this;
 
         document.addEventListener("bouncerFormValidRequest", function (el) {
-            if (el.target.dataset?.entity === 'search' && $this.mode === 'request') {
+            if (el.target.dataset?.entity === 'search') {
                 try {
                     $this.submitForm(el)
                     // var form = el.target;
