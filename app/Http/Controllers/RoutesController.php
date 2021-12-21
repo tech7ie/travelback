@@ -364,11 +364,14 @@ class RoutesController extends Controller {
     }
 
 
-    public function getImageBySize( $size, $image ): string {
-        $pathinfo             = pathinfo( $image );
-        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
-        $resized_image        = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
-
+    public function getImageBySize($size, $image): string {
+        try {
+            $pathinfo = pathinfo($image);
+            $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+            $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        }catch (\Exception $e){
+            return $image;
+        }
         return $resized_image;
     }
 

@@ -82,11 +82,14 @@ class PagePost extends Controller {
         return ( isset( $content[ $key . '_' . app()->getLocale() ] ) && strlen( $content[ $key . '_' . app()->getLocale() ] ) > 0 ) ? $content[ $key . '_' . app()->getLocale() ] : $content[ $key . '_en' ];
     }
 
-
     public function getImageBySize($size, $image): string {
-        $pathinfo = pathinfo($image);
-        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
-        $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        try {
+            $pathinfo = pathinfo($image);
+            $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+            $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        }catch (\Exception $e){
+            return $image;
+        }
         return $resized_image;
     }
 }
