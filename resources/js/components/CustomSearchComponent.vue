@@ -222,7 +222,7 @@
                         <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                         <label for="select-auto-1">
                             <div class="tickets__footer">
-                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>  q
+                                <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
                                 <div class="tickets__footer-info">
                                     <h4>{{ item.car.title }}</h4><em>{{ item.brand }}</em>
                                     <div><span>{{ item.car.places_min }} - {{ item.car.places_max }}</span>
