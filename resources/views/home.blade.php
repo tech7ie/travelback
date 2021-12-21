@@ -305,11 +305,23 @@
     </section>
 @endsection
 <style>
-    @media only screen and (max-width: 600px) {
+
+    /*@media(max-width: 750px) {*/
+    /*    .video_box > iframe {*/
+    /*        width: 100%;*/
+    /*        height: 54%;*/
+    /*        padding: 20px 0!important;*/
+    /*    }*/
+    /*}*/
+
+    @media(max-width: 750px) {
         .video_box > iframe {
-            width: 100% !important;
-            height: auto !important;
-            padding: 20px;
+            width: 100%!important;
+            height: calc(100vw / 1.77);
+        }
+
+        .video_box{
+            padding: 20px 0!important;
         }
     }
 
