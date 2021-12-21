@@ -122,9 +122,13 @@ class HomeController extends Controller {
     }
 
     public function getImageBySize($size, $image): string {
-        $pathinfo = pathinfo($image);
-        $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
-        $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        try {
+            $pathinfo = pathinfo($image);
+            $pathinfo['basename'] = $size . '_' . $pathinfo['basename'];
+            $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+        }catch (\Exception $e){
+            return $image;
+        }
         return $resized_image;
     }
 }
