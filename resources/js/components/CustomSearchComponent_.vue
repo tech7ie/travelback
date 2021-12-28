@@ -393,9 +393,9 @@ export default Vue.component("v-custom-search", {
             this.passengers = [];
             // this.$nextTick(() => {
             //   if(e.passengers >= 1 && e.passengers <= 4 || e.luggage >= 1 && e.luggage <= 4) {
-            //     //console.log("sedan");
+            //     ////console.log("sedan");
             //   } else {
-            //     //console.log("other");
+            //     ////console.log("other");
             //   }
             // });
             // e.luggage >= item.minLuggage && e.luggage >= item.maxLuggage

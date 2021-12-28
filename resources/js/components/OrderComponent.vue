@@ -294,7 +294,7 @@ export default Vue.component("v-order-route", {
                     if ($this.payment_type === 1) {
                         //4242424242424242
                         const token = await $this.createStripeToken()
-                        console.log('token: ', token);
+                        //console.log('token: ', token);
                         if (token) {
                             $this.stripeToken = token.id
                             $this.submit_form(el)
@@ -319,7 +319,7 @@ export default Vue.component("v-order-route", {
     },
     methods: {
         async createStripeToken() {
-            console.log('createStripeToken: ', this.cardNumber);
+            //console.log('createStripeToken: ', this.cardNumber);
             const {token, error} = await this.$stripe.createToken(this.cardNumber);
             if (error) {
                 // handle error here
@@ -328,7 +328,7 @@ export default Vue.component("v-order-route", {
                 return false;
             }
 
-            console.log(token);
+            //console.log(token);
             return token
             // handle the token
             // send it to your server
@@ -357,24 +357,24 @@ export default Vue.component("v-order-route", {
             }, 4000);
         },
         setCar(car) {
-            console.log(car);
+            //console.log(car);
             this.passengers = [car]
-            console.log(this.passengers);
+            //console.log(this.passengers);
 
-            console.log(car);
+            //console.log(car);
             this.passengers = [car]
-            console.log(this.passengers);
+            //console.log(this.passengers);
             // var f = window.document.getElementsByClassName('fancybox__container')
             var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
             var b = box.getElementsByClassName('carousel__button')
-            console.log('f', f);
-            console.log('f', f[0]);
+            //console.log('f', f);
+            //console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
 
-            console.log('f', b);
-            console.log('f', b[0]);
+            //console.log('f', b);
+            //console.log('f', b[0]);
             if (b && b[0])
                 b[0].click()
 
@@ -405,7 +405,7 @@ export default Vue.component("v-order-route", {
 
             axios.post('/' + window.App.language + '/set_order', data)
                 .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     if (res) {
                         if (res.data['status'] === 'success') {
 
@@ -417,7 +417,7 @@ export default Vue.component("v-order-route", {
                         }
                     }
                 }).catch(e => {
-                console.log(e);
+                //console.log(e);
                 window.location.href = this.getUrl('order-cancel');
             })
         },

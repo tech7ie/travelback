@@ -55,7 +55,7 @@ export default Vue.component("v-withstops", {
             currency: store => store.currency,
         }),
         getPrice() {
-            console.log('getPrice:', this.data);
+            //console.log('getPrice:', this.data);
             if (this.selected > 0){
                 return (this.rate * (this.data.price + (((this.data.price_per_hour).toFixed(2) / 2) * ((this.selected / this.step))))).toFixed(2)
             }else{

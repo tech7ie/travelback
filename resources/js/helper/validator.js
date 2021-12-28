@@ -3,7 +3,7 @@ import Bouncer from "../import/bouncer.polyfills.min";
 
 export default function initValidation(node) {
     var validatorClass = document.querySelectorAll(node);
-    console.log('validatorClass:', validatorClass);
+    //console.log('validatorClass:', validatorClass);
     if (validatorClass.length) {
         var bouncer = new Bouncer(node, {
             disableSubmit: true,
@@ -80,8 +80,8 @@ export default function initValidation(node) {
 //   });
 //
 //   document.addEventListener("bouncerFormInvalid", function (event) {
-//     // console.log(event.detail.errors);
-//     // console.log("bouncerFormInvalid: ", event);
+//     // //console.log(event.detail.errors);
+//     // //console.log("bouncerFormInvalid: ", event);
 //     // window.scrollTo(0, event.target.offsetTop);
 //   }, false);
 //
@@ -90,7 +90,7 @@ export default function initValidation(node) {
 //       var fn = el.target.dataset.submit;
 //       window[fn](el);
 //     } catch (e) {
-//       console.log("Form Submit Error!");
+//       //console.log("Form Submit Error!");
 //     }
 //   }, false);
 // }

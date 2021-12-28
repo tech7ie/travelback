@@ -22,7 +22,7 @@ export default Vue.component("v-currency-select", {
         return {}
     },
     mounted() {
-        console.log(this.currentcurrencyexchanges);
+        //console.log(this.currentcurrencyexchanges);
         this.$store.commit('setCurrency', this.currentcurrency);
         this.$store.commit('setCurrencyRates', JSON.parse(this.currentcurrencyexchanges));
 
@@ -32,10 +32,10 @@ export default Vue.component("v-currency-select", {
             onChange: (info) => {
                 axios.get('/setcurrency/' + info.value)
                 .then(res=>{
-                    console.log(res);
+                    //console.log(res);
                 })
-                console.log(info.value);
-                console.log(this.currencyRates[info.value] || {rate:1});
+                //console.log(info.value);
+                //console.log(this.currencyRates[info.value] || {rate:1});
                 this.$store.commit('setRate', this.currencyRates[info.value] || {rate:1});
                 this.$store.commit('setCurrency', info.value);
             }

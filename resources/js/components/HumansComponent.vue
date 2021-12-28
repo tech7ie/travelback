@@ -89,11 +89,11 @@ export default Vue.component("v-humans", {
     },
     watch: {
         adults() {
-            console.log('adults: ', (parseInt(this.adults) + parseInt(this.childrens)));
+            //console.log('adults: ', (parseInt(this.adults) + parseInt(this.childrens)));
             this.errorHumans = (parseInt(this.adults) + parseInt(this.childrens)) <= 0;
         },
         childrens() {
-            console.log('childrens: ', (parseInt(this.adults) + parseInt(this.childrens)));
+            //console.log('childrens: ', (parseInt(this.adults) + parseInt(this.childrens)));
             this.errorHumans = (parseInt(this.adults) + parseInt(this.childrens)) <= 0;
         }
     }

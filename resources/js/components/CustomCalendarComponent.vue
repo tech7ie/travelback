@@ -54,12 +54,12 @@ export default Vue.component("v-custom-calendar", {
     },
     methods: {
         changeDate(e){
-            console.log(e);
+            //console.log(e);
         },
         getMinDate() {
             var current = new Date();
             var followingDay = new Date(current.getTime() + (86400000 / 2));
-            console.log(followingDay);
+            //console.log(followingDay);
             return followingDay
         },
         close() {

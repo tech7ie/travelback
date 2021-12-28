@@ -2,7 +2,7 @@ import Bouncer from "../../../js/import/bouncer.polyfills.min";
 
 export default function initValidation(node) {
     var validatorClass = document.querySelectorAll(node);
-    console.log('validatorClass:', validatorClass);
+    //console.log('validatorClass:', validatorClass);
     if (validatorClass.length) {
         var bouncer = new Bouncer(node, {
             disableSubmit: true,

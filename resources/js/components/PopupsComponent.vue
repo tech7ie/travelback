@@ -141,16 +141,16 @@ export default Vue.component("v-popups", {
         const $this = this
 
         document.addEventListener("bouncerFormValid", function (el) {
-            console.log('PopupsComponent.vue bouncerFormValid', el);
-            console.log('entity', el.target.dataset?.entity );
+            //console.log('PopupsComponent.vue bouncerFormValid', el);
+            //console.log('entity', el.target.dataset?.entity );
                 if (el.target.dataset?.entity === 'login') {
                     try {
                         var form = el.target;
-                        console.log(form);
+                        //console.log(form);
                         $this.loginRequest(form)
                     } catch (e) {
-                        console.log(e);
-                        console.log("Form Submit Error!");
+                        //console.log(e);
+                        //console.log("Form Submit Error!");
                     }
 
                 }
@@ -159,13 +159,13 @@ export default Vue.component("v-popups", {
                     try {
                         var form = el.target;
 
-                        console.log(form);
+                        //console.log(form);
                         // form.submit(this)
                         $this.registerRequest(form)
 
                     } catch (e) {
-                        console.log(e);
-                        console.log("Form Submit Error!");
+                        //console.log(e);
+                        //console.log("Form Submit Error!");
                     }
 
                 }
@@ -174,12 +174,12 @@ export default Vue.component("v-popups", {
                     try {
                         var form = el.target;
 
-                        console.log(form);
+                        //console.log(form);
                         $this.registerForgot(form)
 
                     } catch (e) {
-                        console.log(e);
-                        console.log("Form Submit Error!");
+                        //console.log(e);
+                        //console.log("Form Submit Error!");
                     }
 
                 }
@@ -208,15 +208,15 @@ export default Vue.component("v-popups", {
                         el.target.dispatchEvent(event);
 
 
-                        // console.log(form);
+                        // //console.log(form);
                         // let event = new Event("bouncerFormValidRequest",  el);
 
                         // document.dispatchEvent(event)
                         // return el
 
                     } catch (e) {
-                        console.log(e);
-                        console.log("Form Submit Error!");
+                        //console.log(e);
+                        //console.log("Form Submit Error!");
                     }
 
                 }
@@ -231,7 +231,7 @@ export default Vue.component("v-popups", {
             axios.post('/' + window.App.language + '/login', formProps
             )
                 .then(res => {
-                    console.log('getPlaces ress;', res);
+                    //console.log('getPlaces ress;', res);
                     if (res) {
                         window.location.href = '/' + window.App.language + '/cabinet'
                     }
@@ -243,7 +243,7 @@ export default Vue.component("v-popups", {
 
         registerRequest(e) {
             // e.preventDefault()
-            console.log('registerRequest', e);
+            //console.log('registerRequest', e);
             const formData = new FormData(e);
             const formProps = Object.fromEntries(formData);
             this.popupMessage = ''
@@ -252,7 +252,7 @@ export default Vue.component("v-popups", {
             // axios.post('/register', formProps
             )
                 .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     if (res) {
                         window.location.href = '/' + window.App.language + '/cabinet'
                     }
@@ -266,17 +266,17 @@ export default Vue.component("v-popups", {
                     this.popupMessage += this.$t(e?.response?.data?.errors?.email[0]) || ''
 
                 }catch (e){
-                    console.log(e);
+                    //console.log(e);
                 }
                 try {
                     this.popupMessage += this.$t(e?.response?.data?.errors?.password[0]) || ''
                 }catch (e){
-                    console.log(e);
+                    //console.log(e);
                 }
                 //
-                // console.log(errors);
+                // //console.log(errors);
                 // errors.forEach(e=>{
-                //     console.log(e);
+                //     //console.log(e);
                 //     this.popupMessage += e
                 // })
 
@@ -288,7 +288,7 @@ export default Vue.component("v-popups", {
 
         registerForgot(e) {
             // e.preventDefault()
-            console.log('registerRequest', e);
+            //console.log('registerRequest', e);
             const formData = new FormData(e);
             const formProps = Object.fromEntries(formData);
             this.popupMessage = ''
@@ -299,7 +299,7 @@ export default Vue.component("v-popups", {
             // axios.post('/register', formProps
             )
                 .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     if (res) {
                         // window.location.href = '/' + window.App.language + '#login'
                     }
@@ -313,17 +313,17 @@ export default Vue.component("v-popups", {
                     this.popupMessage += this.$t(e?.response?.data?.errors?.email[0]) || ''
 
                 }catch (e){
-                    console.log(e);
+                    //console.log(e);
                 }
                 try {
                     this.popupMessage += this.$t(e?.response?.data?.errors?.password[0]) || ''
                 }catch (e){
-                    console.log(e);
+                    //console.log(e);
                 }
                 //
-                // console.log(errors);
+                // //console.log(errors);
                 // errors.forEach(e=>{
-                //     console.log(e);
+                //     //console.log(e);
                 //     this.popupMessage += e
                 // })
 
@@ -348,7 +348,7 @@ export default Vue.component("v-popups", {
         },
 
         closeModal() {
-            console.log('closeLogin');
+            //console.log('closeLogin');
             this.showLoginModal = false
             this.showRegisterModal = false
             this.showForgotModal = false
@@ -373,7 +373,7 @@ export default Vue.component("v-popups", {
             this.form = '#forgotpass'
         },
         close(e) {
-            console.log(e.target.id);
+            //console.log(e.target.id);
             if (e.target.id === 'popup_box') {
                 this.active = false;
                 this.form = ''
@@ -384,7 +384,7 @@ export default Vue.component("v-popups", {
     },
     watch: {
         'location.hash': function () {
-            console.log(window.location.href);
+            //console.log(window.location.href);
             this.link = window.location.href
         }
     },

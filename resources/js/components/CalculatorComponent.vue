@@ -188,7 +188,7 @@ export default Vue.component("v-calculator", {
         },
         filteredRoutes() {
             if (true){
-                console.log('this.parsedRoutes: ', this.parsedRoutes);
+                //console.log('this.parsedRoutes: ', this.parsedRoutes);
 
                 const allRoutesResult = []
 
@@ -258,7 +258,7 @@ export default Vue.component("v-calculator", {
                 axios.post('/api/set_request', formProps)
                     .then(res => {
 
-                        console.log('getPlaces ress;', res);
+                        //console.log('getPlaces ress;', res);
 
                         if (res) {
                             // if (res.data['status'] === 'success') {
@@ -298,7 +298,7 @@ export default Vue.component("v-calculator", {
         },
         selectFrom(item) {
             // this.openedFrom = false;
-            console.log('item.invert: ', item.invert);
+            //console.log('item.invert: ', item.invert);
             this.selectedFrom = item.city
             this.invert = item.invert
             this.updateError();
@@ -308,13 +308,13 @@ export default Vue.component("v-calculator", {
         },
         selectTo(item) {
             // this.openedTo = false;
-            console.log('selectTo:', item);
+            //console.log('selectTo:', item);
             this.selectedTo = this.invert === 1 ? item.from_city : item.to_city;
             this.route_id = item.id;
             this.updateError();
         },
         inputTo() {
-            console.log('inputTo');
+            //console.log('inputTo');
             this.updateError();
         },
         change() {
@@ -343,10 +343,10 @@ export default Vue.component("v-calculator", {
                     $this.submitForm(el)
                     // var form = el.target;
                     // form.submit(this)
-                    // console.log('error');
+                    // //console.log('error');
                 } catch (e) {
-                    console.log(e);
-                    console.log("Form Submit Error!");
+                    //console.log(e);
+                    //console.log("Form Submit Error!");
                 }
             }
             return false

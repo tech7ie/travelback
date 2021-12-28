@@ -90,10 +90,10 @@ export default Vue.component("v-select", {
     },
     created() {
         this.firstStart = true;
-        console.log(this.routes);
-        console.log('dddddddd');
-        // console.log(this.filteredRoutes);
-        console.log('dddddddd');
+        //console.log(this.routes);
+        //console.log('dddddddd');
+        // //console.log(this.filteredRoutes);
+        //console.log('dddddddd');
     },
 
     computed: {

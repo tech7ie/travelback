@@ -367,20 +367,20 @@ export default Vue.component("v-custom-search", {
 
         let $this = this;
         document.addEventListener("bouncerFormValid", function (el) {
-            console.log('goToOrder  bouncerFormValid');
+            //console.log('goToOrder  bouncerFormValid');
             $this.goToOrder(el)
         });
 
 
-        // console.log('this.current: ', this.current);
-        // console.log('price: ', this.current.price);
-        // console.log('places: ', this.current.places);
-        // console.log('current_route_places:', this.current_route_places);
-        // console.log('debug: ', this.debug);
-        // console.log('invert: ', this.invert);
-        // console.log('invert_route: ', this.invert_route);
+        // //console.log('this.current: ', this.current);
+        // //console.log('price: ', this.current.price);
+        // //console.log('places: ', this.current.places);
+        // //console.log('current_route_places:', this.current_route_places);
+        // //console.log('debug: ', this.debug);
+        // //console.log('invert: ', this.invert);
+        // //console.log('invert_route: ', this.invert_route);
 
-        console.log('this.$route.params: ', this.$router)
+        //console.log('this.$route.params: ', this.$router)
         if (this.current) {
             this.searchInvert = this.invert === 1
             this.route_id = this.current.id;
@@ -433,18 +433,18 @@ export default Vue.component("v-custom-search", {
             return (((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)
         },
         getPlaces() {
-            console.log('getPlaces');
+            //console.log('getPlaces');
             axios.post('/api/get_route_places', {route: this.route_id})
                 .then(res => {
-                    console.log('getPlaces ress;', res);
+                    //console.log('getPlaces ress;', res);
                     this.places = res.data ?? [];
                 })
         },
         getRoute() {
-            console.log('getPlaces');
+            //console.log('getPlaces');
             axios.post('/api/get_route', {route: this.route_id})
                 .then(res => {
-                    console.log('getPlaces ress;', res);
+                    //console.log('getPlaces ress;', res);
                     this.places = res.data['current_route_places'] ?? [];
                     this.current = res.data['current_route'] ?? [];
                 })
@@ -472,7 +472,7 @@ export default Vue.component("v-custom-search", {
 
             formData.hours = formData.pm ? (parseInt(formData.hours) + 12) : formData.hours
 
-            console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
+            //console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
 
             let route_date = this.getRouteDate()
 
@@ -499,28 +499,28 @@ export default Vue.component("v-custom-search", {
             this.$store.commit('setCart', cart);
         },
         setCar(car) {
-            console.log(car);
+            //console.log(car);
             this.passengers = [car]
-            console.log(this.passengers);
+            //console.log(this.passengers);
             // var f = window.document.getElementsByClassName('fancybox__container')
             var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
             var b = box.getElementsByClassName('carousel__button')
-            console.log('f', f);
-            console.log('f', f[0]);
+            //console.log('f', f);
+            //console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
 
-            console.log('f', b);
-            console.log('f', b[0]);
+            //console.log('f', b);
+            //console.log('f', b[0]);
             if (b && b[0])
                 b[0].click()
             return true
         },
         goToOrder(e) {
             e.preventDefault()
-            console.log('this.updateCart()');
-            console.log(e);
+            //console.log('this.updateCart()');
+            //console.log(e);
 
             let formData = {
                 minutes: e.target.elements.minutes.value,
@@ -529,11 +529,11 @@ export default Vue.component("v-custom-search", {
                 data: e.target.elements.data.value,
             }
             this.updateCart(formData)
-            console.log(e);
-            console.log('e.target.elements:', e.target.elements.minutes.value);
-            console.log('e.target.elements:', e.target.elements.hours.value);
-            console.log('e.target.elements:', e.target.elements.pm.value);
-            console.log('e.target.elements:', e.target.elements.data.value);
+            //console.log(e);
+            //console.log('e.target.elements:', e.target.elements.minutes.value);
+            //console.log('e.target.elements:', e.target.elements.hours.value);
+            //console.log('e.target.elements:', e.target.elements.pm.value);
+            //console.log('e.target.elements:', e.target.elements.data.value);
             let selected = {
                 orderRoute: this.orderRoute,
                 price: (this.current.price).toFixed(2),
@@ -577,7 +577,7 @@ export default Vue.component("v-custom-search", {
             // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         returnPersone(e) {
-            console.log('returnPersone: ', e);
+            //console.log('returnPersone: ', e);
             this.passengers = [];
             this.passengers_extra = [];
             let totalPassengers = e.passengers
@@ -594,21 +594,21 @@ export default Vue.component("v-custom-search", {
                 })
             }
             let inMoreCar = []
-            console.log('this.getCarsOrdered.length: ', this.getCarsOrdered.length);
-            console.log('-------------------------------------------------------------');
+            //console.log('this.getCarsOrdered.length: ', this.getCarsOrdered.length);
+            //console.log('-------------------------------------------------------------');
             if (inOneCar.length === 0) {
                 for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
-                    console.log('inMoreCar: ', this.getCarsOrdered[i]['places_max']);
-                    console.log('totalPassengers: ', totalPassengers);
+                    //console.log('inMoreCar: ', this.getCarsOrdered[i]['places_max']);
+                    //console.log('totalPassengers: ', totalPassengers);
                     if (totalPassengers > 0) {
-                        console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
+                        //console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
                         let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']));
                         let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
                         if (cars >= 0) {
                             if (carsFloat - cars > 0.50 || this.getCarsOrdered.length === 1) {
                                 cars += 1;
                             }
-                            console.log('cars: ', cars);
+                            //console.log('cars: ', cars);
                             inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
                             totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max']) * (cars === 0 ? 1 : cars)
                         }
@@ -616,12 +616,12 @@ export default Vue.component("v-custom-search", {
                 }
                 if (totalPassengers > 0) {
                     for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
-                        console.log('inMoreCar2: ', this.getCarsOrdered[i]['places_max']);
-                        console.log('totalPassengers2: ', totalPassengers);
+                        //console.log('inMoreCar2: ', this.getCarsOrdered[i]['places_max']);
+                        //console.log('totalPassengers2: ', totalPassengers);
                         if (totalPassengers > 0) {
-                            console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
+                            //console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
                             let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
-                            console.log('cars2: ', cars);
+                            //console.log('cars2: ', cars);
                             inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
                             totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max'])
                         }
@@ -677,8 +677,8 @@ export default Vue.component("v-custom-search", {
             this.updateError();
         },
         change() {
-            console.log('change');
-            console.log(this.orderRoute);
+            //console.log('change');
+            //console.log(this.orderRoute);
             let from = this.orderRoute.from;
             let to = this.orderRoute.to;
             this.orderRoute.from = to;
@@ -720,16 +720,16 @@ export default Vue.component("v-custom-search", {
         getPassengersExtraForUpdate() {
             if (this.passengers.length === 1) {
 
-                console.log(this.passengers[0]);
-                console.log(this.passengers_extra);
+                //console.log(this.passengers[0]);
+                //console.log(this.passengers_extra);
 
                 let current_car_id = this.passengers[0].car.id
 
                 let current_auto = this.passengers_extra.findIndex(function (item) {
                     return item.car.id === current_car_id;
                 });
-                console.log('current_auto: ', current_auto);
-                console.log('this.passengers_extra.length: ', this.passengers_extra.length);
+                //console.log('current_auto: ', current_auto);
+                //console.log('this.passengers_extra.length: ', this.passengers_extra.length);
 
                 if (current_auto + 1 >= this.passengers_extra.length) {
                     return []
@@ -786,7 +786,7 @@ export default Vue.component("v-custom-search", {
         filteredRoutes() {
 
             if (true) {
-                console.log('this.parsedRoutes: ', this.parsedRoutes);
+                //console.log('this.parsedRoutes: ', this.parsedRoutes);
 
                 const allRoutesResult = []
 
@@ -820,7 +820,7 @@ export default Vue.component("v-custom-search", {
             }
             //
             // if (this.invert) {
-            //     console.log('this.parsedRoutes: ', this.routes);
+            //     //console.log('this.parsedRoutes: ', this.routes);
             //     const fromRoutesResult = this.routes.filter(r => {
             //         return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
             //     }).filter(r => {
@@ -844,7 +844,7 @@ export default Vue.component("v-custom-search", {
             //     // })
             // }
             //
-            // console.log('this.parsedRoutes: ', this.routes);
+            // //console.log('this.parsedRoutes: ', this.routes);
             // const fromRoutesResult = this.routes.filter(r => {
             //     return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
             // }).filter(r => {

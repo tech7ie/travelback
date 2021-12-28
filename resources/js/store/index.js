@@ -26,7 +26,7 @@ const store = {
     },
     mutations: {
         clearPoint(state) {
-            console.log('clearPoint');
+            //console.log('clearPoint');
             Vue.set(state, 'points', [])
         },
         setRate(state, rate) {
@@ -34,12 +34,12 @@ const store = {
             state.total_rate = (state.currency_rate) > 0 ? ((state.rate - 1) + state.currency_rate) : state.rate
         },
         setCurrencyRate(state, currency_rate) {
-            console.log('currency_rates: ', currency_rate);
+            //console.log('currency_rates: ', currency_rate);
             state.currency_rate = currency_rate ?? 1
             state.total_rate = (state.currency_rate) > 0 ? ((state.rate - 1) + state.currency_rate) : state.rate
         },
         setCart(state, cart) {
-            console.log('setCart');
+            //console.log('setCart');
             state.cart = cart
         },
         setCurrency(state, currency) {
@@ -59,7 +59,7 @@ const store = {
             Vue.set(state, 'points', [...state.points, item])
         },
         saveCart(state) {
-            console.log('saveCart');
+            //console.log('saveCart');
         },
         removePoint(state, item) {
             state.points.splice(state.points.indexOf(item), 1);
@@ -87,7 +87,7 @@ const store = {
             Vue.set(state, 'points', [...state.points])
         },
         choseCar(state, item) {
-            console.log('choseCar', item);
+            //console.log('choseCar', item);
             Vue.set(state.selected, 'passengers', [item])
             Vue.set(state.selected, 'car_price', item.car.price)
         }
