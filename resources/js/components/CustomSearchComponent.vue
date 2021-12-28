@@ -92,7 +92,7 @@
                 <div class="withstops" v-if="points.length"><em>{{ $t('With stops in') }}</em>
                     <div class="withstops__list">
                         <v-withstops
-                            v-for="(item, index) in points"
+                            v-for="(item, index) in getPoints"
                             @update_time="updateWithstopsItem"
                             @remove="removeWithstopsItem(item)"
                             :key="index" :data="item"
@@ -145,8 +145,6 @@
                                     <div>
                                         {{ $t('Upgrade to a car_name for', { msg: item.car.title }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
                                         {{ (parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice)) - parseFloat(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))).toFixed(2) }}
-<!--                                        {{ (parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice))).toFixed(2) }}//-->
-<!--                                        {{(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))}}-->
                                     </div>
                                 </div>
                             </div>
@@ -367,20 +365,9 @@ export default Vue.component("v-custom-search", {
 
         let $this = this;
         document.addEventListener("bouncerFormValid", function (el) {
-            //console.log('goToOrder  bouncerFormValid');
             $this.goToOrder(el)
         });
 
-
-        // //console.log('this.current: ', this.current);
-        // //console.log('price: ', this.current.price);
-        // //console.log('places: ', this.current.places);
-        // //console.log('current_route_places:', this.current_route_places);
-        // //console.log('debug: ', this.debug);
-        // //console.log('invert: ', this.invert);
-        // //console.log('invert_route: ', this.invert_route);
-
-        //console.log('this.$route.params: ', this.$router)
         if (this.current) {
             this.searchInvert = this.invert === 1
             this.route_id = this.current.id;
@@ -776,15 +763,13 @@ export default Vue.component("v-custom-search", {
             })
             return totalPrice;
         },
-        getCurrentRoutePlaces() {
-            return this.places
-        },
+        // getCurrentRoutePlaces() {
+        //     return this.places
+        // },
         ampm() {
             return this.pm ? "PM" : "AM";
         },
-
         filteredRoutes() {
-
             if (true) {
                 //console.log('this.parsedRoutes: ', this.parsedRoutes);
 
@@ -893,57 +878,40 @@ export default Vue.component("v-custom-search", {
             }).filter(r => {
                 return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
             })
+        },
+        getPoints(){
+            console.log('getPoints', this.searchInvert);
+            if (this.searchInvert){
+                return this.points.slice().reverse()
+            }else{
+                return this.points
+            }
+        },
+        getCurrentRoutePlaces(){
+            console.log('getPassengersExtra', this.searchInvert);
+            if (this.searchInvert){
+                return this.places.slice().reverse()
+            }else{
+                return this.places
+            }
         }
-
-
-        // filteredRoutes() {
-        //
-        //     if (this.invert === 1){
-        //         return this.routes.filter(r => {
-        //             return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-        //         }).filter(r => {
-        //             return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-        //         })
+    },
+    filters:{
+        // getPoints(points){
+        //     console.log('getPoints');
+        //     if (this.invert_route){
+        //         return this.points.slice().reverse()
+        //     }else{
+        //         return this.points
         //     }
-        //
-        //     const fromRoutesResult =  this.routes.filter(r => {
-        //         return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-        //     }).map(i => {
-        //         return {from_city: i.from_city, from_country: i.from_country}
-        //     })
-        //     const fromCitiesList = [];
-        //
-        //     fromRoutesResult.forEach(i=>{
-        //         if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
-        //             fromCitiesList.push(i)
-        //         }
-        //     })
-        //     return fromCitiesList
         // },
-        //
-        // filteredRoutesTo() {
-        //
-        //     if (this.invert === 1){
-        //         const fromRoutesResult =  this.routes.filter(r => {
-        //             return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-        //         }).map(i => {
-        //             return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-        //         })
-        //         const fromCitiesList = [];
-        //
-        //         fromRoutesResult.forEach(i=>{
-        //             if (fromCitiesList.findIndex( (element) => element.from_city === i.from_city) < 0){
-        //                 fromCitiesList.push(i)
-        //             }
-        //         })
-        //         return fromCitiesList
+        // getPassengersExtra(passengers_extra){
+        //     console.log('getPassengersExtra');
+        //     if (this.invert_route){
+        //         return this.passengers_extra.slice().reverse()
+        //     }else{
+        //         return this.passengers_extra
         //     }
-        //
-        //     return this.routes.filter(r => {
-        //         return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-        //     }).filter(r => {
-        //         return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-        //     })
         // }
     },
     watch: {
