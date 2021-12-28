@@ -147,3 +147,8 @@ export default Vue.component("v-time", {
 });
 
 </script>
+<style scoped>
+.num-select button{
+    flex-direction: column
+}
+</style>
