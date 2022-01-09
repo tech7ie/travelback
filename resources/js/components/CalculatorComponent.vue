@@ -208,7 +208,7 @@ export default Vue.component("v-calculator", {
                         fromCitiesList.push(i)
                     }
                 })
-                return fromCitiesList
+                return this.selectedFrom.length > 2 ? fromCitiesList : []
 
             }
 
@@ -230,21 +230,23 @@ export default Vue.component("v-calculator", {
         },
         filteredRoutesTo() {
 
-            if (this.invert === 1){
-
+            if (this.selectedFrom.length > 0){
+                if (this.invert === 1){
+                    return this.parsedRoutes.filter(r => {
+                        return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                    }).filter(r => {
+                        return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                    })
+                }
                 return this.parsedRoutes.filter(r => {
-                    return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
+                    return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
                 }).filter(r => {
-                    return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
+                    return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
                 })
-
+            }else {
+                return []
             }
 
-            return this.parsedRoutes.filter(r => {
-                return this.selectedFrom.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-            }).filter(r => {
-                return this.selectedTo.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-            })
         }
     },
     methods: {
@@ -341,12 +343,7 @@ export default Vue.component("v-calculator", {
             if (el.target.dataset?.entity === 'search') {
                 try {
                     $this.submitForm(el)
-                    // var form = el.target;
-                    // form.submit(this)
-                    // //console.log('error');
                 } catch (e) {
-                    //console.log(e);
-                    //console.log("Form Submit Error!");
                 }
             }
             return false

@@ -554,24 +554,20 @@ export default Vue.component("v-custom-search", {
         },
         removeWithstopsItem(item) {
             this.$store.commit('removePoint', item);
-
-            // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         updateWithstopsItem(data) {
             this.$store.commit('updatePointTime', data);
             this.updatePrice()
-
-            // this.withstopsList.splice(this.withstopsList.indexOf(item), 1);
         },
         returnPersone(e) {
-            //console.log('returnPersone: ', e);
+            console.log('returnPersone', e);
             this.passengers = [];
             this.passengers_extra = [];
             let totalPassengers = e.passengers
             let current_passengers = e.passengers
+            let current_luggage = e.luggage
             let inOneCar = this.getCarsOrdered.filter(c => {
-                // return current_passengers >= c.places_min && current_passengers <= c.places_max
-                return current_passengers <= c.places_max
+                return current_passengers <= c.places_max && current_luggage<=c.luggage
             })
             if (inOneCar.length > 0) {
                 this.passengers.push({car: inOneCar[0], count: 1})
@@ -581,21 +577,15 @@ export default Vue.component("v-custom-search", {
                 })
             }
             let inMoreCar = []
-            //console.log('this.getCarsOrdered.length: ', this.getCarsOrdered.length);
-            //console.log('-------------------------------------------------------------');
             if (inOneCar.length === 0) {
                 for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
-                    //console.log('inMoreCar: ', this.getCarsOrdered[i]['places_max']);
-                    //console.log('totalPassengers: ', totalPassengers);
                     if (totalPassengers > 0) {
-                        //console.log('cals CARS', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
                         let carsFloat = (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']));
                         let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
                         if (cars >= 0) {
                             if (carsFloat - cars > 0.50 || this.getCarsOrdered.length === 1) {
                                 cars += 1;
                             }
-                            //console.log('cars: ', cars);
                             inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
                             totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max']) * (cars === 0 ? 1 : cars)
                         }
@@ -603,12 +593,8 @@ export default Vue.component("v-custom-search", {
                 }
                 if (totalPassengers > 0) {
                     for (let i = this.getCarsOrdered.length - 1; i >= 0; i--) {
-                        //console.log('inMoreCar2: ', this.getCarsOrdered[i]['places_max']);
-                        //console.log('totalPassengers2: ', totalPassengers);
                         if (totalPassengers > 0) {
-                            //console.log('cals CARS2', (totalPassengers / parseInt(this.getCarsOrdered[i]['places_max'])));
                             let cars = Math.trunc(totalPassengers / parseInt(this.getCarsOrdered[i]['places_max']))
-                            //console.log('cars2: ', cars);
                             inMoreCar.push({car: this.getCarsOrdered[i], count: cars})
                             totalPassengers -= parseInt(this.getCarsOrdered[i]['places_max'])
                         }
@@ -707,16 +693,11 @@ export default Vue.component("v-custom-search", {
         getPassengersExtraForUpdate() {
             if (this.passengers.length === 1) {
 
-                //console.log(this.passengers[0]);
-                //console.log(this.passengers_extra);
-
                 let current_car_id = this.passengers[0].car.id
 
                 let current_auto = this.passengers_extra.findIndex(function (item) {
                     return item.car.id === current_car_id;
                 });
-                //console.log('current_auto: ', current_auto);
-                //console.log('this.passengers_extra.length: ', this.passengers_extra.length);
 
                 if (current_auto + 1 >= this.passengers_extra.length) {
                     return []
@@ -735,19 +716,8 @@ export default Vue.component("v-custom-search", {
                 if (a.priority < b.priority) {
                     return -1;
                 }
-                // a должно быть равным b
                 return 0;
             });
-            // return this.current.cars.sort(function (a, b) {
-            //     if (a.places_max > b.places_max) {
-            //         return 1;
-            //     }
-            //     if (a.places_max < b.places_max) {
-            //         return -1;
-            //     }
-            //     // a должно быть равным b
-            //     return 0;
-            // });
         },
         getExtraMinutes() {
             let extraMinutes = 0;
@@ -763,31 +733,17 @@ export default Vue.component("v-custom-search", {
             })
             return totalPrice;
         },
-        // getCurrentRoutePlaces() {
-        //     return this.places
-        // },
         ampm() {
             return this.pm ? "PM" : "AM";
         },
         filteredRoutes() {
             if (true) {
-                //console.log('this.parsedRoutes: ', this.parsedRoutes);
-
                 const allRoutesResult = []
 
                 this.routes.forEach(p => {
                     allRoutesResult.push({city: p.from_city, country: p.from_country, invert: false})
                     allRoutesResult.push({city: p.to_city, country: p.to_country, invert: true})
                 })
-
-
-                // const fromRoutesResult = this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // }).map(i => {
-                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-                // })
 
                 const fromRoutesResult = allRoutesResult.filter(r => {
                     return this.orderRoute.from.length > 0 ? r.city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
@@ -803,48 +759,6 @@ export default Vue.component("v-custom-search", {
                 return fromCitiesList
 
             }
-            //
-            // if (this.invert) {
-            //     //console.log('this.parsedRoutes: ', this.routes);
-            //     const fromRoutesResult = this.routes.filter(r => {
-            //         return this.orderRoute.from.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-            //     }).filter(r => {
-            //         return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-            //     }).map(i => {
-            //         return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-            //     })
-            //     const fromCitiesList = [];
-            //
-            //     fromRoutesResult.forEach(i => {
-            //         if (fromCitiesList.findIndex((element) => element.to_city === i.to_city) < 0) {
-            //             fromCitiesList.push(i)
-            //         }
-            //     })
-            //     return fromCitiesList
-            //
-            //     // return this.parsedRoutes.filter(r => {
-            //     //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-            //     // }).filter(r => {
-            //     //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-            //     // })
-            // }
-            //
-            // //console.log('this.parsedRoutes: ', this.routes);
-            // const fromRoutesResult = this.routes.filter(r => {
-            //     return this.orderRoute.from.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.from.toLowerCase()) >= 0 : true;
-            // }).filter(r => {
-            //     return this.orderRoute.to.length > 0 ? r.to_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
-            // }).map(i => {
-            //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-            // })
-            // const fromCitiesList = [];
-            //
-            // fromRoutesResult.forEach(i => {
-            //     if (fromCitiesList.findIndex((element) => element.from_city === i.from_city) < 0) {
-            //         fromCitiesList.push(i)
-            //     }
-            // })
-            // return fromCitiesList
         },
         filteredRoutesTo() {
 
@@ -855,22 +769,6 @@ export default Vue.component("v-custom-search", {
                 }).filter(r => {
                     return this.orderRoute.to.length > 0 ? r.from_city.toLowerCase().indexOf(this.orderRoute.to.toLowerCase()) >= 0 : true;
                 })
-
-                // const toRoutesResult = this.parsedRoutes.filter(r => {
-                //     return this.selectedFrom.length > 0 ? r.to_city.toLowerCase().indexOf(this.selectedFrom.toLowerCase()) >= 0 : true;
-                // }).filter(r => {
-                //     return this.selectedTo.length > 0 ? r.from_city.toLowerCase().indexOf(this.selectedTo.toLowerCase()) >= 0 : true;
-                // }).map(i => {
-                //     return {from_city: i.from_city, from_country: i.from_country, to_city: i.to_city, to_country: i.to_country}
-                // })
-                // const toCitiesList = [];
-                //
-                // toRoutesResult.forEach(i=>{
-                //     if (toCitiesList.findIndex( (element) => element.to_city === i.to_city) < 0){
-                //         toCitiesList.push(i)
-                //     }
-                // })
-                // return toCitiesList
             }
 
             return this.routes.filter(r => {
@@ -897,22 +795,6 @@ export default Vue.component("v-custom-search", {
         }
     },
     filters:{
-        // getPoints(points){
-        //     console.log('getPoints');
-        //     if (this.invert_route){
-        //         return this.points.slice().reverse()
-        //     }else{
-        //         return this.points
-        //     }
-        // },
-        // getPassengersExtra(passengers_extra){
-        //     console.log('getPassengersExtra');
-        //     if (this.invert_route){
-        //         return this.passengers_extra.slice().reverse()
-        //     }else{
-        //         return this.passengers_extra
-        //     }
-        // }
     },
     watch: {
         points() {
