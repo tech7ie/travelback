@@ -28,7 +28,7 @@ class PagePost extends Controller {
                     'slug'              => $content['slug'],
                     'embed_video'       => $content['embed_video'],
                     'title'             => $this->getTranslateContent( $content, 'title' ),
-                    'body'              => strip_tags($this->getTranslateContent( $content, 'body' )),
+                    'body'              => ($this->getTranslateContent( $content, 'body' )),
                     'meta_title'        => $this->getTranslateContent( $content, 'meta_title' ),
                     'meta_keywords'     => $this->getTranslateContent( $content, 'meta_keywords' ),
                     'meta_descriptions' => $this->getTranslateContent( $content, 'meta_descriptions' )
