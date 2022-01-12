@@ -19,13 +19,13 @@ class Routes extends Model
 
     public function points()
     {
-        return $this->morphToMany(Cities::class, 'cities_route');
+        return $this->morphToMany(Cities::class, 'cities_route')->orderBy('id');;
     }
 
 
     public function places()
     {
-        return $this->morphToMany(Place::class, 'places_route');
+        return $this->morphToMany(Place::class, 'places_route')->orderBy('id');
     }
 
     public function pointsName(): \Illuminate\Database\Eloquent\Collection {
