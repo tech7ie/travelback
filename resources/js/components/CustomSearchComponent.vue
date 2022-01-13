@@ -130,7 +130,7 @@
 
                         <div class="tickets__buy">
                         <button>
-                                <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ parseFloat(calculatePrice(this.totalCarPrice.toFixed(2), this.withstopsListPrice)).toFixed(0) }}.00</span>
+                                <span>{{ $t('BUY FOR') }} <i :class="currency.toLowerCase() +'_money'"></i>{{ ' ' }} {{ parseFloat(calculatePrice(this.totalCarPrice.toFixed(2), this.withstopsListPrice)).toFixed(0) }}</span>
                             </button>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                                 <div>
                                     <div>
                                         {{ $t('Upgrade to a car_name for', { msg: item.car.title }) }} <i style="width: 20px" :class="currency.toLowerCase() +'_money'"></i>
-                                        {{ parseFloat(parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice)) - parseFloat(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))).toFixed(0) }}.00
+                                        {{ parseFloat(parseFloat(calculatePrice(parseFloat(item.car.price) ,withstopsListPrice)) - parseFloat(calculatePrice(totalCarPrice.toFixed(2), withstopsListPrice))).toFixed(0) }}
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="tickets__footer-price">
                                     <!--                                    <b>{{ currency.toUpperCase() }}{{ calculatePrice((parseFloat(totalCarPrice) + parseFloat(item.car.price)) - (parseFloat(totalCarPrice) + withstopsListPrice)) }}</b>-->
-                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ parseFloat(calculatePrice(item.car.price, withstopsListPrice)).toFixed(0) }}.00</b>
+                                    <b><i :class="currency.toLowerCase() +'_money'"></i>{{ parseFloat(calculatePrice(item.car.price, withstopsListPrice)).toFixed(0) }}</b>
                                 </div>
                             </div>
                         </label>

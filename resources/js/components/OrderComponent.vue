@@ -102,7 +102,7 @@
                     <aside class="order__aside">
                         <div class="order__aside-wrap">
                             <div class="order-sum js-order-sum-toggle">
-                                <div class="order-sum__title-mobile"><b><i :class="currency.toLowerCase() +'_money'"></i> {{ parseFloat(getTotalOrderAmount()).toFixed(0) }}.00</b><em>{{ $t("VAT included") }}</em>
+                                <div class="order-sum__title-mobile"><b><i :class="currency.toLowerCase() +'_money'"></i> {{ parseFloat(getTotalOrderAmount()).toFixed(0) }}</b><em>{{ $t("VAT included") }}</em>
                                     <div class="tickets__footer-info">
                                         <div><span>1-3</span>
                                             <svg class="icon">
@@ -165,13 +165,13 @@
                                 </span>
                                         <em>{{ $t("VAT included") }}</em>
                                     </div>
-                                    <div><b><i :class="currency.toLowerCase() +'_money'"></i> {{ parseFloat(getTotalOrderAmount()).toFixed(0) }}.00</b></div>
+                                    <div><b><i :class="currency.toLowerCase() +'_money'"></i> {{ parseFloat(getTotalOrderAmount()).toFixed(0) }}</b></div>
                                 </div>
                             </div>
                             <div class="order-sum__submit">
                                 <button class="btn" type="submit">
                                 <span>
-                                    {{ $t("confirm and pay") }} <i :class="currency.toLowerCase() +'_money'"></i>{{ parseFloat(getTotalOrderAmount()).toFixed(0) }}.00 *</span></button>
+                                    {{ $t("confirm and pay") }} <i :class="currency.toLowerCase() +'_money'"></i>{{ parseFloat(getTotalOrderAmount()).toFixed(0) }} *</span></button>
                                 <b>* {{ $t("Your payment (approx. A€136) will be taken in EUR. It's €648. The actual amount in AUD depends on your bank's exchange rate") }}.</b>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                                     <div class="tickets__footer-price">
                                         <b>
                                             <i :class="currency.toLowerCase() +'_money'"></i>
-                                            {{ parseFloat(getCarUpdatePrice(item.car.price)).toFixed(0) }}.00
+                                            {{ parseFloat(getCarUpdatePrice(item.car.price)).toFixed(0) }}
                                             <!--                                        {{ (parseFloat(item.car.price) * total_rate).toFixed(2) }}-->
                                         </b>
                                     </div>
