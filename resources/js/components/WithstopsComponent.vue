@@ -23,7 +23,7 @@
         </div>
         <b>
             <i :class="currency.toLowerCase() +'_money'"></i>
-            {{ getPrice.toFixed(0) }}.00
+            {{ parseFloat(getPrice).toFixed(0) }}.00
         </b>
         <button type="button" @click="remove">
             <svg class="icon minus">
