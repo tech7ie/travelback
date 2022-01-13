@@ -16,8 +16,8 @@
         $(function () {
 
 
-            let dayofbirth = $("#dayofbirth");
-            dayofbirth.mask("99.99.9999");
+            // let dayofbirth = $("#dayofbirth");
+            // dayofbirth.mask("99.99.9999");
 
             // $j = jQuery.noConflict();
             // /*

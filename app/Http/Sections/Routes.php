@@ -21,6 +21,7 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
+
 //use Spatie\ImageOptimizer\Image;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
@@ -153,8 +154,7 @@ class Routes extends Section implements Initializable {
                                     return $query->where( 'country_id', $item->getDependValue( 'route_to_country_id' ) );
                                 } )
                                 ->required(),
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
-//            addColumn( [
+            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->//            addColumn( [
 //                AdminFormElement::datetime( 'route_start', 'Route start' )
 //                                ->required(),
 //                AdminFormElement::datetime( 'route_end', 'Route start' )
@@ -167,67 +167,34 @@ class Routes extends Section implements Initializable {
                                 ->setEnum( [
                                     'open'   => 'open',
                                     'closed' => 'closed',
-//                                    'done'   => 'done',
-//                                    'fail'   => 'fail'
+                                    //                                    'done'   => 'done',
+                                    //                                    'fail'   => 'fail'
                                 ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::image( 'image', 'Image' )
                                 ->required()
-                    ->setAfterSaveCallback(function ($value, $model) {
-                        if ($value) {
-                            $map = collect($value)->map(function ($item) {
-                                ImageOptimizer::optimize($item);
-                            });
-                            $map = collect($value)->map(function ($item) {
-                                $pathinfo = pathinfo($item);
-//  ( [dirname] => images/uploads
-// [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg
-// [extension] => jpg
-// [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
-                                $pathinfo['basename'] = '404x309_' . $pathinfo['basename'];
-                                $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
-                                $img = Image::make($item);
-                                $img->resize(404, 309, function ($const) {
-                                    $const->aspectRatio();
-                                })->save($resized_image);
-                            });
-                        }
-                    })
-//                    ->setAfterSaveCallback(function ($value, $model) {
-//                        if ($value) {
-//                            $map = collect($value)->map(function ($item) {
-//                                ImageOptimizer::optimize($item);
-////                                return str_replace(config('filesystems.disks.s3.bucket_url'), "", $item);
-//                            });
-//
-////                            $model->moderated_images()->delete();
-//
-////                            $images = Image::whereIn('image_path', $map)->pluck('image_path', 'id');
-////                            foreach ($images as $id => $image) {
-////                                $data = ['image_id' => $id, 'image_path' => $image, 'moderated' => 1];
-////
-////                                $model->related_image($data, Auth::user());
-////                            }
-//                        }
-//                    })
-//                    ->setSaveCallback(function ($file, $path, $filename, $settings) use ($id) {
-//
-//                                    die($path);
-//                        ImageOptimizer::optimize($path);
-//                        return parent::saveFile($file, $path, $filename, $settings);
-//
-////                        return ['path' => $result['url'], 'value' => $result['url']];
-//                    })
+                                ->setAfterSaveCallback( function ( $value, $model ) {
+                                    if ( $value ) {
+                                        $map = collect( $value )->map( function ( $item ) {
+                                            ImageOptimizer::optimize( $item );
+                                        } );
+                                        $map = collect( $value )->map( function ( $item ) {
+                                            $pathinfo             = pathinfo( $item );
+                                            $pathinfo['basename'] = '404x309_' . $pathinfo['basename'];
+                                            $resized_image        = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
+                                            $img                  = Image::make( $item );
+                                            $img->resize( 404, 309, function ( $const ) {
+                                                $const->aspectRatio();
+                                            } )->save( $resized_image );
+                                        } );
+                                    }
+                                } )
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::multiselect( 'places', 'Places' )
                                 ->setModelForOptions( \App\Models\Place::class, 'title_en' )
+                                ->setSortable( false )
                                 ->required(),
-                //                AdminFormElement::manyToMany( 'points', [
-                //                ] )
-                //                                ->setRelatedElementDisplayName( function ( $model ) {
-                //                                    return $model->name . ', ' . $model->country_code;
-                //                                } )
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [
                 AdminFormElement::wysiwyg( 'body', 'Content', 'ckeditor' )
                                 ->required()

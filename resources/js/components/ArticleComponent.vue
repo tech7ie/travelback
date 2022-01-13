@@ -19,7 +19,7 @@
             <button type="button" :class="{added: addedPoint}" @click="buy">
                 {{ $t('Add for') }} <i :class="currency.toLowerCase() +'_money'"></i>
 <!--                {{ (parseFloat(data.price)).toFixed(2) }}-->
-                {{ (parseFloat(data.price) * rate).toFixed(2) }}
+                {{ (parseFloat(data.price) * rate).toFixed(0) }}.00
                 <span>
           <svg class="icon check">
             <use xlink:href="/img/sprites/sprite.svg#check"></use>

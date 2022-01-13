@@ -23,8 +23,7 @@
         </div>
         <b>
             <i :class="currency.toLowerCase() +'_money'"></i>
-            {{ getPrice }}
-            <!--            {{ ( total_rate * (data.price + ((data.extra_durations / 2) * ((data.extra / this.step))))).toFixed(2) }}-->
+            {{ getPrice.toFixed(0) }}.00
         </b>
         <button type="button" @click="remove">
             <svg class="icon minus">
