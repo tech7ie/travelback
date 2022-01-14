@@ -14,15 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('setlocale/{locale}',function($lang){
-//    \Session::put('locale',$lang);
-//    return redirect()->back();
-//});
-
-//Route::get('', ['as' => 'admin.dashboard', function () {
-//    return redirect('/admin/pages');
-//}]);
-
 Route::get( 'setlocale/{lang}', [
     'as'   => 'lang.switch',
     'uses' => 'App\Http\Controllers\LanguageController@switchLang'
@@ -149,8 +140,6 @@ Route::group( [
     } )->name( 'routes3' );
 
 
-//    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 } );
 Route::fallback( function () {
@@ -158,4 +147,3 @@ Route::fallback( function () {
 } );
 //Auth::routes();
 //
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

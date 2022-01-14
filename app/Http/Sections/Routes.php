@@ -22,7 +22,6 @@ use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 
-//use Spatie\ImageOptimizer\Image;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 /**
@@ -155,11 +154,6 @@ class Routes extends Section implements Initializable {
                                 } )
                                 ->required(),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->//            addColumn( [
-//                AdminFormElement::datetime( 'route_start', 'Route start' )
-//                                ->required(),
-//                AdminFormElement::datetime( 'route_end', 'Route start' )
-//                                ->required(),
-//            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->
             addColumn( [
                 AdminFormElement::text( 'price', 'Price €' )
                                 ->required(),
@@ -167,8 +161,6 @@ class Routes extends Section implements Initializable {
                                 ->setEnum( [
                                     'open'   => 'open',
                                     'closed' => 'closed',
-                                    //                                    'done'   => 'done',
-                                    //                                    'fail'   => 'fail'
                                 ] )
                                 ->required()
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4' )->addColumn( [

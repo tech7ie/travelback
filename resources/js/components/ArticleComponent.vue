@@ -18,7 +18,6 @@
             <input type="checkbox" :name="'visitalong' + index" v-model="checked" style="position: absolute; width: 0; height: 0; opacity: 0;">
             <button type="button" :class="{added: addedPoint}" @click="buy">
                 {{ $t('Add for') }} <i :class="currency.toLowerCase() +'_money'"></i>
-<!--                {{ (parseFloat(data.price)).toFixed(2) }}-->
                 {{ (parseFloat(data.price) * rate).toFixed(0) }}
                 <span>
           <svg class="icon check">

@@ -86,8 +86,6 @@
                                                 </div>
                                                 <div id="card-error"></div>
                                             </div>
-                                            <!-- stripe-checkout -->
-                                            <!-- A Stripe Element will be inserted here. -->
                                         </div>
                                     </div>
                                     <div class="order__payment-type" data-payment-content="2">
@@ -184,7 +182,6 @@
                     <h3>{{ $t("Select your ride") }}</h3>
                     <div class="popup-select-rider">
                         <div v-for="(item, index) in selected.passengersExtra" :key="index" @click="setCar(item)">
-                            <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                             <label for="select-auto-1">
                                 <div class="tickets__footer">
                                     <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
@@ -368,33 +365,18 @@ export default Vue.component("v-order-route", {
                     console.log(intlNumber)
                 });
             }
-            // console.log(iti)
-
-
         })
-
-
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     let dayofbirth = $("#dayofbirth");
-        //     dayofbirth.mask("99.99.9999");
-        // });
-
     },
     methods: {
         async createStripeToken() {
-            //console.log('createStripeToken: ', this.cardNumber);
             const {token, error} = await this.$stripe.createToken(this.cardNumber);
             if (error) {
-                // handle error here
                 this.showMessage(error.message)
                 document.getElementById('card-error').innerHTML = error.message;
                 return false;
             }
 
-            //console.log(token);
             return token
-            // handle the token
-            // send it to your server
         },
         setLoading(isLoading) {
             if (isLoading) {
@@ -420,24 +402,14 @@ export default Vue.component("v-order-route", {
             }, 4000);
         },
         setCar(car) {
-            //console.log(car);
             this.passengers = [car]
-            //console.log(this.passengers);
-
-            //console.log(car);
             this.passengers = [car]
-            //console.log(this.passengers);
-            // var f = window.document.getElementsByClassName('fancybox__container')
             var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
             var b = box.getElementsByClassName('carousel__button')
-            //console.log('f', f);
-            //console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
 
-            //console.log('f', b);
-            //console.log('f', b[0]);
             if (b && b[0])
                 b[0].click()
 
@@ -468,7 +440,6 @@ export default Vue.component("v-order-route", {
 
             axios.post('/' + window.App.language + '/set_order', data)
                 .then(res => {
-                    //console.log(res);
                     if (res) {
                         if (res.data['status'] === 'success') {
 
@@ -480,7 +451,6 @@ export default Vue.component("v-order-route", {
                         }
                     }
                 }).catch(e => {
-                //console.log(e);
                 window.location.href = this.getUrl('order-cancel');
             })
         },

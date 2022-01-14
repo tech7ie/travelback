@@ -50,19 +50,10 @@
                     </header>
                     <div class="tickets">
                         @foreach ($orders as $order)
-                            @php
-                                //print_r($order)
-                                    //print_r($order->getRoute()->fromCity['name']);
-                                    //print_r($order->places);
-                                    //print_r($order->places);
-                                    //print_r($order->cars);
-                            @endphp
-
                             <div class="tickets__item js-ticket">
                                 <div class="tickets__wrap">
                                     <div class="tickets__fromto">
                                         <div class="tickets__ft"><b>{{$order->getRoute()->fromCity['name']}}</b>
-{{--                                            <em>Departure: Tue, Feb 9, 9:00 AM</em>--}}
                                         </div>
                                         <div class="tickets__between">
                                             <svg class="icon">
@@ -70,7 +61,6 @@
                                             </svg>
                                         </div>
                                         <div class="tickets__ft --last"><b>{{$order->getRoute()->toCity['name']}}</b>
-{{--                                            <em>Estimated arrival: Tue, Feb 9, 12:05 PM</em>--}}
                                         </div>
                                     </div>
                                     <div class="tickets__amount">
@@ -98,7 +88,6 @@
                                             <div class="tickets__list-item"><i><img src="/{{$place->image}}" alt="IMG"></i>
                                                 <div>
                                                     <h4>{{$place->title_en}}</h4>
-{{--                                                    <em>9:48 AM - 11:03 AM</em>--}}
                                                 </div>
                                                 <span><i style="margin-right: 5px" class="{{$order['currency'] ?? 'eur'}}_money"></i>{{$place->pivot['price']}}</span>
                                             </div>

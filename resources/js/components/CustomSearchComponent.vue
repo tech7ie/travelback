@@ -217,7 +217,6 @@
                 <h3>{{ $t('Select your ride') }}</h3>
                 <div class="popup-select-rider">
                     <div v-for="(item, index) in passengers_extra" :key="index" @click="setCar(item)" @once="setCar(item)">
-                        <!--                        <input id="select-auto-1" type="radio" name="select-ride" checked>-->
                         <label for="select-auto-1">
                             <div class="tickets__footer">
                                 <i><img :src="'/' + item.car.image" :alt="item.car.title"></i>
@@ -242,7 +241,6 @@
                         </label>
                     </div>
                 </div>
-                <!--                <button class="btn-submit &#45;&#45;simple &#45;&#45;no-opacity &#45;&#45;sm"><span>Save</span></button>-->
             </form>
         </div>
     </section>
@@ -372,7 +370,6 @@ export default Vue.component("v-custom-search", {
             this.searchInvert = this.invert === 1
             this.route_id = this.current.id;
             this.orderRoute.from = parseInt(this.invert) === 1 ? this.current.to_city.name : this.current.from_city.name
-            // this.orderRoute.to = this.to
             this.orderRoute.adults = this.adults
             this.orderRoute.childrens = this.childrens
             this.orderRoute.luggage = this.luggage
@@ -381,16 +378,12 @@ export default Vue.component("v-custom-search", {
             this.orderRoute.to = parseInt(this.invert) ? this.current.from_city.name : this.current.to_city.name
             this.orderRoute.route_start = this.current.route_start
             this.orderRoute.route_end = this.current.route_end
-            // this.price = this.current.price
             this.price = this.current_route_places
-            // this.places = this.current.places
             this.places = this.current_route_places
             this.$store.commit('setRoute', this.current);
         }
 
         this.updatePrice()
-        // this.updateCart()
-
 
         if (window.matchMedia("(max-width: 900px)").matches) {
             this.glideMount();
@@ -420,18 +413,14 @@ export default Vue.component("v-custom-search", {
             return (((this.totalCarPrice + this.withstopsListPrice + parseFloat(this.current.price)))).toFixed(2)
         },
         getPlaces() {
-            //console.log('getPlaces');
             axios.post('/api/get_route_places', {route: this.route_id})
                 .then(res => {
-                    //console.log('getPlaces ress;', res);
                     this.places = res.data ?? [];
                 })
         },
         getRoute() {
-            //console.log('getPlaces');
             axios.post('/api/get_route', {route: this.route_id})
                 .then(res => {
-                    //console.log('getPlaces ress;', res);
                     this.places = res.data['current_route_places'] ?? [];
                     this.current = res.data['current_route'] ?? [];
                 })
@@ -459,8 +448,6 @@ export default Vue.component("v-custom-search", {
 
             formData.hours = formData.pm ? (parseInt(formData.hours) + 12) : formData.hours
 
-            //console.log(formData.data + " " + formData.hours + ":" + formData.minutes + ":00")
-
             let route_date = this.getRouteDate()
 
             let cart = {
@@ -470,7 +457,6 @@ export default Vue.component("v-custom-search", {
                 data: this.data,
                 hours: this.hours,
                 minutes: this.minutes,
-                // total: parseFloat(this.current.price) + ((this.totalCarPrice + this.withstopsListPrice) * this.rate).toFixed(2),
                 adults: this.adults,
                 childrens: this.childrens,
                 luggage: this.luggage,
@@ -486,28 +472,19 @@ export default Vue.component("v-custom-search", {
             this.$store.commit('setCart', cart);
         },
         setCar(car) {
-            //console.log(car);
             this.passengers = [car]
-            //console.log(this.passengers);
-            // var f = window.document.getElementsByClassName('fancybox__container')
             var box = window.document.getElementById('select-ride')
             var f = window.document.getElementsByClassName('fancybox__container')
             var b = box.getElementsByClassName('carousel__button')
-            //console.log('f', f);
-            //console.log('f', f[0]);
             if (f && f[0])
                 f[0].click()
 
-            //console.log('f', b);
-            //console.log('f', b[0]);
             if (b && b[0])
                 b[0].click()
             return true
         },
         goToOrder(e) {
             e.preventDefault()
-            //console.log('this.updateCart()');
-            //console.log(e);
 
             let formData = {
                 minutes: e.target.elements.minutes.value,
@@ -516,11 +493,6 @@ export default Vue.component("v-custom-search", {
                 data: e.target.elements.data.value,
             }
             this.updateCart(formData)
-            //console.log(e);
-            //console.log('e.target.elements:', e.target.elements.minutes.value);
-            //console.log('e.target.elements:', e.target.elements.hours.value);
-            //console.log('e.target.elements:', e.target.elements.pm.value);
-            //console.log('e.target.elements:', e.target.elements.data.value);
             let selected = {
                 orderRoute: this.orderRoute,
                 price: (this.current.price).toFixed(2),
@@ -620,14 +592,10 @@ export default Vue.component("v-custom-search", {
             }
         },
         updateError() {
-
-            // this.errorFrom = this.selectedFrom.length <= 2;
-            // this.errorTo = this.selectedTo.length <= 2;
         },
         selectFrom(item) {
             this.orderRoute.from = item.city;
             this.searchInvert = item.invert;
-            // this.orderRoute.from = item.from_city;
             this.$store.commit('clearPoint');
             this.updateError();
         },
@@ -650,8 +618,6 @@ export default Vue.component("v-custom-search", {
             this.updateError();
         },
         change() {
-            //console.log('change');
-            //console.log(this.orderRoute);
             let from = this.orderRoute.from;
             let to = this.orderRoute.to;
             this.orderRoute.from = to;

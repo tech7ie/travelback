@@ -60,3 +60,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Install dependents
+- sudo apt-get install jpegoptim
+- sudo apt-get install optipng
+- sudo apt-get install pngquant
+- sudo npm install -g svgo@1.3.2
+- sudo apt-get install gifsicle
+- sudo apt-get install webp

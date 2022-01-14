@@ -10,7 +10,6 @@ export default Vue.component("v-init", {
         auth: false,
     },
     mounted() {
-        console.log('v-init');
         let menuOpenBtn = document.querySelector(".js-menu-burger");
         let hederElement = document.querySelector(".header");
 

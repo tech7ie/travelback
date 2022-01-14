@@ -32,10 +32,8 @@ export default Vue.component("v-currency-select", {
             onChange: (info) => {
                 axios.get('/setcurrency/' + info.value)
                 .then(res=>{
-                    //console.log(res);
+
                 })
-                //console.log(info.value);
-                //console.log(this.currencyRates[info.value] || {rate:1});
                 this.$store.commit('setRate', this.currencyRates[info.value] || {rate:1});
                 this.$store.commit('setCurrency', info.value);
             }

@@ -23,7 +23,6 @@
             </div>
         </div>
         <div class="container pabout__footer">
-{{--            <img src="{{asset('img/about-group.jpg')}}" alt="about-group">--}}
             <img class="pabout__footer-green-vector" src="{{asset('img/green-vector.png')}}" alt="green-vector">
             <img class="pabout__footer-blue-vector" src="{{asset('img/blue-vector.png')}}" alt="blue-vector">
             <img class="pabout__footer-center-img" src="{{asset('img/logo-fin2.png')}}" alt="logo-fin2">

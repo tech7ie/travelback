@@ -116,10 +116,6 @@ class Partner extends Section implements Initializable {
                             });
                             $map = collect($value)->map(function ($item) {
                                 $pathinfo = pathinfo($item);
-//  ( [dirname] => images/uploads
-// [basename] => 16446f607e0947a19243e9c2bc9f88b5.jpg
-// [extension] => jpg
-// [filename] => 16446f607e0947a19243e9c2bc9f88b5 )
                                 $pathinfo['basename'] = '274x118_' . $pathinfo['basename'];
                                 $resized_image = $pathinfo['dirname'] . '/' . $pathinfo['basename'];
                                 $img = Image::make($item);

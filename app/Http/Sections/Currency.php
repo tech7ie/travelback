@@ -123,8 +123,6 @@ class Currency extends Section implements Initializable
                                 ->setOptions( [
                                     1   => 'Enabled',
                                     0   => 'Disabled',
-                                    //                                    'done'   => 'done',
-                                    //                                    'fail'   => 'fail'
                                 ] )
                                 ->required(),
                 AdminFormElement::html('<hr>'),

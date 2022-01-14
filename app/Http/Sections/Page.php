@@ -68,10 +68,7 @@ class Page extends Section implements Initializable
                         ->orWhere('title_en', 'like', '%'.$search.'%')
                         ->orWhere('body_en', 'like', '%'.$search.'%');
                 }),
-//            AdminColumn::text('title', 'Slug', 'slug'),
             AdminColumn::text('lang', 'Language', 'lang'),
-//            AdminColumn::text('author.name', 'Author'),
-//            AdminColumn::datetime('created_at')->setLabel('Created')->setFormat('d.m.Y')
             AdminColumn::text('created_at', 'Created / updated', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function($query, $direction) {
@@ -81,7 +78,6 @@ class Page extends Section implements Initializable
             ,
         ];
 
-//        Page::select( 'lang' )->groupBy( 'lang' )->get()
         app()->getLocale();
 
         $display = AdminDisplay::datatables()
@@ -227,45 +223,6 @@ class Page extends Section implements Initializable
 
             return $tabs;
         });
-
-//        $form = AdminForm::card()->addBody([
-//            AdminFormElement::columns()->addColumn(
-//                [
-//                AdminFormElement::text('title', 'Title')
-//                    ->required()
-//                ,
-//                AdminFormElement::text('slug', 'Slug')
-//                    ->required()
-//                ,
-//                AdminFormElement::select('lang', 'Language', \Config::get('languages'))
-//                    ->required()
-//                ,
-//                AdminFormElement::html('<hr>'),
-//                AdminFormElement::datetime('created_at')
-//                    ->setVisible(true)
-//                    ->setReadonly(false)
-//                ,
-//            ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
-//            addColumn([
-//                AdminFormElement::text('meta_title', 'Meta title')
-//                                ->required()
-//                ,
-//                AdminFormElement::text('meta_keywords', 'Meta keywords')
-//                                ->required()
-//                ,
-//                AdminFormElement::textarea('meta_descriptions', 'Meta descriptions')
-//                                ->required()
-//                ,
-//            ], 'col-xs-12 col-sm-6 col-md-6 col-lg-6')->
-//            addColumn([
-//                AdminFormElement::wysiwyg('body', 'Content', 'ckeditor')
-//                                ->required()
-//                ,
-//            ], 'col-xs-12 col-sm-12 col-md-12 col-lg-12'),
-//        ]);
-
-
-
         $form->addHeader([
             $tabs
         ]);

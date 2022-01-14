@@ -137,7 +137,6 @@ export default Vue.component("v-extrastops", {
             this.$emit("return", value);
         },
         addItem() {
-            //console.log(this.list)
             this.list.push({});
         },
         removeItem(index) {

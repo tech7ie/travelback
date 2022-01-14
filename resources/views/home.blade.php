@@ -266,18 +266,6 @@
                         </div>
                     </div>
                 </div>
-
-{{--                <div class="description__items">--}}
-{{--                    <div class="description__item"><i><img src="/img/shield-svg.svg" alt="IMG"></i>--}}
-{{--                        <div>{!! __("home.block_5.1") !!}</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="description__item"><i><img src="/img/like-svg.svg" alt="IMG"></i>--}}
-{{--                        <div>{!! __("home.block_5.2") !!}</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="description__item"><i><img src="/img/lock-svg.svg" alt="IMG"></i>--}}
-{{--                        <div>{!! __("home.block_5.3") !!}</div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
             </div>
         </div>
     </section>
@@ -306,14 +294,6 @@
 @endsection
 <style>
 
-    /*@media(max-width: 750px) {*/
-    /*    .video_box > iframe {*/
-    /*        width: 100%;*/
-    /*        height: 54%;*/
-    /*        padding: 20px 0!important;*/
-    /*    }*/
-    /*}*/
-
     @media(max-width: 750px) {
         .video_box > iframe {
             width: 100%!important;
@@ -326,7 +306,6 @@
     }
 
     .partners__slider .swiper-wrapper {
-        /*height: 118px !important;*/
     }
 
     .swiper-wrapper {

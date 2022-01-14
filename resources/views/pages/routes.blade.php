@@ -8,7 +8,6 @@
             </div>
         </div>
         <div class="routes-content container">
-            {{$error ?? ''}}
             @foreach($routes->chunk(18) as $three)
                 <ul>
                     @foreach($three as $country)
